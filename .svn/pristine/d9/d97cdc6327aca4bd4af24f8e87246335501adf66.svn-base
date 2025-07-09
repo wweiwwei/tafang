@@ -1,0 +1,55 @@
+
+Moster_Ox.png
+size: 156,74
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 84, 70
+  orig: 84, 70
+  offset: 0, 0
+  index: -1
+left_ear
+  rotate: true
+  xy: 133, 35
+  size: 37, 18
+  orig: 37, 18
+  offset: 0, 0
+  index: -1
+left_jiao
+  rotate: true
+  xy: 88, 43
+  size: 29, 43
+  orig: 29, 43
+  offset: 0, 0
+  index: -1
+right_ear
+  rotate: true
+  xy: 117, 16
+  size: 25, 14
+  orig: 25, 14
+  offset: 0, 0
+  index: -1
+right_jiao
+  rotate: false
+  xy: 88, 2
+  size: 27, 39
+  orig: 27, 39
+  offset: 0, 0
+  index: -1
+ring
+  rotate: true
+  xy: 117, 4
+  size: 10, 11
+  orig: 10, 11
+  offset: 0, 0
+  index: -1
+trail
+  rotate: false
+  xy: 133, 14
+  size: 21, 19
+  orig: 21, 19
+  offset: 0, 0
+  index: -1

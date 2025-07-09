@@ -1,0 +1,104 @@
+
+battle_skillbg.png
+size: 242,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/f04
+  rotate: false
+  xy: 2, 42
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f05
+  rotate: true
+  xy: 139, 703
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f06
+  rotate: true
+  xy: 139, 583
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f07
+  rotate: true
+  xy: 139, 463
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f08
+  rotate: true
+  xy: 136, 343
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f09
+  rotate: true
+  xy: 136, 223
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f10
+  rotate: true
+  xy: 136, 103
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f11
+  rotate: false
+  xy: 122, 2
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+guangyun
+  rotate: false
+  xy: 2, 823
+  size: 202, 199
+  orig: 213, 211
+  offset: 4, 8
+  index: -1
+hy_qc_01
+  rotate: false
+  xy: 2, 686
+  size: 135, 135
+  orig: 180, 169
+  offset: 23, 8
+  index: -1
+hy_qc_04
+  rotate: false
+  xy: 2, 414
+  size: 132, 134
+  orig: 180, 169
+  offset: 24, 8
+  index: -1
+hy_qc_06
+  rotate: false
+  xy: 2, 550
+  size: 135, 134
+  orig: 180, 169
+  offset: 23, 8
+  index: -1
+hy_qc_13
+  rotate: true
+  xy: 2, 143
+  size: 133, 132
+  orig: 180, 169
+  offset: 24, 8
+  index: -1
+hy_qc_15
+  rotate: false
+  xy: 2, 278
+  size: 131, 134
+  orig: 180, 169
+  offset: 25, 8
+  index: -1

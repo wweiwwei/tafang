@@ -1,0 +1,9 @@
+{
+  "engine": "cocos2d-html5",
+  "packages": "packages",
+  "version": "2.4.11",
+  "name": "common_client_framework",
+  "id": "fb211c22-a15f-4aab-89da-1938870f81b1",
+  "isNew": false,
+  "description": "肉鸽塔防"
+}

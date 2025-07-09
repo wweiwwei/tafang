@@ -1,0 +1,76 @@
+
+Role_monkeyking.png
+size: 751,197
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 3
+  size: 277, 192
+  orig: 277, 193
+  offset: 0, 1
+  index: -1
+cloack
+  rotate: true
+  xy: 281, 79
+  size: 116, 131
+  orig: 116, 131
+  offset: 0, 0
+  index: -1
+hair
+  rotate: false
+  xy: 414, 6
+  size: 98, 85
+  orig: 98, 85
+  offset: 0, 0
+  index: -1
+hair_02
+  rotate: false
+  xy: 530, 107
+  size: 140, 88
+  orig: 140, 91
+  offset: 0, 0
+  index: -1
+hand
+  rotate: true
+  xy: 628, 10
+  size: 76, 95
+  orig: 76, 95
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 414, 93
+  size: 114, 102
+  orig: 114, 102
+  offset: 0, 0
+  index: -1
+head_02
+  rotate: false
+  xy: 376, 2
+  size: 33, 75
+  orig: 33, 75
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: true
+  xy: 530, 18
+  size: 87, 96
+  orig: 94, 96
+  offset: 7, 0
+  index: -1
+ribbon
+  rotate: true
+  xy: 672, 88
+  size: 107, 77
+  orig: 107, 77
+  offset: 0, 0
+  index: -1
+right_leg
+  rotate: true
+  xy: 281, 8
+  size: 69, 93
+  orig: 69, 93
+  offset: 0, 0
+  index: -1

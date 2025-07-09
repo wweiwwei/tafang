@@ -1,0 +1,188 @@
+
+Role_Hippocampus.png
+size: 1505,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+beibu
+  rotate: true
+  xy: 201, 17
+  size: 112, 135
+  orig: 112, 135
+  offset: 0, 0
+  index: -1
+haimajineng/xuli_00001
+  rotate: false
+  xy: 2, 2
+  size: 100, 103
+  orig: 150, 162
+  offset: 22, 8
+  index: -1
+haimajineng/xuli_00002
+  rotate: false
+  xy: 104, 4
+  size: 95, 101
+  orig: 150, 162
+  offset: 24, 8
+  index: -1
+haimajineng/xuli_00003
+  rotate: false
+  xy: 1226, 7
+  size: 138, 140
+  orig: 150, 162
+  offset: 7, 5
+  index: -1
+haimajineng/xuli_00004
+  rotate: true
+  xy: 165, 131
+  size: 149, 143
+  orig: 150, 162
+  offset: 1, 4
+  index: -1
+haimajineng/xuli_00005
+  rotate: true
+  xy: 310, 135
+  size: 145, 144
+  orig: 150, 162
+  offset: 1, 4
+  index: -1
+haimajineng/xuli_00006
+  rotate: true
+  xy: 933, 4
+  size: 137, 144
+  orig: 150, 162
+  offset: 2, 5
+  index: -1
+haimajineng/xuli_00007
+  rotate: true
+  xy: 604, 143
+  size: 137, 152
+  orig: 150, 162
+  offset: 0, 6
+  index: -1
+haimajineng/xuli_00008
+  rotate: true
+  xy: 632, 4
+  size: 137, 149
+  orig: 150, 162
+  offset: 1, 8
+  index: -1
+haimajineng/xuli_00009
+  rotate: true
+  xy: 1058, 146
+  size: 134, 145
+  orig: 150, 162
+  offset: 4, 11
+  index: -1
+haimajineng/xuli_00010
+  rotate: true
+  xy: 338, 3
+  size: 130, 144
+  orig: 150, 162
+  offset: 8, 12
+  index: -1
+haimajineng/xuli_00011
+  rotate: true
+  xy: 484, 7
+  size: 128, 146
+  orig: 150, 162
+  offset: 10, 12
+  index: -1
+haimajineng/xuli_00012
+  rotate: true
+  xy: 783, 4
+  size: 137, 148
+  orig: 150, 162
+  offset: 1, 13
+  index: -1
+haimajineng/xuli_00013
+  rotate: true
+  xy: 758, 143
+  size: 137, 149
+  orig: 150, 162
+  offset: 2, 13
+  index: -1
+haimajineng/xuli_00014
+  rotate: true
+  xy: 909, 143
+  size: 137, 147
+  orig: 150, 162
+  offset: 2, 15
+  index: -1
+haimajineng/xuli_00015
+  rotate: true
+  xy: 456, 137
+  size: 143, 146
+  orig: 150, 162
+  offset: 4, 16
+  index: -1
+haimajineng/xuli_00016
+  rotate: true
+  xy: 1079, 2
+  size: 142, 145
+  orig: 150, 162
+  offset: 7, 17
+  index: -1
+haojiao
+  rotate: true
+  xy: 1443, 16
+  size: 106, 46
+  orig: 106, 46
+  offset: 0, 0
+  index: -1
+kua
+  rotate: true
+  xy: 1368, 213
+  size: 67, 92
+  orig: 67, 92
+  offset: 0, 0
+  index: -1
+lian
+  rotate: false
+  xy: 1276, 190
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+shenti
+  rotate: false
+  xy: 1205, 149
+  size: 69, 131
+  orig: 69, 131
+  offset: 0, 0
+  index: -1
+shou1
+  rotate: false
+  xy: 1366, 124
+  size: 106, 64
+  orig: 106, 69
+  offset: 0, 5
+  index: -1
+toufa
+  rotate: true
+  xy: 2, 107
+  size: 173, 161
+  orig: 173, 161
+  offset: 0, 0
+  index: -1
+weiba1
+  rotate: false
+  xy: 1366, 40
+  size: 75, 82
+  orig: 75, 82
+  offset: 0, 0
+  index: -1
+weiba2
+  rotate: true
+  xy: 1462, 210
+  size: 70, 41
+  orig: 70, 41
+  offset: 0, 0
+  index: -1
+weiba3
+  rotate: false
+  xy: 1276, 157
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1

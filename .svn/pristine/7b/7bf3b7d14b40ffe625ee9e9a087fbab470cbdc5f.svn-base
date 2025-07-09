@@ -1,0 +1,23 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import ListItemItem from "../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemSwitchAddPower")
+@ccclass
+export default class ListItemSwitchAddPower extends UIListItem {
+    /** */
+    @autowired(UIButton) click: UIButton = null;
+    @autowired(UILabel) nameLab: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemItem> = null;
+
+    state: {};
+    setState(state: this["state"]): void {
+        this.click.onClick = () => {};
+        this.nameLab.setText([""]);
+        this.uiList.setState([]);
+    }
+}

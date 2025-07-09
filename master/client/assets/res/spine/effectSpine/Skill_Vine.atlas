@@ -1,0 +1,34 @@
+
+Skill_Vine.png
+size: 538,115
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tengwan_01
+  rotate: true
+  xy: 171, 12
+  size: 101, 173
+  orig: 101, 173
+  offset: 0, 0
+  index: -1
+tengwan_02
+  rotate: false
+  xy: 2, 2
+  size: 167, 111
+  orig: 167, 111
+  offset: 0, 0
+  index: -1
+tengwan_03
+  rotate: false
+  xy: 441, 15
+  size: 95, 98
+  orig: 95, 98
+  offset: 0, 0
+  index: -1
+tengwan_04
+  rotate: true
+  xy: 346, 7
+  size: 106, 93
+  orig: 106, 93
+  offset: 0, 0
+  index: -1

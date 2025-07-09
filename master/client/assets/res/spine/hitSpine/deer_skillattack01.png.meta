@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "7e72a735-ed40-45e1-9a40-9cb8dfd0466e",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 816,
+  "height": 297,
+  "platformSettings": {},
+  "subMetas": {
+    "deer_skillattack01": {
+      "ver": "1.0.6",
+      "uuid": "954a2f58-ed81-4df9-a315-0f3888ee2aec",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "7e72a735-ed40-45e1-9a40-9cb8dfd0466e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 812,
+      "height": 293,
+      "rawWidth": 816,
+      "rawHeight": 297,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.near(1);
+    skill1.range = 1000;
+    let tFire = template
+        .fireBullet()
+        .img("BlueBalls_skilltail")
+        .speed(500)
+        .scale(1)
+        .curveType(2)
+        .curveParam(0)
+        .penetrateCount(1)
+        .penetrateRect([50, 50, 50, 50])
+        .penetrateDuration(4000);
+    tFire.target = target.enemyTeam.random(1);
+    let tAfterBulletHit = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*" + tbl.param2 + "+self.sp.s15")
+        .addEffect(effect.offset(0, 20).effectName("dolphin_skillattack").effectAnimation("skillattack"));
+    tAfterBulletHit.afterHit = template
+        .fireBullet()
+        .img("BlueBalls_skilltail")
+        .count(1)
+        .speed(500)
+        .scale(1)
+        .curveType(2)
+        .curveParam(0)
+        .penetrateCount(1)
+        .penetrateRect([50, 50, 50, 50])
+        .penetrateDuration(4000)
+        .spliteMode(true);
+    tAfterBulletHit.afterHit.target = target.enemyTeam.random(tbl.param3);
+    tAfterBulletHit.afterHit.afterHit = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*" + tbl.param2 + "+self.sp.s15")
+        .addEffect(effect.offset(0, 20).effectName("dolphin_skillattack").effectAnimation("skillattack"));
+    tFire.afterHit = tAfterBulletHit;
+    skill1.next = tFire;
+}

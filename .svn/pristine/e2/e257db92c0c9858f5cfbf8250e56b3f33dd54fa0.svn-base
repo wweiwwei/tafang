@@ -1,0 +1,40 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import EventName from "../../event/EventName";
+import ListItemBoxItem from "./ListItemBoxItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemShop")
+@ccclass
+export default class ListItemShop extends UIListItem {
+    /** */
+    @autowired(UIImage) ban: UIImage = null;
+    @autowired(UIImage) title: UIImage = null;
+    @autowired(UIList) uiList: UIList<ListItemBoxItem> = null;
+
+    state: { type: "mound" | "yuabao" };
+    setState(state: this["state"]): void {
+        this.state = state;
+
+        this.refItem();
+    }
+
+    @message([EventName.stateKey.spritePool])
+    refItem() {
+        switch (this.state.type) {
+            case "mound":
+                this.title.imgName = "shop_title1";
+                let state = GTable.getList("MountPoolTbl").map((d, index) => {
+                    return { id: d.id, index: index };
+                });
+                this.uiList.setState(state);
+                this.ban.node.active = false;
+                break;
+            // case "yuabao":
+            //     this.title.imgName = "shop_title2";
+            //     this.ban.node.active = true;
+            //     break;
+        }
+    }
+}

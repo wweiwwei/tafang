@@ -1,0 +1,160 @@
+
+dolphin_skilltail.png
+size: 1856,132
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tunbaobaojineng/hit_00010
+  rotate: true
+  xy: 1153, 14
+  size: 116, 112
+  orig: 134, 134
+  offset: 9, 14
+  index: -1
+tunbaobaojineng/hit_00011
+  rotate: true
+  xy: 1489, 20
+  size: 110, 108
+  orig: 134, 134
+  offset: 11, 17
+  index: -1
+tunbaobaojineng/hit_00012
+  rotate: true
+  xy: 150, 2
+  size: 128, 121
+  orig: 134, 134
+  offset: 2, 9
+  index: -1
+tunbaobaojineng/hit_00013
+  rotate: true
+  xy: 417, 5
+  size: 125, 119
+  orig: 134, 134
+  offset: 4, 10
+  index: -1
+tunbaobaojineng/hit_00014
+  rotate: true
+  xy: 538, 5
+  size: 125, 116
+  orig: 134, 134
+  offset: 3, 11
+  index: -1
+tunbaobaojineng/hit_00015
+  rotate: true
+  xy: 656, 5
+  size: 125, 116
+  orig: 134, 134
+  offset: 3, 11
+  index: -1
+tunbaobaojineng/hit_00016
+  rotate: true
+  xy: 922, 7
+  size: 123, 114
+  orig: 134, 134
+  offset: 4, 12
+  index: -1
+tunbaobaojineng/hit_00017
+  rotate: true
+  xy: 1038, 10
+  size: 120, 113
+  orig: 134, 134
+  offset: 5, 12
+  index: -1
+tunbaobaojineng/hit_00018
+  rotate: true
+  xy: 1267, 13
+  size: 117, 110
+  orig: 134, 134
+  offset: 7, 14
+  index: -1
+tunbaobaojineng/hit_00019
+  rotate: true
+  xy: 1379, 15
+  size: 115, 108
+  orig: 134, 134
+  offset: 8, 15
+  index: -1
+tunbaobaojineng/hit_00020
+  rotate: false
+  xy: 1790, 5
+  size: 54, 57
+  orig: 134, 134
+  offset: 38, 39
+  index: -1
+tunbaobaojineng/zhanji_00006
+  rotate: false
+  xy: 1790, 64
+  size: 64, 66
+  orig: 197, 174
+  offset: 15, 99
+  index: -1
+tunbaobaojineng/zhanji_00007
+  rotate: true
+  xy: 2, 11
+  size: 119, 146
+  orig: 197, 174
+  offset: 69, 14
+  index: -1
+tunbaobaojineng/zhanji_00008
+  rotate: true
+  xy: 273, 21
+  size: 109, 142
+  orig: 197, 174
+  offset: 87, 11
+  index: -1
+tunbaobaojineng/zhanji_00009
+  rotate: true
+  xy: 273, 21
+  size: 109, 142
+  orig: 197, 174
+  offset: 87, 11
+  index: -1
+tunbaobaojineng/zhanji_00010
+  rotate: true
+  xy: 273, 21
+  size: 109, 142
+  orig: 197, 174
+  offset: 87, 11
+  index: -1
+tunbaobaojineng/zhanji_00011
+  rotate: true
+  xy: 273, 21
+  size: 109, 142
+  orig: 197, 174
+  offset: 87, 11
+  index: -1
+tunbaobaojineng/zhanji_00012
+  rotate: true
+  xy: 774, 31
+  size: 99, 146
+  orig: 197, 174
+  offset: 96, 0
+  index: -1
+tunbaobaojineng/zhanji_00013
+  rotate: true
+  xy: 1599, 50
+  size: 80, 130
+  orig: 197, 174
+  offset: 107, 8
+  index: -1
+tunbaobaojineng/zhanji_00014
+  rotate: false
+  xy: 1731, 5
+  size: 57, 125
+  orig: 197, 174
+  offset: 115, 10
+  index: -1
+tunbaobaojineng/zhanji_00015
+  rotate: true
+  xy: 1599, 3
+  size: 45, 117
+  orig: 197, 174
+  offset: 122, 13
+  index: -1
+tunbaobaojineng/zhanji_00016
+  rotate: true
+  xy: 774, 6
+  size: 23, 81
+  orig: 197, 174
+  offset: 136, 16
+  index: -1

@@ -1,0 +1,26 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.near(1);
+    skill1.range = 1000;
+    let tFire = template
+        .dotArea()
+        .effectName("skill_Verticalknifelight")
+        .effectAnimation("skillattack")
+        .scale(0.2)
+        .rectMode()
+        .onlyEnemy()
+        .layer(2)
+        .duration(2166);
+    let tExplosionHit = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*" + tbl.param2 + "+self.sp.s3");
+    tFire.effectList = [tExplosionHit];
+    tFire.intervalList = [1466];
+    tFire.heightList = [200];
+    tFire.widthList = [500];
+    tFire.target = target.enemyTeam.random(tbl.param3);
+    skill1.next = tFire;
+}

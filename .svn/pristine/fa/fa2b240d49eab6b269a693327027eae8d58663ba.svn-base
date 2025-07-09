@@ -1,0 +1,108 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIList from "../../../framework/ui/UIList";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import WindowCongratulation from "../common/WindowCongratulation";
+import ListItemLevelItem from "./ListItemLevelItem";
+import ListItemTower from "./ListItemTower";
+import WindowRankList from "./WindowRankList";
+import WindowTowerExplore from "./WindowTowerExplore";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowTowerScene")
+@ccclass
+export default class WindowTowerScene extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+        hideMainScene: true,
+    };
+    @autowired(UIScrollList) floorList: UIScrollList<ListItemTower> = null;
+    @autowired(UIList) levelList: UIList<ListItemLevelItem> = null;
+    @autowired(UIButton) return: UIButton = null;
+    @autowired(UIButton) list: UIButton = null;
+    @autowired(UIButton) afkReward: UIButton = null;
+    @autowired(UIButton) floorReward: UIButton = null;
+    @autowired(UIButton) challengeBtn: UIButton = null;
+    _windowParam: any;
+    _returnValue: any;
+    protected onInited(): void {
+        this.return.onClick = () => {
+            this.close();
+        };
+        this.afkReward.onClick = () => {
+            GWindow.open(WindowTowerExplore);
+        };
+        this.list.onClick = () => {
+            GWindow.open(WindowRankList);
+        };
+        this.towerInit();
+        // this.rankInit();
+        this.levelInit();
+    }
+    @message([EventName.stateKey.towerData])
+    levelInit() {
+        let arr = [];
+        for (let i = 1; i < 11; i++) {
+            arr.push({ index: i });
+        }
+        this.levelList.setState(arr);
+    }
+    @message([EventName.stateKey.towerData])
+    towerInit() {
+        let chestTbl = GTable.getList("TowerLevelRewardTbl");
+        let arr = GTable.getList("TowerChallengeTbl").map((tower, index) => {
+            let towerLv = tower.towerLv;
+            let reward = Item.fromItemArray(tower.reward);
+            return { towerLv, reward, index };
+        });
+        let current = GModel.tower.level();
+        let start = 0;
+        let max = GModel.tower.getMaxTower();
+        let hasGet = GModel.tower.hasGetReward().some((h) => h === Math.floor((current - 1) / 10) * 10 + 10);
+        current > 0 && (start = Math.floor((hasGet ? current : current - 1) / 10) * 10);
+        start = current >= max ? max - 10 : start;
+        let chestLevel = {
+            towerLv: -1,
+            reward: Item.fromItemArray(chestTbl.find((c) => c.towerLv === start + 10).reward),
+            index: start + 10,
+        };
+        let state = arr.slice(start, start + 10).reverse();
+        state.unshift(chestLevel);
+        this.floorList.setState(state);
+        let afklevel = GModel.tower.level();
+        if (afklevel === start + 10) {
+            this.challengeBtn.text.setText([GLang.code.ui.get]);
+        } else {
+            this.challengeBtn.text.setText([GLang.code.ui.challenge]);
+        }
+        this.challengeBtn.onClick = async () => {
+            if (afklevel === start + 10) {
+                const reward = await GModel.tower.obtainLevelReward(afklevel);
+                GWindow.open(WindowCongratulation, { items: reward });
+            } else {
+                GModel.tower.challengeTower();
+            }
+        };
+        const itemHeight = 330;
+        const containerHegit = 800;
+        let countPerScreen = containerHegit / itemHeight;
+        let y = (state.length - (current % 10)) * itemHeight - itemHeight * 0.5 + 50;
+        if (state.length - (current % 10) <= countPerScreen / 2) {
+            y = (countPerScreen / 2) * itemHeight;
+        }
+        if (current % 10 <= countPerScreen / 2) {
+            y = (state.length - countPerScreen / 2) * itemHeight;
+        }
+        if (current % 10 === 0 && !hasGet) {
+            y = (countPerScreen / 2) * itemHeight;
+        }
+        if (current === 0) {
+            y = (state.length - countPerScreen / 2) * itemHeight + itemHeight * 0.5;
+        }
+        this.floorList.setContentPosition(cc.v2(0, y));
+    }
+}

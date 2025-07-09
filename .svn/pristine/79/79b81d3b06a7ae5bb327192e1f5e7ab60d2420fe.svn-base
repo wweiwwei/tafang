@@ -1,0 +1,69 @@
+
+Survivor_Treatment.png
+size: 256,70
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Shadow
+  rotate: false
+  xy: 2, 38
+  size: 150, 30
+  orig: 150, 30
+  offset: 0, 0
+  index: -1
+back_foot
+  rotate: false
+  xy: 128, 6
+  size: 16, 8
+  orig: 16, 8
+  offset: 0, 0
+  index: -1
+back_hand
+  rotate: true
+  xy: 78, 12
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 154, 10
+  size: 58, 100
+  orig: 58, 100
+  offset: 0, 0
+  index: -1
+front_foot
+  rotate: false
+  xy: 106, 2
+  size: 20, 12
+  orig: 20, 12
+  offset: 0, 0
+  index: -1
+front_hand
+  rotate: true
+  xy: 48, 12
+  size: 24, 28
+  orig: 24, 28
+  offset: 0, 0
+  index: -1
+left_ear
+  rotate: false
+  xy: 106, 16
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+right_ear
+  rotate: true
+  xy: 130, 16
+  size: 20, 22
+  orig: 20, 22
+  offset: 0, 0
+  index: -1
+yiling
+  rotate: false
+  xy: 2, 4
+  size: 44, 32
+  orig: 44, 32
+  offset: 0, 0
+  index: -1

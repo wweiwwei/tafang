@@ -1,0 +1,370 @@
+
+Role_sheep.png
+size: 737,1053
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0001_zuo-qian-bi
+  rotate: true
+  xy: 507, 234
+  size: 107, 70
+  orig: 107, 70
+  offset: 0, 0
+  index: -1
+_0002_fa-zhang
+  rotate: false
+  xy: 160, 400
+  size: 127, 201
+  orig: 127, 201
+  offset: 0, 0
+  index: -1
+_0003_tou
+  rotate: true
+  xy: 2, 7
+  size: 185, 167
+  orig: 193, 167
+  offset: 0, 0
+  index: -1
+_0004_jing-bu-zhuang-shi
+  rotate: true
+  xy: 435, 19
+  size: 88, 79
+  orig: 88, 79
+  offset: 0, 0
+  index: -1
+_0005_zuo-shang-bi-
+  rotate: false
+  xy: 660, 89
+  size: 46, 72
+  orig: 46, 72
+  offset: 0, 0
+  index: -1
+_0006_zhuang-shi
+  rotate: false
+  xy: 660, 4
+  size: 28, 83
+  orig: 28, 83
+  offset: 0, 0
+  index: -1
+_0007_you-qian-bi
+  rotate: false
+  xy: 655, 163
+  size: 55, 79
+  orig: 55, 79
+  offset: 0, 0
+  index: -1
+_0008_you-shang-bi-
+  rotate: false
+  xy: 647, 244
+  size: 59, 68
+  orig: 59, 68
+  offset: 0, 0
+  index: -1
+_0009_shen-ti
+  rotate: false
+  xy: 159, 223
+  size: 146, 175
+  orig: 146, 175
+  offset: 0, 0
+  index: -1
+_0010_xia-bai
+  rotate: true
+  xy: 435, 459
+  size: 136, 71
+  orig: 136, 71
+  offset: 0, 0
+  index: -1
+_0011_you-jiao
+  rotate: false
+  xy: 685, 478
+  size: 50, 60
+  orig: 50, 60
+  offset: 0, 0
+  index: -1
+_0012_zuo-jiao
+  rotate: false
+  xy: 685, 540
+  size: 50, 61
+  orig: 50, 62
+  offset: 0, 1
+  index: -1
+glow/glow_00017
+  rotate: true
+  xy: 162, 603
+  size: 226, 115
+  orig: 256, 130
+  offset: 16, 7
+  index: -1
+glow/glow_00025
+  rotate: true
+  xy: 440, 597
+  size: 160, 73
+  orig: 162, 73
+  offset: 1, 0
+  index: -1
+guangshu/guangshu_00017
+  rotate: false
+  xy: 647, 314
+  size: 70, 77
+  orig: 200, 250
+  offset: 67, 36
+  index: -1
+guangshu/guangshu_00018
+  rotate: false
+  xy: 647, 314
+  size: 70, 77
+  orig: 200, 250
+  offset: 67, 36
+  index: -1
+guangshu/guangshu_00019
+  rotate: false
+  xy: 647, 393
+  size: 88, 83
+  orig: 200, 250
+  offset: 58, 30
+  index: -1
+guangshu/guangshu_00020
+  rotate: true
+  xy: 407, 230
+  size: 105, 98
+  orig: 200, 250
+  offset: 50, 23
+  index: -1
+guangshu/guangshu_00021
+  rotate: true
+  xy: 307, 229
+  size: 106, 98
+  orig: 200, 250
+  offset: 49, 23
+  index: -1
+guangshu/guangshu_00022
+  rotate: true
+  xy: 326, 759
+  size: 131, 205
+  orig: 200, 250
+  offset: 37, 14
+  index: -1
+guangshu/guangshu_00023
+  rotate: false
+  xy: 171, 16
+  size: 141, 205
+  orig: 200, 250
+  offset: 32, 14
+  index: -1
+guangshu/guangshu_00024
+  rotate: false
+  xy: 171, 16
+  size: 141, 205
+  orig: 200, 250
+  offset: 32, 14
+  index: -1
+guangshu/guangshu_00025
+  rotate: false
+  xy: 2, 194
+  size: 155, 206
+  orig: 200, 250
+  offset: 25, 17
+  index: -1
+guangshu/guangshu_00026
+  rotate: false
+  xy: 2, 402
+  size: 156, 206
+  orig: 200, 250
+  offset: 24, 17
+  index: -1
+guangshu/guangshu_00027
+  rotate: false
+  xy: 2, 610
+  size: 158, 219
+  orig: 200, 250
+  offset: 24, 17
+  index: -1
+guangshu/guangshu_00028
+  rotate: false
+  xy: 2, 831
+  size: 159, 220
+  orig: 200, 250
+  offset: 23, 16
+  index: -1
+guangshu/guangshu_00029
+  rotate: true
+  xy: 326, 892
+  size: 159, 211
+  orig: 200, 250
+  offset: 23, 16
+  index: -1
+guangshu/guangshu_00030
+  rotate: true
+  xy: 326, 892
+  size: 159, 211
+  orig: 200, 250
+  offset: 23, 16
+  index: -1
+guangshu/guangshu_00031
+  rotate: false
+  xy: 163, 841
+  size: 161, 210
+  orig: 200, 250
+  offset: 22, 17
+  index: -1
+guangshu/guangshu_00032
+  rotate: true
+  xy: 533, 727
+  size: 161, 199
+  orig: 200, 250
+  offset: 22, 18
+  index: -1
+guangshu/guangshu_00033
+  rotate: true
+  xy: 539, 890
+  size: 161, 194
+  orig: 200, 250
+  offset: 22, 19
+  index: -1
+guangshu/guangshu_00034
+  rotate: false
+  xy: 279, 613
+  size: 159, 144
+  orig: 200, 250
+  offset: 22, 23
+  index: -1
+guangshu/guangshu_00035
+  rotate: true
+  xy: 289, 460
+  size: 151, 144
+  orig: 200, 250
+  offset: 25, 23
+  index: -1
+guangshu/guangshu_00036
+  rotate: true
+  xy: 289, 460
+  size: 151, 144
+  orig: 200, 250
+  offset: 25, 23
+  index: -1
+guangshu/guangshu_00037
+  rotate: false
+  xy: 515, 602
+  size: 105, 123
+  orig: 200, 250
+  offset: 48, 24
+  index: -1
+guangshu/guangshu_00038
+  rotate: false
+  xy: 622, 603
+  size: 104, 122
+  orig: 200, 250
+  offset: 49, 25
+  index: -1
+guangshu/guangshu_00039
+  rotate: false
+  xy: 307, 337
+  size: 100, 121
+  orig: 200, 250
+  offset: 50, 26
+  index: -1
+guangshu/guangshu_00040
+  rotate: false
+  xy: 314, 106
+  size: 98, 121
+  orig: 200, 250
+  offset: 51, 26
+  index: -1
+guangshu/guangshu_00041
+  rotate: false
+  xy: 409, 337
+  size: 96, 120
+  orig: 200, 250
+  offset: 51, 27
+  index: -1
+guangshu/guangshu_00042
+  rotate: false
+  xy: 409, 337
+  size: 96, 120
+  orig: 200, 250
+  offset: 51, 27
+  index: -1
+guangshu/guangshu_00043
+  rotate: false
+  xy: 414, 109
+  size: 94, 119
+  orig: 200, 250
+  offset: 52, 28
+  index: -1
+guangshu/guangshu_00044
+  rotate: true
+  xy: 314, 16
+  size: 88, 119
+  orig: 200, 250
+  offset: 55, 28
+  index: -1
+guangshu/guangshu_00045
+  rotate: false
+  xy: 508, 477
+  size: 88, 118
+  orig: 200, 250
+  offset: 55, 29
+  index: -1
+guangshu/guangshu_00046
+  rotate: false
+  xy: 598, 484
+  size: 85, 116
+  orig: 200, 250
+  offset: 57, 30
+  index: -1
+guangshu/guangshu_00047
+  rotate: false
+  xy: 507, 343
+  size: 83, 114
+  orig: 200, 250
+  offset: 58, 31
+  index: -1
+guangshu/guangshu_00048
+  rotate: false
+  xy: 507, 343
+  size: 83, 114
+  orig: 200, 250
+  offset: 58, 31
+  index: -1
+guangshu/guangshu_00049
+  rotate: false
+  xy: 510, 118
+  size: 76, 114
+  orig: 200, 250
+  offset: 68, 32
+  index: -1
+guangshu/guangshu_00050
+  rotate: false
+  xy: 516, 2
+  size: 74, 114
+  orig: 200, 250
+  offset: 66, 32
+  index: -1
+guangshu/guangshu_00051
+  rotate: false
+  xy: 579, 236
+  size: 66, 105
+  orig: 200, 250
+  offset: 68, 41
+  index: -1
+guangshu/guangshu_00052
+  rotate: false
+  xy: 588, 125
+  size: 65, 109
+  orig: 200, 250
+  offset: 68, 41
+  index: -1
+guangshu/guangshu_00053
+  rotate: false
+  xy: 592, 25
+  size: 66, 98
+  orig: 200, 250
+  offset: 68, 52
+  index: -1
+guangshu/guangshu_00054
+  rotate: false
+  xy: 592, 25
+  size: 66, 98
+  orig: 200, 250
+  offset: 68, 52
+  index: -1

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "codegen", "codegen\codegen.csproj", "{264E0CE9-8D4A-4285-A7A6-7FE38AC1E2EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "server_game_module", "server_game_module\server_game_module.csproj", "{66CEF027-DE84-4F1F-85DB-9AFA82DC4E2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{8A74F820-4AF7-4F73-8138-F282888E1A66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{264E0CE9-8D4A-4285-A7A6-7FE38AC1E2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264E0CE9-8D4A-4285-A7A6-7FE38AC1E2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264E0CE9-8D4A-4285-A7A6-7FE38AC1E2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264E0CE9-8D4A-4285-A7A6-7FE38AC1E2EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66CEF027-DE84-4F1F-85DB-9AFA82DC4E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66CEF027-DE84-4F1F-85DB-9AFA82DC4E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66CEF027-DE84-4F1F-85DB-9AFA82DC4E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CEF027-DE84-4F1F-85DB-9AFA82DC4E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A74F820-4AF7-4F73-8138-F282888E1A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A74F820-4AF7-4F73-8138-F282888E1A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A74F820-4AF7-4F73-8138-F282888E1A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A74F820-4AF7-4F73-8138-F282888E1A66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {109CE99B-9DA9-4541-83A7-1B64FB822D39}
+	EndGlobalSection
+EndGlobal

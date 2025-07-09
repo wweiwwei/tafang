@@ -1,0 +1,108 @@
+import UIComponent from "./UIComponent";
+import { WindowOpenOption } from "./GWindow";
+
+const { ccclass, property } = cc._decorator;
+
+@ccclass
+export default abstract class UIWindow extends UIComponent {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: "no",
+        hideMainScene: false,
+    };
+    /** 窗口参数 */
+    abstract _windowParam: any;
+    /** 窗口返回值 */
+    abstract _returnValue: any;
+
+    _openOption: WindowOpenOption = null;
+
+    /** 获取窗口名 */
+    getWindowName(): string {
+        return this.constructor["__clsName"];
+    }
+
+    /** 展示窗口的过渡动画，该方法应该由框架调用 */
+    show(): Promise<void> {
+        this.hasClose = false;
+        return new Promise((resolve, reject) => {
+            switch (this._openOption.animation) {
+                case "no": {
+                    resolve();
+                    break;
+                }
+                case "default": {
+                    const node = this.node.getChildByName("content");
+                    node.scale = 0.2;
+                    let scale1 = 1.1,
+                        scale = 1;
+                    if (cc.winSize.height / cc.winSize.width < 1.5) {
+                        (scale1 = 0.9), (scale = 0.8);
+                    }
+                    cc.tween(node)
+                        .to(0.12, { scale: scale1 }, { easing: "sineInOut" })
+                        .to(0.16, { scale }, { easing: "sineInOut" })
+                        .call(resolve)
+                        .start();
+                    break;
+                }
+                case "slide": {
+                    const node = this.node.getChildByName("content").getChildByName("node");
+                    cc.tween(node)
+                        .to(0.12, { y: -100 }, { easing: "sineInOut" })
+                        .to(0.16, { y: -112 }, { easing: "sineInOut" })
+                        .call(resolve)
+                        .start();
+                    break;
+                }
+                default: {
+                    resolve();
+                    break;
+                }
+            }
+        });
+    }
+
+    /** 隐藏窗口的过渡动画，该方法应该由框架调用 */
+    hide(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            switch (this._openOption.animation) {
+                case "no": {
+                    resolve();
+                    break;
+                }
+                case "default": {
+                    const node = this.node.getChildByName("content");
+                    cc.tween(node)
+                        .to(0.16, { scale: 1.075 }, { easing: "sineInOut" })
+                        .to(0.12, { scale: 0 }, { easing: "sineInOut" })
+                        .call(resolve)
+                        .start();
+                    break;
+                }
+                case "slide": {
+                    const node = this.node.getChildByName("content").getChildByName("node");
+                    cc.tween(node)
+                        .to(0.12, { y: -100 }, { easing: "sineInOut" })
+                        .to(0.16, { y: -694 }, { easing: "sineInOut" })
+                        .call(resolve)
+                        .start();
+                    break;
+                }
+                default: {
+                    resolve();
+                    break;
+                }
+            }
+        });
+    }
+    private hasClose = false;
+    /** 关闭窗口 */
+    close(): Promise<this["_returnValue"]> {
+        if (this.hasClose) return;
+        this.hasClose = true;
+        // @ts-ignore
+        return GWindow.close(this.node.getComponent(UIWindow)["constructor"]);
+    }
+    /** 生命周期，窗口展示 */
+    onShown(): void {}
+}

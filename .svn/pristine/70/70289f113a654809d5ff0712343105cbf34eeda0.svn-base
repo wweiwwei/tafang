@@ -1,0 +1,363 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import EventBus from "../../../framework/event/EventBus";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { BattleDisplayEvent } from "../../battleLogic/Display/BattleDisplayEvent";
+import { BattleProcessor } from "../../battleLogic/Processor/BattleProcessor";
+import BattleFactory from "../../battleLogic/Utils/BattleFactory";
+import EventName from "../../event/EventName";
+import ListItemDropItems from "../common/ListItemDropItems";
+import BattleSceneControl from "./battleScene/BattleSceneControl";
+import BattleSceneDisplay from "./battleScene/BattleSceneDisplay";
+import BattleSceneEquipmentManage from "./battleScene/BattleSceneEquipmentManage";
+import ListItemBattleBullet from "./ListItemBattleBullet";
+import ListItemBattleEffectArea from "./ListItemBattleEffectArea";
+import ListItemBattleObject from "./ListItemBattleObject";
+import ListItemBattleTowerEmpty from "./ListItemBattleTowerEmpty";
+import ListItemEquipmentSceneDropItem from "./ListItemEquipmentSceneDropItem";
+import WindowFireBall from "./WindowFireBall";
+
+type BattleKind = "stage" | "facility" | "mine" | "enemy" | "tower" | "arena";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowBattleScene", {
+    sceneWindow: {
+        kind: "battle",
+        openIndex: 1,
+    },
+    preloadPrefab: [
+        "ListItemBattleObject",
+        "ListItemBattleBullet",
+        "ListItemBattleEffect",
+        "ListItemBattleDamageText",
+        "ListItemEquipmentSceneDropItem",
+        "ListItemBattleEffectArea",
+        "ListItemBattleTempMoveObject",
+        "ListItemDropItems",
+        "ListItemBattleEffectWithControl",
+        "ListItemBattleTowerEmpty",
+        "ListItemBattlePortal",
+        "ListItemPlayer",
+    ],
+})
+@ccclass
+export default class WindowBattleScene extends UIWindow {
+    static _poolSize: number = 1;
+
+    _windowParam: {
+        /** 打开窗口后立刻开始战斗 */
+        startOnInit: boolean;
+        /** 战斗进程 */
+        processor: BattleProcessor;
+        /** 战斗类型 */
+        battleType: BattleKind;
+        /** 战斗结束的回调 */
+        battleEndCallBack?: (isWin: boolean) => void;
+        /** 禁止自动关闭 */
+        disableAutoClose?: boolean;
+    };
+    _returnValue: {
+        win: boolean;
+    };
+
+    /** 角色场景 */
+    @autowired(cc.Node) scene: cc.Node = null;
+    /** 战斗角色容器 */
+    @autowired(cc.Node) objectContainer: cc.Node = null;
+    /** 生命条容器 */
+    @autowired(cc.Node) barContainer: cc.Node = null;
+    /** 子弹容器 */
+    @autowired(cc.Node) bulletContainer: cc.Node = null;
+    /** 掉落物容器 */
+    @autowired(cc.Node) dropContainer: cc.Node = null;
+    /** 特效容器 */
+    @autowired(cc.Node) effectContainer: cc.Node = null;
+    /** 效果区域容器 */
+    @autowired(cc.Node) areaContainer: cc.Node = null;
+    /** 效果区域容器 */
+    @autowired(cc.Node) areaContainer2: cc.Node = null;
+    /** 伤害文本容器 */
+    @autowired(cc.Node) damageTextContainer: cc.Node = null;
+    /** 释放主要技能时的黑色遮罩 */
+    @autowired(cc.Node) skillMask: cc.Node = null;
+    /** 主要技能释放时角色所处于的图层 */
+    @autowired(cc.Node) skillObjectContainer: cc.Node = null;
+    /** 场景背景 */
+    @autowired(cc.Node) sceneBg: cc.Node = null;
+    /** 容器 */
+    @autowired(cc.Node) content: cc.Node = null;
+    /** 前景层 */
+    @autowired(cc.Node) front: cc.Node = null;
+    /** 塔位 */
+    @autowired(UIList) towerPlaceList: UIList<ListItemBattleTowerEmpty> = null;
+
+    // /** 是否已经完成初始资源加载 */
+    // private inited = false;
+    // /** 等待初始资源加载完成后执行的任务 */
+    // private todoAfterInited: (() => void)[] = [];
+
+    /** 这是几号战场 */
+    battleSceneIndex = 0;
+
+    /** 角色的map */
+    objectMap: Map<number, ListItemBattleObject> = new Map();
+    /** 子弹的map */
+    bulletMap: Map<number, ListItemBattleBullet> = new Map();
+    /** 效果区域的map */
+    areaMap: Map<number, ListItemBattleEffectArea> = new Map();
+
+    controlComp: BattleSceneControl = null;
+    displayComp: BattleSceneDisplay = null;
+    protected async onInjected(): Promise<void> {
+        this.controlComp = this.node.addComponent(BattleSceneControl);
+        this.controlComp.initEvent(this);
+        this.displayComp = this.node.addComponent(BattleSceneDisplay);
+        this.displayComp.initDisplay(this);
+        GWindow.addBlock();
+        this.skillMask.active = false;
+        // this.inited = true;
+        // this.todoAfterInited.forEach((todo) => {
+        //     todo();
+        // });
+        // this.todoAfterInited = [];
+        GWindow.subBlock();
+    }
+
+    protected async onInited(): Promise<void> {
+        GModel.battle.lightningCountGuide = 0;
+        GModel.guide.triggerDialogue(10, 0);
+        this.node.zIndex = -1;
+        // this.refreshFireTime();
+        // this.fire.onClick = () => {
+        //     GWindow.open(WindowFireBall);
+        // };
+        // this.node.zIndex = 0;
+        const isWin = await this.battle(this._windowParam.processor);
+        this._returnValue = { win: isWin };
+        if (this._windowParam.startOnInit) {
+            this.node.zIndex = 0;
+            this.content.y = 0;
+            this._returnValue = { win: isWin };
+            if (this._windowParam.battleEndCallBack) this._windowParam.battleEndCallBack(isWin);
+            if (!this._windowParam.disableAutoClose) {
+                this.close();
+            }
+        } else {
+            this.content.y = 350;
+        }
+    }
+
+    protected onRecycle(): void {
+        this.clearBattle();
+    }
+
+    /** 清除战斗 */
+    clearBattle() {
+        if (!this._windowParam.processor) return;
+        GLog.debug("clearBattle");
+        // this.equipmentManageComp.onClearBattle();
+        this.displayComp.onClearBattle();
+        this.unscheduleAllCallbacks();
+        GBattleApiManager.clearBattle(this.battleSceneIndex);
+        if (this._windowParam.processor.mode === "pve") GModel.battle.timeUseReport();
+        this.objectMap.forEach((comp) => {
+            comp.recycle();
+        });
+        this.objectMap.clear();
+        this.bulletMap.forEach((comp) => {
+            comp.recycle();
+        });
+        this.bulletMap.clear();
+        this.areaMap.forEach((comp) => {
+            comp.recycle();
+        });
+        this.areaMap.clear();
+        // this.todoAfterInited = [];
+
+        // 清理技能状态
+        this.skillMask.active = false;
+        // GModel.battle.pauseBattle(false);
+    }
+
+    private battleResolve: (isWin: boolean) => void = null;
+
+    async loadBg(id: number) {
+        const tbl = GTable.getById("BattleSceneInfoTbl", id);
+        const bgPrefab = await ResourceLoader.loadPrefab(tbl.prefab);
+        const sceneInfo = GTable.getList("BattleSceneInfoTbl").find((t) => t.prefab === tbl.prefab);
+        this.controlComp.setMap(sceneInfo);
+        // GAudio.playMusic(sceneInfo.music);
+        const bgNode = cc.instantiate(bgPrefab);
+        bgNode.getChildByName("map").scale = sceneInfo.scale;
+        this.sceneBg.removeAllChildren();
+        this.sceneBg.addChild(bgNode);
+        bgNode.y = tbl.mapOffset || 0;
+        const roadTbl = GTable.getById("BattleRoadInfoTbl", tbl.roadId);
+        const roadPrefab = await ResourceLoader.loadPrefab(roadTbl.img);
+        const roadNode = cc.instantiate(roadPrefab);
+        this.sceneBg.addChild(roadNode);
+        roadNode.x = tbl.roadPos[0];
+        roadNode.y = tbl.roadPos[1];
+        roadNode.scale = tbl.roadScale;
+    }
+
+    /** 开始战斗，战斗结束会返回战斗的结果 */
+    async battle(processor: BattleProcessor): Promise<boolean> {
+        this.clearBattle();
+        // this.fire.node.active =
+        //     false && GModel.player.checkSystemUnlock(GConstant.systemId.fireBall, false) && processor.mode === "pve";
+        this._windowParam.processor = processor;
+        // this.initSchedule();
+        this.scene.x = 0;
+        this.front.x = 0;
+        // this.refreshTowerPlace();
+        await this.loadBg(processor.mapId);
+        return new Promise((resolve, reject) => {
+            this.battleResolve = resolve;
+            const begin = () => {
+                GBattleApiManager.beginBattle(processor, this.battleSceneIndex);
+                GBattleApiManager.getBattleStageApi(this.battleSceneIndex)
+                    .getAllObject()
+                    .forEach((obj) => {
+                        this.displayComp.addObject({ obj });
+                    });
+                // this.equipmentManageComp.onStartBattle();
+                EventBus.emit(EventName.battleStart);
+            };
+            // if (!this.inited) {
+            //     this.todoAfterInited.push(begin);
+            // } else {
+            // }
+            begin();
+        });
+    }
+
+    private _fixedUpdateInterval = 1 / 60;
+    private _fixedUpdateTotal: number = 0;
+    private _updateTotal: number = 0;
+    protected fixedUpdate() {
+        if (GModel.battle.isPauseBattle()) {
+            return;
+        }
+        const api = GBattleApiManager.getBattleStageApi(this.battleSceneIndex);
+        if (api) {
+            if (api.isBattleEnd()) {
+                const isWin = api.isBattleWin();
+                this.battleResolve(api.isBattleWin());
+                GModel.battle.lightningCountGuide += 1;
+                // 非关卡战斗一律等待关闭窗口再清理
+                if (this._windowParam.battleType !== "stage") {
+                    // this.clearBattle();
+                    return;
+                }
+                // 关卡战斗仅在失败时结束
+                if (!isWin) {
+                    this.clearBattle();
+                    return;
+                }
+            }
+            for (let i = 0; i < GModel.battle.battleSpeed; i++) {
+                api.tick();
+            }
+            this.objectMap.forEach((comp) => {
+                comp.refresh();
+            });
+            this.bulletMap.forEach((comp) => {
+                comp.refresh();
+            });
+            this.areaMap.forEach((comp) => {
+                comp.refresh();
+            });
+            const eventList = api.getAndClearDisplayEvent();
+            if (this._windowParam.battleType === "stage") {
+                eventList.forEach((e) => {
+                    // 在关卡中击杀怪物需要上报
+                    GModel.battle.handleReportKillMonster(e);
+                    this.handleDrop(e);
+                    GBattleApiManager.displayApi[this.battleSceneIndex][e.eventType](e.data);
+                });
+            } else {
+                eventList.forEach((e) => {
+                    GBattleApiManager.displayApi[this.battleSceneIndex][e.eventType](e.data);
+                });
+            }
+
+            // GModel.battle.addTempUseMagicStaffTime(this._fixedUpdateInterval * 1000);
+        }
+    }
+
+    private handleDrop(e: BattleDisplayEvent<any>) {
+        return;
+        // if (e.eventType === "removeObject") {
+        //     if (
+        //         (e as BattleDisplayEvent<"removeObject">).data.obj.objectType ===
+        //         GConstant.battle.battleObjectType.monster
+        //     ) {
+        //         if (!GUtils.random.isHappen(GConfig.battle.dropItem[1])) return;
+        //         const count = GUtils.random.nextInt(GConfig.battle.dropItemCount[0], GConfig.battle.dropItemCount[1]);
+
+        //         if (count <= 0) return;
+        //         const [x, y] = (e as BattleDisplayEvent<"removeObject">).data.obj.position;
+        //         const container = cc.find("Canvas/window/WindowBattleScene");
+        //         const begin = cc.v2(
+        //             GCamera.mainCamera.getScreenToWorldPoint(
+        //                 GCamera.battleCamera.getWorldToScreenPoint(container.convertToWorldSpaceAR(cc.v2(x, y)))
+        //             )
+        //         );
+        //         const target = cc
+        //             .find("Canvas/window/WindowMainSceneUI/top/node/id_coinBtn")
+        //             .convertToWorldSpaceAR(cc.v2());
+        //         const dropItem = ResourceLoader.getNodeSyncWithPreload(ListItemDropItems);
+        //         const id = GConfig.battle.dropItem[0];
+        //         const time = GUtils.random.nextInt(GConfig.battle.dropItemTime[0], GConfig.battle.dropItemTime[1]);
+        //         this.dropContainer.addChild(dropItem.node);
+        //         dropItem.setState({
+        //             beginWorldPosition: begin,
+        //             targetWorldPosition: target,
+        //             id,
+        //             time,
+        //             count,
+        //             scale: 1,
+        //         });
+        //         dropItem.node.setPosition(x, y);
+        //         dropItem.play();
+        //         GModel.battle.reportDrop(count);
+        //     }
+        // }
+    }
+
+    // @message([EventName.changeTower])
+    // changeTower(index: number) {
+    //     const team = BattleFactory.getPlayerPveTeam(GState.data);
+    //     const info = team.find((i) => i.heroIndex === index);
+    //     GBattleApiManager.getBattleStageApi(this.battleSceneIndex).changeTower(index, info);
+    // }
+
+    // @message([EventName.changeTowerPosition])
+    // changeTowerPosition(fromIndex: number, toIndex: number) {
+    //     GBattleApiManager.getBattleStageApi(this.battleSceneIndex).changeTowerPosition(fromIndex, toIndex);
+    // }
+
+    @message([EventName.abandonBattle])
+    abandonBattle() {
+        this.battleResolve(false);
+        // 非关卡战斗一律等待关闭窗口再清理
+        this.clearBattle();
+    }
+    protected update(dt: number) {
+        // this.followPlayer();
+        this._updateTotal += dt;
+        while (this._updateTotal - this._fixedUpdateTotal >= this._fixedUpdateInterval) {
+            this._fixedUpdateTotal += this._fixedUpdateInterval;
+            this.fixedUpdate();
+        }
+        this.afterFixedUpdate();
+        this.displayComp.nextDamageText();
+    }
+
+    protected afterFixedUpdate() {}
+}

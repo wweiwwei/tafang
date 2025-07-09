@@ -1,0 +1,179 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemFossil from "../common/ListItemFossil";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStrangeKnapsack")
+@ccclass
+export default class WindowStrangeKnapsack extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIButton) bg: UIButton = null;
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UILabel) itemName: UILabel = null;
+    @autowired(UILabel) des: UILabel = null;
+    @autowired(UIList) fossil: UIList<ListItemFossil> = null;
+    @autowired(UILabel) itemName2: UILabel = null;
+    @autowired(UILabel) des2: UILabel = null;
+    @autowired(UIList) fossil2: UIList<ListItemFossil> = null;
+    @autowired(UIButton) chosen: UIButton = null;
+    @autowired(cc.Node) description: cc.Node = null;
+    @autowired(UIButton) equip: UIButton = null;
+    @autowired(UIButton) equip2: UIButton = null;
+    @autowired(UIScrollList) fossilList: UIScrollList<ListItemFossil> = null;
+    _windowParam: { status: number; id?: number; index?: number };
+    _returnValue: number;
+    private id: number;
+    protected onInited(): void {
+        let btn = this.node.getComponent(UIButton);
+        btn.onClick = () => {
+            this.close();
+        };
+        btn.setTransition(false);
+        this.bg.onClick = () => {
+            this.chosen.node.active = false;
+        };
+        this.bg.setTransition(false);
+        this._returnValue = this._windowParam.id;
+        this.chosen.node.active = false;
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.chosen.setTransition(false);
+        this.chosen.onClick = () => {
+            this.chosen.node.active = false;
+        };
+        this.id = this._windowParam.id || null;
+        this.refreshFossil();
+        this.refreshDes();
+        this.equip2.node.active = false;
+    }
+    @message([EventName.stateKey.fossilData])
+    refreshDes() {
+        // let formation = GModel.fossil.getFormation();
+        // let star = GModel.fossil.getStar();
+        this.description.active = this.id != undefined && this.id !== null;
+        if (this.id) {
+            let fossil = { item: new Item(this.id, 1), status: 0, cb: () => {} };
+            this.fossil.setState([fossil]);
+            this.fossil2.setState([fossil]);
+            this.itemName.setText(Item.getName(fossil.item));
+            this.itemName2.setText(Item.getName(fossil.item));
+            this.des.setText(Item.getDescription(fossil.item));
+            this.des2.setText(Item.getDescription(fossil.item));
+            this.equip.text.setText(this.equipText());
+            this.equip.onClick = () => {
+                this.onEquipBtn();
+            };
+            this.equip2.text.setText(this.equipText());
+            this.equip2.onClick = () => {
+                this.onEquipBtn();
+            };
+        }
+    }
+
+    equipText() {
+        return this._windowParam.id
+            ? this.id === this._windowParam.id
+                ? [GLang.code.ui.take_off]
+                : [GLang.code.ui.change]
+            : [GLang.code.ui.equipment];
+    }
+
+    async onEquipBtn() {
+        let formation = GModel.fossil.getFormation();
+        let star = GModel.fossil.getStar();
+        if (this._windowParam.status === 0) {
+            if (star === this.id) star = -1;
+            else star = this.id;
+            await GModel.fossil.setStar(star);
+        } else {
+            if (formation.some((f) => f === this.id)) {
+                if (this._windowParam.id === this.id) {
+                    formation[formation.findIndex((f) => f === this.id)] = -1;
+                } else {
+                    formation[formation.findIndex((f) => f === this.id)] = this._windowParam.id
+                        ? this._windowParam.id
+                        : -1;
+                    formation[this._windowParam.index] = this.id;
+                }
+            } else {
+                formation[this._windowParam.index] = this.id;
+            }
+            await GModel.fossil.setFormation(formation);
+        }
+        this.equip2.node.active = false;
+        this.chosen.node.active = false;
+        this._windowParam.id = this.id;
+        this._returnValue = this.id;
+    }
+
+    @message([EventName.stateKey.fossilData])
+    refreshFossil() {
+        let state: {
+            item: Item;
+            chosen?: boolean;
+            cb: () => void;
+        }[] = GModel.knapsack
+            .getAllStorage()
+            .filter((item) => Item.getKind(item) === (this._windowParam.status === 0 ? 1002 : 1001))
+            .sort((a, b) => {
+                return Item.getQuality(a) - Item.getQuality(b);
+            })
+            .map((item) => {
+                if (Item.getKind(item) === 1001 && GState.data.fossilData.fossilFormation.some((f) => f === item.id)) {
+                    item.count -= GState.data.fossilData.fossilFormation.filter((f) => f === item.id).length;
+                }
+                if (Item.getKind(item) === 1002 && GState.data.fossilData.fossilStar === item.id) {
+                    item.count -= 1;
+                }
+                return {
+                    item,
+                    cb: () => {
+                        this.id = item.id;
+                        // this.chosen.node.active = true;
+                        this.equip2.node.active = true;
+                        this.refreshDes();
+                    },
+                };
+            })
+            .filter((obj) => obj.item.count > 0);
+        if (this._windowParam.status === 1)
+            GState.data.fossilData.fossilFormation.forEach((f) => {
+                if (f !== -1) {
+                    let item = new Item(f, 1);
+                    state.unshift({
+                        item,
+                        chosen: true,
+                        cb: () => {
+                            this.id = item.id;
+                            this.equip2.node.active = true;
+                            // this.chosen.node.active = true;
+                            this.refreshDes();
+                        },
+                    });
+                }
+            });
+        else if (GState.data.fossilData.fossilStar !== -1)
+            state.unshift({
+                item: new Item(GState.data.fossilData.fossilStar, 1),
+                chosen: true,
+                cb: () => {
+                    this.id = GState.data.fossilData.fossilStar;
+                    // this.chosen.node.active = true;
+                    this.equip2.node.active = true;
+                    this.refreshDes();
+                },
+            });
+        this.fossilList.setState(state);
+    }
+}

@@ -1,0 +1,48 @@
+
+Moster_Bear.png
+size: 69,167
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 65, 53
+  orig: 65, 53
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 57
+  size: 64, 51
+  orig: 64, 51
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: false
+  xy: 31, 139
+  size: 32, 26
+  orig: 32, 26
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 30, 110
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: true
+  xy: 2, 112
+  size: 31, 26
+  orig: 31, 26
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: true
+  xy: 2, 145
+  size: 20, 27
+  orig: 20, 27
+  offset: 0, 0
+  index: -1

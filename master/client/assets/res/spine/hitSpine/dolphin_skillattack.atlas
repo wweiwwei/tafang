@@ -1,0 +1,83 @@
+
+dolphin_skillattack.png
+size: 704,259
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tunbaobaojineng/hit_00010
+  rotate: false
+  xy: 443, 136
+  size: 126, 121
+  orig: 145, 145
+  offset: 9, 16
+  index: -1
+tunbaobaojineng/hit_00011
+  rotate: false
+  xy: 66, 140
+  size: 119, 117
+  orig: 145, 145
+  offset: 12, 18
+  index: -1
+tunbaobaojineng/hit_00012
+  rotate: false
+  xy: 549, 2
+  size: 137, 131
+  orig: 145, 145
+  offset: 3, 10
+  index: -1
+tunbaobaojineng/hit_00013
+  rotate: false
+  xy: 412, 5
+  size: 135, 129
+  orig: 145, 145
+  offset: 4, 10
+  index: -1
+tunbaobaojineng/hit_00014
+  rotate: false
+  xy: 137, 12
+  size: 135, 126
+  orig: 145, 145
+  offset: 4, 12
+  index: -1
+tunbaobaojineng/hit_00015
+  rotate: false
+  xy: 274, 9
+  size: 136, 127
+  orig: 145, 145
+  offset: 3, 11
+  index: -1
+tunbaobaojineng/hit_00016
+  rotate: false
+  xy: 2, 13
+  size: 133, 125
+  orig: 145, 145
+  offset: 4, 12
+  index: -1
+tunbaobaojineng/hit_00017
+  rotate: false
+  xy: 571, 135
+  size: 131, 122
+  orig: 145, 145
+  offset: 5, 13
+  index: -1
+tunbaobaojineng/hit_00018
+  rotate: false
+  xy: 314, 138
+  size: 127, 119
+  orig: 145, 145
+  offset: 7, 15
+  index: -1
+tunbaobaojineng/hit_00019
+  rotate: false
+  xy: 187, 140
+  size: 125, 117
+  orig: 145, 145
+  offset: 8, 16
+  index: -1
+tunbaobaojineng/hit_00020
+  rotate: true
+  xy: 2, 198
+  size: 59, 62
+  orig: 145, 145
+  offset: 40, 42
+  index: -1

@@ -1,0 +1,26 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UIListItem from "../../../framework/ui/UIListItem";
+import { BattleBattleStageObject } from "../../battleLogic/Object/BattleStage/BattleBattleStageObject";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemBattleSkill")
+@ccclass
+export default class ListItemBattleSkill extends UIListItem {
+    static _poolSize: number = 6;
+
+    @autowired(UIImage) bg: UIImage = null;
+    @autowired(UIImage) img: UIImage = null;
+
+    state: {
+        data: BattleBattleStageObject;
+        index: number;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.refresh();
+    }
+
+    refresh() {}
+}

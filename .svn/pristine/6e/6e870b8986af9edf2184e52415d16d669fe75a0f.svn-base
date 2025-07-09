@@ -1,0 +1,33 @@
+using System.Collections.Immutable;
+
+namespace GamePlay;
+
+public record Sprite(
+    int id,
+    int level,
+    long exp
+)
+{
+
+    public MountTbl Tbl(PlayerDataManager Ctx)
+    {
+        return Ctx.Table.MountTblMap[id];
+    }
+
+    public bool IsMaxLevel(PlayerDataManager Ctx)
+    {
+        return level > Ctx.Table.MountBaseLevelTblList.Length;
+    }
+
+    public ImmutableArray<Item>? UpgradeCost(PlayerDataManager Ctx)
+    {
+        var tbl = Ctx.Table.MountBaseLevelTblList.FirstOrDefault(t => t.Level == level);
+        if (tbl != null)
+            return Item.FromItemArray(tbl.Require);
+        else return null;
+    }
+
+
+
+
+};

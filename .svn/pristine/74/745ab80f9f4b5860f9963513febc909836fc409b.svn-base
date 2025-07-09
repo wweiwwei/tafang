@@ -1,0 +1,82 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Utils from "../../../framework/utils/GUtils";
+import { UIUtil } from "../../../framework/utils/UIUtils";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemHeroDetail")
+@ccclass
+export default class ListItemHeroDetail extends UIListItem {
+    @autowired(UIButton) click: UIButton = null;
+    @autowired(UIImage) quality: UIImage = null;
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UILabel) lv: UILabel = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UIImage) switch: UIImage = null;
+    @autowired(UIImage) lock: UIImage = null;
+    @autowired(UIImage) up: UIImage = null;
+    @autowired(UIImage) have: UIImage = null;
+    @autowired(UIImage) tips: UIImage = null;
+    @autowired(UILabel) get: UILabel = null;
+    @autowired(UILabel) downText: UILabel = null;
+    @autowired(UIImage) useIng: UIImage = null;
+    @autowired(UIImage) addImg: UIImage = null;
+
+    state: {
+        id: number;
+        /**品质框 */
+        quailtyImg: string;
+        /**图标 */
+        icon: string;
+        /**回调 */
+        cb?: Function;
+        /**等级 */
+        lv?: string;
+        /**默认昵称 */
+        name?: string;
+        /**选中状态 */
+        switch?: boolean;
+        /**锁 */
+        lock?: boolean;
+        /**升级箭头 */
+        up?: boolean;
+        /**是否yongy */
+        isHave?: boolean;
+        /**感叹号提示 */
+        tips?: boolean;
+        /**已领取 */
+        get?: boolean;
+        /**下面文本 */
+        downText?: string;
+        /**使用中 */
+        useIng?: boolean;
+        addImg?: string;
+    };
+
+    setState(state: this["state"]): void {
+        this.click.onClick = () => {
+            if (state.cb) {
+                state.cb(state.id);
+            }
+        };
+        this.click.setGrey(!state.isHave);
+        this.have.node.active = state.isHave;
+        this.quality.imgName = state.quailtyImg;
+        this.icon.imgName = state.icon;
+        // this.lv.setText([]);
+        // this.name1.setText([]);
+        this.lv.setText([state.lv]);
+        this.name1.setText([state.name]);
+        this.switch.node.active = state.switch;
+        this.lock.node.active = state.lock;
+        this.up.node.active = state.up;
+        this.tips.node.active = state.tips;
+        this.get.node.active = state.get;
+        this.downText.setText([state.downText]);
+        this.useIng.node.active = state.useIng;
+        this.addImg.imgName = state.addImg;
+    }
+}

@@ -1,0 +1,783 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Threading.Tasks;
+using Serilog;
+
+namespace GamePlay
+{
+    public class CacheHandler
+    {
+        public PlayerDataManager Ctx;
+        public CacheHandler(PlayerDataManager Ctx)
+        {
+            this.Ctx = Ctx;
+        }
+        private ImmutableHashSet<System.Int32> banquetMission_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> battleCarEquipment_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> cardPool_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> careerTalent_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> challengeMission_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> equipment_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int64> equipmentMonster_keys = ImmutableHashSet<System.Int64>.Empty;
+        private ImmutableHashSet<System.Int32> exSkillLv_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.String> formation_keys = ImmutableHashSet<System.String>.Empty;
+        private ImmutableHashSet<System.Int32> giftPack_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> hero_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> mainMission_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> manorData_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> mineBrick_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> petFormation_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> playerEquipmentPlace_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int64> playerEquipmentStorage_keys = ImmutableHashSet<System.Int64>.Empty;
+        private ImmutableHashSet<System.Int32> playerMission_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> playerPet_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> playerSkill_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> relation_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> skillFormation_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> skillLv_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> sprites_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> stage_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> storage_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> techTree_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> towerTalent_keys = ImmutableHashSet<System.Int32>.Empty;
+        private ImmutableHashSet<System.Int32> warOrder_keys = ImmutableHashSet<System.Int32>.Empty;
+        public INotifyMessage CacheHandle(string path, bool partial, ImmutableHashSet<dynamic> keySet)
+        {
+            switch (path)
+            {
+                case "banquetData":
+                    {
+                        var data = Ctx.BanquetManager.InitBanquetData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "banquetMission":
+                    {
+                        var data = Ctx.BanquetManager.InitMission();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = banquetMission_keys.Except(curKeySet).ToImmutableHashSet();
+                            banquetMission_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            banquetMission_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "battleCar":
+                    {
+                        var data = Ctx.CarManager.BattleCar();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "battleCarEquipment":
+                    {
+                        var data = Ctx.CarManager.AllCarEquipment();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = battleCarEquipment_keys.Except(curKeySet).ToImmutableHashSet();
+                            battleCarEquipment_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            battleCarEquipment_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "cardPool":
+                    {
+                        var data = Ctx.CardPoolManager.CardPoolInfo();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = cardPool_keys.Except(curKeySet).ToImmutableHashSet();
+                            cardPool_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            cardPool_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "careerData":
+                    {
+                        var data = Ctx.CareerManager.InitCareerData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "careerTalent":
+                    {
+                        var data = Ctx.CareerManager.InitCareerTalent();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = careerTalent_keys.Except(curKeySet).ToImmutableHashSet();
+                            careerTalent_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            careerTalent_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "challengeMission":
+                    {
+                        var data = Ctx.ImpactManager.InitChallengeMission();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = challengeMission_keys.Except(curKeySet).ToImmutableHashSet();
+                            challengeMission_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            challengeMission_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "charge":
+                    {
+                        var data = Ctx.ChargeManager.ChargeInfo();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "chargeData":
+                    {
+                        var data = Ctx.ChargeManager.ChargeData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "collectionData":
+                    {
+                        var data = Ctx.CollectionManager.GetCollectionData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "curExSkill":
+                    {
+                        var data = Ctx.RogueManager.CurExSkill();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "currentPetFormation":
+                    {
+                        var data = Ctx.PlayerPetManager.CurrentPetFormation();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "currentSkillFormation":
+                    {
+                        var data = Ctx.PlayerSkillManager.CurrentSkillFormation();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "damageData":
+                    {
+                        var data = Ctx.DamageManager.InitDamageData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "email":
+                    {
+                        var data = Ctx.PlayerEmailManager.Email();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "enemyData":
+                    {
+                        var data = Ctx.EnemyManager.EnemyData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "equipment":
+                    {
+                        var data = Ctx.HeroManager.AllEquipment();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = equipment_keys.Except(curKeySet).ToImmutableHashSet();
+                            equipment_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            equipment_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "equipmentCollection":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.EquipmentCollection();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "equipmentMonster":
+                    {
+                        var data = Ctx.StoneManager.EquipmentMonster();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = equipmentMonster_keys.Except(curKeySet).ToImmutableHashSet();
+                            equipmentMonster_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            equipmentMonster_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "exSkillLv":
+                    {
+                        var data = Ctx.RogueManager.ExSkillLv();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = exSkillLv_keys.Except(curKeySet).ToImmutableHashSet();
+                            exSkillLv_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            exSkillLv_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "formation":
+                    {
+                        var data = Ctx.HeroManager.AllFormation();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = formation_keys.Except(curKeySet).ToImmutableHashSet();
+                            formation_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            formation_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "fossilData":
+                    {
+                        var data = Ctx.FossilManager.InitFossil();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "giftPack":
+                    {
+                        var data = Ctx.ChargeManager.PackInfo();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = giftPack_keys.Except(curKeySet).ToImmutableHashSet();
+                            giftPack_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            giftPack_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "guideData":
+                    {
+                        var data = Ctx.GuideManager.HasComplete();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "hero":
+                    {
+                        var data = Ctx.HeroManager.AllHero();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = hero_keys.Except(curKeySet).ToImmutableHashSet();
+                            hero_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            hero_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "impactData":
+                    {
+                        var data = Ctx.ImpactManager.InitImpactData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "infiniteData":
+                    {
+                        var data = Ctx.InfiniteManager.InfiniteData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "lastStageBattleTime":
+                    {
+                        var data = Ctx.StageManager.LastStageBattleTime();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "level":
+                    {
+                        var data = Ctx.PlayerManager.Level();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "magicStaff":
+                    {
+                        var data = Ctx.BattleManager.MagicStaff();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "mainMission":
+                    {
+                        var data = Ctx.MissionManager.AllMission();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = mainMission_keys.Except(curKeySet).ToImmutableHashSet();
+                            mainMission_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            mainMission_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "mainMissionTask":
+                    {
+                        var data = Ctx.MissionManager.TaskState();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "manorData":
+                    {
+                        var data = Ctx.ManorManager.InitManor();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = manorData_keys.Except(curKeySet).ToImmutableHashSet();
+                            manorData_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            manorData_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "mineBrick":
+                    {
+                        var data = Ctx.MineManager.getAllMineBrick();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = mineBrick_keys.Except(curKeySet).ToImmutableHashSet();
+                            mineBrick_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            mineBrick_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "mineData":
+                    {
+                        var data = Ctx.MineManager.GetMineData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "mountCurrent":
+                    {
+                        var data = Ctx.PlayerMountManager.MountCurrent();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "mountStorage":
+                    {
+                        var data = Ctx.PlayerMountManager.MountStorage();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "petFormation":
+                    {
+                        var data = Ctx.PlayerPetManager.PetFormation();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = petFormation_keys.Except(curKeySet).ToImmutableHashSet();
+                            petFormation_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            petFormation_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "playerData":
+                    {
+                        var data = Ctx.PlayerManager.PlayerData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "playerEquipment":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.PlayerEquipment();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "playerEquipmentPlace":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.PlayerEquipmentPlace();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = playerEquipmentPlace_keys.Except(curKeySet).ToImmutableHashSet();
+                            playerEquipmentPlace_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            playerEquipmentPlace_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "playerEquipmentStorage":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.PlayerEquipmentStorage();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = playerEquipmentStorage_keys.Except(curKeySet).ToImmutableHashSet();
+                            playerEquipmentStorage_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            playerEquipmentStorage_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "playerMission":
+                    {
+                        var data = Ctx.PlayerManager.InitPlayerMission();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = playerMission_keys.Except(curKeySet).ToImmutableHashSet();
+                            playerMission_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            playerMission_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "playerPet":
+                    {
+                        var data = Ctx.PlayerPetManager.AllPet();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = playerPet_keys.Except(curKeySet).ToImmutableHashSet();
+                            playerPet_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            playerPet_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "playerSkill":
+                    {
+                        var data = Ctx.PlayerSkillManager.AllSkill();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = playerSkill_keys.Except(curKeySet).ToImmutableHashSet();
+                            playerSkill_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            playerSkill_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "powerData":
+                    {
+                        var data = Ctx.PlayerManager.PowerData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "rank":
+                    {
+                        var data = Ctx.PlayerManager.Rank();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "relation":
+                    {
+                        var data = Ctx.CollectionManager.Relation();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = relation_keys.Except(curKeySet).ToImmutableHashSet();
+                            relation_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            relation_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "skillFormation":
+                    {
+                        var data = Ctx.PlayerSkillManager.SkillFormation();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = skillFormation_keys.Except(curKeySet).ToImmutableHashSet();
+                            skillFormation_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            skillFormation_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "skillLv":
+                    {
+                        var data = Ctx.RogueManager.SkillLv();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = skillLv_keys.Except(curKeySet).ToImmutableHashSet();
+                            skillLv_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            skillLv_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "skinCurrent":
+                    {
+                        var data = Ctx.PlayerSkinManager.SkinCurrent();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "skinStorage":
+                    {
+                        var data = Ctx.PlayerSkinManager.SkinStorage();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "spriteFormation":
+                    {
+                        var data = Ctx.SpriteManager.SpriteFormation();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "spritePool":
+                    {
+                        var data = Ctx.SpriteManager.InitSpritePool();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "sprites":
+                    {
+                        var data = Ctx.SpriteManager.AllSprites();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = sprites_keys.Except(curKeySet).ToImmutableHashSet();
+                            sprites_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            sprites_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "stage":
+                    {
+                        var data = Ctx.StageManager.AllStage();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = stage_keys.Except(curKeySet).ToImmutableHashSet();
+                            stage_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            stage_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "stageAchievementRewardHasGet":
+                    {
+                        var data = Ctx.StageManager.StageAchievementRewardHasGet();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "stageAdInfo":
+                    {
+                        var data = Ctx.StageManager.StageAdInfo();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "stageAfkMap":
+                    {
+                        var data = Ctx.StageManager.AfkMap();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "stone":
+                    {
+                        var data = Ctx.StoneManager.PlayerEquipment();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "stoneAuto":
+                    {
+                        var data = Ctx.StoneManager.StoneAuto();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "storage":
+                    {
+                        var data = Ctx.KnapsackManager.GetAllStorage();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = storage_keys.Except(curKeySet).ToImmutableHashSet();
+                            storage_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            storage_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "techData":
+                    {
+                        var data = Ctx.TechTreeManager.InitTechData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "techTree":
+                    {
+                        var data = Ctx.TechTreeManager.InitTechTree();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = techTree_keys.Except(curKeySet).ToImmutableHashSet();
+                            techTree_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            techTree_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "tempEquipment":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.TempEquipment();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "time":
+                    {
+                        var data = Ctx.PlayerManager.Time();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "towerAfkReward":
+                    {
+                        var data = Ctx.TowerManager.TowerAfkReward();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "towerData":
+                    {
+                        var data = Ctx.TowerManager.TowerData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "towerFormation":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.TowerFormation();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "towerTalent":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.TowerTalent();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = towerTalent_keys.Except(curKeySet).ToImmutableHashSet();
+                            towerTalent_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            towerTalent_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                case "towerWashData":
+                    {
+                        var data = Ctx.PlayerEquipmentManager.TowerWashData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "turntableData":
+                    {
+                        var data = Ctx.TurntableManager.TurntableData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "videoGroupPurchaseData":
+                    {
+                        var data = Ctx.PlayerVideoGroupPurchaseManager.VideoGroupPurchaseData();
+                        return new NotifyCacheMessage(path, data);
+                    }
+                case "warOrder":
+                    {
+                        var data = Ctx.WarOrderManager.AllWarOrder();
+                        if(partial)
+                        {
+                            var patch = data.Where(kv => keySet.Contains(kv.Key)).ToImmutableDictionary(kv => kv.Key, kv => kv.Value);
+                            var curKeySet = data.Keys.ToImmutableHashSet();
+                            var delKey = warOrder_keys.Except(curKeySet).ToImmutableHashSet();
+                            warOrder_keys = curKeySet;
+                            return new NotifyPartialCacheMessage(path, patch, delKey, partial);
+                        }
+                        else
+                        {
+                            warOrder_keys = data.Keys.ToImmutableHashSet();
+                            return new NotifyPartialCacheMessage(path, data, ImmutableHashSet<object>.Empty, partial);
+                        }
+                    }
+                default:
+                    {
+                        Log.Warning($"PlayerGrain roleId:{Ctx.RoleData.id} no such cache route {path}");
+                        return new NotifyCacheMessage(path, null);
+                    }
+            }
+
+        }
+
+    }
+}

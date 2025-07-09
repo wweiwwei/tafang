@@ -1,0 +1,139 @@
+
+UIforbid_skillattack.png
+size: 611,275
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+battle_skill_forbid
+  rotate: false
+  xy: 511, 183
+  size: 90, 90
+  orig: 103, 104
+  offset: 6, 7
+  index: -1
+effect/a1_1_0015
+  rotate: false
+  xy: 508, 116
+  size: 101, 65
+  orig: 103, 70
+  offset: 2, 3
+  index: -1
+effect/attack_2_00000
+  rotate: false
+  xy: 484, 33
+  size: 78, 35
+  orig: 78, 35
+  offset: 0, 0
+  index: -1
+effect/attack_2_00002
+  rotate: false
+  xy: 484, 2
+  size: 77, 29
+  orig: 77, 29
+  offset: 0, 0
+  index: -1
+effect/attack_2_00004
+  rotate: false
+  xy: 501, 70
+  size: 78, 44
+  orig: 78, 44
+  offset: 0, 0
+  index: -1
+effect/attack_2_00006
+  rotate: false
+  xy: 404, 25
+  size: 78, 48
+  orig: 78, 48
+  offset: 0, 0
+  index: -1
+effect/bd_2
+  rotate: false
+  xy: 392, 75
+  size: 107, 60
+  orig: 108, 60
+  offset: 1, 0
+  index: -1
+effect/guangliu_cj0001
+  rotate: false
+  xy: 2, 174
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangliu_cj0002
+  rotate: false
+  xy: 2, 73
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangliu_cj0003
+  rotate: false
+  xy: 132, 174
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangliu_cj0004
+  rotate: false
+  xy: 132, 73
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangliu_cj0005
+  rotate: false
+  xy: 262, 174
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangliu_cj0006
+  rotate: false
+  xy: 262, 73
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+effect/guangqiu_gaoliang
+  rotate: false
+  xy: 349, 18
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+effect/jisu01
+  rotate: false
+  xy: 235, 3
+  size: 112, 68
+  orig: 128, 76
+  offset: 16, 8
+  index: -1
+effect/jisu02
+  rotate: false
+  xy: 120, 2
+  size: 113, 69
+  orig: 129, 78
+  offset: 16, 9
+  index: -1
+effect/jisu03
+  rotate: false
+  xy: 392, 137
+  size: 114, 68
+  orig: 130, 76
+  offset: 16, 8
+  index: -1
+effect/jisu04
+  rotate: false
+  xy: 392, 207
+  size: 117, 66
+  orig: 134, 74
+  offset: 17, 8
+  index: -1
+effect/jisu05
+  rotate: false
+  xy: 2, 2
+  size: 116, 69
+  orig: 132, 77
+  offset: 16, 8
+  index: -1

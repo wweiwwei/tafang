@@ -1,0 +1,11 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.nearBottom(1);
+    skill1.range = Number(tbl.param3);
+    let tFire = template.lightningChain().bounce("self.sp.lightningBounce");
+    tFire.target = target.enemyTeam.nearBottom("self.sp.lightningChainCount");
+    let tAfterBulletHit = template.damage().value(tbl.param2);
+    tFire.afterHit = tAfterBulletHit;
+    skill1.next = tFire;
+}

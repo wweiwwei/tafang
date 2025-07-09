@@ -1,0 +1,202 @@
+
+Role_kinggod.png
+size: 254,922
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chipang1
+  rotate: true
+  xy: 2, 764
+  size: 156, 246
+  orig: 156, 246
+  offset: 0, 0
+  index: -1
+chipang2
+  rotate: true
+  xy: 2, 617
+  size: 145, 234
+  orig: 145, 234
+  offset: 0, 0
+  index: -1
+faqiu
+  rotate: true
+  xy: 2, 78
+  size: 49, 53
+  orig: 49, 53
+  offset: 0, 0
+  index: -1
+qunzi
+  rotate: false
+  xy: 2, 349
+  size: 170, 95
+  orig: 170, 95
+  offset: 0, 0
+  index: -1
+shenti
+  rotate: false
+  xy: 2, 224
+  size: 160, 123
+  orig: 160, 123
+  offset: 0, 0
+  index: -1
+shenwangjineng/xuli_00006
+  rotate: true
+  xy: 2, 129
+  size: 47, 66
+  orig: 52, 69
+  offset: 0, 1
+  index: -1
+shenwangjineng/xuli_00008
+  rotate: true
+  xy: 139, 147
+  size: 47, 65
+  orig: 52, 69
+  offset: 0, 2
+  index: -1
+shenwangjineng/xuli_00009
+  rotate: false
+  xy: 111, 8
+  size: 50, 45
+  orig: 52, 69
+  offset: 0, 3
+  index: -1
+shenwangjineng/xuli_00011
+  rotate: false
+  xy: 188, 39
+  size: 52, 50
+  orig: 52, 69
+  offset: 0, 3
+  index: -1
+shenwangjineng/xuli_00012
+  rotate: false
+  xy: 134, 55
+  size: 52, 52
+  orig: 52, 69
+  offset: 0, 6
+  index: -1
+shenwangjineng/xuli_00014
+  rotate: false
+  xy: 2, 30
+  size: 50, 46
+  orig: 52, 69
+  offset: 0, 12
+  index: -1
+shenwangjineng/xuli_00015
+  rotate: false
+  xy: 204, 91
+  size: 48, 47
+  orig: 52, 69
+  offset: 1, 16
+  index: -1
+shenwangjineng/xuli_00016
+  rotate: true
+  xy: 70, 84
+  size: 44, 62
+  orig: 52, 69
+  offset: 4, 2
+  index: -1
+shenwangjineng/xuli_00018
+  rotate: true
+  xy: 71, 174
+  size: 48, 66
+  orig: 52, 69
+  offset: 0, 0
+  index: -1
+shenwangjineng/xuli_00020
+  rotate: true
+  xy: 70, 130
+  size: 42, 65
+  orig: 52, 69
+  offset: 2, 0
+  index: -1
+shenwangjineng/xuli_00021
+  rotate: true
+  xy: 137, 109
+  size: 36, 65
+  orig: 52, 69
+  offset: 6, 1
+  index: -1
+shenwangjineng/xuli_00022
+  rotate: true
+  xy: 2, 178
+  size: 44, 67
+  orig: 52, 69
+  offset: 1, 0
+  index: -1
+tou
+  rotate: true
+  xy: 2, 446
+  size: 169, 191
+  orig: 169, 191
+  offset: 0, 0
+  index: -1
+toufa
+  rotate: true
+  xy: 164, 266
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+toufa2
+  rotate: true
+  xy: 174, 380
+  size: 58, 77
+  orig: 58, 77
+  offset: 0, 0
+  index: -1
+youdatui
+  rotate: false
+  xy: 206, 140
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+youdatui3
+  rotate: true
+  xy: 54, 2
+  size: 42, 46
+  orig: 42, 46
+  offset: 0, 0
+  index: -1
+youqianbi
+  rotate: false
+  xy: 195, 440
+  size: 54, 72
+  orig: 54, 72
+  offset: 0, 0
+  index: -1
+youshangbi
+  rotate: false
+  xy: 164, 196
+  size: 72, 68
+  orig: 72, 68
+  offset: 0, 0
+  index: -1
+youxiaotui
+  rotate: true
+  xy: 195, 514
+  size: 54, 56
+  orig: 54, 56
+  offset: 0, 0
+  index: -1
+zuoqianbi
+  rotate: false
+  xy: 57, 46
+  size: 52, 36
+  orig: 52, 36
+  offset: 0, 0
+  index: -1
+zuoshangbi
+  rotate: true
+  xy: 174, 315
+  size: 63, 76
+  orig: 63, 76
+  offset: 0, 0
+  index: -1
+zuoxiaotui
+  rotate: true
+  xy: 195, 570
+  size: 45, 57
+  orig: 45, 57
+  offset: 0, 0
+  index: -1

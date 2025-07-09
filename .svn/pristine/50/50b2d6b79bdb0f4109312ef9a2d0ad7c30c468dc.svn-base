@@ -1,0 +1,37 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import ListItemHeroDetail from "./ListItemHeroDetail";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemStageReward")
+@ccclass
+export default class ListItemStageReward extends UIListItem {
+    /** */
+    @autowired(UILabel) lv: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemHeroDetail> = null;
+
+    state: {
+        stageId: number;
+        lv: string;
+        rewards: Item[];
+    };
+    setState(state: this["state"]): void {
+        this.lv.setText([state.lv]);
+
+        let stage = state.rewards.map((d, index) => {
+            let tbl = GTable.getById("ItemTbl", d.id);
+            let stage = GTable.getById("StageTbl", state.stageId);
+            return {
+                id: tbl.id,
+                icon: tbl.img,
+                quailtyImg: GConstant.itemQualityBg[tbl.quality],
+                lv: "_rs" + d.count,
+                downText: "通过第" + stage.wave[index] + "波",
+            };
+        });
+        this.uiList.setState(stage);
+    }
+}

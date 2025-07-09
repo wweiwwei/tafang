@@ -1,0 +1,128 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import ListItemGongFaItemSkill from "./ListItemGongFaItemSkill";
+import ListItemTreeProperty from "./ListItemTreeProperty";
+import ListItemTreeProperty2 from "./ListItemTreeProperty2";
+import WindowGongFaDetail from "./WindowGongFaDetail";
+import WindowSkillDetails from "./WindowSkillDetails";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemGongFaItem3")
+@ccclass
+export default class ListItemGongFaItem3 extends UIListItem {
+    /**装备 */
+    @autowired(UIButton) btn: UIButton = null;
+    /**升级 */
+    @autowired(UIButton) upBtn: UIButton = null;
+    /**激活 */
+    @autowired(UIButton) activeBtn: UIButton = null;
+    @autowired(UIImage) iconBg: UIImage = null;
+    @autowired(UIImage) icon: UIImage = null;
+    /**装备使用 */
+    @autowired(UIImage) apply: UIImage = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIList) property: UIList<ListItemTreeProperty2> = null;
+    @autowired(UIList) skillList: UIList<ListItemGongFaItemSkill> = null;
+
+    state: {
+        id: number;
+        /** 当前等级 */
+        lv: number;
+        /** 是否已装备 */
+        isEquip: boolean;
+        /**是否激活 */
+        activation?: boolean;
+    };
+    getTbl() {
+        return GTable.getById("RogueExSkillTbl", this.state.id);
+    }
+
+    getRESETblList() {
+        return GTable.getList("RogueExSkillEnhanceTbl");
+    }
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.apply.node.active = false;
+        this.activeBtn.node.active = false;
+        this.btn.onClick = () => {
+            GModel.rogueModel.changeExSkill(state.id);
+        };
+        this.upBtn.onClick = () => {
+            GModel.rogueModel.upgradeExSkillLv(state.id);
+        };
+
+        this.iconBg.addComponent(UIButton).onClick = () => {
+            GWindow.open(WindowGongFaDetail, {
+                iconImg: this.getTbl().img,
+                name: this.getTbl().name,
+                typeText: "神通",
+                maxLv: this.state.lv >= this.getRESETblList()[this.getRESETblList().length - 1].level,
+                text1: [this.getRESETblList().find((d) => d.level == state.lv)?.description],
+                text2: [this.getRESETblList().find((d) => d.level == state.lv + 1)?.description],
+                lv: state.lv,
+            });
+        };
+
+        this.icon.imgName = this.getTbl().img;
+        this.name1.setText([this.getTbl().name], ["_rs(等级" + state.lv + ")"]);
+        this.desc.setText([this.getTbl().description]);
+
+        this.apply.node.active = GModel.rogueModel.getCurrentExSkill().includes(state.id);
+
+        this.refSkill();
+        this.property.setState(this.getPropertyDescription());
+    }
+
+    refSkill() {
+        let skillLosk: boolean[] = [];
+        let rese = GTable.getList("RogueExSkillEnhanceTbl").find((d) => this.state.id == d.skillId);
+        let state = rese.unlock.map((d, index) => {
+            const isSkill = GTable.getMap("RogueSkillTbl").has(d[0]);
+            if (isSkill) {
+                let rst = GTable.getById("RogueSkillTbl", d[0]);
+                let gray = GModel.rogueModel.getSkillLevel(rst.id) < d[1];
+                skillLosk.push(!gray);
+                return {
+                    bg: "gongfa_xinfaItem2",
+                    lv: d[1],
+                    icon: rst.img,
+                    gray: gray,
+                    cb: () => {},
+                };
+            } else {
+                const ttt = GTable.getById("TechTreeTbl", d[0]);
+                let gray = GModel.tree.getTechLv(ttt.id) < d[1];
+                skillLosk.push(!gray);
+                return {
+                    bg: "gongfa_xinfaItem2",
+                    icon: ttt.img,
+                    lv: d[1],
+                    gray: gray,
+                    cb: () => {},
+                };
+            }
+        });
+        let lock = skillLosk.every((a) => {
+            return a == true;
+        });
+        this.btn.node.active = lock && !this.apply.node.active;
+        this.activeBtn.node.active = !lock;
+        this.upBtn.node.active = this.apply.node.active && lock;
+
+        this.skillList.setState(state);
+    }
+
+    getPropertyDescription(): { property: string; value: string }[] {
+        let objarr: { property: string; value: string }[] = [];
+        let rese = GTable.getList("RogueExSkillEnhanceTbl").find((d) => this.state.id == d.skillId);
+        rese.property.forEach((p) => {
+            let obj = { property: p[0], value: "+" + GIndex.battle.propertyShowMethod(p[0])(Number(p[1])) };
+            objarr.push(obj);
+        });
+        return objarr;
+    }
+}

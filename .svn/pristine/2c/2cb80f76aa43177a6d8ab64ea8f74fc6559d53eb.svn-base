@@ -1,0 +1,54 @@
+import { BattleBattleStageObject } from "../../Object/BattleStage/BattleBattleStageObject";
+import { BattleObjectInfo } from "../../Object/BattleStage/BattleObjectInfo";
+import { BattleBattleStageData } from "../BattleBattleStageData";
+import { BattleDirector } from "./BattleDirector";
+
+export class BattleDirectorInfiniteMode extends BattleDirector {
+    initBattle(): void {
+        // 无尽模式攻击距离+400
+        this.ctx.ctx.attackTeam.forEach((info) => (info.property.normalAttackRange += 400));
+        const playerObject = this.initPlayer();
+        this.initTower();
+        // 无尽 初始化城墙
+        const info: BattleObjectInfo = JSON.parse(JSON.stringify(playerObject.info));
+        info.objectType = GConstant.battle.battleObjectType.wall;
+        info.mainSkill = [];
+        const o = BattleBattleStageObject.createWall(this.ctx, info, 0);
+        this.ctx.attackTeam.set(o.uid, o);
+
+        this.battlePrepair();
+    }
+    constructor(public ctx: BattleBattleStageData) {
+        super(ctx);
+    }
+    /** 战斗是否已结束 */
+    isBattleEnd(): boolean {
+        let wallAlive = false;
+        this.ctx.attackTeam.forEach((t) => {
+            if (t.objectType === GConstant.battle.battleObjectType.wall) {
+                wallAlive = true;
+            }
+        });
+        return (
+            !wallAlive ||
+            (this.ctx.defendTeam.size === 0 && this.ctx.monsterQueue.isEmpty()) ||
+            this.ctx.frame > this.ctx.ctx.tickLimit
+        );
+    }
+
+    /** 战斗是否胜利 */
+    isBattleWin(): boolean {
+        let wallAlive = false;
+        this.ctx.attackTeam.forEach((t) => {
+            if (t.objectType === GConstant.battle.battleObjectType.wall) {
+                wallAlive = true;
+            }
+        });
+        return (
+            wallAlive &&
+            this.ctx.defendTeam.size === 0 &&
+            this.ctx.monsterQueue.isEmpty() &&
+            this.ctx.frame <= this.ctx.ctx.tickLimit
+        );
+    }
+}

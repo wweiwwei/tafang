@@ -1,0 +1,74 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowSkinDetails")
+@ccclass
+export default class WindowSkinDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: { mountId?: number; skinId?: number };
+    _returnValue: any;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**英雄 */
+    @autowired(UISpine) heroSpine: UISpine = null;
+    /**坐骑 */
+    @autowired(UISpine) mountSpine: UISpine = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UILabel) progerty: UILabel = null;
+    @autowired(UIButton) useBtn: UIButton = null;
+
+    protected onInited(): void {
+        // GModel.player.he;
+        if (this._windowParam.skinId) {
+            let tbl: PlayerSkinTbl = GTable.getById("PlayerSkinTbl", this._windowParam.skinId);
+            this.name1.setText([tbl.skillName]);
+            this.desc.setText([tbl.skillDescription]);
+
+            console.log("prop =", this.getProgerty(tbl.property, tbl.formateProperty));
+            this.progerty.setText([this.getProgerty(tbl.property, tbl.formateProperty)]);
+
+            this.useBtn.node.active = GModel.mountAndSkin.hasSkin(this._windowParam.skinId);
+            this.useBtn.onClick = () => {
+                GModel.mountAndSkin.changeSkin(this._windowParam.skinId);
+                this.close();
+            };
+        } else {
+            let tbl: PlayerMountTbl = GTable.getById("PlayerMountTbl", this._windowParam.mountId);
+            this.name1.setText([tbl.skillName]);
+            this.desc.setText([tbl.skillDescription]);
+
+            console.log("prop =", this.getProgerty(tbl.property, tbl.formateProperty));
+            this.progerty.setText([this.getProgerty(tbl.property, tbl.formateProperty)]);
+
+            this.useBtn.node.active = GModel.mountAndSkin.hasMount(this._windowParam.mountId);
+            this.useBtn.onClick = () => {
+                GModel.mountAndSkin.changeMount(this._windowParam.mountId);
+                this.close();
+            };
+        }
+
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+    }
+
+    getProgerty(progerty: string[][], formateProperty: string[][]) {
+        let str = "技能加成：";
+        progerty.forEach((p) => {
+            str += GIndex.battle.propertyShowMethod(p[0])(Number(p[1])) + "+" + p[0];
+        });
+        str += "/n拥有效果：";
+        formateProperty.forEach((p) => {
+            str += GIndex.battle.propertyShowMethod(p[0])(Number(p[1])) + "+" + p[0];
+        });
+        return str;
+    }
+}

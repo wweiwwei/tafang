@@ -1,0 +1,223 @@
+
+Role_jellyfish.png
+size: 678,529
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chuxu1
+  rotate: false
+  xy: 33, 5
+  size: 24, 127
+  orig: 24, 127
+  offset: 0, 0
+  index: -1
+chuxu10
+  rotate: false
+  xy: 488, 405
+  size: 33, 122
+  orig: 33, 122
+  offset: 0, 0
+  index: -1
+chuxu11
+  rotate: true
+  xy: 542, 87
+  size: 38, 71
+  orig: 38, 71
+  offset: 0, 0
+  index: -1
+chuxu12
+  rotate: false
+  xy: 481, 318
+  size: 42, 52
+  orig: 42, 52
+  offset: 0, 0
+  index: -1
+chuxu13
+  rotate: true
+  xy: 542, 127
+  size: 33, 78
+  orig: 33, 78
+  offset: 0, 0
+  index: -1
+chuxu2
+  rotate: false
+  xy: 59, 6
+  size: 51, 126
+  orig: 51, 126
+  offset: 0, 0
+  index: -1
+chuxu3
+  rotate: false
+  xy: 91, 138
+  size: 67, 170
+  orig: 67, 170
+  offset: 0, 0
+  index: -1
+chuxu4
+  rotate: true
+  xy: 363, 318
+  size: 52, 116
+  orig: 52, 116
+  offset: 0, 0
+  index: -1
+chuxu5
+  rotate: true
+  xy: 177, 310
+  size: 59, 144
+  orig: 59, 144
+  offset: 0, 0
+  index: -1
+chuxu6
+  rotate: false
+  xy: 622, 94
+  size: 44, 62
+  orig: 44, 62
+  offset: 0, 0
+  index: -1
+chuxu7
+  rotate: true
+  xy: 160, 138
+  size: 11, 47
+  orig: 11, 47
+  offset: 0, 0
+  index: -1
+chuxu8
+  rotate: false
+  xy: 2, 4
+  size: 29, 128
+  orig: 29, 128
+  offset: 0, 0
+  index: -1
+chuxu9
+  rotate: true
+  xy: 624, 303
+  size: 22, 48
+  orig: 22, 48
+  offset: 0, 0
+  index: -1
+dianzhui
+  rotate: true
+  xy: 591, 331
+  size: 43, 26
+  orig: 43, 26
+  offset: 0, 0
+  index: -1
+dibu1
+  rotate: true
+  xy: 160, 151
+  size: 157, 152
+  orig: 157, 152
+  offset: 0, 0
+  index: -1
+jianbu
+  rotate: false
+  xy: 323, 312
+  size: 38, 57
+  orig: 38, 57
+  offset: 0, 0
+  index: -1
+lian
+  rotate: false
+  xy: 542, 2
+  size: 106, 83
+  orig: 106, 83
+  offset: 0, 0
+  index: -1
+shenti
+  rotate: false
+  xy: 2, 134
+  size: 87, 174
+  orig: 101, 174
+  offset: 0, 0
+  index: -1
+shou
+  rotate: true
+  xy: 525, 330
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+shuimushuchu/shifa/shifa_00039
+  rotate: false
+  xy: 395, 4
+  size: 145, 146
+  orig: 172, 162
+  offset: 19, 6
+  index: -1
+shuimushuchu/shifa/shifa_00040
+  rotate: false
+  xy: 470, 162
+  size: 152, 154
+  orig: 172, 162
+  offset: 15, 2
+  index: -1
+shuimushuchu/shifa/shifa_00041
+  rotate: false
+  xy: 177, 371
+  size: 154, 156
+  orig: 172, 162
+  offset: 14, 1
+  index: -1
+shuimushuchu/shifa/shifa_00042
+  rotate: false
+  xy: 314, 152
+  size: 154, 156
+  orig: 172, 162
+  offset: 14, 1
+  index: -1
+shuimushuchu/shifa/shifa_00043
+  rotate: false
+  xy: 333, 372
+  size: 153, 155
+  orig: 172, 162
+  offset: 14, 1
+  index: -1
+shuimushuchu/shifa/shifa_00044
+  rotate: false
+  xy: 525, 376
+  size: 151, 151
+  orig: 172, 162
+  offset: 15, 3
+  index: -1
+shuimushuchu/shifa/shifa_00045
+  rotate: false
+  xy: 247, 3
+  size: 146, 146
+  orig: 172, 162
+  offset: 18, 6
+  index: -1
+shuimushuchu/shifa/shifa_00046
+  rotate: false
+  xy: 112, 2
+  size: 133, 134
+  orig: 172, 162
+  offset: 25, 11
+  index: -1
+tou
+  rotate: false
+  xy: 2, 310
+  size: 173, 217
+  orig: 179, 217
+  offset: 6, 0
+  index: -1
+wuqi1
+  rotate: false
+  xy: 624, 327
+  size: 50, 47
+  orig: 51, 47
+  offset: 1, 0
+  index: -1
+wuqi2
+  rotate: false
+  xy: 624, 271
+  size: 47, 30
+  orig: 48, 30
+  offset: 1, 0
+  index: -1
+wuqi3
+  rotate: true
+  xy: 624, 158
+  size: 111, 45
+  orig: 122, 65
+  offset: 10, 0
+  index: -1

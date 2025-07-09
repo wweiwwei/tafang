@@ -1,0 +1,153 @@
+
+catgod_general_tail.png
+size: 426,249
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+maojisi/faqiu_00000
+  rotate: true
+  xy: 112, 7
+  size: 119, 52
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00001
+  rotate: true
+  xy: 166, 7
+  size: 119, 52
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00002
+  rotate: true
+  xy: 167, 128
+  size: 119, 52
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00003
+  rotate: true
+  xy: 220, 7
+  size: 119, 52
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00004
+  rotate: true
+  xy: 2, 128
+  size: 119, 53
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00005
+  rotate: true
+  xy: 2, 7
+  size: 119, 53
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00006
+  rotate: true
+  xy: 57, 128
+  size: 119, 53
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00007
+  rotate: true
+  xy: 57, 7
+  size: 119, 53
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/faqiu_00008
+  rotate: true
+  xy: 112, 128
+  size: 119, 53
+  orig: 119, 57
+  offset: 0, 1
+  index: -1
+maojisi/hit_00017
+  rotate: true
+  xy: 271, 129
+  size: 43, 45
+  orig: 81, 80
+  offset: 18, 18
+  index: -1
+maojisi/hit_00018
+  rotate: true
+  xy: 274, 8
+  size: 56, 57
+  orig: 81, 80
+  offset: 12, 11
+  index: -1
+maojisi/hit_00019
+  rotate: false
+  xy: 221, 174
+  size: 72, 73
+  orig: 81, 80
+  offset: 4, 2
+  index: -1
+maojisi/hit_00020
+  rotate: true
+  xy: 361, 122
+  size: 61, 63
+  orig: 81, 80
+  offset: 9, 11
+  index: -1
+maojisi/hit_00021
+  rotate: true
+  xy: 274, 66
+  size: 61, 63
+  orig: 81, 80
+  offset: 9, 11
+  index: -1
+maojisi/hit_00022
+  rotate: false
+  xy: 295, 182
+  size: 64, 65
+  orig: 81, 80
+  offset: 7, 10
+  index: -1
+maojisi/hit_00023
+  rotate: true
+  xy: 361, 185
+  size: 62, 63
+  orig: 81, 80
+  offset: 8, 10
+  index: -1
+maojisi/hit_00024
+  rotate: true
+  xy: 339, 61
+  size: 59, 61
+  orig: 81, 80
+  offset: 8, 11
+  index: -1
+maojisi/hit_00026
+  rotate: false
+  xy: 333, 8
+  size: 48, 51
+  orig: 81, 80
+  offset: 17, 14
+  index: -1
+maojisi/hit_00028
+  rotate: true
+  xy: 221, 128
+  size: 44, 48
+  orig: 81, 80
+  offset: 18, 16
+  index: -1
+maojisi/hit_00030
+  rotate: false
+  xy: 318, 133
+  size: 41, 47
+  orig: 81, 80
+  offset: 21, 17
+  index: -1
+maojisi/hit_00032
+  rotate: false
+  xy: 2, 2
+  size: 26, 3
+  orig: 81, 80
+  offset: 32, 23
+  index: -1

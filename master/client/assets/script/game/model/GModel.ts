@@ -1,0 +1,135 @@
+import ArenaModel from "../module/build/ArenaModel";
+import BanquetModel from "./BanquetModel";
+import BattleModel from "./BattleModel";
+import { CarModel } from "./CarModel";
+import { CardPoolModel } from "./CardPoolModel";
+import CareerModel from "./CareerModel";
+import { ChargeModel } from "./ChargeModel";
+import { ChatModel } from "./ChatModel";
+import { CollectionModel } from "./CollectionModel";
+import DamageModel from "./DamageModel";
+import DefendTowerModel from "./DefendTowerModel";
+import { EmailModel } from "./EmailModel";
+import EnemyModel from "./EnemyModel";
+import EquipmentSceneModel from "./EquipmentSceneModel";
+import FacilityModel from "./FacilityModel";
+import FossilModel from "./FossilModel";
+import { FriendModel } from "./FriendModel";
+import GiftPackModel from "./GiftPackModel";
+import GuideModel from "./GuideModel";
+import HeroModel from "./HeroModel";
+import ImpactModel from "./ImpactModel";
+import InfiniteBattleModel from "./InfiniteBattleModel";
+import KnapsackModel from "./KnapsackModel";
+import { MallModel } from "./MallModel";
+import ManorModel from "./ManorModel";
+import MineModel from "./MineModel";
+import MissionModel from "./MissionModel";
+import { MountAndSkinModel } from "./MountAndSkinModel";
+import PetModel from "./PetModel";
+import PlayerEquipmentModel from "./PlayerEquipmentModel";
+import PlayerModel from "./PlayerModel";
+import PlayerSkillModel from "./PlayerSkillModel";
+import { PowerModel } from "./PowerModel";
+import RankingModel from "./RankingModel";
+import { RedTipModel } from "./RedTipModel";
+import RogueModel from "./RogueModel";
+import SettingModel from "./SettingModel";
+import SpriteModel from "./SpriteModel";
+import StageModel from "./StageModel";
+import StoneModel from "./StoneModel";
+import SurvivorModel from "./SurvivorModel";
+import TechnologyModel from "./TechnologyModel";
+import TowerModel from "./TowerModel";
+import TurntableModel from "./TurntableModel";
+import VideoGroupPurchaseModel from "./VideoGroupPurchaseModel";
+import WarOrderModel from "./WarOrderModel";
+import WeakGuideModel from "./WeakGuideModel";
+
+export class DataModel {
+    private inited = false;
+    /** 初始化数据模型 */
+    init() {
+        if (this.inited) {
+            GLog.error("model has inited");
+            return;
+        }
+        this.inited = true;
+        this.setting.init();
+        // this.equipmentScene.init();
+        this.battle.init();
+        this.redTip.init();
+        // this.survivor.init();
+        // this.mission.init();
+    }
+
+    /** 英雄模块 */ hero = new HeroModel();
+    /** 背包模块 */ knapsack = new KnapsackModel();
+    /** 玩家模块 */ player = new PlayerModel();
+    /** 主线关卡模块 */ stage = new StageModel();
+    /** 建筑模块 */ facility = new FacilityModel();
+    /** 好友模块 */ friend = new FriendModel();
+    /** 邮件模块 */ email = new EmailModel();
+    /** 充值模块 */ charge = new ChargeModel();
+    /** 卡池模块 */ cardPool = new CardPoolModel();
+    /** 任务模块 */ mission = new MissionModel();
+    /** 引导模块 */ guide = new GuideModel();
+    /** 弱引导模块 */ weakGuide = new WeakGuideModel();
+    /** 战车模块 */ car = new CarModel();
+    /** 幸存者模块 */ survivor = new SurvivorModel();
+    /** 图鉴模块 */ collection = new CollectionModel();
+    /** 外敌入侵模块 */ enemy = new EnemyModel();
+    /** 古井挖矿模块 */ mine = new MineModel();
+    /** 礼包模块 */ giftPack = new GiftPackModel();
+    /** 爬塔模块 */ tower = new TowerModel();
+    /** 设置模块 */ setting = new SettingModel();
+    /** 战斗模块 */ battle = new BattleModel();
+    /** 转盘模块 */ turntable = new TurntableModel();
+    /** 主角装备模块 */ playerEquipment = new PlayerEquipmentModel();
+    /** 石头模块 */ stone = new StoneModel();
+    /** 技能模块 */ playerSkill = new PlayerSkillModel();
+    /** 宠物模块 */ pet = new PetModel();
+    /** 化石模块 */ fossil = new FossilModel();
+    /** 庄园模块 */ manor = new ManorModel();
+    /** 科技树 */ tree = new TechnologyModel();
+    /** 打装备场景模块 */ equipmentScene = new EquipmentSceneModel();
+    /** 伤害挑战模块 */ damage = new DamageModel();
+    /** 排行榜模块 */ ranking = new RankingModel();
+    /** 竞技场模块 */ arena = new ArenaModel();
+    /** 转职模块 */ career = new CareerModel();
+    /** 防御塔模块 */ defendTower = new DefendTowerModel();
+    /** 聊天模块 */ chat = new ChatModel();
+    /** 视频团购模块 */ videoGroupPurchase = new VideoGroupPurchaseModel();
+    /** 精灵模块 */ sprite = new SpriteModel();
+    /** 无尽模式模块 */ infiniteBattle = new InfiniteBattleModel();
+    /** 红点模块 */ redTip = new RedTipModel();
+    /** 宴会 */ banquet = new BanquetModel();
+    /** 战令模块 */ warOrder = new WarOrderModel();
+    /** 冲榜模块 */ impact = new ImpactModel();
+    /** 肉鸽养成模块 */ rogueModel = new RogueModel();
+    /** 坐骑和皮肤模块 */ mountAndSkin = new MountAndSkinModel();
+    /** 体力模块 */ power = new PowerModel();
+    /** 商城模块 */ mall = new MallModel();
+
+    /** 本次游戏进程的存储数据 */ sessionStorage: SessionStorageData = {};
+    /** 当前本地环境的存储数据 */
+    localStorage: localStorageData = (() => {
+        const localData = cc.sys.localStorage.getItem("tower_localStorage") || "{}";
+        const origin = JSON.parse(localData);
+        const p = new Proxy(origin, {
+            set: (target, key, value) => {
+                target[key] = value;
+                cc.sys.localStorage.setItem("tower_localStorage", JSON.stringify(target));
+                return true;
+            },
+        });
+        return p;
+    })();
+}
+
+window["GModel"] = new DataModel();
+
+declare global {
+    /** 全局数据模型 */
+    const GModel: DataModel;
+}

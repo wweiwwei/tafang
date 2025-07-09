@@ -1,0 +1,51 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import WindowCongratulation from "../common/WindowCongratulation";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemYuanBaoItem")
+@ccclass
+export default class ListItemYuanBaoItem extends UIListItem {
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UILabel) count: UILabel = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UIButton) sellBtn: UIButton = null;
+    @autowired(UIImage) adImg: UIImage = null;
+    @autowired(UIImage) jodeImg: UIImage = null;
+
+    state: { id: number; index: number };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.jodeImg.node.active = false;
+        this.adImg.node.active = false;
+        let tbl = GTable.getById("MallTbl", state.id);
+
+        let item = new Item(tbl.item[0], tbl.item[1]);
+        this.name1.setText(["_rs铜钱x" + item.count]);
+
+        if (tbl.kind == 1) {
+            this.adImg.node.active = true;
+            this.sellBtn.text.setText(["_rs观看广告"]);
+        } else {
+            this.icon.imgName = Item.getImg(new Item(tbl.price[0], 0));
+            this.sellBtn.text.setText(["_rs" + tbl.price[1]]);
+            this.jodeImg.node.active = true;
+        }
+        this.count.setText(["_rs" + item.count]);
+
+        this.sellBtn.onClick = async () => {
+            if (GModel.mall.remainVideo(state.id) > 0) {
+                await GSDK.showVideo("advertisement_war");
+                let items = [new Item(tbl.item[0], tbl.item[1])];
+                GWindow.open(WindowCongratulation, { items: items });
+                return;
+            }
+            let items = await GModel.mall.buy(state.id);
+            if (items.length > 0) GWindow.open(WindowCongratulation, { items: items });
+        };
+    }
+}

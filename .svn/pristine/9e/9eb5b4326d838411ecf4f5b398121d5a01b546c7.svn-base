@@ -1,0 +1,139 @@
+import { BattleRect } from "../../../battleLogic/Map/BattleRect";
+import ListItemBattleScenePvp from "../ListItemBattleScenePvp";
+import WindowBattleScene from "../WindowBattleScene";
+import { BattleSceneIdleState } from "./controlState/BattleSceneIdleState";
+
+/** 单例 */
+export default class BattleSceneControl extends cc.Component {
+    static s_instance: BattleSceneControl;
+    ctx: WindowBattleScene | ListItemBattleScenePvp;
+
+    maxScale = 2;
+    minScale = 0.35;
+
+    curTbl: BattleSceneInfoTbl;
+    initEvent(ctx: WindowBattleScene | ListItemBattleScenePvp) {
+        this.ctx = ctx;
+        if (this.ctx.battleSceneIndex === 0) BattleSceneControl.s_instance = this;
+        const tbl = GTable.getList("BattleSceneInfoTbl").find((t) => t.prefab === "map2");
+        this.state = new BattleSceneIdleState(this);
+        ctx.sceneBg.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        ctx.sceneBg.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        ctx.sceneBg.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        ctx.sceneBg.on(cc.Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+        // ctx.sceneBg.on(cc.Node.EventType.MOUSE_WHEEL, this.onMouseWheel, this);
+        // this.minScale = Math.max((cc.winSize.height + 10) / height, this.minScale);
+        // GCamera.battleCamera.zoomRatio = Math.max(tbl.defaultRatio, this.minScale);
+        // GCamera.battleCamera.node.y = -150;
+        this.setMap(tbl, true);
+    }
+
+    getCamera() {
+        return this.ctx.battleSceneIndex >= 2 ? GCamera.battleCamera2 : GCamera.battleCamera;
+    }
+
+    setMap(tbl: BattleSceneInfoTbl, first = false) {
+        if (first || this.curTbl.prefab !== tbl.prefab) {
+            this.curTbl = tbl;
+            const height = tbl.originSize[1] * tbl.scale;
+            this.minScale = Math.max((cc.winSize.height + 10) / height, this.minScale);
+            const camera = this.getCamera();
+            camera.zoomRatio = Math.max(tbl.defaultRatio, this.minScale);
+            camera.node.x = tbl.defaultCameraPos[0];
+            camera.node.y = tbl.defaultCameraPos[1];
+        }
+    }
+    state: ISceneControlState = null;
+
+    touchPointBegin: {
+        id: number;
+        pos: cc.Vec2;
+    }[] = [];
+
+    getGuideScreenPos(index: number): cc.Vec3 {
+        const camera = this.getCamera();
+        const { x, y } = cc.v2(GModel.defendTower.getDefaultSceneTowerPos()[index]);
+        const worldPos = this.ctx.sceneBg.convertToWorldSpaceAR(cc.v2(x, y));
+        const screenPos = camera.getWorldToScreenPoint(worldPos);
+        return screenPos;
+    }
+    posToIndex(screenPos: cc.Vec2): [number, cc.Vec3] {
+        const camera = this.getCamera();
+        const worldPos = cc.v3();
+        // 将一个屏幕坐标系下的点转换到世界坐标系下
+        camera.getScreenToWorldPoint(screenPos, worldPos);
+        const relatePos = this.ctx.sceneBg.convertToNodeSpaceAR(worldPos);
+        const rectList = GModel.defendTower.getDefaultSceneTowerPos().map((p) => {
+            return new BattleRect(p.x - 60, p.y - 30, 150, 150);
+        });
+        return [rectList.findIndex((r) => r.isInRect(relatePos.x, relatePos.y)), relatePos];
+    }
+    addTouchPoint(event: cc.Event.EventTouch) {
+        this.touchPointBegin.push({
+            id: event.getID(),
+            pos: event.getLocation(),
+        });
+    }
+
+    removeTouchPoint(event: cc.Event.EventTouch) {
+        this.touchPointBegin = this.touchPointBegin.filter((item) => item.id !== event.getID());
+    }
+
+    onTouchStart(event: cc.Event.EventTouch): void {
+        this.addTouchPoint(event);
+        GModel.weakGuide.sceneClick();
+        this.state.onTouchStart(event);
+    }
+    onTouchMove(event: cc.Event.EventTouch): void {
+        this.state.onTouchMove(event);
+    }
+    onTouchEnd(event: cc.Event.EventTouch): void {
+        this.removeTouchPoint(event);
+        this.state.onTouchEnd(event);
+    }
+    onMouseWheel(event: cc.Event.EventMouse): void {
+        let scale = 1 + event.getScrollY() / 1200;
+        const camera = this.getCamera();
+        camera.zoomRatio *= scale;
+        if (camera.zoomRatio < this.minScale) {
+            camera.zoomRatio = this.minScale;
+        } else if (camera.zoomRatio > this.maxScale) {
+            camera.zoomRatio = this.maxScale;
+        }
+        this.checkEdge();
+    }
+    checkEdge() {
+        const camera = this.getCamera();
+        const sceneBg = this.ctx.sceneBg;
+        const sceneWidth = sceneBg.width;
+        const sceneHeight = sceneBg.height;
+        const screenWidth = cc.winSize.width;
+        const screenHeight = cc.winSize.height;
+        const zoomRatio = camera.zoomRatio;
+        const visibleWidth = screenWidth / zoomRatio;
+        const visibleHeight = screenHeight / zoomRatio;
+        const xMax = (sceneWidth - visibleWidth) * 0.5;
+        const xMin = -xMax;
+        const yMax = (sceneHeight - visibleHeight) * 0.5;
+        const yMin = -yMax;
+        if (camera.node.x > xMax) {
+            camera.node.x = xMax;
+        } else if (camera.node.x < xMin) {
+            camera.node.x = xMin;
+        }
+        if (camera.node.y > yMax) {
+            camera.node.y = yMax;
+        } else if (camera.node.y < yMin) {
+            camera.node.y = yMin;
+        }
+    }
+    changeState(state: ISceneControlState) {
+        this.state = state;
+    }
+}
+export interface ISceneControlState {
+    ctx: BattleSceneControl;
+    onTouchStart(event: cc.Event.EventTouch): void;
+    onTouchMove(event: cc.Event.EventTouch): void;
+    onTouchEnd(event: cc.Event.EventTouch): void;
+}

@@ -1,0 +1,164 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemItem from "../common/ListItemItem";
+import ListItemItem2 from "../common/ListItemItem2";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowKnapsack2")
+@ccclass
+export default class WindowKnapsack2 extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    /**法宝按钮 */
+    @autowired(UIButton) props: UIButton = null;
+    /**祝福按钮 */
+    @autowired(UIButton) equipments: UIButton = null;
+    /**菜单按钮提示1 */
+    @autowired(UIImage) menuTips1: UIImage = null;
+    /**菜单按钮提示2 */
+    @autowired(UIImage) menuTips2: UIImage = null;
+    /**topBox */
+    @autowired(cc.Node) topBox: cc.Node = null;
+
+    /**选择的物品 */
+    @autowired(UIList) switchGoods: UIList<ListItemItem2> = null;
+    /**物品名称 */
+    @autowired(UILabel) goodsName: UILabel = null;
+    /**物品描述 */
+    @autowired(UILabel) goodsDesc: UILabel = null;
+    /**信息描述 */
+    @autowired(UILabel) infoLab: UILabel = null;
+    /**信息节点 */
+    @autowired(UIList) infoList: UIList<ListItemItem2> = null;
+    /**节点 */
+    @autowired(UIScrollList) itemsContainer: UIScrollList<ListItemItem2> = null;
+    /**中间提示 */
+    @autowired(UILabel) tip: UILabel = null;
+
+    /**确认按钮 */
+    @autowired(UIButton) confirm: UIButton = null;
+
+    private menuIndex: number = 0;
+    private touchId: number = -1;
+
+    protected onInited(): void {
+        this.even();
+        this.refBtnTips();
+        this.refUi();
+
+        this.confirm.onClick = () => {
+            this.close();
+        };
+    }
+
+    refBtnTips() {
+        this.menuTips1.node.active = false;
+        this.menuTips2.node.active = false;
+    }
+
+    async refUi() {
+        this.props.text.node.color = this.menuIndex == 0 ? GConstant.menuColor[0] : GConstant.menuColor[1];
+        this.equipments.text.node.color = this.menuIndex == 1 ? GConstant.menuColor[0] : GConstant.menuColor[1];
+        this.props.bg.imgName = this.menuIndex == 0 ? "common_menubg1" : "common_menubg2";
+        this.equipments.bg.imgName = this.menuIndex == 1 ? "common_menubg1" : "common_menubg2";
+
+        this.switchGoods.setState([]);
+
+        this.infoLab.node.parent.active = false;
+        this.topBox.active = false;
+        // this.infoLab.setText();
+        // this.infoList.setState([]);
+
+        let items = [];
+        const api = GBattleApiManager.getBattleStageApi(0);
+        let cb = (id) => {
+            if (this.touchId == id) {
+                return;
+            } else this.touchId = id;
+            this.refUi();
+        };
+        if (api) {
+            // 获取战斗背包库存
+            if (this.menuIndex == 0) {
+                let data = api.rogueEquipmentManager().getAllStorage();
+
+                if (data.length > 0) {
+                    // console.log("data =", data);
+                    if (this.touchId == -1) this.touchId = data[0].id;
+                    // console.log("touid =", this.touchId);
+                    let obj = data.find((d) => d.id == this.touchId);
+                    let tbl = GTable.getById("RogueEquipmentTbl", obj.uid);
+                    this.switchGoods.setState([
+                        {
+                            id: this.touchId,
+                            cb: cb,
+                            image: tbl.img,
+                            bg: GConstant.itemQualityBg[tbl.quality],
+                            imgScale: 1,
+                        },
+                    ]);
+                    this.goodsName.setText([tbl.name]);
+                    this.goodsDesc.setText([tbl.description]);
+                }
+
+                // console.log("data =", data);
+                items = data.map((d) => {
+                    let tbl = GTable.getById("RogueEquipmentTbl", d.uid);
+                    let image = tbl.img;
+                    let bg = GConstant.itemQualityBg[tbl.quality];
+                    return { id: d.id, cb: cb, image: image, bg: bg, selected1: d.id == this.touchId };
+                });
+            }
+            // 获取战斗祝福列表
+            else if (this.menuIndex == 1) {
+                let data = api.rogueBlessManager().getAllBless();
+                if (data.length > 0) {
+                    if (this.touchId == -1) this.touchId = data[0];
+                    let tbl = GTable.getById("RogueBlessTbl", this.touchId);
+                    this.switchGoods.setState([
+                        { id: this.touchId, cb: cb, image: tbl.img, bg: "battle_bless_bg", imgScale: 1.2 },
+                    ]);
+                    this.goodsName.setText([tbl.name]);
+                    this.goodsDesc.setText([tbl.description]);
+                }
+                items = data.map((d) => {
+                    let image = GTable.getById("RogueBlessTbl", d).img;
+                    let bg = "battle_bless_bg";
+                    return { id: d, cb: cb, image: image, bg: bg, selected2: d == this.touchId };
+                });
+            }
+        }
+        if (items.length > 0) {
+            this.topBox.active = true;
+        }
+        this.itemsContainer.setState(items);
+    }
+
+    even() {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.props.onClick = () => {
+            this.touchId = -1;
+            this.menuIndex = 0;
+            this.refUi();
+        };
+        this.equipments.onClick = () => {
+            this.touchId = -1;
+            this.menuIndex = 1;
+            this.refUi();
+        };
+    }
+}

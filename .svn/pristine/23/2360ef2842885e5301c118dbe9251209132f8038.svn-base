@@ -1,0 +1,20 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemRogueBlessSkill")
+@ccclass
+export default class ListItemRogueBlessSkill extends UIListItem {
+    /** */
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UILabel) nameLab: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+
+    state: { imgStr: string; name: []; desc: [] };
+    setState(state: this["state"]): void {
+        this.img.imgName = state.imgStr;
+        this.nameLab.setText(state.name);
+        this.desc.setText(state.desc);
+    }
+}

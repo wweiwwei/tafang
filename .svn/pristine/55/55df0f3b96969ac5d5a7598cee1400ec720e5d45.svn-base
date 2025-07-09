@@ -1,0 +1,372 @@
+import { throttle } from "../../framework/Decorator";
+import EventBus from "../../framework/event/EventBus";
+import { BattleDisplayEvent } from "../battleLogic/Display/BattleDisplayEvent";
+import { BattleObjectInfo } from "../battleLogic/Object/BattleStage/BattleObjectInfo";
+import { BattlePlayerCommand } from "../battleLogic/Processor/BattleCommandHandler";
+import { BattleProcessor } from "../battleLogic/Processor/BattleProcessor";
+import { BattleProcessorBuilder } from "../battleLogic/Processor/BattleProcessorBuilder";
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import EventName from "../event/EventName";
+import WindowMainSceneBottomUI from "../module/mainscene/WindowMainSceneBottomUI";
+import WindowMainSceneRightUI from "../module/mainscene/WindowMainSceneRightUI";
+import WindowMainSceneUI from "../module/mainscene/WindowMainSceneUI";
+
+export default class BattleModel {
+    /** 临时的闪电统计 */
+    lightningCountGuide: number = 0;
+    /** 临时记录的法杖使用时间 */
+    private tempUseMagicStaffTime: number = 0;
+
+    init() {
+        [
+            EventName.stateKey.playerEquipment,
+            EventName.stateKey.towerWashData,
+            EventName.stateKey.playerData,
+            EventName.stateKey.level,
+            EventName.stateKey.fossilData,
+            EventName.stateKey.sprites,
+            EventName.stateKey.spriteFormation,
+            EventName.stateKey.rank,
+            EventName.stateKey.careerData,
+            EventName.stateKey.careerTalent,
+            EventName.stateKey.techTree,
+            EventName.stateKey.towerFormation,
+        ].forEach((e) => {
+            EventBus.on(e, this.bpChange, this);
+        });
+    }
+    /** 法杖消耗时间汇报 */
+    async timeUseReport() {
+        await GApi.battle.timeUseReport({ time: Math.round(this.tempUseMagicStaffTime) });
+        this.tempUseMagicStaffTime = 0;
+    }
+
+    /** 获取怪物的战斗力 */
+    // getMonsterBattlePoint(tbl: MonsterTbl, env: any[]): number {
+    //     let res = 0;
+    //     Object.keys(GConfig.battlePoint).forEach((k) => {
+    //         const value = tbl[k] ? AstUtil.eval(tbl[k], env) : GIndex.battle.battleDefault(k);
+    //         res += value * GConfig.battlePoint[k];
+    //     });
+    //     return Math.round(res);
+    // }
+
+    // /** 获取怪物的战斗力 */
+    // getMonsterBattlePointByWave(waveTbl: MonsterWaveTbl, env: any[]): number {
+    //     return GUtils.array
+    //         .chain([waveTbl.wave1, waveTbl.wave2, waveTbl.wave3, waveTbl.wave4, waveTbl.wave5])
+    //         .flatMap((e) => {
+    //             return e.map((id) => this.getMonsterBattlePoint(GTable.getById("MonsterTbl", id), env));
+    //         })
+    //         .sum();
+    // }
+
+    private playerTeamInfo(): BattleObjectInfo[] {
+        return BattleFactory.getPlayerPveTeam(GState.data);
+    }
+    isAutoAttack() {
+        return true;
+    }
+
+    showMainUI() {
+        GWindow.show(WindowMainSceneUI);
+        GWindow.show(WindowMainSceneRightUI);
+        GWindow.show(WindowMainSceneBottomUI);
+    }
+
+    hideMainUI() {
+        GWindow.hide(WindowMainSceneUI);
+        GWindow.hide(WindowMainSceneRightUI);
+        GWindow.hide(WindowMainSceneBottomUI);
+    }
+
+    /** 创建pvp战斗 */
+    createPvpBattle(infoStr: string, seed: number, commandGetter: (frame: number) => BattlePlayerCommand[]) {
+        const infos = JSON.parse(infoStr);
+        const processor = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .pve(70001)
+            .setCommandGetter(commandGetter)
+            .setEnv([{ lv: 0 }])
+            .setMapId("map2")
+            .setTickLimit(GConfig.battle.towerTimeLimit * GConstant.battle.logicTickRate)
+            .setBattleKind("rabbitSheep")
+            .setAuto(this.isAutoAttack())
+            .setSeed(seed)
+            .build();
+        return processor;
+    }
+
+    /** 创建挖矿战斗 */
+    createMineBattle(id: number) {
+        const tbl = GTable.getById("MineBattleMapTbl", id);
+        const lv = 0;
+        const infos = this.playerTeamInfo();
+        const processor = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .pve(tbl.guard)
+            .setCommandGetter(GBattleApiManager.getCommandGetter())
+            .setEnv([{ lv }])
+            .setMapId("map3")
+            .setTickLimit(GConfig.battle.mineTimeLimit * GConstant.battle.logicTickRate)
+            .setAuto(this.isAutoAttack())
+            .build();
+        return processor;
+    }
+
+    /** 创建爬塔战斗 */
+    createTowerBattle(tbl: TowerChallengeTbl) {
+        const lv = tbl.monsterLv;
+        const infos = this.playerTeamInfo();
+        const processor = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .pve(tbl.guard)
+            .setCommandGetter(GBattleApiManager.getCommandGetter())
+            .setEnv([{ lv }])
+            .setMapId("map2")
+            .setTickLimit(GConfig.battle.towerTimeLimit * GConstant.battle.logicTickRate)
+            .setBattleKind("tower")
+            .setAuto(this.isAutoAttack())
+            .build();
+        return processor;
+    }
+
+    /**伤害挑战战斗 */
+    createDamageChallengeBattle(kind: number): BattleProcessor {
+        const infos = this.playerTeamInfo();
+        const lv = 0;
+        const processor = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .pve(GTable.getList("DamageMonsterTbl").find((t) => t.kind === kind).id)
+            .setCommandGetter(GBattleApiManager.getCommandGetter())
+            .setEnv([{ lv }])
+            .setMapId(kind === 1 ? "map4" : "map2")
+            .setTickLimit(GConfig.battle.damageChallengeTimeLimit * GConstant.battle.logicTickRate)
+            .setBattleKind(kind === 1 ? "damageBoss" : "damage")
+            .setAuto(this.isAutoAttack())
+            .build();
+        return processor;
+    }
+
+    /** 无尽战斗 */
+    createInfiniteBattle(): BattleProcessor {
+        const infos = this.playerTeamInfo();
+        const builder = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .pve(0)
+            .setCommandGetter(GBattleApiManager.getCommandGetter())
+            .setEnv([{ lv: 0 }])
+            .setMapId("map1")
+            .setTickLimit(Number.MAX_SAFE_INTEGER)
+            .setAuto(this.isAutoAttack())
+            .setBattleKind("infinite");
+        const processor = builder.build();
+        return processor;
+    }
+
+    /** 主线战斗 */
+    createStageBattle(mapIndex: number, stageIndex: number): BattleProcessor {
+        const tbl = GTable.getList("StageMapTbl").find((t) => t.mapIndex === mapIndex);
+        const stageTbl = GTable.getList("StageTbl").find((t) => t.mapIndex === mapIndex && t.stageIndex === stageIndex);
+        const lv = tbl.baseLv + stageTbl.baseLv;
+        const infos = this.playerTeamInfo();
+        const builder = new BattleProcessorBuilder()
+            .setAttackTeam(infos)
+            .setCommandGetter(GBattleApiManager.getCommandGetter())
+            .pve(stageTbl.guard)
+            .setEnv([{ lv }])
+            .setMapId(stageTbl.mapId)
+            .setTickLimit(GConfig.battle.stageTimeLimit * GConstant.battle.logicTickRate)
+            .setAuto(this.isAutoAttack());
+        // if (GModel.guide.guideBattle()) {
+        //     builder.setBattleKind("guide");
+        // }
+        const processor = builder.build();
+        return processor;
+    }
+
+    private toReport = 0;
+    private coinCollet = 0;
+
+    killMonsterCount = 0;
+    handleReportKillMonster(e: BattleDisplayEvent<any>) {
+        if (e.eventType === "removeObject") {
+            if (
+                (e as BattleDisplayEvent<"removeObject">).data.obj.objectType ===
+                GConstant.battle.battleObjectType.monster
+            ) {
+                this.toReport++;
+                this.killMonsterCount++;
+                this.report();
+            }
+        }
+    }
+
+    reportDrop(count: number) {
+        this.coinCollet += count;
+    }
+
+    @throttle(1000)
+    report() {
+        // 上报击杀怪物
+        const count = this.toReport;
+        this.toReport = 0;
+        const coin = this.coinCollet;
+        this.coinCollet = 0;
+
+        GApi.battle.killMonsterEx({ count, coin });
+    }
+    private _bpCache: number;
+
+    /** 获取玩家战斗力 */
+    getBattlePoint() {
+        if (!this._bpCache) {
+            this._bpCache = BattleFactory.getPlayerPvpTeam(GState.data)
+                .map((i) => BattleFactory.getBattlePoint(i))
+                .reduce((a, b) => a + b, 0);
+        }
+        return this._bpCache;
+    }
+
+    private bpChange() {
+        this._bpCache = null;
+        EventBus.emit(EventName.refreshBattlePoint);
+    }
+    // private battleProcessor: BattleProcessor = null;
+    // private waitResponse = false;
+
+    offlineBattleState(): "notUnlock" | "pause" | "battle" {
+        // if (!GModel.player.checkSystemUnlock(GConstant.systemId.fireBall, false)) return "notUnlock";
+        // if (this.getRemainMs() > 0) return "battle";
+        return "pause";
+    }
+
+    /** 离线战斗update */
+    async tickOffLineBattle() {
+        // if (this.waitResponse) return;
+        // if (GWindow.currentScene === "main" && GWindow.offlineSettled && this.getRemainMs() > 0) {
+        //     if (!GModel.player.checkSystemUnlock(GConstant.systemId.fireBall, false)) return;
+        //     if (GWindow.inBattle) return;
+        //     if (!this.battleProcessor) {
+        //         this.battleProcessor = this.createStageBattleOffLineMode(0);
+        //     }
+        //     this.battleProcessor.battleData.tick();
+        //     this.battleProcessor.getAndClearDisplayEvent();
+        //     if (this.battleProcessor.battleData.director.isBattleEnd()) {
+        //         this.waitResponse = true;
+        //         GApi.stage.reportStageBattleEnd();
+        //         await GApi.battle.timeUseReport({
+        //             time: Math.round(this.battleProcessor.battleData.frame * GConstant.battle.logicTick),
+        //         });
+        //         EventBus.emit(EventName.refreshAfkBattleState);
+        //         if (this.battleProcessor.battleData.director.isBattleWin()) {
+        //             try {
+        //                 let originStage = GModel.stage.getStageByMapIndex(GModel.stage.getStageAfkMap());
+        //                 await GApi.stage.challengeStage();
+        //                 const allStage = GModel.stage.getAllStage();
+        //                 const afk = allStage.find((t) => t.mapIndex === GModel.stage.getStageAfkMap());
+        //                 GModel.guide.triggerDialogue(8, afk.mapIndex, afk.clear ? afk.stageIndex : afk.stageIndex - 1);
+        //                 GModel.giftPack.packTrigger(1, [afk.mapIndex, originStage.stageIndex, afk.stageIndex]);
+        //                 GSDK.report({
+        //                     kind: "mainStage",
+        //                     data: {
+        //                         mapIndex: afk.mapIndex,
+        //                         stageIndex: afk.clear ? afk.stageIndex : afk.stageIndex - 1,
+        //                     },
+        //                 });
+        //             } catch {
+        //             } finally {
+        //                 this.battleProcessor = null;
+        //             }
+        //         } else {
+        //             this.battleProcessor = null;
+        //         }
+        //         this.waitResponse = false;
+        //     }
+        // } else if (GWindow.currentScene === "battle") {
+        //     this.battleProcessor = null;
+        // }
+    }
+    /** 离线战斗 */
+    async offlineBattle() {
+        // return new Promise<void>(async (resolve, reject) => {
+        //     if (!GModel.player.checkSystemUnlock(GConstant.systemId.fireBall, false)) {
+        //         resolve();
+        //         return;
+        //     }
+        //     const now = GameDate.now();
+        //     let offlineTime = now - GState.data.lastStageBattleTime;
+        //     offlineTime = Math.min(this.getRemainMs(), offlineTime);
+        //     if (offlineTime < GConfig.battle.offlineStageTimeMin * 60 * 1000) {
+        //         resolve();
+        //         return;
+        //     }
+        //     if (offlineTime > GConfig.battle.offlineStageTimeMax * 60 * 1000) {
+        //         offlineTime = GConfig.battle.offlineStageTimeMax * 60 * 1000;
+        //     }
+        //     // offlineTime = GConfig.battle.offlineStageTimeMax * 60 * 1000;
+        //     GWindow.open(WindowOfflineRewardProcess, {}, null, {
+        //         onShown: async () => {
+        //             await GUtils.http.delay(100);
+        //             let remainTick = Math.floor(offlineTime / 1000) * GConstant.battle.logicTickRate;
+        //             let offset = 0;
+        //             const begin = Date.now();
+        //             let failCount = 0;
+        //             while (remainTick > 0) {
+        //                 const processor = this.createStageBattleOffLineMode(offset);
+        //                 while (!processor.battleData.director.isBattleEnd()) {
+        //                     processor.battleData.tick();
+        //                 }
+        //                 // 离线战斗每场基础消耗10秒
+        //                 remainTick -= processor.battleData.frame + 600;
+        //                 if (remainTick < 0) break;
+        //                 if (processor.battleData.director.isBattleWin()) {
+        //                     failCount = 0;
+        //                     offset++;
+        //                 } else {
+        //                     failCount++;
+        //                 }
+        //                 GLog.debug(
+        //                     `离线战斗结束 已推进${offset}关 胜利${processor.battleData.director.isBattleWin()} 本次战斗消耗时间${Math.round(
+        //                         processor.battleData.frame / 60
+        //                     )}秒 剩余战斗时间 ${Math.round(remainTick / 60)}秒 计算累计耗时${Date.now() - begin}毫秒`
+        //                 );
+        //                 if (failCount >= 3) break;
+        //             }
+        //             GWindow.close(WindowOfflineRewardProcess);
+        //             const allStage = GModel.stage.getAllStage();
+        //             const afk = allStage.find((t) => t.mapIndex === GModel.stage.getStageAfkMap());
+        //             const fromStageIndex = afk.stageIndex;
+        //             const finalAfk = afk.getNextStage(offset);
+        //             let count = finalAfk.stageIndex - afk.stageIndex;
+        //             if (finalAfk.clear && !afk.clear) count++;
+        //             if (count > 0) {
+        //                 const res = await GApi.stage.offlineChallenge({ count });
+        //                 GApi.battle.timeUseReport({
+        //                     time: Math.round(offlineTime),
+        //                 });
+        //                 const allStage = GModel.stage.getAllStage();
+        //                 const afk = allStage.find((t) => t.mapIndex === GModel.stage.getStageAfkMap());
+        //                 GSDK.report({
+        //                     kind: "mainStage",
+        //                     data: {
+        //                         mapIndex: afk.mapIndex,
+        //                         stageIndex: afk.clear ? afk.stageIndex : afk.stageIndex - 1,
+        //                     },
+        //                 });
+        //                 await GWindow.open(WindowOfflineReward, {
+        //                     offlineTime,
+        //                     mapIndex: afk.mapIndex,
+        //                     fromStageIndex,
+        //                     toStageIndex: afk.stageIndex,
+        //                     reward: res.reward,
+        //                     survivor: res.survivor,
+        //                 });
+        //                 GModel.giftPack.packTrigger(1, [afk.mapIndex, fromStageIndex, finalAfk.stageIndex]);
+        //             }
+        //             resolve();
+        //         },
+        //     });
+        // });
+    }
+}

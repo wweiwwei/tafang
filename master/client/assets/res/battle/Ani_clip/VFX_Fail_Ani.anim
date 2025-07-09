@@ -1,0 +1,260 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "VFX_Fail_Ani 2",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.6666666666666666,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "bg/Fail_Title/VFX_battle_victitle": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0.03333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.481,
+                "y": 1.481,
+                "z": 1.481
+              }
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.465,
+                "y": 0.465,
+                "z": 0.465
+              }
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.291,
+                "y": 1.291,
+                "z": 1.291
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.756,
+                "y": 0.756,
+                "z": 0.756
+              }
+            },
+            {
+              "frame": 0.4,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 0.756
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.03333333333333333,
+              "value": 255
+            }
+          ],
+          "position": [
+            {
+              "frame": 0.03333333333333333,
+              "value": [
+                0,
+                309.614,
+                0
+              ]
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": [
+                0,
+                313.279,
+                0
+              ]
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": [
+                0,
+                330.176,
+                0
+              ]
+            },
+            {
+              "frame": 0.4,
+              "value": [
+                0,
+                325,
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "bg/Fail_Title/VFX_victorytxt": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.03333333333333333,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "bg/Fail_Title/Fail_Role": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.2,
+              "value": 0
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": 255
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.23333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.577,
+                "y": 0.577,
+                "z": 0.577
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 2.104,
+                "y": 2.104,
+                "z": 2.104
+              }
+            }
+          ]
+        }
+      },
+      "bg/Fail_Title/VFX_failcloud": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.2,
+              "value": 0
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": 255
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.23333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.577,
+                "y": 0.577,
+                "z": 0.577
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 2.104
+              }
+            }
+          ]
+        }
+      },
+      "bg/Fail_Title/VFX_failcloud2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.2,
+              "value": 0
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": 255
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.23333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.577,
+                "y": 0.577,
+                "z": 0.577
+              }
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 2.104
+              }
+            }
+          ]
+        }
+      },
+      "bg/Fail_Title/VFX_failcloud3": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.4666666666666667,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 255
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 0.577,
+                "z": 0.577
+              }
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 2.104
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

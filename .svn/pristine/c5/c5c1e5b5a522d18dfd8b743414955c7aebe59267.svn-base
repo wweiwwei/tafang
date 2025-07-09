@@ -1,0 +1,264 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "TowerCloud_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 11,
+  "sample": 30,
+  "speed": 0.2,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "pata_Cloud01": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 158.87130395136768
+            },
+            {
+              "frame": 6.966666666666667,
+              "value": -581.441,
+              "curve": "constant"
+            },
+            {
+              "frame": 7,
+              "value": 583.931
+            },
+            {
+              "frame": 11,
+              "value": 158.87130395136768
+            }
+          ]
+        }
+      },
+      "pata_Cloud02": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 541.087
+            },
+            {
+              "frame": 5.133333333333334,
+              "value": -668.808,
+              "curve": "constant"
+            },
+            {
+              "frame": 5.166666666666667,
+              "value": 744.673
+            },
+            {
+              "frame": 11,
+              "value": -7.178595744680933
+            }
+          ]
+        }
+      },
+      "pata_Cloud03": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 638.026
+            },
+            {
+              "frame": 10.966666666666667,
+              "value": -622.539,
+              "curve": "constant"
+            },
+            {
+              "frame": 11,
+              "value": 638.026
+            }
+          ]
+        }
+      },
+      "pata_Cloud04": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -581.2099300911855
+            },
+            {
+              "frame": 0.9666666666666667,
+              "value": -722.052,
+              "curve": "constant"
+            },
+            {
+              "frame": 1,
+              "value": 875.777
+            },
+            {
+              "frame": 11,
+              "value": -581.2099300911855
+            }
+          ]
+        }
+      },
+      "pata_Cloud05": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -370.4285562310031
+            },
+            {
+              "frame": 1.9666666666666666,
+              "value": -575.651,
+              "curve": "constant"
+            },
+            {
+              "frame": 2,
+              "value": 568.725
+            },
+            {
+              "frame": 11,
+              "value": -370.4285562310031
+            }
+          ]
+        }
+      },
+      "pata_Cloud07": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 108.88583282674756
+            },
+            {
+              "frame": 6.966666666666667,
+              "value": -434.767,
+              "curve": "constant"
+            },
+            {
+              "frame": 7,
+              "value": 421.031
+            },
+            {
+              "frame": 11,
+              "value": 108.88583282674756
+            }
+          ]
+        }
+      },
+      "pata_Cloud06": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 248.56048632218818
+            },
+            {
+              "frame": 6.966666666666667,
+              "value": -624.78,
+              "curve": "constant"
+            },
+            {
+              "frame": 7,
+              "value": 750
+            },
+            {
+              "frame": 11,
+              "value": 248.56048632218818
+            }
+          ]
+        }
+      },
+      "pata_Cloud08": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -466.3033434650456
+            },
+            {
+              "frame": 0.9666666666666667,
+              "value": -564.691,
+              "curve": "constant"
+            },
+            {
+              "frame": 1,
+              "value": 551.5
+            },
+            {
+              "frame": 11,
+              "value": -466.3033434650456
+            }
+          ]
+        }
+      },
+      "pata_Cloud09": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -231.2241155015198
+            },
+            {
+              "frame": 1.9666666666666666,
+              "value": -466.295,
+              "curve": "constant"
+            },
+            {
+              "frame": 2,
+              "value": 844.524
+            },
+            {
+              "frame": 11,
+              "value": -231.2241155015198
+            }
+          ]
+        }
+      },
+      "pata_Cloud11": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 818.9588237082066
+            },
+            {
+              "frame": 8.966666666666667,
+              "value": -916.621,
+              "curve": "constant"
+            },
+            {
+              "frame": 9,
+              "value": 1206.077
+            },
+            {
+              "frame": 11,
+              "value": 818.9588237082066
+            }
+          ]
+        }
+      },
+      "pata_Cloud10": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -354.4364893617021
+            },
+            {
+              "frame": 3.966666666666667,
+              "value": -870.971,
+              "curve": "constant"
+            },
+            {
+              "frame": 4,
+              "value": 557.095
+            },
+            {
+              "frame": 11,
+              "value": -354.4364893617021
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

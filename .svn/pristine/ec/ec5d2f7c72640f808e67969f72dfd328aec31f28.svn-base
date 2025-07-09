@@ -1,0 +1,88 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import ListItemPropertyItem from "../common/ListItemPropertyItem";
+import UIList from "../../../framework/ui/UIList";
+import BattleFactory from "../../battleLogic/Utils/BattleFactory";
+import ListItemPropertyTips from "../common/ListItemPropertyTips";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowPropertyList")
+@ccclass
+export default class WindowPropertyList extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIList) content: UIList<ListItemPropertyTips> = null;
+
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        const info = BattleFactory.getPlayerBattleInfo(GState.data);
+        const p = info.property;
+        const getData = (k: string) => {
+            if (k.startsWith("_rs")) {
+                return { name: k, num: "0", key: k };
+            } else {
+                const v = GIndex.battle.propertyShowMethod(k)(p.getProperty(k));
+                const kName = GIndex.battle.propertyText(k);
+                return { name: kName, num: v, key: k };
+            }
+        };
+        const list = GTable.getList("BattlePropertyTbl");
+        const map = GUtils.array.groupToMap(list, (t) => t.tipWindow[0]);
+        map.forEach((l) => l.sort((a, b) => a.tipWindow[1] - b.tipWindow[1]));
+
+        let lab = [
+            {
+                name: GLang.code.ui.property_jcsx,
+                arr: map?.get(1)?.map((t) => {
+                    return getData(t.key);
+                }),
+            },
+            {
+                name: GLang.code.ui.property_zdsx,
+                arr: map?.get(2)?.map((t) => {
+                    return getData(t.key);
+                }),
+            },
+            // {
+            //     name: GLang.code.ui.property_zdkx,
+            //     arr: map.get(3)
+            //         ? map.get(3).map((t) => {
+            //               return getData(t.key);
+            //           })
+            //         : [],
+            // },
+            {
+                name: GLang.code.ui.property_tssx,
+                arr: map.get(4)
+                    ? map.get(4)?.map((t) => {
+                          return getData(t.key);
+                      })
+                    : [],
+            },
+            // {
+            //     name: GLang.code.ui.property_fytjcsx,
+            //     arr: map?.get(5)
+            //         ? map?.get(5).map((t) => {
+            //               return getData(t.key);
+            //           })
+            //         : [],
+            // },
+        ];
+        this.content.setState(
+            lab.map((d) => {
+                return { menuText: d.name, data: d.arr };
+            })
+        );
+    }
+}

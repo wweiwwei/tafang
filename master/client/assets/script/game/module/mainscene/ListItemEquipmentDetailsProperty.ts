@@ -1,0 +1,29 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemEquipmentDetailsProperty")
+@ccclass
+export default class ListItemEquipmentDetailsProperty extends UIListItem {
+    @autowired(UILabel) text1: UILabel = null;
+    @autowired(UILabel) text2: UILabel = null;
+    @autowired(UILabel) text3: UILabel = null;
+    /** */
+    @autowired(UIImage) arrow: UIImage = null;
+
+    state: {
+        text1: string;
+        text2: string;
+        // text3: string;
+        arrowAngle?: string;
+    };
+    setState(state: this["state"]): void {
+        this.text1.setText([state.text1]);
+        this.text2.setText([state.text2]);
+        this.text3.setText([]);
+        if (state.arrowAngle && state.arrowAngle.length > 0) {
+            this.arrow.node.angle = state?.arrowAngle == "up" ? 90 : -90;
+        } else this.arrow.node.active = false;
+    }
+}

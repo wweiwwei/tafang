@@ -1,0 +1,26 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import ListItemItem from "../../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemBuySkill")
+@ccclass
+export default class ListItemBuySkill extends UIListItem {
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UIButton) buyItem: UIButton = null;
+    @autowired(UILabel) cost: UILabel = null;
+    state: {
+        cb: Function;
+        cost: number;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.cost.setText(["_rs" + this.state.cost]);
+        this.buyItem.onClick = () => {
+            this.state.cb();
+        };
+    }
+}

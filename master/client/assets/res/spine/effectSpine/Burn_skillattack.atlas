@@ -1,0 +1,230 @@
+
+Burn_skillattack.png
+size: 189,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Fire_0000s_0000_A_01
+  rotate: false
+  xy: 144, 264
+  size: 43, 62
+  orig: 50, 79
+  offset: 3, 6
+  index: -1
+Fire_0000s_0001_B_01
+  rotate: false
+  xy: 145, 456
+  size: 42, 65
+  orig: 50, 79
+  offset: 4, 4
+  index: -1
+Fire_0000s_0002_A_02
+  rotate: false
+  xy: 141, 200
+  size: 42, 62
+  orig: 50, 79
+  offset: 5, 5
+  index: -1
+Fire_0000s_0003_B_02
+  rotate: false
+  xy: 2, 2
+  size: 42, 61
+  orig: 50, 79
+  offset: 5, 4
+  index: -1
+Fire_0000s_0004_A_03
+  rotate: false
+  xy: 138, 75
+  size: 42, 59
+  orig: 50, 79
+  offset: 5, 4
+  index: -1
+Fire_0000s_0005_B_03
+  rotate: false
+  xy: 147, 392
+  size: 40, 62
+  orig: 50, 79
+  offset: 6, 3
+  index: -1
+Fire_0000s_0006_A_04
+  rotate: false
+  xy: 147, 328
+  size: 40, 62
+  orig: 50, 79
+  offset: 6, 3
+  index: -1
+Fire_0000s_0007_B_04
+  rotate: false
+  xy: 46, 2
+  size: 41, 61
+  orig: 50, 79
+  offset: 5, 3
+  index: -1
+Fire_0000s_0008_A_05
+  rotate: false
+  xy: 94, 71
+  size: 42, 62
+  orig: 50, 79
+  offset: 4, 3
+  index: -1
+Fire_0000s_0009_B_05
+  rotate: false
+  xy: 48, 67
+  size: 44, 66
+  orig: 50, 79
+  offset: 3, 2
+  index: -1
+Fire_0000s_0010_A_06
+  rotate: false
+  xy: 89, 2
+  size: 42, 63
+  orig: 50, 79
+  offset: 4, 3
+  index: -1
+Fire_0000s_0011_B_06
+  rotate: false
+  xy: 135, 136
+  size: 40, 62
+  orig: 50, 79
+  offset: 5, 3
+  index: -1
+Fire_0000s_0012_A_07
+  rotate: false
+  xy: 91, 135
+  size: 42, 63
+  orig: 50, 79
+  offset: 5, 2
+  index: -1
+Fire_0000s_0013_B_07
+  rotate: false
+  xy: 49, 215
+  size: 44, 66
+  orig: 50, 79
+  offset: 4, 2
+  index: -1
+Fire_0000s_0014_A_08
+  rotate: false
+  xy: 95, 218
+  size: 44, 65
+  orig: 50, 79
+  offset: 3, 3
+  index: -1
+Fire_0000s_0015_B_08
+  rotate: false
+  xy: 50, 286
+  size: 44, 67
+  orig: 50, 79
+  offset: 1, 2
+  index: -1
+Fire_0000s_0016_A_09
+  rotate: false
+  xy: 97, 312
+  size: 45, 64
+  orig: 50, 79
+  offset: 1, 3
+  index: -1
+Fire_0000s_0017_B_09
+  rotate: false
+  xy: 2, 211
+  size: 45, 70
+  orig: 50, 79
+  offset: 2, 2
+  index: -1
+Fire_0000s_0018_A_10
+  rotate: false
+  xy: 2, 283
+  size: 46, 71
+  orig: 50, 79
+  offset: 2, 2
+  index: -1
+Fire_0000s_0019_B_10
+  rotate: false
+  xy: 2, 138
+  size: 44, 71
+  orig: 50, 79
+  offset: 4, 2
+  index: -1
+Fire_0000s_0020_A_11
+  rotate: false
+  xy: 2, 65
+  size: 44, 71
+  orig: 50, 79
+  offset: 4, 2
+  index: -1
+Fire_0000s_0021_B_11
+  rotate: false
+  xy: 97, 378
+  size: 48, 69
+  orig: 50, 79
+  offset: 1, 2
+  index: -1
+Fire_0000s_0022_A_12
+  rotate: false
+  xy: 2, 356
+  size: 48, 70
+  orig: 50, 79
+  offset: 1, 2
+  index: -1
+Fire_0000s_0023_B_12
+  rotate: false
+  xy: 97, 449
+  size: 46, 72
+  orig: 50, 79
+  offset: 1, 2
+  index: -1
+Fire_0000s_0024_A_13
+  rotate: false
+  xy: 52, 355
+  size: 43, 71
+  orig: 50, 79
+  offset: 3, 3
+  index: -1
+Fire_0000s_0025_B_13
+  rotate: false
+  xy: 48, 135
+  size: 41, 74
+  orig: 50, 79
+  offset: 4, 2
+  index: -1
+Fire_0000s_0026_A_14
+  rotate: false
+  xy: 133, 6
+  size: 31, 63
+  orig: 50, 79
+  offset: 12, 4
+  index: -1
+Fire_0000s_0027_B_14
+  rotate: true
+  xy: 96, 285
+  size: 25, 45
+  orig: 50, 79
+  offset: 14, 22
+  index: -1
+Fire_0000s_0028_A_15
+  rotate: false
+  xy: 166, 31
+  size: 21, 42
+  orig: 50, 79
+  offset: 14, 24
+  index: -1
+Fire_0000s_0029_B_15
+  rotate: false
+  xy: 166, 9
+  size: 21, 20
+  orig: 50, 79
+  offset: 14, 35
+  index: -1
+atom
+  rotate: false
+  xy: 2, 428
+  size: 93, 93
+  orig: 101, 101
+  offset: 4, 4
+  index: -1
+huohua
+  rotate: true
+  xy: 95, 205
+  size: 11, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: -1

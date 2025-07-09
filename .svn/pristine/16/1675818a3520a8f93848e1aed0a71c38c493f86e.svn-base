@@ -1,0 +1,124 @@
+import { BattleObjectInfo } from "../Object/BattleStage/BattleObjectInfo";
+import { BattlePlayerCommand } from "./BattleCommandHandler";
+import { BattleKind, BattleProcessor } from "./BattleProcessor";
+
+/** 战斗进程 */
+export class BattleProcessorBuilder {
+    /** 进攻方队伍 */
+    private attackTeam: BattleObjectInfo[] = [];
+    /** 防守方队伍 */
+    private defendTeam: BattleObjectInfo[] = [];
+    /** 关卡配置 */
+    private waveId: number;
+    /** 随机种子 */
+    private seed: number;
+    /** 战斗模式 */
+    private mode: "pve" | "pvp";
+    /** 战斗指令获取器 */
+    private commandGetter: (frame: number) => BattlePlayerCommand[];
+    /** 环境参数 */
+    private env: any[] = [];
+    /** 地图名 */
+    private mapName: string;
+    /** 战斗时长限制 */
+    private tickLimit: number;
+    /** 战斗类型 */
+    private battleKind: BattleKind = "normal";
+    /** 是否自动 */
+    private auto: boolean = true;
+    /** 是否需要引导战斗 */
+    private needGuideBattle: boolean = false;
+
+    constructor() {
+        this.seed = Date.now() % 1000000;
+    }
+
+    /** 进攻方队伍，必须设置 */
+    setAttackTeam(value: BattleObjectInfo[]) {
+        this.attackTeam = value;
+        return this;
+    }
+    // /** 防守方队伍，pvp模式下必须设置 */
+    // setDefendTeam(value: BattleObjectInfo[]) {
+    //     this.defendTeam = value;
+    //     return this;
+    // }
+    // /** 怪物波数ID，pve必须设置 */
+    // setWaveId(value: number) {
+    //     this.waveId = value;
+    //     return this;
+    // }
+    /** 随机种子，可选，但pvp如果服务器提供了种子必须设置 */
+    setSeed(value: number) {
+        this.seed = value;
+        return this;
+    }
+    // setMode(value: "pve" | "pvp") {
+    //     this.mode = value;
+    //     return this;
+    // }
+    /** 指令获取函数 */
+    setCommandGetter(value: (frame: number) => BattlePlayerCommand[]) {
+        this.commandGetter = value;
+        return this;
+    }
+    /** 一般pve需要设置，环境 */
+    setEnv(value: any[]) {
+        this.env = value;
+        return this;
+    }
+    /** 设置地图名 */
+    setMapName(value: string) {
+        this.mapName = value;
+        return this;
+    }
+    /** 设置战斗时限 */
+    setTickLimit(value: number) {
+        this.tickLimit = value;
+        return this;
+    }
+    /** 可选，设置战斗类型，默认为normal */
+    setBattleKind(value: BattleKind) {
+        this.battleKind = value;
+        return this;
+    }
+    /** 可选，设置主角是否自动攻击 */
+    setAuto(value: boolean) {
+        this.auto = value;
+        return this;
+    }
+    /** pvp模式 */
+    pvp(defendTeam: BattleObjectInfo[]) {
+        this.mode = "pvp";
+        this.defendTeam = defendTeam;
+        return this;
+    }
+    /** pve模式 */
+    pve(waveId: number) {
+        this.mode = "pve";
+        this.waveId = waveId;
+        return this;
+    }
+    /** 是否需要引导战斗 */
+    setNeedGuideBattle(value: boolean) {
+        this.needGuideBattle = value;
+        return this;
+    }
+    /** 构建战斗处理实例 */
+    build() {
+        return new BattleProcessor(
+            this.attackTeam,
+            this.defendTeam,
+            this.waveId,
+            this.seed,
+            this.mode,
+            this.commandGetter,
+            this.env,
+            this.mapName,
+            this.tickLimit,
+            this.battleKind,
+            this.auto,
+            this.needGuideBattle
+        );
+    }
+}

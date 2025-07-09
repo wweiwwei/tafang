@@ -1,0 +1,28 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemDiamondItem from "../common/ListItemDiamondItem";
+import WindowCommonConfirm from "../common/WindowCommonConfirm";
+import ListItemBoxItem from "./ListItemBoxItem";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowDiamondShop")
+@ccclass
+export default class WindowDiamondShop extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIList) itemList: UIList<ListItemBoxItem> = null;
+
+    protected onInited(): void {
+        // GModel.sprite.call()
+        this.itemList.setState([]);
+    }
+}

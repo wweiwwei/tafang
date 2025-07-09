@@ -1,0 +1,48 @@
+{
+    "clientAssetPath": "..\\client\\assets\\",
+    "clientWechatConfigPath": "../client/settings/wechatgame.json",
+    "clientWechatBuildRemotePath": "../client/build/wechatgame/remote",
+    "clientAndroidBuildPath": "../client/build/jsb-link",
+    "clientTablesDebugOutPath": ".\\tables\\",
+    "clientTablesReleaseOutPath": "..\\client\\assets\\res\\base\\",
+    "tsCodeOutPath": ["..\\client\\type\\", ".\\tables\\check\\"],
+    "assetIndexReleaseOutPath": "..\\client\\assets\\res\\base\\",
+    "clientTablePath": "..\\table\\client\\",
+    "client2TablePath": "..\\table\\client2\\",
+    "serverTablePath": "..\\table\\server\\",
+    "battleSkillConfigPath": "..\\table\\battleSkill\\",
+    "kotlinCodeOutPath": "../tower_server_http/src/main/kotlin/com/handsome/game/table/",
+    "scalaCodeOutPath": "../tower_server_game/src/main/scala/com/handsome/game/table/",
+    "cSharpServerCodeOutPath": "../server_main/server_game_module/src/Table/",
+    "targetPath": "./target/",
+    "httpServerTable": ["ServerLang", "Charge", "ServerEmailTemplate", "ServerAnnouncement"],
+    "langOutPath": [".\\tables\\", "..\\client\\assets\\res\\base\\"],
+    "assetIndexOutPath": [".\\tables\\", "..\\client\\assets\\res\\base\\"],
+    "serverList": [
+        {
+            "Label": "本地服",
+            "Url": "http://192.168.31.129:9501/",
+            "ServerIndex": 0,
+            "CdnUrl": "https://cdn.handsome.fun/",
+            "WechatOssUrl": "rt/wechat",
+            "AndroidOssUrl": "rt/native",
+            "OssTableUrl": "rt/table",
+            "OssType": "aliyun",
+            "ServerCode": "local"
+        },
+        {
+            "Label": "测试服",
+            "Url": "https://rttest.handsome.fun/",
+            "ServerIndex": 1,
+            "CdnUrl": "https://cdn.handsome.fun/",
+            "WechatOssUrl": "rt/wechat",
+            "AndroidOssUrl": "rt/native",
+            "OssTableUrl": "rt/table",
+            "OssType": "aliyun",
+            "ServerCode": "test"
+        }
+    ],
+    "localTableServer": "http://127.0.0.1:16691",
+    "airTableUrl": "https://api.airtable.com/v0/appLBCRMjfyEHoY68/rt?view=base",
+    "airTableToken": "patWDTxbXmrTmUQYy.93f2e77228b7116266cb3da074c51c4d96d511accccdf1b9a38db262c867f2ee"
+}

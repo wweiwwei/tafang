@@ -1,0 +1,1001 @@
+import { EnumHeroProperty } from "../../config/GEnum";
+import Hero from "../../entity/Hero";
+import { Sprite } from "../../entity/Sprite";
+import { NetWorkDataCache } from "../../server/NetWorkDataCache";
+import { BattleObjectInfo } from "../Object/BattleStage/BattleObjectInfo";
+import { BattleProperty } from "../Object/BattleStage/BattleProperty";
+import { BattleBattleStageData } from "../Processor/BattleBattleStageData";
+
+export default class BattleFactory {
+    static getTowerBattleObjectInfo(
+        playerState: NetWorkDataCache,
+        playerInfo: BattleObjectInfo,
+        index: number
+    ): BattleObjectInfo {
+        const part = playerState.towerFormation[index];
+        if (part < 0) return null;
+        const towerId = GTable.getList("DefendTowerTbl").find((t) => t.part === part).id;
+        if (towerId <= 0) return null;
+        const petInfo = new BattleObjectInfo();
+        petInfo.id = towerId;
+        petInfo.objectType = GConstant.battle.battleObjectType.pet;
+        const tbl = GTable.getById("DefendTowerTbl", towerId);
+        petInfo.normalAttack = { id: tbl.normalAttack, level: 1 };
+        petInfo.mainSkill = [{ id: tbl.battleSkill[0], level: 1 }];
+        petInfo.heroIndex = index;
+        const p = new BattleProperty(null);
+        petInfo.property = p;
+
+        this.initTowerProperty(p, playerInfo, towerId);
+        // todo 处理为无全局变量
+        const talentData = GModel.defendTower.getTowerTalentData(tbl.part);
+        const talents = talentData
+            .filter((t) => t.state === "hasActive" || t.state === "canUpgrade")
+            .map((t) => t.talentId);
+        petInfo.talent = talents;
+        if (CC_PREVIEW) {
+            GTest.testTalent.forEach((t) => petInfo.talent.push(t));
+        }
+        return petInfo;
+    }
+    /** pvp用的白板防御塔 */
+    static getTowerBattleObjectInfoById(
+        playerState: NetWorkDataCache,
+        playerInfo: BattleObjectInfo,
+        equipmentId: number
+    ) {
+        const part = GTable.getById("EquipmentTbl", equipmentId).part;
+        if (part < 0) return null;
+        const towerId = GTable.getList("DefendTowerTbl").find((t) => t.part === part).id;
+        if (towerId <= 0) return null;
+        const petInfo = new BattleObjectInfo();
+        petInfo.id = towerId;
+        petInfo.objectType = GConstant.battle.battleObjectType.pet;
+        const tbl = GTable.getById("DefendTowerTbl", towerId);
+        petInfo.normalAttack = { id: tbl.normalAttack, level: 1 };
+        petInfo.mainSkill = [{ id: tbl.battleSkill[0], level: 1 }];
+        petInfo.heroIndex = 0;
+        const p = new BattleProperty(null);
+        petInfo.property = p;
+        this.initTowerProperty(p, playerInfo, towerId);
+        petInfo.talent = [];
+        return petInfo;
+    }
+
+    static initTowerProperty(p: BattleProperty, playerInfo: BattleObjectInfo, towerId: number) {
+        const tbl = GTable.getById("DefendTowerTbl", towerId);
+        p.star = 0;
+        p.rank = 0;
+        p.quality = 1;
+        p.level = 1;
+        p.attack = this.getTowerProperty("attack", towerId, playerInfo);
+        p.armor = this.getTowerProperty("armor", towerId, playerInfo);
+        p.maxHp = this.getTowerProperty("maxHp", towerId, playerInfo);
+        p.maxEnergy = 100;
+        p.initialEnergy = 0;
+        p.killEnergy = 0;
+        p.energyRecover = 0;
+        p.hitEnergyRecover = 0;
+        p.hit = this.getTowerProperty("hit", towerId, playerInfo);
+        p.dodge = this.getTowerProperty("dodge", towerId, playerInfo);
+        p.critical = this.getTowerProperty("critical", towerId, playerInfo);
+        p.criticalImmune = this.getTowerProperty("criticalImmune", towerId, playerInfo);
+        p.criticalDamage = this.getTowerProperty("criticalDamage", towerId, playerInfo);
+        p.criticalResistant = this.getTowerProperty("criticalResistant", towerId, playerInfo);
+        p.damage = this.getTowerProperty("damage", towerId, playerInfo);
+        p.defence = this.getTowerProperty("defence", towerId, playerInfo);
+        p.healFactor = this.getTowerProperty("healFactor", towerId, playerInfo);
+        p.recoverFactor = this.getTowerProperty("recoverFactor", towerId, playerInfo);
+        p.specialDamage = {
+            // @ts-ignore
+            normalAttack: this.getTowerProperty("specialDamage.normalAttack", towerId, playerInfo),
+            // @ts-ignore
+            skill: this.getTowerProperty("specialDamage.skill", towerId, playerInfo),
+        };
+        p.specialDefence = {};
+        p.specialDamageByHeroTag = {
+            // @ts-ignore
+            normal: this.getTowerProperty("specialDamageByHeroTag.normal", towerId, playerInfo),
+            // @ts-ignore
+            elite: this.getTowerProperty("specialDamageByHeroTag.elite", towerId, playerInfo),
+            // @ts-ignore
+            boss: this.getTowerProperty("specialDamageByHeroTag.boss", towerId, playerInfo),
+        };
+        p.block = this.getTowerProperty("block", towerId, playerInfo);
+        p.penetrate = this.getTowerProperty("penetrate", towerId, playerInfo);
+        p.blockDefence = this.getTowerProperty("blockDefence", towerId, playerInfo);
+        p.penetrateDamage = this.getTowerProperty("penetrateDamage", towerId, playerInfo);
+        p.fixDamage = this.getTowerProperty("fixDamage", towerId, playerInfo);
+        p.fixDefense = this.getTowerProperty("fixDefense", towerId, playerInfo);
+        p.ignoreDodge = this.getTowerProperty("ignoreDodge", towerId, playerInfo);
+        p.moveSpeed = 0;
+        p.normalAttackSpeed = this.getTowerProperty("normalAttackSpeed", towerId, playerInfo);
+        p.normalAttackRange = this.getTowerProperty("normalAttackRange", towerId, playerInfo);
+        p.normalAttackInterval = this.getTowerProperty("normalAttackInterval", towerId, playerInfo);
+        p.revive = 0;
+        p.combo = this.getTowerProperty("combo", towerId, playerInfo);
+        p.antiCombo = this.getTowerProperty("antiCombo", towerId, playerInfo);
+        p.stun = this.getTowerProperty("stun", towerId, playerInfo);
+        p.antiStun = this.getTowerProperty("antiStun", towerId, playerInfo);
+        p.lifeSteal = this.getTowerProperty("lifeSteal", towerId, playerInfo);
+        p.antiLifeSteal = this.getTowerProperty("antiLifeSteal", towerId, playerInfo);
+        p.lifeRecover = this.getTowerProperty("lifeRecover", towerId, playerInfo);
+        p.antiLifeRecover = this.getTowerProperty("antiLifeRecover", towerId, playerInfo);
+        p.skillColdDown = this.getTowerProperty("skillColdDown", towerId, playerInfo);
+        p.skillRange = 700;
+    }
+
+    static getPlayerBattleInfo(playerState: NetWorkDataCache): BattleObjectInfo {
+        const info = new BattleObjectInfo();
+        // 职业id
+        const jobTbl = GTable.getById("JobChangeTbl", playerState.careerData.currentCareer);
+        info.id = jobTbl.id;
+        info.objectType = GConstant.battle.battleObjectType.hero;
+        // info.independentSkill = playerState.skillFormation[playerState.currentSkillFormation]
+        //     .filter((id) => id > 0)
+        //     .map((relateSkillId) => {
+        //         const id = GTable.getById("PlayerSkillTbl", relateSkillId).battleSkill[0];
+        //         return {
+        //             id,
+        //             relateSkillId,
+        //             level: playerState.playerSkill[relateSkillId].level,
+        //         };
+        //     });
+        const jobNormalAttack = GTable.getList("JobChangeTbl").find(
+            (t) => t.branch === jobTbl.branch && t.normalAttack > 0
+        ).normalAttack;
+        const jobMainSkill = GTable.getList("JobChangeTbl").find(
+            (t) => t.branch === jobTbl.branch && t.mainSkill > 0
+        ).mainSkill;
+        // const jobPassiveSkill = GTable.getList("JobChangeTbl")
+        //     .filter((t) => t.branch === jobTbl.branch && t.rank <= jobTbl.rank && t.skill > 0)
+        //     .map((t) => t.skill);
+        info.normalAttack = {
+            relateSkillId: jobNormalAttack,
+            id: GTable.getById("JobSkillTbl", jobNormalAttack).battleSkill[0],
+            level: 1,
+        };
+        info.mainSkill = [
+            {
+                relateSkillId: jobMainSkill,
+                id: GTable.getById("JobSkillTbl", jobMainSkill).battleSkill[0],
+                level: 1,
+            },
+        ];
+        // info.otherSkill = GUtils.array
+        //     .chain(jobPassiveSkill)
+        //     .flatMap((id) => {
+        //         const tbl = GTable.getById("JobSkillTbl", id);
+        //         return tbl.battleSkill.map((id) => ({ id, level: 1 }));
+        //     })
+        //     .unwrap();
+        info.heroIndex = -1;
+        const p = new BattleProperty(null);
+        this.initPlayerProperty(p, playerState);
+        info.property = p;
+        return info;
+    }
+
+    static initPlayerProperty(p: BattleProperty, playerState: NetWorkDataCache) {
+        // 职业id
+        const jobTbl = GTable.getById("JobChangeTbl", playerState.careerData.currentCareer);
+        p.star = 0;
+        p.rank = playerState.rank;
+        p.quality = 0;
+        p.level = playerState.level;
+        p.attack = this.getPlayerProperty(playerState, "attack");
+        p.armor = this.getPlayerProperty(playerState, "armor");
+        p.maxHp = this.getPlayerProperty(playerState, "maxHp");
+        p.maxEnergy = 100;
+        p.initialEnergy = 0;
+        p.killEnergy = 0;
+        p.energyRecover = 0;
+        p.hitEnergyRecover = 0;
+        p.hit = this.getPlayerProperty(playerState, "hit");
+        p.dodge = this.getPlayerProperty(playerState, "dodge");
+        p.critical = this.getPlayerProperty(playerState, "critical");
+        p.criticalImmune = this.getPlayerProperty(playerState, "criticalImmune");
+        p.criticalDamage = this.getPlayerProperty(playerState, "criticalDamage");
+        p.criticalResistant = this.getPlayerProperty(playerState, "criticalResistant");
+        p.damage = this.getPlayerProperty(playerState, "damage");
+        p.defence = this.getPlayerProperty(playerState, "defence");
+        p.healFactor = this.getPlayerProperty(playerState, "healFactor");
+        p.recoverFactor = this.getPlayerProperty(playerState, "recoverFactor");
+        p.specialDamage = {
+            // @ts-ignore
+            normalAttack: this.getPlayerProperty(playerState, "specialDamage.normalAttack"),
+            // @ts-ignore
+            skill: this.getPlayerProperty(playerState, "specialDamage.skill"),
+        };
+        p.specialDefence = {};
+        p.specialDamageByHeroTag = {
+            // @ts-ignore
+            normal: this.getPlayerProperty(playerState, "specialDamageByHeroTag.normal"),
+            // @ts-ignore
+            elite: this.getPlayerProperty(playerState, "specialDamageByHeroTag.elite"),
+            // @ts-ignore
+            boss: this.getPlayerProperty(playerState, "specialDamageByHeroTag.boss"),
+        };
+        p.specialDefenceByHeroTag = {};
+        p.block = 0;
+        p.penetrate = 0;
+        p.blockDefence = 0;
+        p.penetrateDamage = 0;
+        p.fixDamage = 0;
+        p.fixDefense = 0;
+        p.ignoreDodge = 0;
+        p.moveSpeed = 0;
+        p.normalAttackSpeed = this.getPlayerProperty(playerState, "normalAttackSpeed");
+        p.normalAttackRange = this.getPlayerProperty(playerState, "normalAttackRange");
+        p.normalAttackInterval = this.getPlayerProperty(playerState, "normalAttackInterval");
+        p.revive = 0;
+        p.combo = this.getPlayerProperty(playerState, "combo");
+        p.antiCombo = this.getPlayerProperty(playerState, "antiCombo");
+        p.stun = this.getPlayerProperty(playerState, "stun");
+        p.antiStun = this.getPlayerProperty(playerState, "antiStun");
+        p.lifeSteal = this.getPlayerProperty(playerState, "lifeSteal");
+        p.antiLifeSteal = this.getPlayerProperty(playerState, "antiLifeSteal");
+        p.lifeRecover = this.getPlayerProperty(playerState, "lifeRecover");
+        p.antiLifeRecover = this.getPlayerProperty(playerState, "antiLifeRecover");
+        p.skillColdDown = this.getPlayerProperty(playerState, "skillColdDown");
+        p.towerNormalAttackDamage = this.getPlayerProperty(playerState, "towerNormalAttackDamage");
+        p.towerNormalAttackSpeed = this.getPlayerProperty(playerState, "towerNormalAttackSpeed");
+        p.towerSkillColdDownReduce = this.getPlayerProperty(playerState, "towerSkillColdDownReduce");
+        p.towerNormalAttackRange = this.getPlayerProperty(playerState, "towerNormalAttackRange");
+        p.towerLifeSteal = this.getPlayerProperty(playerState, "towerLifeSteal");
+        p.towerSucceed = this.getPlayerProperty(playerState, "towerSucceed");
+        p.skillRange = 700;
+    }
+    /** 计算战斗力 */
+    static getBattlePoint(info: BattleObjectInfo) {
+        let res = 0;
+        GIndex.battle.keyList.forEach((k) => {
+            let v: number;
+            if (k.startsWith("sp")) {
+                const [k1, k2] = k.split(".");
+                v = info.property[k1][k2];
+            } else {
+                v = info.property[k];
+            }
+            res += (v || 0 - GIndex.battle.battleDefault(k)) * GIndex.battle.battlePoint(k);
+        });
+        return Math.round(res);
+    }
+
+    static getRabbitSheepTeam(playerState: NetWorkDataCache): BattleObjectInfo[] {
+        const playerInfo = this.getPlayerBattleInfo(playerState);
+        const towerTeam = playerState.playerEquipment
+            .filter((uid) => uid >= 0)
+            .map((uid) => {
+                const e = playerState.playerEquipmentStorage[uid];
+                return this.getTowerBattleObjectInfoById(playerState, playerInfo, e.id);
+            });
+        towerTeam.push(playerInfo);
+        return towerTeam;
+    }
+
+    /** 获取pve阵容 */
+    static getPlayerPveTeam(playerState: NetWorkDataCache): BattleObjectInfo[] {
+        const infos = this.getPlayerPvpTeam(playerState);
+        return infos;
+    }
+    /** 获取pvp阵容 */
+    static getPlayerPvpTeam(playerState: NetWorkDataCache): BattleObjectInfo[] {
+        const playerInfo = this.getPlayerBattleInfo(playerState);
+        const petTeam = playerState.towerFormation
+            .map((id, index) => {
+                return this.getTowerBattleObjectInfo(playerState, playerInfo, index);
+            })
+            .filter((x) => x);
+        petTeam.push(playerInfo);
+        return petTeam;
+    }
+
+    static heroGetSkillLevel(hero: Hero) {
+        const tbl = GTable.getList("HeroStarTbl").find((t) => t.level === hero.star);
+        return tbl.skillLevel;
+    }
+
+    static heroGetMainSkillTbl(hero: Hero) {
+        return GTable.getById("HeroSkillTbl", GTable.getById("HeroTbl", hero.id).mainSkill);
+    }
+
+    static heroGetNormalAttackTbl(hero: Hero) {
+        return GTable.getById("HeroSkillTbl", GTable.getById("HeroTbl", hero.id).normalAttack);
+    }
+
+    static heroGetOtherBattleSkill(hero: Hero) {
+        const res: number[] = [];
+        const tbl = GTable.getById("HeroTbl", hero.id);
+        const spTbl = GTable.getList("HeroRankSpecialTbl").filter((t) => t.heroId === hero.id && t.rank <= hero.rank);
+        const kindTbl = GTable.getList("HeroRankBuffTbl").filter((t) => t.kind === tbl.kind && t.rank <= hero.rank);
+        const excludeRank = spTbl.map((t) => t.rank);
+        kindTbl.forEach((t) => {
+            if (!excludeRank.includes(t.rank)) {
+                t.battleSkill.forEach((s) => {
+                    res.push(s);
+                });
+            }
+        });
+        spTbl.forEach((t) => {
+            t.battleSkill.forEach((s) => {
+                res.push(s);
+            });
+        });
+        return res;
+    }
+
+    static initMonster(data: BattleBattleStageData, id: number, env: any[]) {
+        const res = new BattleObjectInfo();
+        const tbl = GTable.getById("MonsterTbl", id);
+        res.id = id;
+        res.objectType = GConstant.battle.battleObjectType.monster;
+        res.mainSkill = tbl.mainSkill.map((id) => {
+            return {
+                id,
+                level: 1,
+            };
+        });
+        res.normalAttack = { id: tbl.normalAttack, level: 1 };
+
+        res.otherSkill = tbl.skill.map((id) => {
+            return { id, level: 1 };
+        });
+        res.heroIndex = -1;
+        const p = new BattleProperty(null);
+        this.initMonsterProperty(data, p, id, 0, env);
+        res.property = p;
+        return res;
+    }
+
+    private static initMonsterProperty(
+        data: BattleBattleStageData,
+        p: BattleProperty,
+        id: number,
+        monsterIndex: number,
+        env: any[]
+    ) {
+        const tbl = GTable.getById("MonsterTbl", id);
+        p.star = 0;
+        p.rank = 0;
+        p.quality = tbl.quality;
+        p.level = 1;
+        p.attack = AstUtil.eval(tbl.attack, env);
+        p.armor = AstUtil.eval(tbl.armor, env);
+        p.maxHp = AstUtil.eval(tbl.maxHp, env);
+        p.maxEnergy = GIndex.battle.battleDefault("maxEnergy");
+        p.initialEnergy = GIndex.battle.battleDefault("initialEnergy");
+        p.killEnergy = GIndex.battle.battleDefault("killEnergy");
+        p.energyRecover = GIndex.battle.battleDefault("energyRecover");
+        p.hitEnergyRecover = GIndex.battle.battleDefault("hitEnergyRecover");
+        p.hit = AstUtil.eval(tbl.hit, env);
+        p.dodge = AstUtil.eval(tbl.dodge, env);
+        p.critical = AstUtil.eval(tbl.critical, env);
+        p.criticalImmune = AstUtil.eval(tbl.criticalImmune, env);
+        p.criticalDamage = AstUtil.eval(tbl.criticalDamage, env);
+        p.criticalResistant = AstUtil.eval(tbl.criticalResistant, env);
+        p.damage = AstUtil.eval(tbl.damage, env);
+        p.defence = AstUtil.eval(tbl.defence, env);
+        p.healFactor = GIndex.battle.battleDefault("healFactor");
+        p.recoverFactor = GIndex.battle.battleDefault("recoverFactor");
+        p.specialDamage = {};
+        p.specialDefence = {};
+        p.specialDamageByHeroTag = {};
+        p.specialDefenceByHeroTag = {};
+        p.block = GIndex.battle.battleDefault("block");
+        p.penetrate = GIndex.battle.battleDefault("penetrate");
+        p.blockDefence = GIndex.battle.battleDefault("blockDefence");
+        p.penetrateDamage = GIndex.battle.battleDefault("penetrateDamage");
+        p.fixDamage = 0;
+        p.fixDefense = 0;
+        p.ignoreDodge = 0;
+        p.moveSpeed = tbl.moveSpeed;
+        p.normalAttackSpeed = 10000;
+        p.skillRange = tbl.skillRange;
+        p.normalAttackRange = tbl.normalAttackRange;
+        p.normalAttackInterval = tbl.normalAttackInterval;
+        p.revive = 0;
+        p.combo = AstUtil.eval(tbl.combo, env);
+        p.antiCombo = AstUtil.eval(tbl.antiCombo, env);
+        p.stun = AstUtil.eval(tbl.stun, env);
+        p.antiStun = AstUtil.eval(tbl.antiStun, env);
+        p.lifeSteal = AstUtil.eval(tbl.lifeSteal, env);
+        p.antiLifeSteal = AstUtil.eval(tbl.antiLifeSteal, env);
+        p.lifeRecover = AstUtil.eval(tbl.lifeRecover, env);
+        p.antiLifeRecover = 0;
+    }
+
+    /** 获取玩家的某个属性 */
+    static getPlayerProperty(playerState: NetWorkDataCache, key: EnumHeroProperty): number {
+        const env = this.getPlayerEnv(playerState, key);
+        let res = AstUtil.eval(GConfig.battle.playerPropertyFormula, [env]);
+        res = Math.round(res);
+        if (GTest.hDebug) {
+            GLog.info(
+                `玩家属性计算:\n属性类型:${key}\n计算公式${GConfig.battle.playerPropertyFormula}\n计算结果:${res}\n各项buff详情：`,
+                env,
+                `\n公式代入:${Object.keys(env).reduce((p, c) => {
+                    return p.replace(new RegExp(c, "g"), env[c]);
+                }, GConfig.battle.playerPropertyFormula)}`
+            );
+        }
+        return res;
+    }
+    /** 获取玩家的某个属性 */
+    static getTowerProperty(key: EnumHeroProperty, towerId: number, playerInfo: BattleObjectInfo): number {
+        const env = this.getTowerEnv(key, towerId, playerInfo);
+        let res = AstUtil.eval(GConfig.battle.towerPropertyFormula, [env]);
+        res = Math.round(res);
+        if (GTest.hDebug) {
+            GLog.info(
+                `防御塔id：${towerId},防御塔属性计算:\n属性类型:${key}\n计算公式${GConfig.battle.towerPropertyFormula}\n计算结果:${res}\n各项buff详情：`,
+                env,
+                `\n公式代入:${Object.keys(env).reduce((p, c) => {
+                    return p.replace(new RegExp(c, "g"), env[c]);
+                }, GConfig.battle.towerPropertyFormula)}`
+            );
+        }
+        return res;
+    }
+
+    static getPlayerLevelProperty(key: EnumHeroProperty) {
+        const list = GModel.player.getLevelProperty();
+        const prop = list.find((p) => p.property === key);
+        if (prop) return prop.value * 0.01;
+        else return 0;
+    }
+
+    static getPlayerRankProperty(key: EnumHeroProperty) {
+        const list = GModel.player.getRankProperty();
+        const prop = list.find((p) => p.property === key);
+        if (prop) return prop.value * 0.01;
+        else return 0;
+    }
+
+    static getPlayerEquipmentPropertyMap(part: number): {
+        addMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const e = GModel.playerEquipment.equipment()[part];
+        if (!e) return null;
+        e.baseProperty.forEach((p) => {
+            addMap[p.property] = (addMap[p.property] || 0) + p.value;
+        });
+        return { addMap };
+    }
+
+    static getPlayerJobTalentPropertMap(playerState: NetWorkDataCache): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        GTable.getList("JobTalentTbl").forEach((t) => {
+            const env = [{ lv: playerState.careerTalent[t.id].level }];
+            t.property.forEach((p) => {
+                if (p[1].endsWith("%")) {
+                    mulMap[p[0]] = (mulMap[p[0]] || 0) + AstUtil.eval(p[1].replace("%", ""), env);
+                } else {
+                    addMap[p[0]] = (addMap[p[0]] || 0) + Number(AstUtil.eval(p[1], env));
+                }
+            });
+        });
+        return { addMap, mulMap };
+    }
+
+    private static getPlayerBase(playerState: NetWorkDataCache, key: string) {
+        const tbl = GTable.getById("JobChangeTbl", playerState.careerData.currentCareer);
+        switch (key) {
+            case "attack":
+            case "armor":
+            case "maxHp": {
+                const f = tbl[key];
+                const env = [{ lv: playerState.level }];
+                return AstUtil.eval(f, env);
+            }
+            case "maxEnergy":
+            case "initialEnergy":
+            case "killEnergy":
+            case "energyRecover":
+            case "hitEnergyRecover":
+            case "hit":
+            case "dodge":
+            case "critical":
+            case "criticalImmune":
+            case "criticalDamage":
+            case "criticalResistant":
+            case "damage":
+            case "defence":
+            case "block":
+            case "penetrate":
+            case "blockDefence":
+            case "penetrateDamage":
+            case "fixDamage":
+            case "fixDefense":
+            case "ignoreDodge":
+            case "revive":
+            case "combo":
+            case "antiCombo":
+            case "stun":
+            case "antiStun":
+            case "lifeSteal":
+            case "antiLifeSteal":
+            case "lifeRecover":
+            case "antiLifeRecover":
+            case "towerNormalAttackDamage":
+            case "towerNormalAttackSpeed":
+            case "towerSkillColdDownReduce":
+            case "towerSucceed":
+            case "towerNormalAttackRange":
+            case "towerLifeSteal":
+            case "healFactor":
+            case "recoverFactor":
+            case "skillColdDown":
+            case "normalAttackSpeed":
+                return GIndex.battle.battleDefault(key);
+            case "moveSpeed":
+                return 0;
+            case "normalAttackRange":
+                return tbl.normalAttackRange;
+            case "normalAttackInterval":
+                return tbl.normalAttackInterval;
+            case "skillRange":
+                // todo
+                return 1000;
+
+            default:
+                if (key.startsWith("sp")) {
+                    return 0;
+                }
+                throw new Error("illegal property key " + key);
+        }
+    }
+
+    private static getPlayerEnv(playerState: NetWorkDataCache, key: EnumHeroProperty): any {
+        const jobTalent = this.getPlayerJobTalentPropertMap(playerState);
+        let TowerAdd = 0;
+        let SpriteAdd = 0;
+        GTable.getList("DefendTowerTbl").forEach((t) => {
+            const env = this.getTowerBaseEnv(key, t.id);
+            const v = AstUtil.eval(GConfig.battle.towerBaseFormula, [env]);
+            TowerAdd += v;
+            if (GTest.hDebug && v > 0) {
+                GLog.info(
+                    `防御塔${t.id}属性计算:\n属性类型:${key}\n计算公式${GConfig.battle.towerBaseFormula}\n计算结果:${v}\n各项buff详情：`,
+                    env,
+                    `\n公式代入:${Object.keys(env).reduce((p, c) => {
+                        return p.replace(new RegExp(c, "g"), env[c]);
+                    }, GConfig.battle.towerBaseFormula)}`
+                );
+            }
+        });
+
+        GModel.sprite
+            .getSprites()
+            .filter((s) => s.level > 0)
+            .forEach((s) => {
+                const env = this.getMountBaseEnv(key, s);
+                const v = AstUtil.eval(GConfig.battle.mountFormula, [env]);
+                SpriteAdd += v;
+                if (GTest.hDebug && v > 0) {
+                    GLog.info(
+                        `精灵${s.id}属性计算:\n属性类型:${key}\n计算公式${GConfig.battle.mountFormula}\n计算结果:${v}\n各项buff详情：`,
+                        env,
+                        `\n公式代入:${Object.keys(env).reduce((p, c) => {
+                            return p.replace(new RegExp(c, "g"), env[c]);
+                        }, GConfig.battle.mountFormula)}`
+                    );
+                }
+            });
+        const env = this.getFossilBaseEnv(key, playerState);
+        const FossilAdd = AstUtil.eval(GConfig.battle.fossilFormula, [env]);
+        const env2 = this.getTechBaseEnv(key);
+        const TechAdd = AstUtil.eval(GConfig.battle.technologyBaseFormula, [env2]);
+        return {
+            base: Math.round(this.getPlayerBase(playerState, key)),
+
+            TowerAdd: Math.round(TowerAdd),
+            TechAdd: Math.round(TechAdd) || 0,
+            SpriteAdd: Math.round(SpriteAdd),
+            FossilAdd: Math.round(FossilAdd) || 0,
+
+            // levelMul: this.getPlayerLevelProperty(key),
+            // rankMul: this.getPlayerRankProperty(key),
+
+            // equipmentMul: equipment.mulMap[key] * 0.01 || 0,
+            // equipmentAdd: Math.round(equipment.addMap[key]) || 0,
+
+            jobTalentMul: jobTalent.mulMap[key] * 0.01 || 0,
+            jobTalentAdd: Math.round(jobTalent.addMap[key]) || 0,
+        };
+    }
+
+    private static getTowerBaseEnv(key: EnumHeroProperty, towerId: number): any {
+        const part = GTable.getById("DefendTowerTbl", towerId).part;
+        const towerWash = this.getTowerWashMap(part);
+        const towerStrength = this.getTowerStrengthMap(part);
+        const equipment = this.getPlayerEquipmentPropertyMap(part);
+        return {
+            base: (equipment ? equipment.addMap[key] : 0) || 0,
+
+            towerWashMul: towerWash.mulMap[key] * 0.01 || 0,
+            towerWashAdd: towerWash.addMap[key] || 0,
+
+            towerLevelMul: towerStrength.mulMap[key] * 0.01 || 0,
+            towerLevelAdd: towerStrength.addMap[key] || 0,
+        };
+    }
+
+    private static getTowerBase(key: string, towerId: number, playerInfo: BattleObjectInfo) {
+        const tbl = GTable.getById("DefendTowerTbl", towerId);
+        switch (key) {
+            case "attack":
+                return playerInfo.property.attack;
+            case "armor":
+                return playerInfo.property.armor;
+            case "maxHp":
+                return playerInfo.property.maxHp;
+            case "maxEnergy":
+            case "initialEnergy":
+            case "killEnergy":
+            case "energyRecover":
+            case "hitEnergyRecover":
+            case "hit":
+            case "dodge":
+            case "critical":
+            case "criticalImmune":
+            case "criticalDamage":
+            case "criticalResistant":
+            case "damage":
+            case "defence":
+            case "block":
+            case "penetrate":
+            case "blockDefence":
+            case "penetrateDamage":
+            case "fixDamage":
+            case "fixDefense":
+            case "ignoreDodge":
+            case "revive":
+            case "combo":
+            case "antiCombo":
+            case "stun":
+            case "antiStun":
+            case "antiLifeSteal":
+            case "lifeRecover":
+            case "antiLifeRecover":
+            case "healFactor":
+            case "recoverFactor":
+                return GIndex.battle.battleDefault(key);
+            case "lifeSteal":
+                return GIndex.battle.battleDefault(key) + playerInfo.property.towerLifeSteal;
+            case "moveSpeed":
+                return 0;
+            case "normalAttackSpeed":
+                return GIndex.battle.battleDefault(key) + playerInfo.property.towerNormalAttackSpeed;
+            case "normalAttackRange":
+                return tbl.normalAttackRange + playerInfo.property.towerNormalAttackRange;
+            case "normalAttackInterval":
+                return tbl.normalAttackInterval;
+            case "skillColdDown":
+                return GIndex.battle.battleDefault(key) + playerInfo.property.towerSkillColdDownReduce;
+            case "skillRange":
+                // todo
+                return 1000;
+            case "specialDamage.normalAttack":
+                return playerInfo.property.towerNormalAttackDamage;
+            default:
+                if (key.startsWith("sp")) {
+                    return 0;
+                }
+                throw new Error("illegal property key " + key);
+        }
+    }
+
+    static getTowerWashMap(part: number): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        //暂时
+        GModel.playerEquipment
+            .getTowerPlace()
+            [part].property()
+            .stat.map((s) => {
+                mulMap[s.property] = (mulMap[s.property] || 0) + s.value * 0.01;
+            });
+        return { addMap, mulMap };
+    }
+
+    static getTowerStrengthMap(part: number): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        //暂时
+        GModel.playerEquipment
+            .getTowerPlace()
+            [part].property()
+            .base.map((s) => {
+                if (s.property === "attack" || s.property === "armor" || s.property === "maxHp") {
+                    addMap[s.property] = (addMap[s.property] || 0) + s.value;
+                } else addMap[s.property] = (addMap[s.property] || 0) + s.value * 0.01;
+            });
+        return { addMap, mulMap };
+    }
+
+    private static getTowerEnv(key: EnumHeroProperty, towerId: number, playerInfo: BattleObjectInfo): any {
+        const part = GTable.getById("DefendTowerTbl", towerId).part;
+        const tbl = GModel.playerEquipment.equipment()[part].tbl();
+        const TowerSucceedMul = (() => {
+            if (key === "attack") {
+                return tbl.damage + playerInfo.property.towerSucceed * 0.0001;
+            } else if (key === "armor") {
+                return tbl.armor + playerInfo.property.towerSucceed * 0.0001;
+            } else if (key === "maxHp") {
+                return tbl.life + playerInfo.property.towerSucceed * 0.0001;
+            } else {
+                return 1;
+            }
+        })();
+        return {
+            base: this.getTowerBase(key, towerId, playerInfo),
+            TowerSucceedMul,
+        };
+    }
+
+    private static getMountBaseEnv(key: EnumHeroProperty, sprite: Sprite) {
+        const own = this.getMountOwnPropertyMap(sprite);
+        const power = this.getMountPowerPropertyMap(sprite);
+        const base = this.getMountFormatePropertyMap(sprite);
+        const formated = GModel.sprite.getFormation().some((f) => f === sprite.id);
+        return {
+            baseAdd: (formated ? base.addMap[key] : 0) || 0,
+            baseMul: (formated ? base.mulMap[key] * 0.01 : 0) || 0,
+
+            HasMul: (sprite.level ? own.mulMap[key] * 0.01 : 0) || 0,
+            HasAdd: (sprite.level ? own.addMap[key] : 0) || 0,
+
+            PowerMul: (sprite.level ? power.mulMap[key] * 0.01 : 0) || 0,
+            PowerAdd: (sprite.level ? power.addMap[key] : 0) || 0,
+        };
+    }
+
+    static getMountOwnProperty(sprite: Sprite) {
+        const res: { property: string; value: number | string }[] = [];
+        const { addMap, mulMap } = this.getMountOwnPropertyMap(sprite);
+        for (let attr in addMap) {
+            res.push({
+                property: attr,
+                value: Math.round(addMap[attr]),
+            });
+        }
+        for (let attr in mulMap) {
+            if (mulMap[attr] !== 0) {
+                res.push({
+                    property: attr,
+                    value: mulMap[attr] + "%",
+                });
+            }
+        }
+        return res;
+    }
+    static getMountFormateProperty(sprite: Sprite) {
+        const res: { property: string; value: number | string }[] = [];
+        const { addMap, mulMap } = this.getMountFormatePropertyMap(sprite);
+        for (let attr in addMap) {
+            res.push({
+                property: attr,
+                value: Math.round(addMap[attr]),
+            });
+        }
+        for (let attr in mulMap) {
+            if (mulMap[attr] !== 0) {
+                res.push({
+                    property: attr,
+                    value: mulMap[attr] + "%",
+                });
+            }
+        }
+        return res;
+    }
+
+    static getMountPowerProperty(sprite: Sprite) {
+        const res: { property: string; value: number | string }[] = [];
+        const { mulMap } = this.getMountPowerPropertyMap(sprite);
+        for (let attr in mulMap) {
+            res.push({
+                property: attr,
+                value: mulMap[attr] + "%",
+            });
+        }
+        return res;
+    }
+    static getMountOwnPropertyMap(sprite: Sprite): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        const tbl = GTable.getById("MountTbl", sprite.id);
+        const env = [{ lv: sprite.level }];
+        tbl.property.forEach((list) => {
+            if (list[1].includes("%")) {
+                const value = AstUtil.eval(list[1].replace("%", ""), env);
+                mulMap[list[0]] = (mulMap[list[0]] || 0) + value;
+            } else {
+                const value = AstUtil.eval(list[1], env);
+                addMap[list[0]] = (addMap[list[0]] || 0) + value;
+            }
+        });
+        return { addMap, mulMap };
+    }
+    static getMountFormatePropertyMap(sprite: Sprite): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        const tbl = GTable.getById("MountTbl", sprite.id);
+        const env = [{ lv: sprite.level }, { rk: sprite.rank }];
+        tbl.formateProperty.forEach((t) => {
+            if (t[1].includes("%")) {
+                const value = AstUtil.eval(t[1].replace("%", ""), env);
+                mulMap[t[0]] = (mulMap[t[0]] || 0) + value;
+            } else {
+                const value = AstUtil.eval(t[1], env);
+                addMap[t[0]] = (addMap[t[0]] || 0) + value;
+            }
+        });
+        return { addMap, mulMap };
+    }
+
+    static getMountPowerPropertyMap(sprite: Sprite) {
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        if (sprite) {
+            const activeData = GTable.getList("MountPowerTbl");
+            const map = GUtils.array
+                .chain(activeData)
+                .flatMap((tbl) => tbl.property)
+                .groupToMap((t) => t[0]);
+            Array.from(map).forEach((v, i) => {
+                v[1].forEach((t) => {
+                    const env = [{ lv: sprite.power[i] }];
+                    if (t[1].includes("%")) {
+                        const value = AstUtil.eval(t[1].replace("%", ""), env);
+                        mulMap[t[0]] = (mulMap[t[0]] || 0) + value;
+                    } else {
+                        const value = AstUtil.eval(t[1], env);
+                        addMap[t[0]] = (addMap[t[0]] || 0) + value;
+                    }
+                });
+            });
+        }
+        return { addMap, mulMap };
+    }
+
+    /** 命星组合表,组合成功则返回表，否则为null */
+    static getStarTbl(playerState: NetWorkDataCache) {
+        let tbls = GTable.getList("FossilComboTbl").filter((t) => t.itemId === playerState.fossilData.fossilStar);
+        let formation = playerState.fossilData.fossilFormation;
+        if (tbls.length > 0 && this.isStarActive(playerState)) {
+            let tbl = tbls.find(
+                (t) => t.quality === GUtils.array.min(formation.map((t) => GTable.getById("ItemTbl", t).quality)) - 1
+            );
+            return tbl !== undefined ? tbl : null;
+        }
+    }
+
+    /**是否激活命星 */
+    static isStarActive(playerState: NetWorkDataCache) {
+        if (playerState.fossilData.fossilStar === -1) return false;
+        let tbls = GTable.getList("FossilComboTbl").filter((t) => t.itemId === playerState.fossilData.fossilStar);
+        let formation = playerState.fossilData.fossilFormation;
+        return formation.every(
+            (f, i) =>
+                f !== -1 &&
+                (GTable.getById("FossilTbl", f).color === tbls[0].combo[i] ||
+                    GTable.getById("FossilTbl", f).color === 3)
+        );
+    }
+
+    static getActiveFossil(playerState: NetWorkDataCache): {
+        fossil: FossilTbl[];
+        fossilCombo: FossilComboTbl[];
+    } {
+        const fossilComboTbl = this.getStarTbl(playerState);
+        return {
+            fossil: playerState.fossilData.fossilFormation
+                .map((id) => GTable.getById("FossilTbl", id))
+                .filter((x) => x),
+            fossilCombo: fossilComboTbl ? [fossilComboTbl] : [],
+        };
+    }
+
+    // static getFossilGlobalBuff(playerState: NetWorkDataCache): Map<number, number> {
+    //     const res = new Map<number, number>();
+    //     playerState.formation["default"].forEach((heroUniqueId) => {
+    //         if (heroUniqueId <= 0) return;
+    //         const tempRes = new Map<number, number>();
+    //         const hero = playerState.hero[heroUniqueId];
+    //         const activeData = this.getActiveFossil(playerState, hero);
+    //         activeData.fossilCombo.forEach((tbl) => {
+    //             tbl.globalBuff.forEach((buff) => {
+    //                 tempRes.set(buff[0], tempRes.has(buff[0]) ? tempRes.get(buff[0]) + buff[1] : buff[1]);
+    //             });
+    //         });
+    //         this.combineGlobalBuff(res, tempRes);
+    //     });
+    //     return res;
+    // }
+
+    private static combineGlobalBuff(res: Map<number, number>, tempRes: Map<number, number>) {
+        this.buffCombineMax(1, res, tempRes);
+    }
+
+    private static buffCombineAdd(key: number, res: Map<number, number>, tempRes: Map<number, number>) {
+        const origin = res.get(key) || 0;
+        const temp = tempRes.get(key) || 0;
+        const sum = origin + temp;
+        res.set(key, sum);
+    }
+    private static buffCombineMax(key: number, res: Map<number, number>, tempRes: Map<number, number>) {
+        const origin = res.get(key) || 0;
+        const temp = tempRes.get(key) || 0;
+        const max = Math.max(origin, temp);
+        res.set(key, max);
+    }
+
+    static getFossilPropertyMap(playerState: NetWorkDataCache): {
+        addMap: { [property: string]: number };
+        mulMap: { [property: string]: number };
+    } {
+        const activeData = this.getActiveFossil(playerState);
+        const addMap: { [property: string]: number } = {};
+        const mulMap: { [property: string]: number } = {};
+        const map = GUtils.array
+            .chain((activeData.fossil as (FossilTbl | FossilComboTbl)[]).concat(activeData.fossilCombo))
+            .flatMap((tbl) => tbl.property)
+            .groupToMap((t) => t[0]);
+        map.forEach((v, k) => {
+            v.forEach((t) => {
+                if (t[1].endsWith("%")) {
+                    const value = Number(t[1].replace("%", ""));
+                    mulMap[k] = (mulMap[k] || 0) + value;
+                } else {
+                    const value = Number(t[1]);
+                    addMap[k] = (addMap[k] || 0) + value;
+                }
+            });
+        });
+        return { addMap, mulMap };
+    }
+
+    private static getFossilBaseEnv(key: EnumHeroProperty, playerState: NetWorkDataCache) {
+        const { addMap, mulMap } = this.getFossilPropertyMap(playerState);
+        return {
+            fossilAdd: addMap[key] || 0,
+            fossilMul: mulMap[key] * 0.01 || 0,
+        };
+    }
+
+    private static getTechProperty(key: EnumHeroProperty) {
+        let value = 0;
+        GModel.tree.getList().forEach((t) => {
+            let v = t.getProperty().find((p) => p.property === key);
+            value += v ? v.value : 0;
+        });
+        return value;
+    }
+
+    private static getTechBaseEnv(key: EnumHeroProperty) {
+        return {
+            base: this.getTechProperty(key),
+
+            RolelevelMul: this.getPlayerLevelProperty(key) * 0.01 || 0,
+            RoleTitleMul: this.getPlayerRankProperty(key) * 0.01 || 0,
+        };
+    }
+}

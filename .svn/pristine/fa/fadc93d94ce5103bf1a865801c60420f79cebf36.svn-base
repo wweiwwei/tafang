@@ -1,0 +1,106 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { EquipmentWrapper } from "../../entity/Equipment";
+import Item from "../../entity/Item";
+import ListItemHeroItem from "./ListItemHeroItem";
+import ListItemItem from "./ListItemItem";
+import WindowItemDescription from "./WindowItemDescription";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowCongratulation")
+@ccclass
+export default class WindowCongratulation extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIImage) newFunc: UIImage = null;
+    @autowired(UIImage) reward: UIImage = null;
+    @autowired(UIImage) func: UIImage = null;
+    @autowired(UILabel) label: UILabel = null;
+    @autowired(cc.Node) heroitem: cc.Node = null;
+    @autowired(UIList) rewardList: UIList<ListItemItem> = null;
+    _windowParam: {
+        items?: Item[];
+        text?: string;
+        img?: string;
+    };
+    _returnValue: any;
+    protected onInited(): void {
+        let btn = this.node.getComponent(UIButton);
+        btn.setTransition(false);
+        btn.onClick = () => {
+            this.close();
+        };
+        this.itemInit();
+    }
+    async itemInit() {
+        if (this._windowParam.items !== undefined) {
+            if (this._windowParam.items.length > 5)
+                this.rewardList.node.getComponent(cc.Layout).type = cc.Layout.Type.GRID;
+            let state: { item?: Item; status: number; equipment?: EquipmentWrapper }[];
+            this.reward.node.active = true;
+            this.heroitem.active = false;
+            let hero = this._windowParam.items.find((item) => GTable.getById("HeroTbl", item.id));
+            let equip = this._windowParam.items.find((item) => GTable.getById("HeroEquipmentTbl", item.id));
+            let debris = this._windowParam.items.filter(
+                (item) => item !== equip && item !== hero && Item.getKind(item) === 21
+            );
+            if (hero !== undefined) {
+                this.heroitem.active = true;
+                let comp = await ResourceLoader.getNode(ListItemHeroItem);
+                this.heroitem.addChild(comp.node);
+                comp.setState({ uniqueId: hero.id, id: hero.id, status: 0, cb: () => {} });
+            }
+            if (debris.length !== 0) {
+                console.log(debris);
+                this.heroitem.active = true;
+                const result = debris.reduce((acc, curr) => {
+                    const index = acc.find((item) => item.id === curr.id);
+                    if (index) {
+                        index.count += curr.count;
+                    } else {
+                        acc.push(curr);
+                    }
+                    return acc;
+                }, []);
+                // console.log(result);
+                result.forEach(async (re) => {
+                    let herotbl = GTable.getList("HeroTbl").find((t) => t.frag === re.id);
+                    let comp = await ResourceLoader.getNode(ListItemHeroItem);
+                    this.heroitem.addChild(comp.node);
+                    comp.setState({
+                        uniqueId: -1,
+                        id: herotbl.id,
+                        status: 1,
+                        cb: () => {
+                            GWindow.open(WindowItemDescription, { item: re });
+                        },
+                        rightBottomText: ["_rsx" + re.count],
+                    });
+                });
+            }
+            state = this._windowParam.items
+                .filter((item) => item !== hero && item !== equip && !debris.some((de) => de.id === item.id))
+                .map((t) => {
+                    return { item: t, status: 0 };
+                });
+            if (equip !== undefined) {
+                let equipment = new EquipmentWrapper(equip.id, 1, 0, equip.count, -1);
+                state.unshift({ equipment, status: 0 });
+            }
+            // console.log(state);
+
+            this.rewardList.setState(state);
+        } else {
+            this.newFunc.node.active = true;
+            this.label.setText([this._windowParam.text]);
+            this.func.imgName = this._windowParam.img;
+        }
+    }
+}

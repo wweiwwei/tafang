@@ -1,0 +1,139 @@
+
+dolphin_generaltail.png
+size: 205,417
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/daoguang_1
+  rotate: false
+  xy: 183, 16
+  size: 16, 63
+  orig: 19, 70
+  offset: 1, 2
+  index: -1
+effect/guangci1
+  rotate: false
+  xy: 73, 8
+  size: 61, 61
+  orig: 64, 64
+  offset: 1, 1
+  index: -1
+effect/guangyun
+  rotate: false
+  xy: 2, 263
+  size: 152, 152
+  orig: 174, 174
+  offset: 11, 11
+  index: -1
+effect/ps1
+  rotate: false
+  xy: 156, 385
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+effect/ps2
+  rotate: false
+  xy: 156, 353
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+effect/ps3
+  rotate: false
+  xy: 156, 321
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+effect/ps4
+  rotate: false
+  xy: 156, 289
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+effect/ps5
+  rotate: false
+  xy: 156, 257
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+effect/ps_1
+  rotate: true
+  xy: 74, 71
+  size: 67, 69
+  orig: 71, 74
+  offset: 2, 2
+  index: -1
+effect/ps_2
+  rotate: true
+  xy: 2, 2
+  size: 67, 69
+  orig: 71, 74
+  offset: 2, 2
+  index: -1
+effect/ps_3
+  rotate: true
+  xy: 2, 140
+  size: 68, 71
+  orig: 71, 74
+  offset: 1, 1
+  index: -1
+effect/ps_4
+  rotate: true
+  xy: 2, 71
+  size: 67, 70
+  orig: 71, 74
+  offset: 2, 1
+  index: -1
+effect/ps_5
+  rotate: true
+  xy: 75, 140
+  size: 68, 71
+  orig: 71, 74
+  offset: 2, 1
+  index: -1
+effect/shouji20_1
+  rotate: false
+  xy: 148, 81
+  size: 49, 71
+  orig: 51, 72
+  offset: 2, 1
+  index: -1
+effect/shouji20_2
+  rotate: true
+  xy: 2, 210
+  size: 51, 72
+  orig: 51, 72
+  offset: 0, 0
+  index: -1
+effect/shouji20_3
+  rotate: true
+  xy: 76, 210
+  size: 51, 72
+  orig: 51, 72
+  offset: 0, 0
+  index: -1
+effect/shouji20_4
+  rotate: false
+  xy: 150, 183
+  size: 51, 72
+  orig: 51, 72
+  offset: 0, 0
+  index: -1
+effect/shouji20_5
+  rotate: false
+  xy: 145, 12
+  size: 36, 67
+  orig: 51, 72
+  offset: 5, 4
+  index: -1
+effect/xishou
+  rotate: true
+  xy: 148, 154
+  size: 27, 54
+  orig: 28, 54
+  offset: 1, 0
+  index: -1

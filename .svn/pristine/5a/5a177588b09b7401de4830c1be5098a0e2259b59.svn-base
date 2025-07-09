@@ -1,0 +1,89 @@
+import { BattleDamage } from "../battleLogic/Entity/BattleDamage";
+import { BattleEnergyRecover } from "../battleLogic/Entity/BattleEnergyRecover";
+import { BattleEnergyReduce } from "../battleLogic/Entity/BattleEnergyReduce";
+import { BattleHeal } from "../battleLogic/Entity/BattleHeal";
+import { BattleEffectArea } from "../battleLogic/Object/Area/BattleEffectArea";
+import { BattleBattleStageObject } from "../battleLogic/Object/BattleStage/BattleBattleStageObject";
+import { BattleBuff } from "../battleLogic/Object/Buff/BattleBuff";
+import { BattleBullet } from "../battleLogic/Object/Bullet/BattleBullet";
+import { BattleEffect } from "../battleLogic/Object/Effect/BattleEffect";
+import { BattleBaseState } from "../battleLogic/Object/State/BattleBaseState";
+
+/** 表现层提供给逻辑层调用的接口 */
+export interface BattleDisplayToLogicApi {
+    /** 伤害 */
+    damage(data: { objectUid: number; data: BattleDamage }): void;
+
+    /** 展示buff附加 */
+    showBuffAdd(data: { obj: BattleBattleStageObject; data: BattleBuff }): void;
+
+    /** 展示状态附加 */
+    showStateAdd(data: { obj: BattleBattleStageObject; data: BattleBaseState }): void;
+
+    /** 展示状态移除 */
+    showStateRemove(data: { obj: BattleBattleStageObject; data: BattleBaseState }): void;
+
+    /** 刷新buff显示 */
+    refreshBuff(data: { obj: BattleBattleStageObject }): void;
+
+    /** 刷新状态显示 */
+    refreshState(data: { obj: BattleBattleStageObject }): void;
+
+    /** 治疗 */
+    heal(data: { objectUid: number; data: BattleHeal }): void;
+
+    /** 能量恢复 */
+    energyRecover(data: { objectUid: number; data: BattleEnergyRecover }): void;
+
+    /** 能量减少 */
+    energyReduce(data: { objectUid: number; data: BattleEnergyReduce }): void;
+
+    /** 发射子弹 */
+    addBullet(data: { bullet: BattleBullet }): void;
+
+    /** 移除子弹 */
+    removeBullet(data: { bullet: BattleBullet }): void;
+
+    /** 添加角色 */
+    addObject(data: { obj: BattleBattleStageObject }): void;
+
+    /** 移除角色 */
+    removeObject(data: { obj: BattleBattleStageObject; withAnimation: boolean }): void;
+
+    /** 移除装备怪 */
+    removeEquipmentMonster(data: { obj: BattleBattleStageObject }): void;
+    /** 展示特效 */
+    showEffect(data: {
+        effectName: string;
+        effectAnimation: string;
+        offset: number[];
+        parentType: "target" | "scene";
+        obj: BattleBattleStageObject;
+        scale: number;
+        option?: {
+            scaleX: number;
+            scaleY: number;
+            angle: number;
+        };
+    }): void;
+    /** 展示传送门 */
+    showPortal(data: { position: { x: number; y: number } }): void;
+
+    /** 展示主技能 */
+    showMainSkill(data: { obj: BattleBattleStageObject }): void;
+
+    /** 切换动画 */
+    switchAnimation(data: { obj: BattleBattleStageObject; animation: string; loop: boolean }): void;
+
+    /** 添加效果区域 */
+    addEffectArea(data: { obj: BattleEffectArea }): void;
+
+    /** 添加效果区域 */
+    removeEffectArea(data: { obj: BattleEffectArea }): void;
+
+    /** 添加受控特效 */
+    addEffectWithControl(data: { effect: BattleEffect }): void;
+
+    /** 展示敌方进入特效，1、大批敌人，2、强敌来袭 */
+    showEnemyTip(data: { kind: number }): void;
+}

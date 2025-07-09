@@ -1,0 +1,4877 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "DayandNight_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 60,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Star/Star_131": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.7,
+              "value": 0
+            },
+            {
+              "frame": 40.733333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.96666666666667,
+              "value": 255
+            },
+            {
+              "frame": 59,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_130": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.63333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.666666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.93333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.96666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_129": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.56666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.6,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 255
+            },
+            {
+              "frame": 58.93333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_128": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.53333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.56666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.86666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_127": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.5,
+              "value": 0
+            },
+            {
+              "frame": 40.53333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.8,
+              "value": 255
+            },
+            {
+              "frame": 58.833333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_126": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.43333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.46666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.733333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.766666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_125": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.4,
+              "value": 0
+            },
+            {
+              "frame": 40.43333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.666666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.7,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_124": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.36666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.4,
+              "value": 255
+            },
+            {
+              "frame": 58.63333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.666666666666664,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_123": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.333333333333336,
+              "value": 0
+            },
+            {
+              "frame": 40.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.6,
+              "value": 255
+            },
+            {
+              "frame": 58.63333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_122": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.56666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.6,
+              "value": 255
+            },
+            {
+              "frame": 58.56666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.6,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_121": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.53333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.56666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.5,
+              "value": 255
+            },
+            {
+              "frame": 58.53333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_120": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.5,
+              "value": 0
+            },
+            {
+              "frame": 40.53333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.46666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.5,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_119": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.46666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.5,
+              "value": 255
+            },
+            {
+              "frame": 58.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.4,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_118": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.43333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.46666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.36666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_117": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.4,
+              "value": 0
+            },
+            {
+              "frame": 40.43333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.3,
+              "value": 255
+            },
+            {
+              "frame": 58.333333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_116": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.43333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.46666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.3,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_115": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.4,
+              "value": 0
+            },
+            {
+              "frame": 40.43333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.266666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_114": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.36666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.4,
+              "value": 255
+            },
+            {
+              "frame": 58.166666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.2,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_113": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.333333333333336,
+              "value": 0
+            },
+            {
+              "frame": 40.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.1,
+              "value": 255
+            },
+            {
+              "frame": 58.13333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_112": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.3,
+              "value": 0
+            },
+            {
+              "frame": 40.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.06666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_111": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.266666666666666,
+              "value": 0
+            },
+            {
+              "frame": 40.3,
+              "value": 255
+            },
+            {
+              "frame": 58.03333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.06666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_110": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.233333333333334,
+              "value": 0
+            },
+            {
+              "frame": 40.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58,
+              "value": 255
+            },
+            {
+              "frame": 58.03333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_109": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.2,
+              "value": 0
+            },
+            {
+              "frame": 40.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 57.96666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_108": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.166666666666664,
+              "value": 0
+            },
+            {
+              "frame": 40.2,
+              "value": 255
+            },
+            {
+              "frame": 57.9,
+              "value": 255
+            },
+            {
+              "frame": 57.93333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_107": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.266666666666666,
+              "value": 0
+            },
+            {
+              "frame": 40.3,
+              "value": 255
+            },
+            {
+              "frame": 57.86666666666667,
+              "value": 255
+            },
+            {
+              "frame": 57.9,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_106": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.233333333333334,
+              "value": 0
+            },
+            {
+              "frame": 40.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 57.833333333333336,
+              "value": 255
+            },
+            {
+              "frame": 57.86666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_105": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.2,
+              "value": 0
+            },
+            {
+              "frame": 40.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 57.8,
+              "value": 255
+            },
+            {
+              "frame": 57.833333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_104": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.166666666666664,
+              "value": 0
+            },
+            {
+              "frame": 40.2,
+              "value": 255
+            },
+            {
+              "frame": 57.766666666666666,
+              "value": 255
+            },
+            {
+              "frame": 57.8,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_103": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.13333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.166666666666664,
+              "value": 255
+            },
+            {
+              "frame": 57.733333333333334,
+              "value": 255
+            },
+            {
+              "frame": 57.766666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_102": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.1,
+              "value": 0
+            },
+            {
+              "frame": 40.13333333333333,
+              "value": 255
+            },
+            {
+              "frame": 57.7,
+              "value": 255
+            },
+            {
+              "frame": 57.733333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_101": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.06666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.1,
+              "value": 255
+            },
+            {
+              "frame": 57.666666666666664,
+              "value": 255
+            },
+            {
+              "frame": 57.7,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_100": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.03333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.06666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.96666666666667,
+              "value": 255
+            },
+            {
+              "frame": 59,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_232": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40,
+              "value": 0
+            },
+            {
+              "frame": 40.03333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.8,
+              "value": 255
+            },
+            {
+              "frame": 58.833333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_231": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.56666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.6,
+              "value": 255
+            },
+            {
+              "frame": 58.56666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.6,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_230": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.46666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.5,
+              "value": 255
+            },
+            {
+              "frame": 58.6,
+              "value": 255
+            },
+            {
+              "frame": 58.63333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_229": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.4,
+              "value": 0
+            },
+            {
+              "frame": 40.43333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.666666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.7,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_228": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.333333333333336,
+              "value": 0
+            },
+            {
+              "frame": 40.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.733333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.766666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_227": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.3,
+              "value": 0
+            },
+            {
+              "frame": 40.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.766666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.8,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_226": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.266666666666666,
+              "value": 0
+            },
+            {
+              "frame": 40.3,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 255
+            },
+            {
+              "frame": 58.93333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_225": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.233333333333334,
+              "value": 0
+            },
+            {
+              "frame": 40.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.86666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_224": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.2,
+              "value": 0
+            },
+            {
+              "frame": 40.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.833333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.86666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_223": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.166666666666664,
+              "value": 0
+            },
+            {
+              "frame": 40.2,
+              "value": 255
+            },
+            {
+              "frame": 58.96666666666667,
+              "value": 255
+            },
+            {
+              "frame": 59,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_222": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.333333333333336,
+              "value": 0
+            },
+            {
+              "frame": 40.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.93333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.96666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_221": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.3,
+              "value": 0
+            },
+            {
+              "frame": 40.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 255
+            },
+            {
+              "frame": 58.93333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_220": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.266666666666666,
+              "value": 0
+            },
+            {
+              "frame": 40.3,
+              "value": 255
+            },
+            {
+              "frame": 58.86666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.9,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_219": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.233333333333334,
+              "value": 0
+            },
+            {
+              "frame": 40.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.766666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.8,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_218": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.2,
+              "value": 0
+            },
+            {
+              "frame": 40.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.8,
+              "value": 255
+            },
+            {
+              "frame": 58.833333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_217": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.166666666666664,
+              "value": 0
+            },
+            {
+              "frame": 40.2,
+              "value": 255
+            },
+            {
+              "frame": 58.833333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.86666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_216": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.13333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.166666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.733333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.766666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_215": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.1,
+              "value": 0
+            },
+            {
+              "frame": 40.13333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.7,
+              "value": 255
+            },
+            {
+              "frame": 58.733333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_214": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.06666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.1,
+              "value": 255
+            },
+            {
+              "frame": 58.666666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.7,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_213": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.03333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.06666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.6,
+              "value": 255
+            },
+            {
+              "frame": 58.63333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_212": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40,
+              "value": 0
+            },
+            {
+              "frame": 40.03333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.53333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.56666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_211": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.43333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.46666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.4,
+              "value": 255
+            },
+            {
+              "frame": 58.43333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_210": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.4,
+              "value": 0
+            },
+            {
+              "frame": 40.43333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.4,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_209": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.333333333333336,
+              "value": 0
+            },
+            {
+              "frame": 40.36666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.36666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_208": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.3,
+              "value": 0
+            },
+            {
+              "frame": 40.333333333333336,
+              "value": 255
+            },
+            {
+              "frame": 58.3,
+              "value": 255
+            },
+            {
+              "frame": 58.333333333333336,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_207": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.266666666666666,
+              "value": 0
+            },
+            {
+              "frame": 40.3,
+              "value": 255
+            },
+            {
+              "frame": 58.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.3,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_206": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.233333333333334,
+              "value": 0
+            },
+            {
+              "frame": 40.266666666666666,
+              "value": 255
+            },
+            {
+              "frame": 58.2,
+              "value": 255
+            },
+            {
+              "frame": 58.233333333333334,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_205": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.2,
+              "value": 0
+            },
+            {
+              "frame": 40.233333333333334,
+              "value": 255
+            },
+            {
+              "frame": 58.13333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.166666666666664,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_204": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.13333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.166666666666664,
+              "value": 255
+            },
+            {
+              "frame": 58.1,
+              "value": 255
+            },
+            {
+              "frame": 58.13333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_203": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.06666666666667,
+              "value": 0
+            },
+            {
+              "frame": 40.1,
+              "value": 255
+            },
+            {
+              "frame": 58.06666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.1,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_201": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40.03333333333333,
+              "value": 0
+            },
+            {
+              "frame": 40.06666666666667,
+              "value": 255
+            },
+            {
+              "frame": 58.03333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58.06666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Star/Star_200": {
+        "comps": {},
+        "props": {
+          "opacity": [
+            {
+              "frame": 40,
+              "value": 0
+            },
+            {
+              "frame": 40.03333333333333,
+              "value": 255
+            },
+            {
+              "frame": 58,
+              "value": 255
+            },
+            {
+              "frame": 58.03333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "sky_bg/facility_sky_bg": {
+        "comps": {}
+      },
+      "sky_bg/facility_dustsky_bg": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 30,
+              "value": 0
+            },
+            {
+              "frame": 34,
+              "value": 255
+            },
+            {
+              "frame": 40,
+              "value": 255
+            },
+            {
+              "frame": 42,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "sky_bg/facility_purplesky_bg": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 34,
+              "value": 0
+            },
+            {
+              "frame": 39,
+              "value": 255
+            },
+            {
+              "frame": 40,
+              "value": 255
+            },
+            {
+              "frame": 42,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "sky_bg/facility_nightsky_bg": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 39,
+              "value": 0
+            },
+            {
+              "frame": 40,
+              "value": 255
+            },
+            {
+              "frame": 59,
+              "value": 255
+            },
+            {
+              "frame": 60,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "sky_bg/facility_day_sun": {
+        "comps": {},
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -1138,
+                -989
+              ],
+              "motionPath": [
+                [
+                  -830,
+                  388,
+                  -1135,
+                  -82,
+                  -569,
+                  789
+                ]
+              ]
+            },
+            {
+              "frame": 19,
+              "value": [
+                0,
+                762
+              ],
+              "motionPath": [
+                [
+                  888,
+                  394,
+                  653,
+                  791,
+                  1183,
+                  -106
+                ]
+              ]
+            },
+            {
+              "frame": 38,
+              "value": [
+                1074,
+                -1056
+              ],
+              "motionPath": []
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 38,
+              "value": -1080
+            }
+          ],
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 2,
+                "y": 2,
+                "z": 1
+              }
+            }
+          ]
+        }
+      },
+      "sky_bg/facility_night_moon": {
+        "comps": {},
+        "props": {
+          "position": [
+            {
+              "frame": 38,
+              "value": [
+                -1080,
+                -810
+              ],
+              "motionPath": [
+                [
+                  -858,
+                  428,
+                  -1137,
+                  9,
+                  -616,
+                  790
+                ]
+              ]
+            },
+            {
+              "frame": 48.5,
+              "value": [
+                -33,
+                760
+              ],
+              "motionPath": [
+                [
+                  830,
+                  460,
+                  583,
+                  807,
+                  1136,
+                  29
+                ]
+              ]
+            },
+            {
+              "frame": 59,
+              "value": [
+                1086,
+                -815
+              ],
+              "motionPath": []
+            }
+          ],
+          "scale": [
+            {
+              "frame": 38,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 2.023,
+                "y": 2.023,
+                "z": 2.023
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_02": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_03": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_04": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_05": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 231,
+                "g": 199,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_07": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_08": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_09": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/FacilityCloud_10": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 233,
+                "g": 206,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/Flag01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 234,
+                "g": 208,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/Fengche01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 219,
+                "g": 165,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Cloud_Bg/Fengche02": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "BoatBird_Loop_Ani/BoatBird_0000s_0000_01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "BoatBird_Loop_Ani/BoatSomke_0000s_0000_01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 234,
+                "g": 208,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "FrontBoat_Ani/FacilityDeclivity": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "FrontBoat_Ani/FacilitySeashell": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "FrontBoat_Ani/FacilityLight": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/wing": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/Flag02": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/Flag03": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/Flag04": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/wing01": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/wing02": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Spine_Ani/declivity": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_13": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_16": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_2": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_1": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_14": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_8": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_7": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_5": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_10": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_15": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_11": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_12": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_9": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_6": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_3": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_4": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_1_2": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_1_1": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_14_2": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_16_1": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_16_2": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "frontLayer/ship_2_1": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "Loop_Star": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 39,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 40,
+              "value": 255
+            },
+            {
+              "frame": 59,
+              "value": 255
+            },
+            {
+              "frame": 59.266666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "buildfront/left": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "buildfront/right": {
+        "props": {
+          "color": [
+            {
+              "frame": 30,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 34,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 221,
+                "b": 170,
+                "a": 255
+              }
+            },
+            {
+              "frame": 39,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 218,
+                "g": 170,
+                "b": 255,
+                "a": 255
+              }
+            },
+            {
+              "frame": 40,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 59,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 182,
+                "g": 203,
+                "b": 240,
+                "a": 255
+              }
+            },
+            {
+              "frame": 60,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

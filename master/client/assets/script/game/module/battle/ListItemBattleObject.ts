@@ -1,0 +1,343 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UISpine from "../../../framework/ui/UISpine";
+import { BattleBattleStageObject } from "../../battleLogic/Object/BattleStage/BattleBattleStageObject";
+import EventName from "../../event/EventName";
+import ListItemBattleEffect from "./ListItemBattleEffect";
+import ListItemPlayer from "./core/ListItemPlayer";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemBattleObject")
+@ccclass
+export default class ListItemBattleObject extends UIListItem {
+    static _poolSize: number = 10;
+
+    @autowired(UISpine) spine: UISpine = null;
+    @autowired(cc.ProgressBar) lifeBar: cc.ProgressBar = null;
+    @autowired(cc.ProgressBar) energyBar: cc.ProgressBar = null;
+    @autowired(cc.ProgressBar) shieldBar: cc.ProgressBar = null;
+    @autowired(cc.Node) barContainer: cc.Node = null;
+    @autowired(cc.Node) stupor: cc.Node = null;
+    @autowired(cc.Node) shield: cc.Node = null;
+    @autowired(cc.Node) shadow: cc.Node = null;
+    @autowired(cc.Node) wall: cc.Node = null;
+    @autowired(cc.ProgressBar) wallLifeBar: cc.ProgressBar = null;
+    @autowired(cc.Node) range: cc.Node = null;
+    @autowired(cc.Node) rush: cc.Node = null;
+    @autowired(cc.Node) effectContainer: cc.Node = null;
+    protected onInjected(): void {
+        // if (CC_PREVIEW) {
+        //     this.spine.node.on(cc.Node.EventType.TOUCH_END, () => {
+        //         console.log(this.state.data);
+        //     });
+        // }
+        this.spine.setEventListener((entry: sp.spine.TrackEntry, event) => {
+            if (event.data.name === "shock") {
+                GCamera.shockScreen();
+            } else if ((event.data.name as string).startsWith("sound_")) {
+                GAudio.playEffect(event.data.name);
+            }
+        });
+    }
+
+    state: {
+        data: BattleBattleStageObject;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.initHero();
+    }
+    @message([EventName.showTowerRange])
+    showRange(index: number) {
+        if (!this.state) return;
+        if (this.state.data.heroIndex === index) {
+            this.range.active = true;
+            this.range.scale = this.state.data.propertyManager.finalProperty.normalAttackRange / 100;
+            console.log("scale =", this.node.scale);
+        }
+    }
+    @message([EventName.HideTowerRange])
+    hideRange() {
+        this.range.active = false;
+    }
+
+    /** 这是不是玩家角色 */
+    private isPlayer: boolean = false;
+    private showSkillProgress: boolean = false;
+
+    curAnimation = "idle";
+
+    private barY = 0;
+    private player: ListItemPlayer = null;
+
+    initHero() {
+        if (this.state.data.objectType === GConstant.battle.battleObjectType.hero) {
+        }
+        this.rush.active = false;
+        this.range.active = false;
+        this.stupor.active = false;
+        this.shield.active = false;
+        // if (this.state.data.objectType === GConstant.battle.battleObjectType.wall) {
+        //     this.spine.node.active = false;
+        //     this.wall.active = true;
+        //     this.barContainer.active = false;
+        //     this.wallLifeBar.node.active = true;
+        //     return;
+        // } else
+        if (this.state.data.objectType === GConstant.battle.battleObjectType.hero) {
+            this.wall.active = false;
+            this.barContainer.active = false;
+            this.wallLifeBar.node.active = false;
+            if (!this.player) {
+                this.player = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemPlayer, "battle");
+                this.player.node.parent = this.node;
+            }
+            this.player.setState({});
+        } else {
+            if (this.player) this.player.recycle();
+        }
+        this.wallLifeBar.node.active = false;
+        this.wall.active = false;
+        this.spine.paused = false;
+        this.spine.setGrey(false);
+        // this.isPlayer = this.state.data.objectType === GConstant.battle.battleObjectType.hero;
+        // if (this.isPlayer) {
+        //     // 主角只在boss模式显示血条
+        //     this.lifeBar.node.active = this.state.data.ctx.data.ctx.bossMode;
+        // } else {
+        //     // 非主角，先隐藏血条
+        //     this.lifeBar.node.active = false;
+        // }
+        this.barContainer.active = this.state.data.needShowBar();
+        this.lifeBar.node.active = this.state.data.needShowLifeBar();
+        this.lastRefreshAnimation = -1;
+        this.shieldBar.node.active = false;
+        this.lifeBar.node.scaleX = 1;
+        this.lifeBar.node.y = 12;
+        this.shieldBar.node.scaleX = 1;
+        this.shieldBar.node.y = -10;
+        this.spine.node.active = this.state.data.objectType !== GConstant.battle.battleObjectType.hero;
+        this.energyBar.node.active = this.state.data.skillManager.hasMainSkill();
+        this.showSkillProgress = this.energyBar.node.active;
+        this.node.zIndex = -this.state.data.position[1];
+        const vm = this.state.data.fsmManager.viewModel;
+        // const mount = this.state.data.getMount();
+        // if (mount) {
+        //     this.spine.setSpineWithMount(mount, vm.img);
+        // } else {
+        //     this.spine.setSpine(vm.img, vm.skin, vm.animation);
+        // }
+        this.spine.setSpine(vm.img, vm.skin, vm.animation);
+        this.curAnimation = vm.animation;
+        const spineTbl = GTable.getList("SpineInfoTbl").find((t) => t.spine === vm.img);
+
+        this.barContainer.scale = spineTbl.barScale;
+        this.barContainer.y = spineTbl.barPosition;
+        this.barY = spineTbl.barPosition;
+        this.spine.node.scale = spineTbl.scale;
+        if (this.player) this.player.node.scale = spineTbl.scale;
+        this.shadow.active = spineTbl.showShadow > 0;
+        this.shadow.scale = spineTbl.shadowScale;
+        this.shadow.y = spineTbl.shadowPosition;
+        // todo 阴影处理
+        // this.shadow.active = false;
+        this.stupor.y = spineTbl.stupor[0];
+        this.stupor.scale = spineTbl.stupor[1];
+        this.shield.y = spineTbl.shield[0];
+        this.shield.scale = spineTbl.shield[1];
+        this.rush.y = spineTbl.rush[0];
+        this.rush.scale = spineTbl.rush[1];
+        this.refresh();
+        // this.spine.timeScale = this.state.data.animationSpeed();
+        // if (this.spine.animation != animationInfo.name) {
+        //     this.spine.changeAnimation(animationInfo.name, animationInfo.loop);
+        // }
+        // }
+    }
+
+    showShieldAdd() {
+        this.shield.active = true;
+        this.shield.getComponent(sp.Skeleton).setAnimation(0, "skillattack_birth", false);
+        this.shield.getComponent(sp.Skeleton).setCompleteListener(() => {
+            this.shield.getComponent(sp.Skeleton).setAnimation(0, "skillattack_loop", true);
+        });
+    }
+
+    showShieldRemove() {
+        if (this.state.data.stateManager.hasShield()) return;
+        this.shield.getComponent(sp.Skeleton).setAnimation(0, "skillattack_death", false);
+        this.shield.getComponent(sp.Skeleton).setCompleteListener(() => {
+            this.shield.active = false;
+        });
+    }
+
+    switchAnimation(name: string, loop: boolean) {
+        if (name === "run") {
+            const img = this.state.data.getImg();
+            const tbl = GTable.getList("SpineAttackAnimationInfoTbl").find(
+                (t) => t.animation === name && t.spine === img
+            );
+            if (tbl) {
+                this.spine.changeAnimation(name, loop);
+            } else {
+                this.spine.changeAnimation("walk", loop);
+            }
+            return;
+        }
+        this.spine.changeAnimation(name, loop);
+    }
+    /** 上次同步动画的帧数 */
+    private lastRefreshAnimation: number = -1;
+
+    refresh() {
+        // if (this.state.data.objectType === GConstant.battle.battleObjectType.wall) {
+        //     const lifeProcess = this.state.data.propertyManager.finalProperty.hpRate;
+        //     this.wallLifeBar.progress = lifeProcess;
+        //     const pos = this.state.data.position;
+        //     this.node.position = cc.v3(pos[0], pos[1]);
+        // } else {
+        const vm = this.state.data.fsmManager.viewModel;
+        this.shieldBar.node.active = false;
+        const pos = this.state.data.position;
+        this.node.position = cc.v3(pos[0], pos[1]);
+        this.barContainer.position = cc.v3(pos[0], pos[1] + this.barY);
+        this.node.zIndex = -pos[1];
+        const lifeProcess = this.state.data.propertyManager.finalProperty.hpRate;
+        if (this.showSkillProgress) this.energyBar.progress = this.state.data.skillManager.getMainSkillProcess();
+        this.lifeBar.progress = lifeProcess;
+        this.barContainer.active = this.state.data.needShowBar();
+        this.lifeBar.node.active = this.state.data.needShowLifeBar();
+        // if (lifeProcess !== 1 && !this.isPlayer) {
+        //     // 非玩家单位在生命值损伤时会显示血条
+        //     this.lifeBar.node.active = true;
+        //     // 塔防模式
+        //     // if (GConstant.battle.tdMode) {
+        //     //     this.lifeBar.node.active = this.state.data.objectType === GConstant.battle.battleObjectType.monster;
+        //     // }
+        // }
+        const shield = this.state.data.stateManager.getLifeShield()[0];
+        if (shield) {
+            this.shieldBar.node.active = true;
+            this.shieldBar.progress = shield.shiledRemain / shield.maxShield;
+        } else {
+            this.shieldBar.node.active = false;
+        }
+        this.spine.timeScale = vm.animationSpeed;
+
+        if (vm.direction.x > 0) {
+            this.turnRight();
+        } else {
+            this.turnLeft();
+        }
+        if (vm.animation !== this.curAnimation) {
+            this.lastRefreshAnimation = vm.animationDirty;
+            this.switchAnimation(vm.animation, vm.loop);
+            this.curAnimation = vm.animation;
+            // this.spine.changeFrame(vm.animationTime);
+        }
+        if (
+            vm.animation === "run" &&
+            this.state.data.propertyManager.finalProperty.moveSpeed >= GConstant.battle.rushSpeed
+        ) {
+            this.rush.active = true;
+            const { x, y } = vm.direction;
+            this.rush.angle = this.getAngle([x, y]);
+        }
+        // }
+    }
+    getAngle(direction: number[]) {
+        return (Math.atan2(direction[1], direction[0]) * 180) / Math.PI;
+    }
+
+    refreshState() {
+        this.stupor.active = this.state.data.stateManager.isStupor();
+    }
+    private buffEffect: ListItemBattleEffect[] = [];
+    refreshBuff() {
+        this.clearBuffEffect();
+        const list = this.state.data.buffManager.getDurationEffectList();
+        list.forEach((e) => {
+            const comp = ResourceLoader.getNodeSyncWithPreload(ListItemBattleEffect);
+            comp.setState({
+                position: e.position,
+                effectAnimation: e.effectAnimation,
+                effectName: e.effectName,
+                loop: true,
+            });
+            comp.node.scaleX = e.scaleX;
+            comp.node.scaleY = e.scaleY;
+            comp.node.parent = this.effectContainer;
+            this.buffEffect.push(comp);
+        });
+    }
+    private clearBuffEffect() {
+        this.buffEffect.forEach((e) => e.recycle());
+        this.buffEffect = [];
+    }
+
+    private clearEffect() {
+        this.clearBuffEffect();
+    }
+
+    turnLeft() {
+        if (this.spine.node.scaleX > 0) this.spine.node.scaleX = -this.spine.node.scaleX;
+    }
+
+    turnRight() {
+        if (this.spine.node.scaleX < 0) this.spine.node.scaleX = -this.spine.node.scaleX;
+    }
+
+    private cacheTimeScale: number;
+    pause() {
+        this.cacheTimeScale = this.spine.timeScale;
+        this.spine.timeScale = 0;
+    }
+
+    continue() {
+        this.spine.timeScale = this.cacheTimeScale;
+    }
+    // 重写回收
+    recycle() {
+        this.clearEffect();
+        this.barContainer.parent = this.node;
+        super.recycle();
+    }
+
+    die(cb: () => void, withAnimation: boolean) {
+        this.clearEffect();
+        const complete = () => {
+            if (this.state.data.objectType === GConstant.battle.battleObjectType.pet) {
+                this.spine.changeAnimation("idle", true);
+                this.spine.paused = true;
+                this.spine.setGrey(true);
+            } else {
+                this.recycle();
+                cb();
+                this.spine.setCompleteListener(null);
+            }
+        };
+        if (withAnimation) {
+            this.barContainer.active = false;
+            // 塔直接跳过死亡动画
+            if (this.state.data.objectType === GConstant.battle.battleObjectType.pet) {
+                complete();
+                return;
+            }
+            if (this.spine.findAnimation("die")) {
+                this.spine.changeAnimation("die", false);
+                this.spine.setCompleteListener(complete);
+            } else if (this.spine.findAnimation("death")) {
+                this.spine.changeAnimation("death", false);
+                this.spine.setCompleteListener(complete);
+            } else {
+                complete();
+            }
+        } else {
+            this.recycle();
+            cb();
+            this.spine.setCompleteListener(null);
+        }
+    }
+}

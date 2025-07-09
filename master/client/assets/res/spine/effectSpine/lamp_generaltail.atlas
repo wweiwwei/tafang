@@ -1,0 +1,48 @@
+
+lamp_generaltail.png
+size: 309,182
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/guangci0001
+  rotate: false
+  xy: 2, 2
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+effect/guangci0003
+  rotate: false
+  xy: 200, 5
+  size: 107, 82
+  orig: 107, 82
+  offset: 0, 0
+  index: -1
+effect/guangci0005
+  rotate: false
+  xy: 200, 89
+  size: 106, 91
+  orig: 106, 91
+  offset: 0, 0
+  index: -1
+effect/guangci0007
+  rotate: true
+  xy: 103, 65
+  size: 115, 95
+  orig: 115, 95
+  offset: 0, 0
+  index: -1
+effect/guangci0009
+  rotate: true
+  xy: 2, 64
+  size: 116, 99
+  orig: 116, 99
+  offset: 0, 0
+  index: -1
+effect/guangmanbg
+  rotate: false
+  xy: 68, 3
+  size: 58, 59
+  orig: 66, 66
+  offset: 4, 4
+  index: -1

@@ -1,0 +1,287 @@
+import ResourceLoader from "../../../../framework/ResourceLoader";
+import EventBus from "../../../../framework/event/EventBus";
+import { BattleBossEffectInfo, BattleDisplayToLogicApi } from "../../../battleApi/BattleDisplayToLogicApi";
+import { BattleDamage } from "../../../battleLogic/Entity/BattleDamage";
+import { BattleEnergyRecover } from "../../../battleLogic/Entity/BattleEnergyRecover";
+import { BattleEnergyReduce } from "../../../battleLogic/Entity/BattleEnergyReduce";
+import { BattleHeal } from "../../../battleLogic/Entity/BattleHeal";
+import { BattleEffectArea } from "../../../battleLogic/Object/Area/BattleEffectArea";
+import { BattleBattleStageObject } from "../../../battleLogic/Object/BattleStage/BattleBattleStageObject";
+import { BattleBuff } from "../../../battleLogic/Object/Buff/BattleBuff";
+import { BattleBullet } from "../../../battleLogic/Object/Bullet/BattleBullet";
+import { BattleEffect } from "../../../battleLogic/Object/Effect/BattleEffect";
+import { BattleBaseState } from "../../../battleLogic/Object/State/BattleBaseState";
+import EventName from "../../../event/EventName";
+import ListItemBattleBullet from "../ListItemBattleBullet";
+import ListItemBattleDamageText from "../ListItemBattleDamageText";
+import ListItemBattleEffect from "../ListItemBattleEffect";
+import ListItemBattleEffectArea from "../ListItemBattleEffectArea";
+import ListItemBattleEffectWithControl from "../ListItemBattleEffectWithControl";
+import ListItemBattleObject from "../ListItemBattleObject";
+import ListItemBattlePortal from "../ListItemBattlePortal";
+import ListItemBattleScenePvp from "../ListItemBattleScenePvp";
+import WindowBattleScene from "../WindowBattleScene";
+import WindowBossComming from "../rogue/WindowBossComming";
+
+export default class BattleSceneDisplay extends cc.Component implements BattleDisplayToLogicApi {
+    ctx: WindowBattleScene | ListItemBattleScenePvp;
+
+    private damageTextMap: Map<number, { stamp: number; list: ListItemBattleDamageText[] }> = new Map();
+    getGroup() {
+        return this.ctx.battleSceneIndex >= 2 ? "battle2" : "battle";
+    }
+    onClearBattle() {
+        this.damageTextMap.forEach((value, key) => {
+            value.list.forEach((item) => {
+                item.recycle();
+            });
+        });
+        this.damageTextMap.clear();
+    }
+
+    initDisplay(ctx: WindowBattleScene | ListItemBattleScenePvp) {
+        this.ctx = ctx;
+        GBattleApiManager.displayApi[this.ctx.battleSceneIndex] = this;
+    }
+    addEffectWithControl(data: { effect: BattleEffect }): void {
+        const effect = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleEffectWithControl, this.getGroup());
+        this.ctx.effectContainer.addChild(effect.node);
+        effect.setState(data);
+    }
+    nextDamageText() {
+        const now = Date.now();
+        this.damageTextMap.forEach((v, k) => {
+            if (now - v.stamp > 100) {
+                v.stamp = now;
+                const comp = v.list.shift();
+                comp.doTween();
+                if (v.list.length === 0) {
+                    this.damageTextMap.delete(k);
+                }
+            }
+        });
+    }
+    private addDamageText(uid: number, comp: ListItemBattleDamageText) {
+        const data = this.damageTextMap.get(uid);
+        if (data) {
+            data.list.push(comp);
+        } else {
+            this.damageTextMap.set(uid, { stamp: 0, list: [comp] });
+        }
+    }
+
+    showStateAdd(data: { obj: BattleBattleStageObject; data: BattleBaseState }): void {
+        if (data.data.stateType === "stupor") {
+            const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleDamageText, this.getGroup());
+            this.ctx.damageTextContainer.addChild(comp.node);
+            const [x, y] = data.data.target.position;
+            comp.setState({ position: { x, y }, data: data.data });
+            this.addDamageText(data.data.target.uid, comp);
+        } else if (data.data.stateType === "lifeShield") {
+            const object = this.ctx.objectMap.get(data.obj.uid);
+            if (object) {
+                object.showShieldAdd();
+            }
+        }
+    }
+
+    showStateRemove(data: { obj: BattleBattleStageObject; data: BattleBaseState }): void {
+        if (data.data.stateType === "lifeShield") {
+            const object = this.ctx.objectMap.get(data.obj.uid);
+            if (object) {
+                object.showShieldRemove();
+            }
+        }
+    }
+
+    refreshBuff(data: { obj: BattleBattleStageObject }): void {
+        const comp = this.ctx.objectMap.get(data.obj.uid);
+        if (comp) {
+            comp.refreshBuff();
+        }
+    }
+
+    refreshState(data: { obj: BattleBattleStageObject }): void {
+        const comp = this.ctx.objectMap.get(data.obj.uid);
+        if (comp) {
+            comp.refreshState();
+        }
+    }
+
+    switchAnimation(data: { obj: BattleBattleStageObject; animation: string; loop: boolean }): void {
+        // const comp = this.objectMap.get(data.obj.uid);
+        // if (comp) {
+        //     comp.switchAnimation(data.animation, data.loop);
+        // }
+    }
+    addEffectArea(data: { obj: BattleEffectArea }): void {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleEffectArea, this.getGroup());
+        this.ctx.areaMap.set(data.obj.uid, comp);
+        if (data.obj.layer === 1) {
+            this.ctx.areaContainer.addChild(comp.node);
+        } else {
+            this.ctx.areaContainer2.addChild(comp.node);
+        }
+
+        comp.setState({ area: data.obj });
+    }
+    removeEffectArea(data: { obj: BattleEffectArea }): void {
+        const comp = this.ctx.areaMap.get(data.obj.uid);
+        if (comp) {
+            comp.recycle();
+            this.ctx.areaMap.delete(data.obj.uid);
+        }
+    }
+    showMainSkill(data: { obj: BattleBattleStageObject }): void {}
+
+    showEffect(data: {
+        effectName: string;
+        effectAnimation: string;
+        offset: number[];
+        parentType: "target" | "scene";
+        obj: BattleBattleStageObject;
+        scale: number;
+        option?: {
+            scaleX: number;
+            scaleY: number;
+            angle: number;
+        };
+    }): void {
+        const [x, y] = data.offset;
+        if (data.parentType === "target") {
+            const comp = this.ctx.objectMap.get(data.obj.uid);
+            if (comp) {
+                const effect = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleEffect, this.getGroup());
+                comp.node.addChild(effect.node);
+                effect.node.scale = data.scale;
+                effect.setState({
+                    position: { x, y },
+                    effectName: data.effectName,
+                    effectAnimation: data.effectAnimation,
+                    option: data.option,
+                });
+                if (data.option) {
+                    effect.node.scaleX = data.option.scaleX;
+                    effect.node.scaleY = data.option.scaleY;
+                    effect.node.angle = data.option.angle;
+                } else {
+                    effect.node.angle = 0;
+                }
+            }
+        } else if (data.parentType === "scene") {
+            const comp = this.ctx.objectMap.get(data.obj.uid);
+            if (comp) {
+                const effect = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleEffect, this.getGroup());
+                this.ctx.effectContainer.addChild(effect.node);
+                effect.node.scale = data.scale;
+                effect.setState({
+                    position: { x: x + comp.node.x, y: y + comp.node.y },
+                    effectName: data.effectName,
+                    effectAnimation: data.effectAnimation,
+                });
+            }
+        }
+    }
+    private portal: ListItemBattlePortal;
+    /** 展示传送门 */
+    showPortal(data: { position: { x: number; y: number } }): void {
+        if (this.portal) {
+            this.portal.reActive(data.position);
+        } else {
+            this.portal = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattlePortal, this.getGroup());
+            this.ctx.objectContainer.addChild(this.portal.node);
+            this.portal.setState({ position: data.position });
+        }
+    }
+
+    damage(data: { objectUid: number; data: BattleDamage }) {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleDamageText, this.getGroup());
+        this.ctx.damageTextContainer.addChild(comp.node);
+        const [x, y] = data.data.target.position;
+        comp.setState({ position: { x, y }, data: data.data });
+        this.addDamageText(data.data.target.uid, comp);
+    }
+
+    showBuffAdd(data: { obj: BattleBattleStageObject; data: BattleBuff }): void {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleDamageText, this.getGroup());
+        this.ctx.damageTextContainer.addChild(comp.node);
+        const [x, y] = data.data.target.position;
+        comp.setState({ position: { x, y }, data: data.data });
+        this.addDamageText(data.data.target.uid, comp);
+    }
+
+    heal(data: { objectUid: number; data: BattleHeal }) {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleDamageText, this.getGroup());
+        this.ctx.damageTextContainer.addChild(comp.node);
+        const [x, y] = data.data.target.position;
+        comp.setState({ position: { x, y }, data: data.data });
+        this.addDamageText(data.data.target.uid, comp);
+    }
+
+    energyRecover(data: { objectUid: number; data: BattleEnergyRecover }) {
+        // if (!this.objectMap.has(data.objectUid)) return;
+    }
+
+    energyReduce(data: { objectUid: number; data: BattleEnergyReduce }) {
+        // if (!this.objectMap.has(data.objectUid)) return;
+    }
+
+    addBullet(data: { bullet: BattleBullet }) {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleBullet, this.getGroup());
+        this.ctx.bulletMap.set(data.bullet.uid, comp);
+        this.ctx.bulletContainer.addChild(comp.node);
+        comp.setState({ data: data.bullet });
+    }
+
+    removeBullet(data: { bullet: BattleBullet }) {
+        const comp = this.ctx.bulletMap.get(data.bullet.uid);
+        if (comp) {
+            this.ctx.bulletMap.delete(data.bullet.uid);
+            comp.recycle();
+        }
+    }
+
+    addObject(data: { obj: BattleBattleStageObject }) {
+        const comp = ResourceLoader.getNodeSyncWithPreloadWithGroup(ListItemBattleObject, this.getGroup());
+        this.ctx.objectMap.set(data.obj.uid, comp);
+        comp.node.parent = this.ctx.objectContainer;
+        comp.setState({ data: data.obj });
+        // 抽离血条蓝条等
+        comp.barContainer.parent = this.ctx.barContainer;
+    }
+
+    removeObject(data: { obj: BattleBattleStageObject; withAnimation: boolean }) {
+        const comp = this.ctx.objectMap.get(data.obj.uid);
+        if (comp) {
+            comp.die(() => {
+                this.ctx.objectMap.delete(data.obj.uid);
+            }, data.withAnimation);
+        }
+    }
+
+    async removeEquipmentMonster(data: { obj: BattleBattleStageObject }): Promise<void> {
+        // this.ctx.equipmentManageComp.removeEquipmentMonster(data);
+    }
+
+    showEnemyTip(data: { kind: number }): void {
+        if (data.kind === 1) {
+            GTip.showChangeScene("enemy");
+        } else if (data.kind === 2) {
+            GTip.showChangeScene("boss");
+        }
+    }
+
+    showBossEffect(data: BattleBossEffectInfo): void {
+        EventBus.emit(EventName.showBossEffect, data);
+    }
+
+    async showBossComming(data: {}) {
+        EventBus.emit(EventName.pauseBattle, true);
+        await GWindow.open(WindowBossComming);
+        EventBus.emit(EventName.pauseBattle, false);
+    }
+
+    showArtifactEffect(data: { id: number }) {
+        GTip.showArtifactEffect(data.id);
+    }
+}

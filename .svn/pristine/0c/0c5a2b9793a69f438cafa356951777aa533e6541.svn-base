@@ -1,0 +1,94 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import IocContainer from "../../../framework/IocContainer";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import EventBus from "../../../framework/event/EventBus";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import { PlayerEquipment } from "../../entity/PlayerEquipment";
+import EventName from "../../event/EventName";
+import ListItemEquipmentSceneDropItem from "../battle/ListItemEquipmentSceneDropItem";
+import BattleSceneEquipmentManage from "../battle/battleScene/BattleSceneEquipmentManage";
+import WindowCongratulation from "../common/WindowCongratulation";
+import WindowAutoSetting from "../mainsceneNew/WindowAutoSetting";
+import WindowSelectProp from "../mainsceneNew/WindowSelectProp";
+import WindowSetRank from "../mainsceneNew/WindowSetRank";
+import ListItemMainSceneBottomMenu from "./ListItemMainSceneBottomMenu";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowMainSceneBottomUI", {
+    sceneWindow: {
+        kind: "main",
+        openIndex: 2,
+    },
+    preloadPrefab: ["ListItemEquipmentSceneDropItem"],
+})
+@ccclass
+export default class WindowMainSceneBottomUI extends UIWindow {
+    static _poolSize: number = 1;
+    _windowParam: any;
+    _returnValue: any;
+    @autowired(UIList) bottomMenu: UIList<ListItemMainSceneBottomMenu> = null;
+
+    private touchMenu: number = -1; //初始2为中间战斗
+    protected onInited(): void {
+        this.node.zIndex = 0;
+        this.refreshBottom();
+    }
+
+    /**刷新底部 */
+    @message([EventName.stateKey.mainMission, EventName.systemUnlock])
+    refreshBottom() {
+        let pos = [-295, -152, 0, 152, 295];
+        const tblList = GTable.getList("UIMainSceneTbl").filter((t) => t.position === 9);
+        const state = tblList.map((t, i) => {
+            let tbl = GTable.getById("UIMainSceneTbl", t.id);
+            let img = tbl.img;
+            let label = tbl.text;
+            let cb: Function;
+            cb = async (touchMenu: number) => {
+                if (t.window.length === 0) {
+                    GTip.showTip(["_rs开发中"]);
+                    return;
+                }
+
+                if (t.id !== 1029) {
+                    if (this.touchMenu == touchMenu) {
+                        await GWindow.closeByName(t.window);
+                        // this.touchMenu = 2;
+                        this.refreshBottom();
+                        return;
+                    } else {
+                        this.touchMenu = touchMenu;
+                        const list = tblList.map((t) => {
+                            if (t.window.length > 0) {
+                                return GWindow.closeByName(t.window).catch(() => {});
+                            }
+                            Promise.resolve();
+                        });
+                        await Promise.all(list);
+                    }
+                    GModel.player.openWindowWithSystemUnlockCheck(tbl);
+                    this.refreshBottom();
+                }
+            };
+            return {
+                img,
+                label,
+                id: t.id,
+                cb,
+                index: i,
+                unlock: GModel.player.checkSystemUnlock(tbl.systemId, false),
+                touchMenu: this.touchMenu,
+                initPos: pos[i],
+                showTips: false,
+            };
+        });
+        this.bottomMenu.setState(state);
+    }
+}

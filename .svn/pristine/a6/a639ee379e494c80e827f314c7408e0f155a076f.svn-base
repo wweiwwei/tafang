@@ -1,0 +1,36 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIWindow from "../../../framework/ui/UIWindow";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowAddPower")
+@ccclass
+export default class WindowAddPower extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIButton) buyBtn: UIButton = null;
+    @autowired(UIButton) adBtn: UIButton = null;
+    @autowired(UILabel) cost1: UILabel = null;
+    @autowired(UILabel) sellPowerMax: UILabel = null;
+    @autowired(UILabel) cost2: UILabel = null;
+    @autowired(UILabel) sellPowerMin: UILabel = null;
+
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.buyBtn.onClick = () => {};
+        this.adBtn.onClick = () => {};
+        this.cost1.setText(["_rxX30"]);
+        this.cost2.setText(["_rxX10"]);
+        this.sellPowerMax.setText(["_rs100"]);
+        this.sellPowerMin.setText(["_rs免费"]);
+    }
+}

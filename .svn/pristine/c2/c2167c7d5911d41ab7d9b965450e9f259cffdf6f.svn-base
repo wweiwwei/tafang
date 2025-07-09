@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Serilog;
+
+namespace GamePlay;
+
+public partial class PlayerDataManager : IPlayerDataManager
+{
+    public TimeManager TimeManager;
+    public GMManager GMManager;
+    public KnapsackManager KnapsackManager;
+    public DailyManager DailyManager;
+    public HeroManager HeroManager;
+    public PlayerManager PlayerManager;
+    public StageManager StageManager;
+    public PlayerEmailManager PlayerEmailManager;
+    public ChargeManager ChargeManager;
+    public CardPoolManager CardPoolManager;
+    public MissionManager MissionManager;
+    public CarManager CarManager;
+    public CollectionManager CollectionManager;
+    public EnemyManager EnemyManager;
+    public MineManager MineManager;
+    public TowerManager TowerManager;
+    public GuideManager GuideManager;
+    public BattleManager BattleManager;
+    public TurntableManager TurntableManager;
+    public PlayerArenaManager PlayerArenaManager;
+    public PlayerFriendManager PlayerFriendManager;
+    public StoneManager StoneManager;
+    public PlayerEquipmentManager PlayerEquipmentManager;
+    public PlayerSkillManager PlayerSkillManager;
+    public PlayerPetManager PlayerPetManager;
+    public FossilManager FossilManager;
+    public ManorManager ManorManager;
+    public TechTreeManager TechTreeManager;
+    public DamageManager DamageManager;
+    public PlayerRankingManager PlayerRankingManager;
+    public CareerManager CareerManager;
+    public BanquetManager BanquetManager;
+    public PlayerVideoGroupPurchaseManager PlayerVideoGroupPurchaseManager;
+    public InfiniteManager InfiniteManager;
+    public SpriteManager SpriteManager;
+    public WarOrderManager WarOrderManager;
+    public ImpactManager ImpactManager;
+
+}

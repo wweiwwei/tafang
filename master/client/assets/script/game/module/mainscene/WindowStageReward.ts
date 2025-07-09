@@ -1,0 +1,38 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemStageReward from "./ListItemStageReward";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStageReward")
+@ccclass
+export default class WindowStageReward extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) lvName: UILabel = null;
+    @autowired(UIScrollList) uiScrollList: UIScrollList<ListItemStageReward> = null;
+
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        const info = GModel.stage.getCurrentStageInfo();
+        this.lvName.setText(info.levelName);
+        this.refList();
+    }
+
+    @message([EventName.stateKey.stage])
+    refList() {
+        let state = GModel.stage.firstRewardInfo();
+        this.uiScrollList.setState(state);
+    }
+}

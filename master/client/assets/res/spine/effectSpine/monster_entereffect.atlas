@@ -1,0 +1,41 @@
+
+monster_entereffect.png
+size: 199,289
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/TX_a_sx_0109
+  rotate: true
+  xy: 2, 68
+  size: 219, 74
+  orig: 223, 74
+  offset: 2, 0
+  index: -1
+TX/bingbao6_6
+  rotate: false
+  xy: 2, 3
+  size: 64, 63
+  orig: 67, 66
+  offset: 1, 1
+  index: -1
+TX/guangyun
+  rotate: false
+  xy: 78, 161
+  size: 119, 126
+  orig: 126, 126
+  offset: 3, 0
+  index: -1
+TX/lightsoft_d2
+  rotate: false
+  xy: 78, 55
+  size: 104, 104
+  orig: 108, 108
+  offset: 2, 2
+  index: -1
+TX/xuehua
+  rotate: true
+  xy: 68, 2
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1

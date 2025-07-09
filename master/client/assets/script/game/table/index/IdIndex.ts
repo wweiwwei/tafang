@@ -1,0 +1,132 @@
+export default class IdIndex {
+    /** 金币id */
+    coinId: number;
+    /** 钻石id */
+    diamondId: number;
+    /** 体力id */
+    powerId: number;
+    /** 粉钻石id */
+    pinkDiamondId: number;
+    /** 英雄经验石id */
+    heroExpId: number;
+    /** 英雄升阶材料id */
+    heroRankExpId: number;
+    /** 英雄装备经验id */
+    heroEquipmentExpId: number;
+    /** 英雄升阶材料id */
+    heroEquipmentRankExpId: number;
+    /** 水id */
+    waterId: number;
+    /** 食材id */
+    foodIngredientsId: number;
+    /** 食物id */
+    foodId: number;
+    /** 战车经验id */
+    carExpId: number;
+    /** 挖矿体力id */
+    minePowerId: number;
+    /** 挖矿钻头id */
+    mineDrillId: number;
+    /** 挖矿炸弹id */
+    mineBombId: number;
+    /** 挖矿积分id */
+    minePointId: number;
+    /** 魔杖1 */
+    magicStaff1Id: number;
+    /** 魔杖2 */
+    magicStaff2Id: number;
+    /** 魔杖3 */
+    magicStaff3Id: number;
+    /**漂流瓶id */
+    turntableStorageId: number;
+    /**精灵升级消耗id */
+    spriteUpgradeId: number;
+    /**精灵赋能消耗id */
+    spritePowerId: number;
+
+    systemId = {
+        challenge: 1001,
+        towerPlace: [-1, 1002, 1003, 1004, 1030, 1031],
+        auto: 1006,
+        sprite: 1011,
+        fossil: 1012,
+        handbook: 1027,
+    };
+
+    talentToEquipmentId: {
+        [talentId: number]: number;
+    } = {};
+    constructor() {
+        this.coinId = GTable.getList("ItemTbl").find((t) => t.kind === 1).id;
+        this.diamondId = GTable.getList("ItemTbl").find((t) => t.kind === 2).id;
+        this.powerId = GTable.getList("ItemTbl").find((t) => t.kind === 6).id;
+        this.heroExpId = GTable.getList("ItemTbl").find((t) => t.kind === 11).id;
+        this.heroRankExpId = GTable.getList("ItemTbl").find((t) => t.kind === 12).id;
+        this.heroEquipmentExpId = GTable.getList("ItemTbl").find((t) => t.kind === 31).id;
+        // this.heroEquipmentRankExpId = GTable.getList("ItemTbl").find((t) => t.kind === 32).id;
+        this.waterId = GTable.getList("ItemTbl").find((t) => t.kind === 61).id;
+        this.foodIngredientsId = GTable.getList("ItemTbl").find((t) => t.kind === 62).id;
+        this.foodId = GTable.getList("ItemTbl").find((t) => t.kind === 63).id;
+        this.carExpId = GTable.getList("ItemTbl").find((t) => t.kind === 71).id;
+        this.minePowerId = GTable.getList("ItemTbl").find((t) => t.kind === 91).id;
+        this.minePointId = GTable.getList("ItemTbl").find((t) => t.kind === 92).id;
+        this.mineDrillId = GTable.getList("ItemTbl").find((t) => t.kind === 93).id;
+        this.mineBombId = GTable.getList("ItemTbl").find((t) => t.kind === 94).id;
+        this.magicStaff1Id = GTable.getList("ItemTbl").find((t) => t.kind === 111).id;
+        this.magicStaff2Id = GTable.getList("ItemTbl").find((t) => t.kind === 112).id;
+        this.magicStaff3Id = GTable.getList("ItemTbl").find((t) => t.kind === 113).id;
+        this.turntableStorageId = GTable.getList("ItemTbl").find((t) => t.kind === 131).id;
+        this.spriteUpgradeId = GTable.getList("ItemTbl").find((t) => t.kind === 1032).id;
+        this.spritePowerId = GTable.getList("ItemTbl").find((t) => t.kind === 1033).id;
+        GTable.getList("EquipmentTbl").forEach((t) => {
+            this.talentToEquipmentId[t.skillTalent] = t.id;
+        });
+    }
+
+    /** 规则文本id */
+    ruleId = {
+        /**外敌 */
+        enemy: 1001,
+        /**挖矿 */
+        mine: 1002,
+        /**爬塔 */
+        towerScene: 1003,
+        /**拼图 */
+        jigsaw: 1005,
+        /**挑战冲榜 */
+        challengeImpact: 1006,
+        /**招募冲榜 */
+        heroImpact: 1007,
+        /**装备冲榜 */
+        equipImpact: 1008,
+        /**神物规则 */
+        fossil: 1009,
+        /**挑战首领规则 */
+        challengeBoss: 1010,
+        /**竞技场冲榜 */
+        arenaImpact: 1011,
+        /**秘笈 */
+        miji: 1012,
+        /**心法 */
+        xinfa: 1013,
+        /**神通 */
+        shentogn: 1014,
+        /**机械暴君 */
+        jxbj: 1015,
+        /**智械军团 */
+        zxjt: 1016,
+        /**装备规则1 */
+        equipment1: 1017,
+        /**装备规则2 */
+        equipment2: 1018,
+    };
+
+    activities = {
+        puzzle: 1028,
+        impactChallenge: 1029,
+        impactRecruit: 1030,
+        impactEquip: 1032,
+        banquet: 1033,
+        impactArena: 1037,
+    };
+}

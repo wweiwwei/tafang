@@ -1,0 +1,139 @@
+
+Role_mountsgourd.png
+size: 346,838
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/TX_bsh_0000
+  rotate: false
+  xy: 284, 606
+  size: 60, 73
+  orig: 60, 73
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0001
+  rotate: true
+  xy: 2, 62
+  size: 58, 74
+  orig: 58, 74
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0002
+  rotate: false
+  xy: 284, 681
+  size: 58, 76
+  orig: 58, 76
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0003
+  rotate: false
+  xy: 284, 759
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0004
+  rotate: false
+  xy: 284, 527
+  size: 56, 77
+  orig: 56, 77
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0005
+  rotate: true
+  xy: 2, 2
+  size: 58, 64
+  orig: 58, 64
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0006
+  rotate: true
+  xy: 78, 61
+  size: 59, 67
+  orig: 59, 67
+  offset: 0, 0
+  index: -1
+TX/f04
+  rotate: false
+  xy: 244, 442
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f05
+  rotate: false
+  xy: 244, 357
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f06
+  rotate: false
+  xy: 244, 272
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f07
+  rotate: false
+  xy: 244, 187
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f08
+  rotate: true
+  xy: 156, 151
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f09
+  rotate: false
+  xy: 241, 102
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f10
+  rotate: true
+  xy: 156, 52
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f11
+  rotate: false
+  xy: 241, 17
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/guangyun
+  rotate: false
+  xy: 2, 561
+  size: 280, 275
+  orig: 293, 293
+  offset: 7, 8
+  index: -1
+main_body
+  rotate: true
+  xy: 2, 250
+  size: 309, 240
+  orig: 309, 241
+  offset: 0, 1
+  index: -1
+ribbon
+  rotate: false
+  xy: 2, 122
+  size: 152, 126
+  orig: 152, 126
+  offset: 0, 0
+  index: -1
+top
+  rotate: true
+  xy: 68, 12
+  size: 47, 49
+  orig: 47, 49
+  offset: 0, 0
+  index: -1

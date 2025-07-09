@@ -1,0 +1,42 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { GameDate } from "../../../framework/date/GameDate";
+import EventBus from "../../../framework/event/EventBus";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemItem from "../common/ListItemItem";
+import ListItemInstance from "./ListItemInstance";
+import ListItemStage from "./ListItemStage";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStage")
+@ccclass
+export default class WindowStage extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+    };
+    @autowired(UIScrollList) instanceList: UIScrollList<ListItemStage> = null;
+
+    protected onInited(): void {
+        this.node.zIndex = -1;
+        this.refresh();
+    }
+
+    refresh() {
+        const tblList = GTable.getList("StageMapTbl");
+        this.instanceList.setState(
+            tblList.map((t) => {
+                return {
+                    mapIndex: t.mapIndex,
+                };
+            })
+        );
+    }
+}

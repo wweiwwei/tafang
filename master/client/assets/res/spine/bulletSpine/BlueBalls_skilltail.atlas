@@ -1,0 +1,146 @@
+
+BlueBalls_skilltail.png
+size: 1724,846
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/chih1
+  rotate: false
+  xy: 2, 2
+  size: 425, 418
+  orig: 425, 418
+  offset: 0, 0
+  index: -1
+TX/dan9_1
+  rotate: true
+  xy: 1509, 77
+  size: 101, 92
+  orig: 147, 109
+  offset: 39, 14
+  index: -1
+TX/dan9_10
+  rotate: true
+  xy: 1619, 198
+  size: 110, 97
+  orig: 147, 109
+  offset: 31, 9
+  index: -1
+TX/dan9_3
+  rotate: false
+  xy: 1384, 75
+  size: 123, 103
+  orig: 147, 109
+  offset: 16, 3
+  index: -1
+TX/dan9_5
+  rotate: true
+  xy: 1612, 310
+  size: 113, 103
+  orig: 147, 109
+  offset: 28, 4
+  index: -1
+TX/dan9_6
+  rotate: false
+  xy: 1619, 107
+  size: 93, 89
+  orig: 147, 109
+  offset: 49, 16
+  index: -1
+TX/dan9_8
+  rotate: false
+  xy: 1603, 13
+  size: 93, 92
+  orig: 147, 109
+  offset: 48, 13
+  index: -1
+TX/guangyun
+  rotate: false
+  xy: 2, 422
+  size: 424, 422
+  orig: 424, 422
+  offset: 0, 0
+  index: -1
+TX/huo_huidong5_10
+  rotate: true
+  xy: 1643, 706
+  size: 138, 79
+  orig: 165, 136
+  offset: 7, 9
+  index: -1
+TX/huo_huidong5_5
+  rotate: false
+  xy: 1525, 182
+  size: 92, 126
+  orig: 110, 141
+  offset: 10, 8
+  index: -1
+TX/huo_huidong5_6
+  rotate: true
+  xy: 1473, 310
+  size: 113, 137
+  orig: 129, 152
+  offset: 9, 7
+  index: -1
+TX/huo_huidong5_7
+  rotate: true
+  xy: 1394, 180
+  size: 128, 129
+  orig: 147, 151
+  offset: 9, 7
+  index: -1
+TX/huo_huidong5_8
+  rotate: false
+  xy: 1239, 87
+  size: 143, 121
+  orig: 165, 138
+  offset: 10, 1
+  index: -1
+TX/huo_huidong5_9
+  rotate: false
+  xy: 1239, 210
+  size: 153, 122
+  orig: 175, 138
+  offset: 14, 3
+  index: -1
+TX/lv1
+  rotate: false
+  xy: 428, 425
+  size: 403, 419
+  orig: 403, 419
+  offset: 0, 0
+  index: -1
+TX/lv2
+  rotate: false
+  xy: 833, 425
+  size: 403, 419
+  orig: 403, 419
+  offset: 0, 0
+  index: -1
+TX/lv3
+  rotate: false
+  xy: 1238, 425
+  size: 403, 419
+  orig: 403, 419
+  offset: 0, 0
+  index: -1
+TX/lv4
+  rotate: false
+  xy: 429, 4
+  size: 403, 419
+  orig: 403, 419
+  offset: 0, 0
+  index: -1
+TX/lv5
+  rotate: false
+  xy: 834, 4
+  size: 403, 419
+  orig: 403, 419
+  offset: 0, 0
+  index: -1
+TX/vzs_sk2_bz1
+  rotate: false
+  xy: 1239, 334
+  size: 232, 89
+  orig: 263, 139
+  offset: 27, 42
+  index: -1

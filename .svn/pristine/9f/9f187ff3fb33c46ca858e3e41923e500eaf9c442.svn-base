@@ -1,0 +1,272 @@
+
+Role_repairerman.png
+size: 1173,227
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 686, 6
+  size: 99, 60
+  orig: 99, 60
+  offset: 0, 0
+  index: -1
+hair
+  rotate: false
+  xy: 958, 156
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 447, 100
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+hips
+  rotate: true
+  xy: 661, 2
+  size: 103, 23
+  orig: 103, 23
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: true
+  xy: 1131, 172
+  size: 53, 40
+  orig: 53, 40
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: true
+  xy: 1104, 6
+  size: 53, 32
+  orig: 53, 32
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 844, 3
+  size: 49, 64
+  orig: 49, 64
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: true
+  xy: 1113, 110
+  size: 51, 57
+  orig: 51, 57
+  offset: 0, 0
+  index: -1
+left_leg2
+  rotate: false
+  xy: 1057, 97
+  size: 54, 62
+  orig: 54, 62
+  offset: 0, 0
+  index: -1
+ribbon
+  rotate: false
+  xy: 1029, 161
+  size: 45, 64
+  orig: 45, 64
+  offset: 0, 0
+  index: -1
+ribbon2
+  rotate: true
+  xy: 502, 3
+  size: 95, 65
+  orig: 95, 65
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 1076, 163
+  size: 53, 62
+  orig: 53, 62
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: true
+  xy: 1023, 89
+  size: 65, 32
+  orig: 65, 32
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: true
+  xy: 987, 20
+  size: 65, 51
+  orig: 65, 51
+  offset: 0, 0
+  index: -1
+right_leg
+  rotate: true
+  xy: 1113, 61
+  size: 47, 56
+  orig: 47, 56
+  offset: 0, 0
+  index: -1
+right_leg2
+  rotate: true
+  xy: 313, 3
+  size: 47, 64
+  orig: 47, 64
+  offset: 0, 0
+  index: -1
+right_punch2
+  rotate: true
+  xy: 772, 109
+  size: 28, 47
+  orig: 28, 47
+  offset: 0, 0
+  index: -1
+tx/71592234f85dcfaeaa27f64f2eab80ca
+  rotate: false
+  xy: 2, 6
+  size: 215, 219
+  orig: 216, 222
+  offset: 1, 1
+  index: -1
+tx/TX_S_dg_0026
+  rotate: true
+  xy: 550, 102
+  size: 123, 100
+  orig: 128, 110
+  offset: 0, 7
+  index: -1
+tx/TX_xt_g_0017
+  rotate: false
+  xy: 1040, 24
+  size: 62, 63
+  orig: 72, 72
+  offset: 5, 5
+  index: -1
+tx/guyanx
+  rotate: true
+  xy: 983, 87
+  size: 67, 38
+  orig: 67, 38
+  offset: 0, 0
+  index: -1
+tx/lg_2
+  rotate: false
+  xy: 379, 2
+  size: 62, 81
+  orig: 63, 81
+  offset: 0, 0
+  index: -1
+tx/quan
+  rotate: false
+  xy: 652, 107
+  size: 118, 118
+  orig: 121, 121
+  offset: 2, 1
+  index: -1
+tx/skill2_020001
+  rotate: true
+  xy: 748, 16
+  size: 89, 42
+  orig: 89, 42
+  offset: 0, 0
+  index: -1
+tx/skill2_020003
+  rotate: true
+  xy: 943, 76
+  size: 73, 38
+  orig: 73, 38
+  offset: 0, 0
+  index: -1
+tx/skill2_020005
+  rotate: true
+  xy: 844, 54
+  size: 83, 56
+  orig: 83, 56
+  offset: 0, 0
+  index: -1
+tx/skill2_020007
+  rotate: false
+  xy: 910, 3
+  size: 75, 58
+  orig: 75, 58
+  offset: 0, 0
+  index: -1
+tx/skill2_020009
+  rotate: true
+  xy: 443, 3
+  size: 80, 57
+  orig: 80, 57
+  offset: 0, 0
+  index: -1
+tx/skill2_020011
+  rotate: true
+  xy: 792, 22
+  size: 85, 50
+  orig: 85, 50
+  offset: 0, 0
+  index: -1
+tx/skill2_020013
+  rotate: true
+  xy: 904, 151
+  size: 74, 52
+  orig: 74, 52
+  offset: 0, 0
+  index: -1
+tx/skill2_020015
+  rotate: false
+  xy: 219, 3
+  size: 92, 47
+  orig: 92, 47
+  offset: 0, 0
+  index: -1
+tx/skill2_020017
+  rotate: true
+  xy: 617, 9
+  size: 91, 42
+  orig: 91, 42
+  offset: 0, 0
+  index: -1
+tx/skill2_020019
+  rotate: true
+  xy: 902, 63
+  size: 80, 39
+  orig: 80, 39
+  offset: 0, 0
+  index: -1
+tx/skill2_020021
+  rotate: true
+  xy: 857, 145
+  size: 80, 45
+  orig: 80, 45
+  offset: 0, 0
+  index: -1
+tx/skill2_020023
+  rotate: true
+  xy: 569, 5
+  size: 95, 46
+  orig: 95, 46
+  offset: 0, 0
+  index: -1
+tx/skill2_4_1
+  rotate: true
+  xy: 219, 52
+  size: 173, 152
+  orig: 179, 159
+  offset: 4, 3
+  index: -1
+weapon
+  rotate: false
+  xy: 373, 85
+  size: 72, 140
+  orig: 72, 140
+  offset: 0, 0
+  index: -1
+weapon2
+  rotate: true
+  xy: 772, 139
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1

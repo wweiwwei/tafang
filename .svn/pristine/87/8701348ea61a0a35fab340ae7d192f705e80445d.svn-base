@@ -1,0 +1,50 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemBattleSkill from "../battle/ListItemBattleSkill";
+import ListItemBuySkill from "./ListItemBuySkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowBattle")
+@ccclass
+export default class WindowBattle extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    /**暂停*/
+    @autowired(UIButton) pause: UIButton = null;
+    @autowired(cc.ProgressBar) progressBar: cc.ProgressBar = null;
+    /**加速 */
+    @autowired(UIButton) addSpeed: UIButton = null;
+    /**背包 */
+    @autowired(UIButton) knapsack: UIButton = null;
+    /**左边 */
+    @autowired(UIImage) leftIconImg: UIImage = null;
+    @autowired(UILabel) leftIconLab: UILabel = null;
+    @autowired(UIImage) rightIconImg: UIImage = null;
+    @autowired(UILabel) rightIconLab: UILabel = null;
+    @autowired(UILabel) progressLab: UILabel = null;
+    @autowired(UILabel) countLabel: UILabel = null;
+    @autowired(UILabel) spdde: UILabel = null;
+    @autowired(UIList) skillUiList: UIList<ListItemBattleSkill> = null;
+    @autowired(UIList) buySkilluiList: UIList<ListItemBuySkill> = null;
+
+    protected onInited(): void {}
+
+    protected update(dt: number): void {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            const info = api.getWaveInfo();
+            this.progressBar.progress = info.progress;
+            this.progressLab.setText([`_rs第${info.wave}/${info.maxWave}波`]);
+            this.countLabel.setText([`_rs${info.monsterCount}/${info.monsterLimit}`]);
+        }
+    }
+}

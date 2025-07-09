@@ -1,0 +1,195 @@
+
+MusicNotes_skilltail.png
+size: 1022,246
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/Mix_02_000
+  rotate: false
+  xy: 428, 32
+  size: 75, 41
+  orig: 75, 41
+  offset: 0, 0
+  index: -1
+TX/Mix_02_001
+  rotate: true
+  xy: 822, 3
+  size: 97, 48
+  orig: 97, 48
+  offset: 0, 0
+  index: -1
+TX/Mix_02_002
+  rotate: true
+  xy: 769, 102
+  size: 142, 52
+  orig: 142, 52
+  offset: 0, 0
+  index: -1
+TX/Mix_02_003
+  rotate: true
+  xy: 548, 79
+  size: 165, 55
+  orig: 165, 55
+  offset: 0, 0
+  index: -1
+TX/Mix_02_004
+  rotate: true
+  xy: 428, 75
+  size: 169, 55
+  orig: 169, 55
+  offset: 0, 0
+  index: -1
+TX/Mix_02_005
+  rotate: true
+  xy: 485, 78
+  size: 166, 61
+  orig: 166, 61
+  offset: 0, 0
+  index: -1
+TX/Mix_02_006
+  rotate: true
+  xy: 668, 92
+  size: 152, 61
+  orig: 152, 61
+  offset: 0, 0
+  index: -1
+TX/Mix_02_007
+  rotate: true
+  xy: 605, 89
+  size: 155, 61
+  orig: 155, 61
+  offset: 0, 0
+  index: -1
+TX/Mix_02_008
+  rotate: true
+  xy: 823, 120
+  size: 124, 61
+  orig: 124, 61
+  offset: 0, 0
+  index: -1
+TX/Mix_02_009
+  rotate: true
+  xy: 872, 19
+  size: 99, 61
+  orig: 99, 61
+  offset: 0, 0
+  index: -1
+TX/ch
+  rotate: false
+  xy: 2, 3
+  size: 600, 27
+  orig: 600, 27
+  offset: 0, 0
+  index: -1
+TX/daoguang_1
+  rotate: false
+  xy: 731, 93
+  size: 36, 151
+  orig: 44, 163
+  offset: 5, 7
+  index: -1
+TX/guangyun
+  rotate: true
+  xy: 2, 32
+  size: 212, 424
+  orig: 215, 430
+  offset: 3, 3
+  index: -1
+TX/shouji1_001
+  rotate: false
+  xy: 659, 5
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+TX/shouji1_002
+  rotate: false
+  xy: 710, 2
+  size: 54, 88
+  orig: 54, 88
+  offset: 0, 0
+  index: -1
+TX/shouji1_003
+  rotate: false
+  xy: 766, 10
+  size: 54, 81
+  orig: 54, 81
+  offset: 0, 0
+  index: -1
+TX/shouji1_004
+  rotate: false
+  xy: 604, 5
+  size: 53, 72
+  orig: 53, 72
+  offset: 0, 0
+  index: -1
+TX/shouji1_005
+  rotate: false
+  xy: 886, 129
+  size: 53, 62
+  orig: 53, 62
+  offset: 0, 0
+  index: -1
+TX/shouji1_006
+  rotate: false
+  xy: 966, 23
+  size: 54, 49
+  orig: 54, 49
+  offset: 0, 0
+  index: -1
+TX/shouji1_007
+  rotate: true
+  xy: 886, 193
+  size: 51, 41
+  orig: 51, 41
+  offset: 0, 0
+  index: -1
+TX/yinfu1
+  rotate: false
+  xy: 935, 17
+  size: 29, 55
+  orig: 30, 56
+  offset: 0, 0
+  index: -1
+TX/yinfu2
+  rotate: false
+  xy: 550, 32
+  size: 48, 45
+  orig: 49, 45
+  offset: 1, 0
+  index: -1
+TX/yinfu3
+  rotate: true
+  xy: 935, 74
+  size: 37, 55
+  orig: 39, 56
+  offset: 1, 0
+  index: -1
+TX/yinfu4
+  rotate: true
+  xy: 941, 113
+  size: 40, 58
+  orig: 41, 58
+  offset: 0, 0
+  index: -1
+TX/yinfu5
+  rotate: true
+  xy: 505, 32
+  size: 44, 43
+  orig: 44, 43
+  offset: 0, 0
+  index: -1
+TX/yinfu6
+  rotate: true
+  xy: 941, 155
+  size: 50, 58
+  orig: 52, 60
+  offset: 1, 1
+  index: -1
+TX/yinfu7
+  rotate: true
+  xy: 935, 207
+  size: 37, 65
+  orig: 38, 67
+  offset: 1, 1
+  index: -1

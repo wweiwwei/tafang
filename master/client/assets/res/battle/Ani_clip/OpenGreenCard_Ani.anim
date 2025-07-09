@@ -1,0 +1,110 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "OpenGreenCard_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.5333333333333333,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card_scale": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "linear"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.015,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "linear"
+            },
+            {
+              "frame": 0.5333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              }
+            }
+          ]
+        }
+      },
+      "card_scale/id_backNode": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.23333333333333334,
+              "value": 255,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/id_updateLevelNode": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.3,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/nameBg": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.3,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/id_newCardLab": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.26666666666666666,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.3,
+              "value": 255
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,61 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import UISpine from "../../../../framework/ui/UISpine";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemPlayer")
+@ccclass
+export default class ListItemPlayer extends UIListItem {
+    @autowired(UISpine) player: UISpine = null;
+    @autowired(UISpine) artifact: UISpine = null;
+
+    state: {
+        /** 皮肤id */
+        skinId?: number;
+        /** 坐骑id */
+        mountId?: number;
+        /** 神器id */
+        artifactId?: number;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.reset();
+        this.refresh();
+    }
+    reset() {
+        if (!this.notReady) {
+            this.notReady = true;
+            this.artifact_time = 0;
+            this.artifact.changeAnimation("idle", true);
+        }
+    }
+
+    async refresh() {
+        const skinTbl = GTable.getById(
+            "PlayerSkinTbl",
+            this.state.skinId ? this.state.skinId : GModel.mountAndSkin.currentSkin()
+        );
+        const mountTbl = GTable.getById(
+            "PlayerMountTbl",
+            this.state.mountId ? this.state.mountId : GModel.mountAndSkin.currentMount()
+        );
+        await this.player.setSpineWithMount(mountTbl.spine, skinTbl.spine);
+        await this.artifact.setSpine("Artifact_zong", "ribbon", "idle");
+        this.notReady = false;
+    }
+    private notReady = true;
+    private artifact_time = 0;
+    private artifact_total = 40 / 30;
+    private artifact_keys = [13 / 30, 33 / 30];
+    protected update(dt: number): void {
+        if (this.notReady) return;
+        this.artifact_time += dt;
+        const remain = this.artifact_time - Math.floor(this.artifact_time / this.artifact_total) * this.artifact_total;
+        if (remain < this.artifact_keys[0] || remain > this.artifact_keys[1]) {
+            this.artifact.node.zIndex = 1;
+        } else {
+            this.artifact.node.zIndex = -1;
+        }
+    }
+}

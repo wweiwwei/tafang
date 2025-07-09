@@ -1,0 +1,82 @@
+import { Table } from "../Utils/BattleUtils";
+import { BattleBattleStageData } from "./BattleBattleStageData";
+
+type Tickable = {
+    tick(): void;
+};
+
+type ScheduleInfo = {
+    once: boolean;
+    handler: Function;
+    context: any;
+    ms: number;
+};
+
+export class BattleScheduler {
+    constructor(public ctx: BattleBattleStageData) {}
+
+    private _set: Set<Tickable> = new Set();
+    private _table: Table<number, any, Set<ScheduleInfo>> = new Table();
+    private _reverseMap: Map<any, Set<number>> = new Map();
+
+    /** 加入tick集合 */
+    on(t: Tickable) {
+        this._set.add(t);
+    }
+
+    /** 从tick集合中排除 */
+    off(t: Tickable) {
+        this._set.delete(t);
+    }
+
+    /** 多少毫秒后执行一次 */
+    scheduleOnce(ms: number, handler: Function, context: any) {
+        this.schedule(ms, handler, context, true);
+    }
+
+    /** 每多少毫秒执行一次 */
+    schedule(ms: number, handler: Function, context: any, once = false) {
+        const frame = (ms * 60) / 1000;
+        const desF = this.ctx.frame + frame;
+        let s = this._table.get(desF, context);
+        if (!s) {
+            s = new Set();
+            this._table.put(desF, context, s);
+        }
+        s.add({
+            once,
+            handler,
+            context,
+            ms,
+        });
+        let fSet = this._reverseMap.get(context);
+        if (!fSet) {
+            fSet = new Set<number>();
+            this._reverseMap.set(context, fSet);
+        }
+        fSet.add(desF);
+    }
+
+    /** 取消当前上下文的所有计时器 */
+    unschedule(context: any) {
+        const s = this._reverseMap.get(context);
+        if (!s) return;
+        s.forEach((f) => this._table.remove(f, context));
+    }
+
+    tick() {
+        const m = this._table.get(this.ctx.frame);
+        this._table.removeRow(this.ctx.frame);
+        if (m) {
+            m.forEach((infoSet) => {
+                infoSet.forEach((info) => {
+                    info.handler.call(info.context);
+                    if (!info.once) {
+                        this.schedule(info.ms, info.handler, info.context);
+                    }
+                });
+            });
+        }
+        this._set.forEach((t) => t.tick());
+    }
+}

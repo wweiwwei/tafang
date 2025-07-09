@@ -1,0 +1,24 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemHandbookProperty")
+@ccclass
+export default class ListItemHandbookProperty extends UIListItem {
+    @autowired(UILabel) property: UILabel = null;
+    /**数值 */
+    @autowired(UILabel) value: UILabel = null;
+
+    state: {
+        value: number | string;
+        property: string;
+        // plus: number | string;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.value.setText(["_rs+" + this.state.value]);
+        this.property.setText([GIndex.battle.propertyText(this.state.property)], ["_rs:"]);
+    }
+}

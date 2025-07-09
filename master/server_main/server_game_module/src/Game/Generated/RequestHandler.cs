@@ -1,0 +1,1110 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay
+{
+    public class RequestHandler
+    {
+        public PlayerDataManager Ctx;
+        public RequestHandler(PlayerDataManager Ctx)
+        {
+            this.Ctx = Ctx;
+        }
+
+        public async Task<object?> RequestHandle(string path, JObject? param)
+        {
+            switch (path)
+            {
+                case "arena/buyTicket":
+                    {
+
+                        Ctx.PlayerArenaManager.buyTicket();
+                        return null;
+                    }
+                case "arena/challenge":
+                    {
+                        var p_targetRoleId = param!["targetRoleId"]!.ToObject<Int64>()!;
+                        return await Ctx.PlayerArenaManager.Challenge(p_targetRoleId);
+
+                    }
+                case "arena/challengeList":
+                    {
+
+                        return await Ctx.PlayerArenaManager.ChallengeList();
+
+                    }
+                case "arena/history":
+                    {
+
+                        return await Ctx.PlayerArenaManager.History();
+
+                    }
+                case "arena/info":
+                    {
+
+                        return await Ctx.PlayerArenaManager.Info();
+
+                    }
+                case "arena/refreshChallengeList":
+                    {
+                        var p_click = param!["click"]!.ToObject<Boolean>()!;
+                        return await Ctx.PlayerArenaManager.RefreshChallengeList(p_click);
+
+                    }
+                case "arena/top":
+                    {
+
+                        return await Ctx.PlayerArenaManager.Top();
+
+                    }
+                case "banquet/buyGroup":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.BuyGroup(p_id);
+
+                    }
+                case "banquet/buyPack":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.BuyPack(p_id);
+
+                    }
+                case "banquet/buyShopItem":
+                    {
+                        var p_tid = param!["tid"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.BuyShopItem(p_tid,p_count);
+
+                    }
+                case "banquet/exchangePoint":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.ExchangePoint(p_id,p_count);
+
+                    }
+                case "banquet/obtainLevelReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.ObtainLevelReward(p_id);
+
+                    }
+                case "banquet/obtainMissionReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.BanquetManager.ObtainMissionReward(p_id);
+
+                    }
+                case "battle/diamondBuyMagicStaff":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        return Ctx.BattleManager.DiamondBuyMagicStaff(p_id,p_count);
+
+                    }
+                case "battle/killMonster":
+                    {
+
+                        Ctx.BattleManager.KillMonster();
+                        return null;
+                    }
+                case "battle/killMonsterEx":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        var p_coin = param!["coin"]!.ToObject<Int64>()!;
+                        Ctx.BattleManager.KillMonsterEx(p_count,p_coin);
+                        return null;
+                    }
+                case "battle/timeUseReport":
+                    {
+                        var p_time = param!["time"]!.ToObject<Int64>()!;
+                        Ctx.BattleManager.TimeUseReport(p_time);
+                        return null;
+                    }
+                case "battle/useMagicStaff":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        Ctx.BattleManager.UseMagicStaff(p_id,p_count);
+                        return null;
+                    }
+                case "battle/videoAddMagicStaff":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.BattleManager.VideoAddMagicStaff(p_id);
+
+                    }
+                case "cardPool/drawCard":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_kind = param!["kind"]!.ToObject<Int32>()!;
+                        return Ctx.CardPoolManager.DrawCard(p_id,p_kind);
+
+                    }
+                case "career/reset":
+                    {
+
+                        Ctx.CareerManager.Reset();
+                        return null;
+                    }
+                case "career/studyTalent":
+                    {
+                        var p_free = param!["free"]!.ToObject<Boolean>()!;
+                        return Ctx.CareerManager.StudyTalent(p_free);
+
+                    }
+                case "career/transfer":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.CareerManager.Transfer(p_id);
+                        return null;
+                    }
+                case "cdKey/getCdKeyReward":
+                    {
+                        var p_key = param!["key"]!.ToObject<String>()!;
+                        return Ctx.PlayerEmailManager.GetCdKeyReward(p_key);
+
+                    }
+                case "charge/activePack":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.ChargeManager.ActivePack(p_id);
+                        return null;
+                    }
+                case "charge/checkMonthRemain":
+                    {
+
+                        return Ctx.ChargeManager.CheckMonthRemain();
+
+                    }
+                case "charge/obtainMonthCardReward":
+                    {
+
+                        return Ctx.ChargeManager.ObtainMonthCardReward();
+
+                    }
+                case "charge/obtainPermanentCardReward":
+                    {
+
+                        return Ctx.ChargeManager.ObtainPermanentCardReward();
+
+                    }
+                case "charge/obtainReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.ChargeManager.ObtainReward(p_id);
+
+                    }
+                case "charge/testPay":
+                    {
+                        var p_itemId = param!["itemId"]!.ToObject<Int32>()!;
+                        var p_extra = param!["extra"]!.ToObject<String>()!;
+                        await Ctx.ChargeManager.TestPay(p_itemId,p_extra);
+                        return null;
+                    }
+                case "collection/activateRelation":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.CollectionManager.ActivateRelation(p_id);
+                        return null;
+                    }
+                case "collection/obtainLevelReward":
+                    {
+                        var p_page = param!["page"]!.ToObject<Int32>()!;
+                        var p_level = param!["level"]!.ToObject<Int32>()!;
+                        return Ctx.CollectionManager.ObtainLevelReward(p_page,p_level);
+
+                    }
+                case "collection/obtainPoint":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.CollectionManager.ObtainPoint(p_id);
+                        return null;
+                    }
+                case "damageChallenge/getReward":
+                    {
+                        var p_ids = param!["ids"]!.ToObject<Int32[]>()!;
+                        return Ctx.DamageManager.GetReward(p_ids);
+
+                    }
+                case "damageChallenge/report":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        var p_kind = param!["kind"]!.ToObject<Int32>()!;
+                        Ctx.DamageManager.Report(p_count,p_kind);
+                        return null;
+                    }
+                case "email/getAllEmailReward":
+                    {
+
+                        return Ctx.PlayerEmailManager.GetAllEmailReward();
+
+                    }
+                case "email/getEmailReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int64>()!;
+                        return Ctx.PlayerEmailManager.GetEmailReward(p_id);
+
+                    }
+                case "enemy/buyChallenge":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.EnemyManager.buyChallenge(p_count);
+                        return null;
+                    }
+                case "enemy/challenge":
+                    {
+                        var p_rank = param!["rank"]!.ToObject<Int32>()!;
+                        return Ctx.EnemyManager.Challenge(p_rank);
+
+                    }
+                case "enemy/enemyTeam":
+                    {
+
+                        return await Ctx.EnemyManager.EnemyTeam();
+
+                    }
+                case "enemy/refreshEnemy":
+                    {
+
+                        await Ctx.EnemyManager.RefreshEnemy();
+                        return null;
+                    }
+                case "enemy/teamByRank":
+                    {
+                        var p_rank = param!["rank"]!.ToObject<Int32>()!;
+                        return await Ctx.EnemyManager.TeamByRank(p_rank);
+
+                    }
+                case "fossil/sellItem":
+                    {
+                        var p_item = param!["item"]!.ToObject<Item>()!;
+                        return Ctx.FossilManager.SellItem(p_item);
+
+                    }
+                case "fossil/setFormation":
+                    {
+                        var p_formation = param!["formation"]!.ToObject<Int32[]>()!;
+                        Ctx.FossilManager.SetFormation(p_formation);
+                        return null;
+                    }
+                case "fossil/setStar":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.FossilManager.SetStar(p_id);
+                        return null;
+                    }
+                case "friend/acceptAllFriendApplication":
+                    {
+
+                        await Ctx.PlayerFriendManager.AcceptAllFriendApplication();
+                        return null;
+                    }
+                case "friend/acceptFriendApplication":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.AcceptFriendApplication(p_friendId);
+                        return null;
+                    }
+                case "friend/addBlackList":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.AddBlackList(p_friendId);
+                        return null;
+                    }
+                case "friend/challenge":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        return await Ctx.PlayerFriendManager.Challenge(p_friendId);
+
+                    }
+                case "friend/deleteFriend":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.DeleteFriend(p_friendId);
+                        return null;
+                    }
+                case "friend/friendRecommend":
+                    {
+
+                        return await Ctx.PlayerFriendManager.FriendRecommend();
+
+                    }
+                case "friend/friendState":
+                    {
+
+                        return await Ctx.PlayerFriendManager.FriendState();
+
+                    }
+                case "friend/rejectAllFriendApplication":
+                    {
+
+                        await Ctx.PlayerFriendManager.RejectAllFriendApplication();
+                        return null;
+                    }
+                case "friend/rejectFriendApplication":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.RejectFriendApplication(p_friendId);
+                        return null;
+                    }
+                case "friend/removeBlackList":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.RemoveBlackList(p_friendId);
+                        return null;
+                    }
+                case "friend/roleInfo":
+                    {
+                        var p_roleIdList = param!["roleIdList"]!.ToObject<Int64[]>()!;
+                        return await Ctx.PlayerFriendManager.RoleInfo(p_roleIdList);
+
+                    }
+                case "friend/searchPlayer":
+                    {
+                        var p_query = param!["query"]!.ToObject<String>()!;
+                        return await Ctx.PlayerFriendManager.SearchPlayer(p_query);
+
+                    }
+                case "friend/sendFriendApplication":
+                    {
+                        var p_friendId = param!["friendId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerFriendManager.SendFriendApplication(p_friendId);
+                        return null;
+                    }
+                case "game/initCache":
+                    {
+                        var p_key = param!["key"]!.ToObject<String[]>()!;
+                        return Ctx.PlayerManager.InitCache(p_key);
+
+                    }
+                case "game/onlineCount":
+                    {
+
+                        return Ctx.PlayerManager.OnlineCount();
+
+                    }
+                case "gm/gmAddEquipment":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_level = param!["level"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        Ctx.GMManager.GmAddEquipment(p_id,p_level,p_count);
+                        return null;
+                    }
+                case "gm/gmAddItem":
+                    {
+                        var p_item = param!["item"]!.ToObject<Item>()!;
+                        Ctx.GMManager.GmAddItem(p_item);
+                        return null;
+                    }
+                case "gm/gmAddPet":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.GMManager.GmAddPet(p_id,p_count);
+                        return null;
+                    }
+                case "gm/gmAddSkill":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.GMManager.GmAddSkill(p_id,p_count);
+                        return null;
+                    }
+                case "gm/gmAddTime":
+                    {
+                        var p_time = param!["time"]!.ToObject<Int64>()!;
+                        Ctx.GMManager.GmAddTime(p_time);
+                        return null;
+                    }
+                case "gm/gmAllMission":
+                    {
+
+                        Ctx.GMManager.GmAllMission();
+                        return null;
+                    }
+                case "gm/gmClearData":
+                    {
+
+                        Ctx.GMManager.GmClearData();
+                        return null;
+                    }
+                case "gm/gmGetSaveData":
+                    {
+
+                        return Ctx.GMManager.GmGetSaveData();
+
+                    }
+                case "gm/gmSubItem":
+                    {
+                        var p_item = param!["item"]!.ToObject<Item>()!;
+                        Ctx.GMManager.GmSubItem(p_item);
+                        return null;
+                    }
+                case "gm/gmTestError":
+                    {
+
+                        return Ctx.GMManager.GmTestError();
+
+                    }
+                case "gm/gmTestOffline":
+                    {
+
+                        Ctx.GMManager.GmTestOffline();
+                        return null;
+                    }
+                case "guide/complete":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.GuideManager.Complete(p_id);
+                        return null;
+                    }
+                case "hero/batchComposeHero":
+                    {
+
+                        return Ctx.HeroManager.BatchComposeHero();
+
+                    }
+                case "hero/composeHero":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.HeroManager.ComposeHero(p_id);
+
+                    }
+                case "hero/replaceEquipment":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        var p_equipment = param!["equipment"]!.ToObject<HeroEquipment>()!;
+                        var p_fromHero = param!["fromHero"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.ReplaceEquipment(p_uniqueId,p_part,p_equipment,p_fromHero);
+                        return null;
+                    }
+                case "hero/replaceEquipment2":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        var p_equipment = param!["equipment"]!.ToObject<HeroEquipment>()!;
+                        var p_fromHero = param!["fromHero"]!.ToObject<Int32>()!;
+                        var p_change = param!["change"]!.ToObject<Boolean>()!;
+                        Ctx.HeroManager.ReplaceEquipment2(p_uniqueId,p_part,p_equipment,p_fromHero,p_change);
+                        return null;
+                    }
+                case "hero/setFormation2":
+                    {
+                        var p_key = param!["key"]!.ToObject<String>()!;
+                        var p_formation = param!["formation"]!.ToObject<Int32[]>()!;
+                        var p_change = param!["change"]!.ToObject<Boolean>()!;
+                        Ctx.HeroManager.SetFormation2(p_key,p_formation,p_change);
+                        return null;
+                    }
+                case "hero/setHeroEquipment":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_equipment = param!["equipment"]!.ToObject<HeroEquipment[]>()!;
+                        Ctx.HeroManager.SetHeroEquipment(p_uniqueId,p_equipment);
+                        return null;
+                    }
+                case "hero/upgradeAllEquipmentLevel":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeAllEquipmentLevel(p_uniqueId);
+                        return null;
+                    }
+                case "hero/upgradeAllHero":
+                    {
+
+                        Ctx.HeroManager.UpgradeAllHero();
+                        return null;
+                    }
+                case "hero/upgradeEquipmentLevel":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_level = param!["level"]!.ToObject<Int32>()!;
+                        var p_rank = param!["rank"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeEquipmentLevel(p_id,p_level,p_rank,p_count);
+                        return null;
+                    }
+                case "hero/upgradeEquipmentRank":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_level = param!["level"]!.ToObject<Int32>()!;
+                        var p_rank = param!["rank"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeEquipmentRank(p_id,p_level,p_rank);
+                        return null;
+                    }
+                case "hero/upgradeHeroEquipmentLevel":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeHeroEquipmentLevel(p_uniqueId,p_part,p_count);
+                        return null;
+                    }
+                case "hero/upgradeHeroEquipmentRank":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeHeroEquipmentRank(p_uniqueId,p_part);
+                        return null;
+                    }
+                case "hero/upgradeHeroLevel":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeHeroLevel(p_uniqueId,p_count);
+                        return null;
+                    }
+                case "hero/upgradeHeroRank":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeHeroRank(p_uniqueId);
+                        return null;
+                    }
+                case "hero/upgradeHeroStar":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        Ctx.HeroManager.UpgradeHeroStar(p_uniqueId);
+                        return null;
+                    }
+                case "impact/obtainMissionReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.ImpactManager.ObtainMissionReward(p_id);
+
+                    }
+                case "infinite/obtainAllRewardMail":
+                    {
+
+                        return Ctx.InfiniteManager.ObtainAllRewardMail();
+
+                    }
+                case "infinite/obtainReward":
+                    {
+
+                        return Ctx.InfiniteManager.ObtainReward();
+
+                    }
+                case "infinite/obtainRewardMail":
+                    {
+                        var p_uid = param!["uid"]!.ToObject<Int64>()!;
+                        return Ctx.InfiniteManager.ObtainRewardMail(p_uid);
+
+                    }
+                case "infinite/updateRecord":
+                    {
+                        var p_lv = param!["lv"]!.ToObject<Int32>()!;
+                        Ctx.InfiniteManager.UpdateRecord(p_lv);
+                        return null;
+                    }
+                case "knapsack/openChest":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_chestCount = param!["chestCount"]!.ToObject<Int32>()!;
+                        var p_itemId = param!["itemId"]!.ToObject<Int32>()!;
+                        return Ctx.KnapsackManager.OpenChest(p_id,p_chestCount,p_itemId);
+
+                    }
+                case "manor/removeMapItem":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        Ctx.ManorManager.RemoveMapItem(p_id,p_index);
+                        return null;
+                    }
+                case "manor/setMap":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        var p_x = param!["x"]!.ToObject<Int32>()!;
+                        var p_y = param!["y"]!.ToObject<Int32>()!;
+                        Ctx.ManorManager.SetMap(p_id,p_x,p_y);
+                        return null;
+                    }
+                case "mine/challengeBoss":
+                    {
+
+                        Ctx.MineManager.ChallengeBoss();
+                        return null;
+                    }
+                case "mine/hitBrick":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int32>()!;
+                        var p_quick = param!["quick"]!.ToObject<Boolean>()!;
+                        return Ctx.MineManager.HitBrick(p_uniqueId,p_quick);
+
+                    }
+                case "mine/resetFloor":
+                    {
+
+                        Ctx.MineManager.ResetFloor();
+                        return null;
+                    }
+                case "mine/usePro":
+                    {
+                        var p_propType = param!["propType"]!.ToObject<Int32>()!;
+                        var p_x = param!["x"]!.ToObject<Int32>()!;
+                        var p_y = param!["y"]!.ToObject<Int32>()!;
+                        return Ctx.MineManager.UsePro(p_propType,p_x,p_y);
+
+                    }
+                case "mine/videoAddBomb":
+                    {
+
+                        Ctx.MineManager.videoAddBomb();
+                        return null;
+                    }
+                case "mine/videoAddDrill":
+                    {
+
+                        Ctx.MineManager.videoAddDrill();
+                        return null;
+                    }
+                case "mine/videoAddPower":
+                    {
+
+                        Ctx.MineManager.VideoAddPower();
+                        return null;
+                    }
+                case "mine/videoAuto":
+                    {
+
+                        Ctx.MineManager.VideoAuto();
+                        return null;
+                    }
+                case "mine/videoDiamond":
+                    {
+
+                        return Ctx.MineManager.VideoDiamond();
+
+                    }
+                case "mission/obtainMissionReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.MissionManager.ObtainMissionReward(p_id);
+
+                    }
+                case "mission/obtainTaskReward":
+                    {
+
+                        return Ctx.MissionManager.ObtainTaskReward();
+
+                    }
+                case "mount/changeMount":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.PlayerMountManager.ChangeMount(p_id);
+                        return null;
+                    }
+                case "player/changeRoleIcon":
+                    {
+                        var p_icon = param!["icon"]!.ToObject<Int32>()!;
+                        await Ctx.PlayerManager.ChangeRoleIcon(p_icon);
+                        return null;
+                    }
+                case "player/changeRoleName":
+                    {
+                        var p_name = param!["name"]!.ToObject<String>()!;
+                        await Ctx.PlayerManager.ChangeRoleName(p_name);
+                        return null;
+                    }
+                case "player/obtainMissionReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.PlayerManager.ObtainMissionReward(p_id);
+
+                    }
+                case "player/upgradeLevel":
+                    {
+
+                        Ctx.PlayerManager.UpgradeLevel();
+                        return null;
+                    }
+                case "player/upgradeRank":
+                    {
+
+                        Ctx.PlayerManager.UpgradeRank();
+                        return null;
+                    }
+                case "playerEquipment/activateColletion":
+                    {
+                        var p_equipmentId = param!["equipmentId"]!.ToObject<Int32>()!;
+                        return Ctx.PlayerEquipmentManager.ActivateColletion(p_equipmentId);
+
+                    }
+                case "playerEquipment/activateTowerPlace":
+                    {
+
+                        Ctx.PlayerEquipmentManager.ActivateTowerPlace();
+                        return null;
+                    }
+                case "playerEquipment/changeTowerPosition":
+                    {
+                        var p_fromIndex = param!["fromIndex"]!.ToObject<Int32>()!;
+                        var p_toIndex = param!["toIndex"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.ChangeTowerPosition(p_fromIndex,p_toIndex);
+                        return null;
+                    }
+                case "playerEquipment/lockProperty":
+                    {
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        var p_number = param!["number"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.LockProperty(p_index,p_number);
+                        return null;
+                    }
+                case "playerEquipment/replace":
+                    {
+                        var p_tempIndex = param!["tempIndex"]!.ToObject<Int32>()!;
+                        var p_sell = param!["sell"]!.ToObject<Boolean>()!;
+                        return Ctx.PlayerEquipmentManager.Replace(p_tempIndex,p_sell);
+
+                    }
+                case "playerEquipment/replaceTower":
+                    {
+                        var p_originIndex = param!["originIndex"]!.ToObject<Int32>()!;
+                        var p_replacePart = param!["replacePart"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.ReplaceTower(p_originIndex,p_replacePart);
+                        return null;
+                    }
+                case "playerEquipment/selectTalent":
+                    {
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.SelectTalent(p_part,p_index);
+                        return null;
+                    }
+                case "playerEquipment/sell":
+                    {
+                        var p_tempIndex = param!["tempIndex"]!.ToObject<Int32>()!;
+                        return Ctx.PlayerEquipmentManager.Sell(p_tempIndex);
+
+                    }
+                case "playerEquipment/sellAll":
+                    {
+
+                        return Ctx.PlayerEquipmentManager.SellAll();
+
+                    }
+                case "playerEquipment/strengthenAllTower":
+                    {
+
+                        Ctx.PlayerEquipmentManager.StrengthenAllTower();
+                        return null;
+                    }
+                case "playerEquipment/strengthenTower":
+                    {
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.StrengthenTower(p_index);
+                        return null;
+                    }
+                case "playerEquipment/towerWash":
+                    {
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.TowerWash(p_index);
+                        return null;
+                    }
+                case "playerEquipment/upgradeTalent":
+                    {
+                        var p_part = param!["part"]!.ToObject<Int32>()!;
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        Ctx.PlayerEquipmentManager.UpgradeTalent(p_part,p_index);
+                        return null;
+                    }
+                case "playerPet/changeFormation":
+                    {
+                        var p_key = param!["key"]!.ToObject<Int32>()!;
+                        Ctx.PlayerPetManager.ChangeFormation(p_key);
+                        return null;
+                    }
+                case "playerPet/setFormation":
+                    {
+                        var p_key = param!["key"]!.ToObject<Int32>()!;
+                        var p_formation = param!["formation"]!.ToObject<Int32[]>()!;
+                        Ctx.PlayerPetManager.SetFormation(p_key,p_formation);
+                        return null;
+                    }
+                case "playerPet/upgradeAllPet":
+                    {
+
+                        Ctx.PlayerPetManager.UpgradeAllPet();
+                        return null;
+                    }
+                case "playerPet/upgradepet":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.PlayerPetManager.Upgradepet(p_id);
+                        return null;
+                    }
+                case "playerSkill/changeFormation":
+                    {
+                        var p_key = param!["key"]!.ToObject<Int32>()!;
+                        Ctx.PlayerSkillManager.ChangeFormation(p_key);
+                        return null;
+                    }
+                case "playerSkill/setFormation":
+                    {
+                        var p_key = param!["key"]!.ToObject<Int32>()!;
+                        var p_formation = param!["formation"]!.ToObject<Int32[]>()!;
+                        Ctx.PlayerSkillManager.SetFormation(p_key,p_formation);
+                        return null;
+                    }
+                case "playerSkill/upgradeAllSkill":
+                    {
+
+                        Ctx.PlayerSkillManager.UpgradeAllSkill();
+                        return null;
+                    }
+                case "playerSkill/upgradeSkill":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.PlayerSkillManager.UpgradeSkill(p_id);
+                        return null;
+                    }
+                case "playerVideoGroupPurchase/isCanJoinGroupPurchase":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int64>()!;
+                        return await Ctx.PlayerVideoGroupPurchaseManager.IsCanJoinGroupPurchase(p_uniqueId);
+
+                    }
+                case "playerVideoGroupPurchase/joinGroupPurchase":
+                    {
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int64>()!;
+                        await Ctx.PlayerVideoGroupPurchaseManager.JoinGroupPurchase(p_uniqueId);
+                        return null;
+                    }
+                case "playerVideoGroupPurchase/launchGroupPurchase":
+                    {
+
+                        await Ctx.PlayerVideoGroupPurchaseManager.LaunchGroupPurchase();
+                        return null;
+                    }
+                case "playerVideoGroupPurchase/recentVideoGroupPurchase":
+                    {
+
+                        return await Ctx.PlayerVideoGroupPurchaseManager.RecentVideoGroupPurchase();
+
+                    }
+                case "playerVideoGroupPurchase/reportVideo":
+                    {
+
+                        Ctx.PlayerVideoGroupPurchaseManager.ReportVideo();
+                        return null;
+                    }
+                case "power/diamondAddPower":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        Ctx.PlayerManager.DiamondAddPower(p_count);
+                        return null;
+                    }
+                case "power/videoAddPower":
+                    {
+
+                        Ctx.PlayerManager.VideoAddPower();
+                        return null;
+                    }
+                case "ranking/rankingByIndex":
+                    {
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        return await Ctx.PlayerRankingManager.RankingByIndex(p_index);
+
+                    }
+                case "ranking/stageRanking":
+                    {
+
+                        return await Ctx.PlayerRankingManager.StageRanking();
+
+                    }
+                case "ranking/towerRanking":
+                    {
+
+                        return await Ctx.PlayerRankingManager.TowerRanking();
+
+                    }
+                case "rogue/changeExSkill":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32[]>()!;
+                        Ctx.RogueManager.ChangeExSkill(p_id);
+                        return null;
+                    }
+                case "rogue/upgradeExSkillLv":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.RogueManager.UpgradeExSkillLv(p_id);
+                        return null;
+                    }
+                case "rogue/upgradeSkillLv":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.RogueManager.UpgradeSkillLv(p_id);
+                        return null;
+                    }
+                case "skin/changeSkin":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.PlayerSkinManager.ChangeSkin(p_id);
+                        return null;
+                    }
+                case "sprite/drawCard":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        var p_free = param!["free"]!.ToObject<Boolean>()!;
+                        return Ctx.SpriteManager.DrawCard(p_count,p_free);
+
+                    }
+                case "sprite/setFormation":
+                    {
+                        var p_formation = param!["formation"]!.ToObject<Int32[]>()!;
+                        Ctx.SpriteManager.SetFormation(p_formation);
+                        return null;
+                    }
+                case "sprite/uprankSprite":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        Ctx.SpriteManager.UprankSprite(p_id);
+                        return null;
+                    }
+                case "stage/adSweep":
+                    {
+
+                        return Ctx.StageManager.AdSweep();
+
+                    }
+                case "stage/challengeStage":
+                    {
+                        var p_mapIndex = param!["mapIndex"]!.ToObject<Int32>()!;
+                        var p_stageIndex = param!["stageIndex"]!.ToObject<Int32>()!;
+                        return Ctx.StageManager.ChallengeStage(p_mapIndex,p_stageIndex);
+
+                    }
+                case "stage/challengeStageFail":
+                    {
+                        var p_mapIndex = param!["mapIndex"]!.ToObject<Int32>()!;
+                        var p_stageIndex = param!["stageIndex"]!.ToObject<Int32>()!;
+                        var p_ratio = param!["ratio"]!.ToObject<Double>()!;
+                        var p_wave = param!["wave"]!.ToObject<Int32>()!;
+                        return Ctx.StageManager.ChallengeStageFail(p_mapIndex,p_stageIndex,p_ratio,p_wave);
+
+                    }
+                case "stage/challengeVideoReward":
+                    {
+
+                        return Ctx.StageManager.ChallengeVideoReward();
+
+                    }
+                case "stage/obtainAchievementReward":
+                    {
+                        var p_id = param!["id"]!.ToObject<Int32>()!;
+                        return Ctx.StageManager.ObtainAchievementReward(p_id);
+
+                    }
+                case "stage/obtainFirstReward":
+                    {
+                        var p_mapIndex = param!["mapIndex"]!.ToObject<Int32>()!;
+                        var p_stageIndex = param!["stageIndex"]!.ToObject<Int32>()!;
+                        var p_index = param!["index"]!.ToObject<Int32>()!;
+                        return Ctx.StageManager.ObtainFirstReward(p_mapIndex,p_stageIndex,p_index);
+
+                    }
+                case "stage/reportStageBattleEnd":
+                    {
+
+                        Ctx.StageManager.ReportStageBattleEnd();
+                        return null;
+                    }
+                case "stone/accelerate":
+                    {
+                        var p_kind = param!["kind"]!.ToObject<Int32>()!;
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        Ctx.StoneManager.Accelerate(p_kind,p_count);
+                        return null;
+                    }
+                case "stone/changeAutoSetting":
+                    {
+                        var p_setting = param!["setting"]!.ToObject<StoneAutoSetting>()!;
+                        Ctx.StoneManager.ChangeAutoSetting(p_setting);
+                        return null;
+                    }
+                case "stone/drawCard":
+                    {
+                        var p_auto = param!["auto"]!.ToObject<Boolean>()!;
+                        var p_uniqueId = param!["uniqueId"]!.ToObject<Int64>()!;
+                        return Ctx.StoneManager.DrawCard(p_auto,p_uniqueId);
+
+                    }
+                case "stone/drawCard2":
+                    {
+                        var p_auto = param!["auto"]!.ToObject<Boolean>()!;
+                        return Ctx.StoneManager.DrawCard2(p_auto);
+
+                    }
+                case "stone/summon":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int64>()!;
+                        return Ctx.StoneManager.Summon(p_count);
+
+                    }
+                case "stone/upgrade":
+                    {
+
+                        Ctx.StoneManager.Upgrade();
+                        return null;
+                    }
+                case "stone/upgradeStage":
+                    {
+
+                        Ctx.StoneManager.UpgradeStage();
+                        return null;
+                    }
+                case "technology/updateTech":
+                    {
+
+                        Ctx.TechTreeManager.UpdateTech();
+                        return null;
+                    }
+                case "tower/challengeTower":
+                    {
+
+                        return Ctx.TowerManager.ChallengeTower();
+
+                    }
+                case "tower/collectAfkReward":
+                    {
+
+                        return Ctx.TowerManager.CollectAfkReward();
+
+                    }
+                case "tower/obtainLevelReward":
+                    {
+                        var p_level = param!["level"]!.ToObject<Int32>()!;
+                        return Ctx.TowerManager.ObtainLevelReward(p_level);
+
+                    }
+                case "turntable/roll":
+                    {
+                        var p_count = param!["count"]!.ToObject<Int32>()!;
+                        return Ctx.TurntableManager.Roll(p_count);
+
+                    }
+                case "turntable/videoAddItem":
+                    {
+
+                        Ctx.TurntableManager.VideoAddItem();
+                        return null;
+                    }
+                case "warOrder/obtain":
+                    {
+                        var p_rewardId = param!["rewardId"]!.ToObject<Int32>()!;
+                        var p_free = param!["free"]!.ToObject<Boolean>()!;
+                        return Ctx.WarOrderManager.Obtain(p_rewardId,p_free);
+
+                    }
+                default:
+                    throw new GameOrdinaryException(404);
+            }
+        }
+    }
+}

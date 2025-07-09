@@ -1,0 +1,39 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemSwitchAddPower from "./ListItemSwitchAddPower";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowVictoryAndFailure", { preloadPrefab: ["ListItemSwitchAddPower"] })
+@ccclass
+export default class WindowVictoryAndFailure extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UILabel) tips: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemSwitchAddPower> = null;
+    @autowired(UIButton) refresh: UIButton = null;
+    @autowired(UIButton) refreshAd: UIButton = null;
+
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+
+        this.title.setText([]);
+        this.tips.setText([]);
+        this.uiList.setState([]);
+        this.refresh.onClick = () => {};
+        this.refreshAd.onClick = () => {};
+    }
+}

@@ -1,0 +1,62 @@
+
+dolphin_skilltail01.png
+size: 347,299
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tunbaobaojineng/zhanji_00006
+  rotate: false
+  xy: 275, 83
+  size: 70, 71
+  orig: 213, 189
+  offset: 16, 108
+  index: -1
+tunbaobaojineng/zhanji_00007
+  rotate: false
+  xy: 2, 138
+  size: 128, 159
+  orig: 213, 189
+  offset: 75, 15
+  index: -1
+tunbaobaojineng/zhanji_00008
+  rotate: false
+  xy: 132, 142
+  size: 118, 155
+  orig: 213, 189
+  offset: 94, 12
+  index: -1
+tunbaobaojineng/zhanji_00012
+  rotate: true
+  xy: 2, 29
+  size: 107, 158
+  orig: 213, 189
+  offset: 103, 0
+  index: -1
+tunbaobaojineng/zhanji_00013
+  rotate: false
+  xy: 252, 156
+  size: 87, 141
+  orig: 213, 189
+  offset: 116, 9
+  index: -1
+tunbaobaojineng/zhanji_00014
+  rotate: false
+  xy: 162, 4
+  size: 61, 136
+  orig: 213, 189
+  offset: 125, 11
+  index: -1
+tunbaobaojineng/zhanji_00015
+  rotate: false
+  xy: 225, 14
+  size: 48, 126
+  orig: 213, 189
+  offset: 132, 15
+  index: -1
+tunbaobaojineng/zhanji_00016
+  rotate: true
+  xy: 2, 2
+  size: 25, 88
+  orig: 213, 189
+  offset: 147, 18
+  index: -1

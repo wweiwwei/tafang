@@ -1,0 +1,83 @@
+
+Skill_Frost.png
+size: 145,830
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/TX_g
+  rotate: true
+  xy: 75, 2
+  size: 43, 44
+  orig: 45, 45
+  offset: 1, 0
+  index: -1
+TX/TX_yan_0042
+  rotate: true
+  xy: 2, 141
+  size: 151, 109
+  orig: 151, 109
+  offset: 0, 0
+  index: -1
+TX/baodian
+  rotate: false
+  xy: 2, 52
+  size: 99, 87
+  orig: 101, 89
+  offset: 1, 1
+  index: -1
+TX/bdm
+  rotate: true
+  xy: 2, 436
+  size: 392, 141
+  orig: 392, 141
+  offset: 0, 0
+  index: -1
+TX/bingci001
+  rotate: true
+  xy: 2, 401
+  size: 33, 140
+  orig: 33, 140
+  offset: 0, 0
+  index: -1
+TX/bingci002
+  rotate: false
+  xy: 113, 132
+  size: 27, 58
+  orig: 27, 58
+  offset: 0, 0
+  index: -1
+TX/bingci003
+  rotate: false
+  xy: 113, 192
+  size: 27, 100
+  orig: 27, 100
+  offset: 0, 0
+  index: -1
+TX/bingci004
+  rotate: true
+  xy: 2, 371
+  size: 28, 134
+  orig: 28, 134
+  offset: 0, 0
+  index: -1
+TX/bingci005
+  rotate: true
+  xy: 2, 28
+  size: 22, 71
+  orig: 22, 71
+  offset: 0, 0
+  index: -1
+TX/bingkuai001
+  rotate: true
+  xy: 2, 294
+  size: 75, 122
+  orig: 75, 122
+  offset: 0, 0
+  index: -1
+TX/bingkuai010
+  rotate: false
+  xy: 103, 47
+  size: 40, 83
+  orig: 40, 83
+  offset: 0, 0
+  index: -1

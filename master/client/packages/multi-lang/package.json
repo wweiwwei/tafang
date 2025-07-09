@@ -1,0 +1,19 @@
+{
+    "name": "multi-lang",
+    "version": "0.0.1",
+    "description": "多语言拓展包",
+    "author": "Lucas",
+    "main": "main.js",
+    "scene-script": "scene.js",
+    "main-menu": {
+        "Packages/多语言/zh_chs": {
+            "message": "multi-lang:zh_chs"
+        },
+        "Packages/多语言/zh_cht": {
+            "message": "multi-lang:zh_cht"
+        },
+        "Packages/多语言/en": {
+            "message": "multi-lang:en"
+        }
+    }
+}

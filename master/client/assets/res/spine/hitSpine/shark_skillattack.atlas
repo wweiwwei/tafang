@@ -1,0 +1,48 @@
+
+shark_skillattack.png
+size: 311,89
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shui zhu/hai lan_00000
+  rotate: true
+  xy: 123, 5
+  size: 82, 53
+  orig: 99, 64
+  offset: 9, 2
+  index: -1
+shui zhu/hai lan_00001
+  rotate: true
+  xy: 2, 2
+  size: 85, 61
+  orig: 99, 64
+  offset: 5, 0
+  index: -1
+shui zhu/hai lan_00002
+  rotate: true
+  xy: 178, 15
+  size: 72, 58
+  orig: 99, 64
+  offset: 10, 2
+  index: -1
+shui zhu/hai lan_00003
+  rotate: true
+  xy: 65, 3
+  size: 84, 56
+  orig: 99, 64
+  offset: 5, 0
+  index: -1
+shui zhu/hai lan_00004
+  rotate: false
+  xy: 238, 42
+  size: 71, 45
+  orig: 99, 64
+  offset: 9, 5
+  index: -1
+shui zhu/hai lan_00005
+  rotate: false
+  xy: 238, 5
+  size: 66, 35
+  orig: 99, 64
+  offset: 13, 6
+  index: -1

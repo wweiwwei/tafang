@@ -1,0 +1,152 @@
+import EventBus from "../../framework/event/EventBus";
+import AfkData from "../entity/AfkData";
+import Item from "../entity/Item";
+import MainStage from "../entity/MainStage";
+import EventName from "../event/EventName";
+import WindowBattleScene from "../module/battle/WindowBattleScene";
+import WindowSettlement from "../module/battle/WindowSettlement";
+import WindowCommonTip from "../module/common/WindowCommonTip";
+import WindowCongratulation from "../module/common/WindowCongratulation";
+import WindowMainSceneBottomUI from "../module/mainscene/WindowMainSceneBottomUI";
+import WindowBattle from "../module/battle/rogue/WindowBattle";
+import WindowStage from "../module/tower/WindowStage";
+
+export default class StageModel {
+    /** 收集挂机宝箱产出 */
+    async collectAfkReward2(video: boolean): Promise<{
+        reward: Item[];
+    }> {
+        if (video) await GSDK.showVideo("double_afk_reward");
+        return GApi.stage.collectAfkReward2({ video });
+    }
+
+    /** 挑战关卡 */
+    async challengeStage(mapIndex: number, stageIndex: number): Promise<void> {
+        GWindow.close(WindowStage);
+        GWindow.hide(WindowMainSceneBottomUI);
+        const processor = GModel.battle.createStageBattle(mapIndex, stageIndex);
+        const end = async () => {
+            GWindow.show(WindowMainSceneBottomUI);
+            GWindow.open(WindowStage);
+            await GApi.infinite.updateRecord({ lv: processor.getInfiniteWave() });
+        };
+        GWindow.open(WindowBattle);
+        const { win } = await GWindow.open(WindowBattleScene, {
+            startOnInit: true,
+            processor,
+            battleType: "stage",
+        });
+        if (win) {
+            const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+            await GWindow.open(WindowCongratulation, { items: reward });
+        } else {
+            await GWindow.open(WindowCommonTip, { tip: ["_rs战斗失败"] });
+        }
+        GWindow.close(WindowBattle);
+        end();
+    }
+
+    async sweep(mapIndex: number, stageIndex: number): Promise<void> {
+        const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+        await GWindow.open(WindowCongratulation, { items: reward });
+    }
+
+    /** 购买声望商店商品 */
+    buyReputationShopItem(id: number, count: number): Promise<Item[]> {
+        return GApi.stage.buyReputationShopItem({ id, count });
+    }
+
+    /** 获取关卡成就任务奖励 */
+    obtainAchievementReward(id: number): Promise<Item[]> {
+        return GApi.stage.obtainAchievementReward({ id });
+    }
+
+    /** 获取所有关卡数据 */
+    getAllStage(): MainStage[] {
+        return GTable.getList("StageMapTbl").map((t) => {
+            return this.getStageByMapIndex(t.mapIndex);
+        });
+    }
+
+    /** 获取指定关卡数据 */
+    getStageByMapIndex(mapIndex: number): MainStage {
+        return GState.data.stage[mapIndex] || MainStage.empty(mapIndex);
+    }
+
+    /** 主线关卡当前挂机地图 */
+    getStageAfkMap(): number {
+        return GState.data.stageAfkMap;
+    }
+
+    /** 地图当前产出库存 */
+    getStageAfkMapProduce(): { [mapIndex: number]: Item } {
+        const res: { [mapIndex: number]: Item } = {};
+        Object.keys(GState.data.stageAfkMapProduce).forEach((k) => {
+            const mapIndex = Number(k);
+            const s = this.getStageByMapIndex(mapIndex);
+            res[mapIndex] = new Item(s.produceId(), GState.data.stageAfkMapProduce[k]);
+        });
+        return res;
+    }
+
+    /** 主线关卡当前挂机宝箱产出 */
+    getStageAfkBattleReward(): AfkData {
+        return GState.data.stageAfkBattleReward;
+    }
+
+    /**
+     * 获取成就任务状态
+     * uncompleted: 未完成
+     * completed: 已完成未领取
+     * hasGet: 已领取
+     * */
+    getStageAchievementMission(id: number): "uncompleted" | "completed" | "hasGet" {
+        const tbl = GTable.getById("StageAchievementTbl", id);
+        const stage = this.getStageByMapIndex(tbl.stage[0]);
+        if (stage.stageIndex < tbl.stage[1]) return "uncompleted";
+        if (GState.data.stageAchievementRewardHasGet.includes(id)) return "hasGet";
+        return "completed";
+    }
+
+    /** 获取商店物品库存 */
+    getShopItemRemainStorage(id: number): { maxStorage: number; hasUse: number } {
+        const hasUse = GState.data.stageShopHasBuy[id] || 0;
+        const tbl = GTable.getById("StageReputationShopTbl", id);
+        return { maxStorage: tbl.storage, hasUse: hasUse };
+    }
+
+    /** 是否显示关卡的红点 */
+    isShowRedDot(): boolean {
+        const stageList = this.getAllStage();
+        return (
+            stageList
+                .filter((s) => s.stageIndex > 0)
+                .some((s) => {
+                    const count = s.produce().count;
+                    return (GState.data.stageAfkMapProduce[s.mapIndex] || 0) / count >= 30;
+                }) || this.getStageAfkBattleReward().getAfkTime() >= 1800000
+        );
+    }
+    /**是否通关该关卡 */
+    isStagePass(mapIndex: number, stageIndex: number): boolean {
+        return this.getStageByMapIndex(mapIndex).stageIndex > stageIndex;
+    }
+
+    /** 获取现在的关卡 */
+    getCurrentStage(): MainStage {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        return stage;
+    }
+
+    /** 获取当前关卡信息 */
+    getCurrentStageInfo() {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        return {
+            levelName: [stage.getMapTbl().name],
+            current: [`_rs${stage.mapIndex}-${stage.stageIndex}`],
+            pre: [`_rs${stage.mapIndex}-${stage.stageIndex - 1}`],
+        };
+    }
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>server_game_module</AssemblyName>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Sdk" Version="7.2.2" />
+    <PackageReference Include="Microsoft.Orleans.Server" Version="7.2.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <Reference Include=".\lib\server_interface\server_interface.dll" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,80 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import EventBus from "../../../framework/event/EventBus";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import EventName from "../../event/EventName";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemMainSceneBottomMenu")
+@ccclass
+export default class ListItemMainSceneBottomMenu extends UIListItem {
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UIButton) btn: UIButton = null;
+    @autowired(UIImage) exclamation: UIImage = null;
+    @autowired(UIImage) locked: UIImage = null;
+    @autowired(UILabel) label: UILabel = null;
+    @autowired(UILabel) menuName: UILabel = null;
+    @autowired(UIImage) unlock: UIImage = null;
+
+    private isUnlock: boolean = false;
+
+    state: {
+        img: string;
+        label: string;
+        cb: Function;
+        id: number;
+        index: number;
+        touchMenu: number;
+        initPos: number;
+        unlock: boolean;
+        showTips: boolean;
+    };
+
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.node.zIndex = Math.abs(state.initPos);
+        this.btn.setTransition(false);
+
+        this.node.name = this.state.id.toString();
+
+        this.isUnlock = state.unlock;
+        this.unlock.node.active = !this.isUnlock;
+
+        if (state.index < 5) {
+            let bgIndex = this.isUnlock ? (state.touchMenu === state.index ? 2 : 1) : 1;
+            this.btn.bg.imgName = "mainscene_btn" + bgIndex;
+        } else {
+            this.btn.bg.imgName = "";
+        }
+
+        // if (
+        //     state.touchMenu == state.index &&
+        //     this.state.img &&
+        //     state.unlock &&
+        //     state.index != 2
+        //     // ||
+        //     // cc.find("Canvas/window/WindowStage")
+        // ) {
+        //     this.icon.imgName = "mainscene_close";
+        //     this.menuName.setText(["_rs关闭"]);
+        // } else {
+        this.menuName.setText([GTable.getById("UIMainSceneTbl", this.state.id).text]);
+        if (this.state.img) this.icon.imgName = this.state.img;
+        //     // this.state.img.slice(0, this.state.img.length - 3) + (this.isUnlock ? "1Bg" : "2Bg");
+        // }
+        this.btn.onClick = () => {
+            this.state.cb(state.index);
+        };
+        this.node.x = state.initPos;
+        this.refreshRedTip();
+    }
+
+    @message([EventName.redTipRefresh])
+    refreshRedTip() {
+        const tbl = GTable.getById("UIMainSceneTbl", this.state.id);
+        this.exclamation.node.active = this.isUnlock && GModel.redTip.getRed(tbl.redTip) > 0;
+    }
+}

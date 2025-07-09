@@ -1,0 +1,33 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import { UIUtil } from "../../../framework/utils/UIUtils";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemGongFaItemSkill")
+@ccclass
+export default class ListItemGongFaItemSkill extends UIListItem {
+    /** */
+    @autowired(UIButton) bg: UIButton = null;
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UILabel) lv: UILabel = null;
+
+    state: {
+        bg: string;
+        icon: string;
+        lv: number;
+        cb?: Function;
+        gray: boolean;
+    };
+    setState(state: this["state"]): void {
+        if (state.gray) GUtils.ui.setAllChildSpGray(this.node);
+        this.bg.onClick = () => {
+            if (state.cb) state.cb();
+        };
+
+        this.bg.bg.imgName = state.bg;
+        this.icon.imgName = state.icon;
+        this.lv.setText(["_rs" + state.lv]);
+    }
+}

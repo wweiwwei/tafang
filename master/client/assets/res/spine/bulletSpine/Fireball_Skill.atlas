@@ -1,0 +1,62 @@
+
+Fireball_Skill.png
+size: 181,201
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Attack_0000s_0000_01
+  rotate: false
+  xy: 2, 91
+  size: 42, 108
+  orig: 47, 110
+  offset: 2, 2
+  index: -1
+Attack_0000s_0001_02
+  rotate: false
+  xy: 94, 2
+  size: 43, 92
+  orig: 47, 110
+  offset: 1, 2
+  index: -1
+Attack_0000s_0002_03
+  rotate: false
+  xy: 47, 6
+  size: 45, 86
+  orig: 47, 110
+  offset: 1, 1
+  index: -1
+Attack_0000s_0003_04
+  rotate: false
+  xy: 2, 2
+  size: 43, 87
+  orig: 47, 110
+  offset: 1, 2
+  index: -1
+Attack_0000s_0004_05
+  rotate: false
+  xy: 137, 103
+  size: 42, 96
+  orig: 47, 110
+  offset: 3, 1
+  index: -1
+Attack_0000s_0005_06
+  rotate: false
+  xy: 139, 5
+  size: 40, 96
+  orig: 47, 110
+  offset: 3, 2
+  index: -1
+Attack_0000s_0006_07
+  rotate: false
+  xy: 91, 96
+  size: 44, 103
+  orig: 47, 110
+  offset: 2, 0
+  index: -1
+Attack_0000s_0007_08
+  rotate: false
+  xy: 46, 94
+  size: 43, 105
+  orig: 47, 110
+  offset: 0, 1
+  index: -1

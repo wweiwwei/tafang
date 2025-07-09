@@ -1,0 +1,174 @@
+
+Role_raccoon.png
+size: 149,880
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0001_youshouqiang
+  rotate: false
+  xy: 2, 540
+  size: 94, 87
+  orig: 94, 87
+  offset: 0, 0
+  index: -1
+_0002_youer
+  rotate: false
+  xy: 98, 571
+  size: 48, 56
+  orig: 48, 56
+  offset: 0, 0
+  index: -1
+_0003_zuoer
+  rotate: false
+  xy: 106, 746
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+_0004_tou
+  rotate: true
+  xy: 2, 727
+  size: 151, 102
+  orig: 151, 102
+  offset: 0, 0
+  index: -1
+_0005_youxiaobi
+  rotate: true
+  xy: 106, 696
+  size: 48, 38
+  orig: 48, 38
+  offset: 0, 0
+  index: -1
+_0006_youdabi
+  rotate: true
+  xy: 77, 56
+  size: 53, 54
+  orig: 53, 54
+  offset: 0, 0
+  index: -1
+_0007_shenti
+  rotate: false
+  xy: 2, 629
+  size: 101, 96
+  orig: 101, 96
+  offset: 0, 0
+  index: -1
+_0008_youdatui
+  rotate: false
+  xy: 93, 395
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+_0009_youxiaotui
+  rotate: false
+  xy: 93, 457
+  size: 54, 57
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+_0010_zuodatui
+  rotate: true
+  xy: 77, 111
+  size: 52, 57
+  orig: 52, 57
+  offset: 0, 0
+  index: -1
+_0011_zuoxiaotui
+  rotate: true
+  xy: 98, 516
+  size: 53, 46
+  orig: 53, 46
+  offset: 0, 0
+  index: -1
+_0012_zuoqiang
+  rotate: true
+  xy: 2, 198
+  size: 83, 76
+  orig: 83, 76
+  offset: 0, 0
+  index: -1
+_0013_zuoxiaobi
+  rotate: true
+  xy: 105, 649
+  size: 45, 38
+  orig: 45, 38
+  offset: 0, 0
+  index: -1
+_0014_zuodabi
+  rotate: true
+  xy: 75, 2
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+_0015_pigu
+  rotate: true
+  xy: 106, 796
+  size: 82, 27
+  orig: 82, 27
+  offset: 0, 0
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00021
+  rotate: true
+  xy: 91, 323
+  size: 70, 56
+  orig: 119, 100
+  offset: 4, 22
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00022
+  rotate: true
+  xy: 80, 165
+  size: 87, 67
+  orig: 119, 100
+  offset: 14, 16
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00023
+  rotate: true
+  xy: 2, 110
+  size: 86, 73
+  orig: 119, 100
+  offset: 18, 13
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00024
+  rotate: true
+  xy: 2, 283
+  size: 88, 79
+  orig: 119, 100
+  offset: 19, 10
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00026
+  rotate: false
+  xy: 2, 456
+  size: 89, 82
+  orig: 119, 100
+  offset: 19, 8
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00027
+  rotate: false
+  xy: 2, 373
+  size: 87, 81
+  orig: 119, 100
+  offset: 21, 8
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00028
+  rotate: true
+  xy: 2, 22
+  size: 86, 71
+  orig: 119, 100
+  offset: 22, 14
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00029
+  rotate: false
+  xy: 83, 254
+  size: 57, 67
+  orig: 119, 100
+  offset: 48, 17
+  index: -1
+huanxiongjineng/qiangkou2/qiangkou2_00030
+  rotate: false
+  xy: 83, 254
+  size: 57, 67
+  orig: 119, 100
+  offset: 48, 17
+  index: -1

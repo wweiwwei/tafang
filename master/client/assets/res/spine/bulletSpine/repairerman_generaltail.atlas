@@ -1,0 +1,13 @@
+
+repairerman_generaltail.png
+size: 58,147
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+battle_bullet_wrench
+  rotate: false
+  xy: 2, 2
+  size: 54, 143
+  orig: 54, 143
+  offset: 0, 0
+  index: -1

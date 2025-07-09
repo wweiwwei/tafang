@@ -1,0 +1,44 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UISpine from "../../../framework/ui/UISpine";
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemBattleEffect")
+@ccclass
+export default class ListItemBattleEffect extends UIListItem {
+    static _poolSize: number = 20;
+
+    @autowired(UISpine) spine: UISpine = null;
+
+    protected onInjected(): void {
+        this.spine.setEventListener((entry: sp.spine.TrackEntry, event) => {
+            if (event.data.name === "shock") {
+                GCamera.shockScreen();
+            } else if ((event.data.name as string).startsWith("sound_")) {
+                GAudio.playEffect(event.data.name);
+            }
+        });
+    }
+    state: {
+        position: { x: number; y: number };
+        effectAnimation: string;
+        effectName: string;
+        option?: {
+            scaleX: number;
+            scaleY: number;
+            angle: number;
+        };
+        loop?: boolean;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.spine.setCompleteListener(null);
+        this.node.position = cc.v3(this.state.position.x, this.state.position.y);
+        this.spine.setSpine(this.state.effectName, "default", this.state.effectAnimation);
+        this.spine.loop = !!this.state.loop;
+        if (!this.state.loop)
+            this.spine.setCompleteListener(() => {
+                this.recycle();
+            });
+    }
+}

@@ -1,0 +1,106 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import ListItemCost from "../hero/ListItemCost";
+import WindowGongFaDetail from "./WindowGongFaDetail";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemGongFaItem1")
+@ccclass
+export default class ListItemGongFaItem1 extends UIListItem {
+    /** */
+    @autowired(cc.Node) lock: cc.Node = null;
+    @autowired(UIImage) gongfaimg: UIImage = null;
+    /**属性 */
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) name2: UILabel = null;
+    @autowired(UILabel) lockText: UILabel = null;
+    @autowired(UIButton) btn: UIButton = null;
+    @autowired(UILabel) btnText: UILabel = null;
+    @autowired(UIList) cost: UIList<ListItemCost> = null;
+
+    state: {
+        id: number;
+        lv: number;
+        /**是否解锁 */
+        unlockable: boolean;
+        /**解锁提示 */
+        unlockTip: string[];
+    };
+    getTbl() {
+        return GTable.getById("RogueSkillEnhanceTbl", this.state.id);
+    }
+    setState(state: this["state"]): void {
+        this.state = state;
+        // this.state.unlockable = true;
+
+        this.gongfaimg.imgName = this.getTbl().img;
+        this.gongfaimg.addComponent(UIButton).onClick = () => {
+            // console.log(
+            //     "desc =",
+            //     this.getLevelDescribe().reduce((p, c) => p.concat(c), [])
+            // );
+            GWindow.open(WindowGongFaDetail, {
+                iconImg: this.getTbl().img,
+                name: this.getTbl().name,
+                typeText: "秘笈",
+                maxLv: this.state.lv >= this.getTbl().maxLevel,
+                text1: this.getLevelDescribe(),
+                text2: this.getNextLevelDescribe(),
+                lv: state.lv,
+            });
+        };
+        this.name1.setText([this.getTbl().name]);
+        this.name2.setText([this.getTbl().name]);
+        this.lockText.setText(state.unlockTip);
+
+        const env = [{ lv: this.state.lv }];
+        this.desc.setText([
+            this.getTbl().description,
+            ...this.getTbl().descriptionParam.map((p) => {
+                return `_rs${AstUtil.eval(p, env)}`;
+            }),
+        ]);
+
+        this.btnText.setText([state.unlockable ? "_rs升级1次" : "_rs解锁"]);
+
+        const costCount = Math.round(AstUtil.eval(this.getTbl().cost, env));
+        let storage = GModel.knapsack.getStorageById(10001);
+        this.cost.setState([{ item: new Item(10001, 0), require: costCount, storage: storage }]);
+
+        if (state.unlockable) {
+            this.btn.bg.imgName = storage >= costCount ? "common_btn8" : "common_btn11";
+        } else {
+            this.btn.bg.imgName = "common_btn9";
+            if (storage < costCount) {
+                this.btn.bg.imgName = "common_btn11";
+            }
+        }
+        this.btn.node.active = state.unlockable;
+        this.lock.active = !state.unlockable;
+
+        this.btn.onClick = () => {
+            GModel.rogueModel.upgradeSkillLv(this.state.id);
+        };
+    }
+
+    /** 下一级的描述 */
+    getLevelDescribe(): string[] {
+        const env = [{ lv: this.state.lv }];
+        const tbl = this.getTbl();
+        const param = tbl.descriptionParam.map((x) => "_rs" + AstUtil.eval(x, env));
+        return [tbl.description, ...param];
+    }
+
+    /** 下一级的描述 */
+    getNextLevelDescribe(): string[] {
+        const env = [{ lv: this.state.lv + 1 }];
+        const tbl = this.getTbl();
+        const param = tbl.descriptionParam.map((x) => "_rs" + AstUtil.eval(x, env));
+        return [tbl.description, ...param];
+    }
+}

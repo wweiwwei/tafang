@@ -1,0 +1,37 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemBattleSkill from "../battle/ListItemBattleSkill";
+import ListItemBuySkill from "./ListItemBuySkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowBattle", { preloadPrefab: ["ListItemBattleSkill", "ListItemBuySkill"] })
+@ccclass
+export default class WindowBattle extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**暂停*/
+    @autowired(UIButton) pause: UIButton = null;
+    @autowired(cc.ProgressBar) progressBar: cc.ProgressBar = null;
+    /**加速 */
+    @autowired(UIButton) addSpeed: UIButton = null;
+    /**背包 */
+    @autowired(UIButton) knapsack: UIButton = null;
+    /**左边 */
+    @autowired(UILabel) leftIconImg: UILabel = null;
+    @autowired(UILabel) leftIconLab: UILabel = null;
+    @autowired(UILabel) rightIconImg: UILabel = null;
+    @autowired(UILabel) rightIconLab: UILabel = null;
+    @autowired(UILabel) progressLab: UILabel = null;
+    @autowired(UIList) skillUiList: UIList<ListItemBattleSkill> = null;
+    @autowired(UIList) buySkilluiList: UIList<ListItemBuySkill> = null;
+}

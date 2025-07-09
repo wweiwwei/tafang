@@ -1,0 +1,272 @@
+
+Role_primitiveman.png
+size: 928,267
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 693, 35
+  size: 10, 16
+  orig: 10, 16
+  offset: 0, 0
+  index: -1
+02
+  rotate: false
+  xy: 880, 181
+  size: 9, 23
+  orig: 9, 23
+  offset: 0, 0
+  index: -1
+03
+  rotate: false
+  xy: 880, 167
+  size: 9, 12
+  orig: 9, 12
+  offset: 0, 0
+  index: -1
+back_hair01
+  rotate: true
+  xy: 627, 35
+  size: 81, 64
+  orig: 81, 64
+  offset: 0, 0
+  index: -1
+back_hair02
+  rotate: false
+  xy: 819, 155
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+back_qunzi
+  rotate: true
+  xy: 761, 132
+  size: 72, 56
+  orig: 72, 57
+  offset: 0, 1
+  index: -1
+body
+  rotate: true
+  xy: 345, 3
+  size: 53, 66
+  orig: 53, 66
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: true
+  xy: 520, 118
+  size: 147, 113
+  orig: 147, 113
+  offset: 0, 0
+  index: -1
+eff/ok_skin_atk_1_0001
+  rotate: true
+  xy: 175, 8
+  size: 257, 168
+  orig: 267, 180
+  offset: 1, 11
+  index: -1
+eff/ok_skin_atk_1_0002
+  rotate: true
+  xy: 2, 8
+  size: 257, 171
+  orig: 267, 180
+  offset: 1, 6
+  index: -1
+eff/ok_skin_atk_1_0003
+  rotate: true
+  xy: 345, 58
+  size: 207, 173
+  orig: 267, 180
+  offset: 51, 4
+  index: -1
+eff/ok_skin_atk_1_0004
+  rotate: false
+  xy: 635, 123
+  size: 124, 142
+  orig: 267, 180
+  offset: 132, 2
+  index: -1
+eff/ok_skin_atk_1_0005
+  rotate: false
+  xy: 761, 206
+  size: 123, 59
+  orig: 267, 180
+  offset: 133, 5
+  index: -1
+hair
+  rotate: true
+  xy: 891, 201
+  size: 64, 35
+  orig: 64, 35
+  offset: 0, 0
+  index: -1
+hair_02
+  rotate: false
+  xy: 843, 127
+  size: 21, 26
+  orig: 21, 26
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 528, 2
+  size: 114, 97
+  orig: 114, 97
+  offset: 0, 0
+  index: -1
+hips
+  rotate: true
+  xy: 450, 3
+  size: 53, 17
+  orig: 53, 17
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: true
+  xy: 648, 4
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: true
+  xy: 627, 2
+  size: 31, 19
+  orig: 31, 19
+  offset: 0, 0
+  index: -1
+left_footq
+  rotate: true
+  xy: 814, 8
+  size: 38, 24
+  orig: 38, 24
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 891, 157
+  size: 19, 35
+  orig: 19, 35
+  offset: 0, 0
+  index: -1
+left_hands
+  rotate: true
+  xy: 891, 127
+  size: 28, 33
+  orig: 28, 33
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: false
+  xy: 891, 76
+  size: 28, 49
+  orig: 28, 49
+  offset: 0, 0
+  index: -1
+left_leg2
+  rotate: false
+  xy: 497, 6
+  size: 29, 50
+  orig: 29, 50
+  offset: 0, 0
+  index: -1
+left_punch
+  rotate: false
+  xy: 688, 4
+  size: 26, 29
+  orig: 26, 29
+  offset: 0, 0
+  index: -1
+neck
+  rotate: true
+  xy: 413, 3
+  size: 53, 35
+  orig: 53, 35
+  offset: 0, 0
+  index: -1
+qunzi
+  rotate: true
+  xy: 693, 47
+  size: 74, 57
+  orig: 74, 57
+  offset: 0, 0
+  index: -1
+ribbon
+  rotate: true
+  xy: 840, 3
+  size: 19, 59
+  orig: 19, 59
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 751, 5
+  size: 33, 40
+  orig: 33, 40
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: true
+  xy: 725, 4
+  size: 41, 24
+  orig: 41, 24
+  offset: 0, 0
+  index: -1
+right_footq
+  rotate: false
+  xy: 891, 178
+  size: 35, 21
+  orig: 35, 21
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: true
+  xy: 786, 6
+  size: 40, 26
+  orig: 40, 26
+  offset: 0, 0
+  index: -1
+right_leg
+  rotate: false
+  xy: 469, 4
+  size: 26, 52
+  orig: 26, 52
+  offset: 0, 0
+  index: -1
+right_leg2
+  rotate: true
+  xy: 840, 24
+  size: 22, 47
+  orig: 22, 47
+  offset: 0, 0
+  index: -1
+right_punch
+  rotate: false
+  xy: 819, 127
+  size: 22, 26
+  orig: 22, 26
+  offset: 0, 0
+  index: -1
+right_punch2
+  rotate: true
+  xy: 891, 48
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+ring
+  rotate: true
+  xy: 711, 35
+  size: 10, 12
+  orig: 10, 12
+  offset: 0, 0
+  index: -1
+weapon
+  rotate: true
+  xy: 752, 48
+  size: 73, 137
+  orig: 76, 137
+  offset: 3, 0
+  index: -1

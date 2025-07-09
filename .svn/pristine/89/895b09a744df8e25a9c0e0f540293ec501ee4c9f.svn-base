@@ -1,0 +1,73 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UILongTouchButton from "../../../framework/ui/UILongTouchButton";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import { EnumHeroProperty } from "../../config/GEnum";
+import Hero from "../../entity/Hero";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemBottomMenu from "../common/ListItemBottomMenu";
+import ListItemStarItem from "../common/ListItemStarItem";
+import ListItemCost from "./ListItemCost";
+import ListItemEquipProperty from "./ListItemEquipProperty";
+import ListItemHeroSkillItem from "./ListItemHeroSkillItem";
+import ListItemImprove from "./ListItemImprove";
+import WindowPropertyList from "./WindowPropertyList";
+import WindowUprankImprove from "./WindowUprankImprove";
+import ListItemCommonItem from "../mainscene/ListItemCommonItem";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowHeroDetail")
+@ccclass
+export default class WindowHeroDetail extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        hero: Hero;
+        arr: Hero[];
+    };
+    _returnValue: any;
+    /** */
+
+    /**体力 */
+    @autowired(UIButton) powerBtn: UIButton = null;
+    /**玉 */
+    @autowired(UIButton) jadeBtn: UIButton = null;
+    /**银 */
+    @autowired(UIButton) silverBtn: UIButton = null;
+    /**英雄名称 */
+    @autowired(UILabel) heroName: UILabel = null;
+    /**阶段 */
+    @autowired(UILabel) stage: UILabel = null;
+    @autowired(UIButton) shadow: UIButton = null;
+    @autowired(UIButton) mount: UIButton = null;
+    @autowired(UIImage) heroImg: UIImage = null;
+
+    /**皮肤属性加成节点 */
+    @autowired(cc.Node) skinProperty: cc.Node = null;
+    /**皮肤属性加成 */
+    @autowired(UIList) skinPropertyList: UIList<ListItemSkinProperty> = null;
+    /**装备按钮 */
+    @autowired(UIButton) equipmentBtn: UIButton = null;
+    /**皮肤按钮 */
+    @autowired(UIButton) skinBtn: UIButton = null;
+    /**坐骑按钮 */
+    @autowired(UIButton) mountBtn: UIButton = null;
+
+    /**装备 */
+    @autowired(UIList) equipmentList: UIList<ListItemCommonItem> = null;
+    /**皮肤列表 */
+    @autowired(UIList) skinList: UIList<ListItemCommonItem> = null;
+    /**坐骑列表 */
+    @autowired(UIList) mountList: UIList<ListItemCommonItem> = null;
+
+    // WindowPropertyDetails;
+}

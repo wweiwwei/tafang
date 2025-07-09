@@ -1,0 +1,80 @@
+import { BattleBattleStageData } from "./BattleBattleStageData";
+
+export class BattleGlobalProperty {
+    constructor(public ctx: BattleBattleStageData) {
+        Reflect.defineProperty(this, "ctx", { enumerable: false });
+    }
+    /** 反生命恢复 */
+    antiLifeRecover = 0;
+    /** 金币获取率 */
+    coinRate = 0;
+    /** 技能消耗金币比率 */
+    skillCoinConsumeRate = 0;
+    /** 额外金币掉落 */
+    extraCoinDrop = 0;
+    /** 额外伤害加成 */
+    extraDamage = 0;
+    /** 减速额外伤害 */
+    slowExtraDamage = 0;
+    /** debuff额外伤害 */
+    debuffExtraDamage = 0;
+    /** debuff自爆概率 */
+    debuffExplosionRate = 0;
+    /** debuff自爆伤害 */
+    debuffExplosionDamage = 0;
+    /** 全局移速下降 */
+    antiSpeed = 0;
+    /** 全局暴击率 */
+    extraCrit = 0;
+    /** debuff暴击概率 */
+    debuffExtraCrit = 0;
+    /** 减速暴击概率 */
+    slowExtraCrit = 0;
+    /** 额外暴击伤害 */
+    extraCritDamage = 0;
+    /** 额外暴击伤害 */
+    debuffExtraCritDamage = 0;
+    /** 减速额外暴击伤害 */
+    slowExtraCritDamage = 0;
+    /** 装备等级提升1 */
+    equipmentUp1 = 0;
+    /** 装备等级提升2 */
+    equipmentUp2 = 0;
+    /** 装备等级提升3 */
+    equipmentUp3 = 0;
+
+    get counter() {
+        return this.ctx.globalPropertyManager.counter;
+    }
+    get coin() {
+        return this.ctx.globalPropertyManager.coin;
+    }
+
+    get skillTotalLevel() {
+        return this.ctx.rogueSkillManager.totalSkillLevel;
+    }
+
+    orZero(value: number) {
+        return value || 0;
+    }
+
+    static empty = new BattleGlobalProperty(null);
+    static isGlobalPropertyKey(key: string) {
+        return key in this.empty;
+    }
+    /** 拷贝 */
+    static copy(p: BattleGlobalProperty): BattleGlobalProperty {
+        const c: BattleGlobalProperty = JSON.parse(JSON.stringify(p));
+        Reflect.setPrototypeOf(c, BattleGlobalProperty.prototype);
+        c.ctx = p.ctx;
+        Reflect.defineProperty(c, "ctx", { enumerable: false });
+        return c;
+    }
+
+    static addProperty(p: BattleGlobalProperty, key: string, value: number) {
+        if (!this.isGlobalPropertyKey(key)) {
+            throw new Error(`${key}不是一个合法的属性值`);
+        }
+        p[key] += value;
+    }
+}

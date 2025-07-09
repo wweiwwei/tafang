@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "8e6f494f-2353-4d0f-9aec-7fbe11841bcc",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1987,
+  "height": 253,
+  "platformSettings": {},
+  "subMetas": {
+    "IceStorms_skilltail": {
+      "ver": "1.0.6",
+      "uuid": "49d47b34-c3f9-487a-becb-d2d02815502a",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "8e6f494f-2353-4d0f-9aec-7fbe11841bcc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 2,
+      "width": 1982,
+      "height": 249,
+      "rawWidth": 1987,
+      "rawHeight": 253,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

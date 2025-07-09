@@ -1,0 +1,15 @@
+{
+    "Port": 9401,
+    "DataBase": "Host=8.134.94.116:5432;Username=postgres;Password=UHXmtGml6VTPwZbB;Database=rt",
+    "ClickHouse": "Host=8.134.94.116;Port=9000;User=default;Password=v45fagNT;Database=rt;",
+    "BattleServer": "http://8.134.94.116:13101",
+    "App": "rt",
+    "Kind": "game",
+    "Route": [
+        "game",
+        "admin",
+        "payment",
+        "statistics"
+    ],
+    "AreaCode": "l01"
+}

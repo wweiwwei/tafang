@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "208a73b8-0739-4b22-97f5-b6ab2c171cd8",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 542,
+  "height": 522,
+  "platformSettings": {},
+  "subMetas": {
+    "dragon_skillattack": {
+      "ver": "1.0.6",
+      "uuid": "c17dd7fc-eaca-4bcb-8da3-d12381f3151c",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "208a73b8-0739-4b22-97f5-b6ab2c171cd8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 538,
+      "height": 518,
+      "rawWidth": 542,
+      "rawHeight": 522,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

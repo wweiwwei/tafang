@@ -1,0 +1,28 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowTest")
+@ccclass
+export default class WindowTest extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UISpine) spine: UISpine = null;
+
+    protected onInited(): void {
+        let idle = true;
+        this.spine.setSpine("treeman", "default", "attack");
+        // this.spine.setSpine("Role_primitiveman", "01main", "attack");
+        this.spine.setCompleteListener(() => {
+            this.spine.changeAnimation(idle ? "idle" : "attack", false);
+            idle = !idle;
+        });
+        // this.spine.loopOnFrameRange(15, 20);
+        // this.schedule(() => {
+        //     this.spine.changeFrame(15);
+        // }, 0.5);
+    }
+}

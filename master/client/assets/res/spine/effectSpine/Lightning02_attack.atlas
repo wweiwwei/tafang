@@ -1,0 +1,209 @@
+
+Lightning02_attack.png
+size: 959,385
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+B_01
+  rotate: true
+  xy: 921, 187
+  size: 52, 30
+  orig: 54, 31
+  offset: 1, 0
+  index: -1
+B_02
+  rotate: true
+  xy: 94, 4
+  size: 54, 31
+  orig: 54, 31
+  offset: 0, 0
+  index: -1
+B_03
+  rotate: false
+  xy: 533, 355
+  size: 34, 28
+  orig: 54, 31
+  offset: 7, 0
+  index: -1
+Flash_0000s_0000_01
+  rotate: true
+  xy: 857, 191
+  size: 48, 58
+  orig: 102, 329
+  offset: 22, 246
+  index: -1
+Flash_0000s_0001_02
+  rotate: true
+  xy: 579, 207
+  size: 73, 93
+  orig: 102, 329
+  offset: 12, 209
+  index: -1
+Flash_0000s_0002_03
+  rotate: false
+  xy: 350, 91
+  size: 79, 292
+  orig: 102, 329
+  offset: 4, 35
+  index: -1
+Flash_0000s_0003_04
+  rotate: false
+  xy: 96, 62
+  size: 83, 321
+  orig: 102, 329
+  offset: 4, 3
+  index: -1
+Flash_0000s_0004_05
+  rotate: false
+  xy: 181, 65
+  size: 98, 318
+  orig: 102, 329
+  offset: 3, 9
+  index: -1
+Flash_0000s_0005_06
+  rotate: false
+  xy: 281, 65
+  size: 67, 318
+  orig: 102, 329
+  offset: 13, 8
+  index: -1
+Flash_0000s_0006_07
+  rotate: true
+  xy: 127, 2
+  size: 58, 300
+  orig: 102, 329
+  offset: 16, 15
+  index: -1
+Flash_0000s_0007_08
+  rotate: false
+  xy: 2, 60
+  size: 92, 323
+  orig: 102, 329
+  offset: 2, 2
+  index: -1
+Flash_0000s_0008_09
+  rotate: true
+  xy: 429, 7
+  size: 82, 255
+  orig: 102, 329
+  offset: 1, 69
+  index: -1
+Flash_0000s_0009_10
+  rotate: true
+  xy: 686, 308
+  size: 75, 247
+  orig: 102, 329
+  offset: 9, 76
+  index: -1
+Flash_0000s_0010_11
+  rotate: true
+  xy: 2, 2
+  size: 56, 90
+  orig: 102, 329
+  offset: 27, 189
+  index: -1
+VFX_ShanDian_Di
+  rotate: true
+  xy: 431, 181
+  size: 125, 49
+  orig: 129, 51
+  offset: 2, 1
+  index: -1
+zhuangji_0000s_0000_01
+  rotate: false
+  xy: 631, 97
+  size: 90, 108
+  orig: 106, 113
+  offset: 8, 1
+  index: -1
+zhuangji_0000s_0001_02
+  rotate: false
+  xy: 482, 196
+  size: 95, 110
+  orig: 106, 113
+  offset: 6, 2
+  index: -1
+zhuangji_0000s_0002_03
+  rotate: true
+  xy: 685, 207
+  size: 99, 104
+  orig: 106, 113
+  offset: 4, 5
+  index: -1
+zhuangji_0000s_0003_04
+  rotate: true
+  xy: 579, 282
+  size: 101, 104
+  orig: 106, 113
+  offset: 3, 5
+  index: -1
+zhuangji_0000s_0004_05
+  rotate: true
+  xy: 533, 91
+  size: 103, 96
+  orig: 106, 113
+  offset: 2, 13
+  index: -1
+zhuangji_0000s_0005_06
+  rotate: true
+  xy: 723, 102
+  size: 103, 95
+  orig: 106, 113
+  offset: 1, 14
+  index: -1
+zhuangji_0000s_0006_07
+  rotate: false
+  xy: 816, 5
+  size: 103, 95
+  orig: 106, 113
+  offset: 2, 14
+  index: -1
+zhuangji_0000s_0007_08
+  rotate: false
+  xy: 431, 99
+  size: 100, 80
+  orig: 106, 113
+  offset: 4, 29
+  index: -1
+zhuangji_0000s_0008_09
+  rotate: false
+  xy: 431, 308
+  size: 100, 75
+  orig: 106, 113
+  offset: 4, 34
+  index: -1
+zhuangji_0000s_0009_10
+  rotate: false
+  xy: 857, 241
+  size: 100, 65
+  orig: 106, 113
+  offset: 4, 35
+  index: -1
+zhuangji_0000s_0010_11
+  rotate: true
+  xy: 752, 2
+  size: 98, 62
+  orig: 106, 113
+  offset: 5, 38
+  index: -1
+zhuangji_0000s_0011_12
+  rotate: false
+  xy: 820, 126
+  size: 92, 63
+  orig: 106, 113
+  offset: 5, 37
+  index: -1
+zhuangji_0000s_0012_13
+  rotate: true
+  xy: 791, 212
+  size: 94, 64
+  orig: 106, 113
+  offset: 4, 36
+  index: -1
+zhuangji_0000s_0013_14
+  rotate: true
+  xy: 686, 3
+  size: 92, 64
+  orig: 106, 113
+  offset: 5, 36
+  index: -1

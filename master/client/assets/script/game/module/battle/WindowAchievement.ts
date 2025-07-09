@@ -1,0 +1,33 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import ListItemFeedback from "./ListItemFeedback";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowAchievement")
+@ccclass
+export default class WindowAchievement extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+    /**通关奖励列表容器 */
+    @autowired(UIScrollList) feedbackList: UIScrollList<ListItemFeedback> = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.refreshList();
+    }
+    /**刷新通关奖励 */
+    refreshList() {
+        let tbl = GTable.getList("StageAchievementTbl");
+        let state = tbl.map((t) => {
+            return { id: t.id };
+        });
+        this.feedbackList.setState(state);
+    }
+}

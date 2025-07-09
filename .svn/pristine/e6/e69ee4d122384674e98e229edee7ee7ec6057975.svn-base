@@ -1,0 +1,307 @@
+
+Boss_RedBoy.png
+size: 697,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Eff/body
+  rotate: false
+  xy: 644, 16
+  size: 31, 34
+  orig: 31, 34
+  offset: 0, 0
+  index: -1
+Eff/head
+  rotate: false
+  xy: 636, 174
+  size: 50, 55
+  orig: 50, 55
+  offset: 0, 0
+  index: -1
+Eff/hips
+  rotate: false
+  xy: 2, 9
+  size: 34, 16
+  orig: 34, 16
+  offset: 0, 0
+  index: -1
+Eff/huntianling
+  rotate: false
+  xy: 596, 2
+  size: 46, 48
+  orig: 46, 48
+  offset: 0, 0
+  index: -1
+Eff/left_arm
+  rotate: false
+  xy: 38, 9
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+Eff/left_datui
+  rotate: false
+  xy: 636, 136
+  size: 28, 36
+  orig: 28, 36
+  offset: 0, 0
+  index: -1
+Eff/left_hand
+  rotate: true
+  xy: 677, 6
+  size: 16, 18
+  orig: 16, 18
+  offset: 0, 0
+  index: -1
+Eff/left_punch
+  rotate: false
+  xy: 72, 11
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+Eff/left_shouder
+  rotate: false
+  xy: 660, 3
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+Eff/left_xiaotui
+  rotate: true
+  xy: 644, 2
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+Eff/neck
+  rotate: false
+  xy: 623, 438
+  size: 24, 20
+  orig: 24, 20
+  offset: 0, 0
+  index: -1
+Eff/ribbon
+  rotate: false
+  xy: 677, 24
+  size: 18, 26
+  orig: 18, 26
+  offset: 0, 0
+  index: -1
+Eff/right_arm
+  rotate: false
+  xy: 666, 150
+  size: 20, 22
+  orig: 20, 22
+  offset: 0, 0
+  index: -1
+Eff/right_datui
+  rotate: false
+  xy: 532, 239
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+Eff/right_hand
+  rotate: false
+  xy: 649, 439
+  size: 21, 19
+  orig: 21, 19
+  offset: 0, 0
+  index: -1
+Eff/right_huntianling
+  rotate: false
+  xy: 590, 429
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+Eff/right_punch
+  rotate: false
+  xy: 56, 10
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+Eff/right_xiaotui
+  rotate: false
+  xy: 88, 11
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+Eff/weapon
+  rotate: false
+  xy: 532, 274
+  size: 29, 153
+  orig: 29, 153
+  offset: 0, 0
+  index: -1
+effect/f04
+  rotate: false
+  xy: 296, 98
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f05
+  rotate: true
+  xy: 590, 805
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f06
+  rotate: false
+  xy: 411, 98
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f07
+  rotate: true
+  xy: 590, 690
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f08
+  rotate: true
+  xy: 590, 575
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f09
+  rotate: true
+  xy: 590, 460
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f10
+  rotate: false
+  xy: 296, 3
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/f11
+  rotate: false
+  xy: 411, 3
+  size: 113, 93
+  orig: 113, 93
+  offset: 0, 0
+  index: -1
+effect/guangyun
+  rotate: false
+  xy: 296, 193
+  size: 234, 234
+  orig: 234, 234
+  offset: 0, 0
+  index: -1
+effect/huoxin
+  rotate: false
+  xy: 526, 10
+  size: 68, 46
+  orig: 68, 46
+  offset: 0, 0
+  index: -1
+effect/hybz_1
+  rotate: true
+  xy: 590, 920
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+effect/hybz_2
+  rotate: false
+  xy: 526, 58
+  size: 89, 76
+  orig: 89, 76
+  offset: 0, 0
+  index: -1
+effect/hybz_3
+  rotate: false
+  xy: 563, 231
+  size: 101, 90
+  orig: 101, 90
+  offset: 0, 0
+  index: -1
+effect/hybz_4
+  rotate: false
+  xy: 532, 136
+  size: 102, 93
+  orig: 102, 93
+  offset: 0, 0
+  index: -1
+effect/hybz_5
+  rotate: true
+  xy: 563, 323
+  size: 104, 90
+  orig: 104, 90
+  offset: 0, 0
+  index: -1
+effect/hybz_6
+  rotate: false
+  xy: 617, 52
+  size: 66, 82
+  orig: 66, 82
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0001
+  rotate: false
+  xy: 2, 831
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0002
+  rotate: false
+  xy: 2, 630
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0003
+  rotate: false
+  xy: 296, 831
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0004
+  rotate: false
+  xy: 2, 429
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0005
+  rotate: false
+  xy: 296, 630
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0006
+  rotate: false
+  xy: 2, 228
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0007
+  rotate: false
+  xy: 296, 429
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1
+effect/shueihua2_0008
+  rotate: false
+  xy: 2, 27
+  size: 292, 199
+  orig: 292, 199
+  offset: 0, 0
+  index: -1

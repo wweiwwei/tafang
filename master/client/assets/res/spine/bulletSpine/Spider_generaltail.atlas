@@ -1,0 +1,153 @@
+
+Spider_generaltail.png
+size: 370,277
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/a1_1_0003
+  rotate: true
+  xy: 286, 157
+  size: 63, 67
+  orig: 63, 67
+  offset: 0, 0
+  index: -1
+effect/a1_1_0007
+  rotate: false
+  xy: 82, 17
+  size: 82, 77
+  orig: 82, 77
+  offset: 0, 0
+  index: -1
+effect/a1_1_0011
+  rotate: false
+  xy: 166, 10
+  size: 93, 78
+  orig: 93, 78
+  offset: 0, 0
+  index: -1
+effect/a1_1_0015
+  rotate: false
+  xy: 265, 85
+  size: 103, 70
+  orig: 103, 70
+  offset: 0, 0
+  index: -1
+effect/a1_1_0017
+  rotate: false
+  xy: 2, 106
+  size: 101, 59
+  orig: 101, 59
+  offset: 0, 0
+  index: -1
+effect/gl
+  rotate: false
+  xy: 2, 167
+  size: 54, 54
+  orig: 58, 59
+  offset: 2, 2
+  index: -1
+effect/qiu001
+  rotate: false
+  xy: 142, 222
+  size: 53, 53
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+effect/qiu002
+  rotate: false
+  xy: 32, 223
+  size: 53, 52
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+effect/qiu003
+  rotate: false
+  xy: 197, 222
+  size: 53, 53
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+effect/qiu004
+  rotate: true
+  xy: 87, 223
+  size: 52, 53
+  orig: 54, 57
+  offset: 0, 0
+  index: -1
+effect/qiu005
+  rotate: false
+  xy: 58, 167
+  size: 54, 54
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+effect/qiu006
+  rotate: false
+  xy: 114, 166
+  size: 54, 54
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+effect/qiu007
+  rotate: true
+  xy: 252, 222
+  size: 53, 54
+  orig: 54, 58
+  offset: 1, 0
+  index: -1
+effect/qiu008
+  rotate: true
+  xy: 308, 222
+  size: 53, 54
+  orig: 54, 58
+  offset: 1, 0
+  index: -1
+effect/qiu009
+  rotate: false
+  xy: 170, 166
+  size: 54, 54
+  orig: 54, 58
+  offset: 0, 0
+  index: -1
+effect/qiusd
+  rotate: false
+  xy: 2, 248
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+effect/skill1_0100031
+  rotate: false
+  xy: 226, 165
+  size: 58, 55
+  orig: 61, 59
+  offset: 2, 2
+  index: -1
+effect/yanmu_1
+  rotate: false
+  xy: 261, 2
+  size: 99, 81
+  orig: 99, 81
+  offset: 0, 0
+  index: -1
+effect/yanmu_2
+  rotate: true
+  xy: 184, 90
+  size: 73, 79
+  orig: 73, 79
+  offset: 0, 0
+  index: -1
+effect/yanmu_3
+  rotate: true
+  xy: 105, 96
+  size: 68, 77
+  orig: 68, 77
+  offset: 0, 0
+  index: -1
+effect/yanmu_4
+  rotate: false
+  xy: 2, 31
+  size: 78, 73
+  orig: 78, 73
+  offset: 0, 0
+  index: -1

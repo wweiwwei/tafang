@@ -1,0 +1,74 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemBattleSkill from "../battle/rogue/ListItemBattleSkill";
+import ListItemItem from "../common/ListItemItem";
+import WindowSellSkill from "./WindowSellSkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowSkillDetails")
+@ccclass
+export default class WindowSkillDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        id: number;
+    };
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**出售 */
+    @autowired(UIButton) sell: UIButton = null;
+    /**确认 */
+    @autowired(UIButton) confirmBtn: UIButton = null;
+    /**技能列表 */
+    @autowired(UIList) skillList: UIList<ListItemBattleSkill> = null;
+    /**技能名称 */
+    @autowired(UILabel) skillName: UILabel = null;
+    /**技能描述 */
+    @autowired(UILabel) tips: UILabel = null;
+    /**修行类型 如体修 */
+    @autowired(UIImage) typeIcon: UIImage = null;
+
+    private skilldeta: RogueSkillDetailTbl = null;
+
+    //todo  第一件装备不能出售按钮置灰
+    protected onInited(): void {
+        this.skilldeta = GTable.getById("RogueSkillDetailTbl", this._windowParam.id);
+        const skill = GTable.getById("RogueSkillTbl", this.skilldeta.skillId);
+
+        this.skillName.setText([skill.name]);
+        this.tips.setText([skill.description]);
+        this.typeIcon.imgName = GConstant.kindIcon[skill.kind - 1];
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {};
+        this.sell.onClick = async () => {
+            let isSell = await GWindow.open(WindowSellSkill);
+            if (isSell.state) {
+            }
+            this.close();
+        };
+        this.confirmBtn.onClick = () => {
+            this.close();
+        };
+
+        this.refreshList();
+    }
+
+    refreshList() {
+        let state = [
+            {
+                img: this.skilldeta.img,
+                id: this.skilldeta.id,
+                progress: 1,
+                cb: async () => {},
+            },
+        ];
+        this.skillList.setState(state);
+    }
+}

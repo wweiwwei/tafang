@@ -1,0 +1,20 @@
+
+FacilityMap_Water.png
+size: 1926,240
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wave_03
+  rotate: false
+  xy: 2, 2
+  size: 960, 236
+  orig: 960, 236
+  offset: 0, 0
+  index: -1
+wave_04
+  rotate: false
+  xy: 964, 2
+  size: 960, 236
+  orig: 960, 236
+  offset: 0, 0
+  index: -1

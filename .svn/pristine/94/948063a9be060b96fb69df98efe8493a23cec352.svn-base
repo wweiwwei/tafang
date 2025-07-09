@@ -1,0 +1,223 @@
+
+role_spurteffect.png
+size: 553,553
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/TX_S1_yan_0027
+  rotate: false
+  xy: 469, 252
+  size: 80, 78
+  orig: 80, 78
+  offset: 0, 0
+  index: -1
+effect/TX_S1_yan_0029
+  rotate: false
+  xy: 141, 14
+  size: 91, 88
+  orig: 91, 88
+  offset: 0, 0
+  index: -1
+effect/TX_S1_yan_0030
+  rotate: true
+  xy: 384, 252
+  size: 88, 83
+  orig: 88, 83
+  offset: 0, 0
+  index: -1
+effect/TX_S1_yan_0032
+  rotate: true
+  xy: 472, 332
+  size: 92, 79
+  orig: 92, 79
+  offset: 0, 0
+  index: -1
+effect/TX_a_yan_0021
+  rotate: true
+  xy: 384, 342
+  size: 111, 86
+  orig: 111, 86
+  offset: 0, 0
+  index: -1
+effect/bright_001
+  rotate: false
+  xy: 308, 14
+  size: 64, 105
+  orig: 64, 105
+  offset: 0, 0
+  index: -1
+effect/bright_002
+  rotate: true
+  xy: 265, 380
+  size: 70, 117
+  orig: 70, 117
+  offset: 0, 0
+  index: -1
+effect/bright_003
+  rotate: false
+  xy: 234, 15
+  size: 72, 104
+  orig: 72, 104
+  offset: 0, 0
+  index: -1
+effect/bright_004
+  rotate: false
+  xy: 397, 159
+  size: 73, 91
+  orig: 73, 91
+  offset: 0, 0
+  index: -1
+effect/bright_005
+  rotate: false
+  xy: 472, 171
+  size: 73, 79
+  orig: 73, 79
+  offset: 0, 0
+  index: -1
+effect/bright_006
+  rotate: false
+  xy: 472, 107
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+effect/cj_1
+  rotate: true
+  xy: 133, 316
+  size: 64, 125
+  orig: 64, 125
+  offset: 0, 0
+  index: -1
+effect/cj_2
+  rotate: false
+  xy: 496, 426
+  size: 49, 125
+  orig: 61, 129
+  offset: 6, 2
+  index: -1
+effect/cj_3
+  rotate: true
+  xy: 260, 319
+  size: 59, 122
+  orig: 59, 122
+  offset: 0, 0
+  index: -1
+effect/cj_4
+  rotate: true
+  xy: 260, 258
+  size: 59, 122
+  orig: 59, 122
+  offset: 0, 0
+  index: -1
+effect/cj_5
+  rotate: true
+  xy: 135, 382
+  size: 58, 128
+  orig: 58, 128
+  offset: 0, 0
+  index: -1
+effect/guiji
+  rotate: true
+  xy: 116, 48
+  size: 162, 23
+  orig: 162, 23
+  offset: 0, 0
+  index: -1
+effect/pf_h01
+  rotate: false
+  xy: 381, 455
+  size: 113, 96
+  orig: 113, 96
+  offset: 0, 0
+  index: -1
+effect/pf_h02
+  rotate: false
+  xy: 2, 108
+  size: 112, 102
+  orig: 112, 102
+  offset: 0, 0
+  index: -1
+effect/pf_h03
+  rotate: false
+  xy: 135, 442
+  size: 126, 109
+  orig: 126, 109
+  offset: 0, 0
+  index: -1
+effect/pf_h04
+  rotate: false
+  xy: 263, 452
+  size: 116, 99
+  orig: 116, 99
+  offset: 0, 0
+  index: -1
+effect/pf_h05
+  rotate: false
+  xy: 231, 121
+  size: 103, 94
+  orig: 103, 94
+  offset: 0, 0
+  index: -1
+effect/pf_h07
+  rotate: false
+  xy: 2, 6
+  size: 112, 100
+  orig: 112, 100
+  offset: 0, 0
+  index: -1
+effect/pf_h08
+  rotate: false
+  xy: 122, 218
+  size: 109, 96
+  orig: 109, 96
+  offset: 0, 0
+  index: -1
+effect/ps1
+  rotate: true
+  xy: 336, 122
+  size: 93, 59
+  orig: 93, 59
+  offset: 0, 0
+  index: -1
+effect/ps2
+  rotate: true
+  xy: 141, 104
+  size: 112, 88
+  orig: 112, 88
+  offset: 0, 0
+  index: -1
+effect/ps3
+  rotate: false
+  xy: 2, 212
+  size: 118, 102
+  orig: 118, 102
+  offset: 0, 0
+  index: -1
+effect/ps4
+  rotate: false
+  xy: 2, 316
+  size: 129, 115
+  orig: 129, 115
+  offset: 0, 0
+  index: -1
+effect/ps5
+  rotate: false
+  xy: 2, 433
+  size: 131, 118
+  orig: 131, 118
+  offset: 0, 0
+  index: -1
+effect/suduxian
+  rotate: true
+  xy: 233, 217
+  size: 39, 107
+  orig: 39, 107
+  offset: 0, 0
+  index: -1
+effect/yc_1
+  rotate: true
+  xy: 374, 25
+  size: 95, 48
+  orig: 95, 48
+  offset: 0, 0
+  index: -1

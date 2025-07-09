@@ -1,0 +1,266 @@
+import EventName from "../game/event/EventName";
+import EventBus from "./event/EventBus";
+import UIComponent from "./ui/UIComponent";
+
+export default class ResourceLoader {
+    private static _assetIndex: {
+        prefab: {
+            [key: string]: {
+                bundle: string;
+                path: string;
+            };
+        };
+        imageNameToAtlas: { [name: string]: string };
+        atlas: {
+            [name: string]: {
+                bundle: string;
+                path: string;
+            };
+        };
+        spine: {
+            [key: string]: {
+                bundle: string;
+                path: string;
+            };
+        };
+    };
+    /** 战斗文字图集 */
+    static damageTextAtlas: cc.SpriteAtlas = null;
+
+    static internalResource: {
+        grayMaterial: cc.Material;
+        normalMaterial: cc.Material;
+        graySpineMaterial: cc.Material;
+        normalSpineMaterial: cc.Material;
+        wssCacert: cc.Asset;
+    } = {
+        grayMaterial: null,
+        normalMaterial: null,
+        graySpineMaterial: null,
+        normalSpineMaterial: null,
+        wssCacert: null,
+    };
+
+    private static _preloadPrefabMap: Map<string, cc.Prefab> = new Map();
+
+    private static _nodePool: Map<string, cc.NodePool> = new Map();
+
+    static init() {
+        return Promise.all([
+            this.loadAssetIndex(),
+            this.loadLangJson(),
+            this.loadBundle("common"),
+            this.loadInternalResource(),
+        ]);
+    }
+
+    private static async loadInternalResource() {
+        this.internalResource.grayMaterial = await this.asyncLoad(
+            "internal",
+            "materials/builtin-2d-gray-sprite",
+            cc.Material
+        );
+        this.internalResource.normalMaterial = await this.asyncLoad(
+            "internal",
+            "materials/builtin-2d-sprite",
+            cc.Material
+        );
+        this.internalResource.normalSpineMaterial = await this.asyncLoad(
+            "internal",
+            "materials/builtin-2d-spine",
+            cc.Material
+        );
+        this.internalResource.graySpineMaterial = await this.asyncLoad("battle", "materials/spine_gray", cc.Material);
+    }
+
+    static async asyncLoad<T extends cc.Asset>(bundle: string, path: string, assetType: { prototype: T }): Promise<T> {
+        const b = await this.loadBundle(bundle);
+        return new Promise<T>((resolve, reject) => {
+            b.load(path, assetType, (err, asset) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(asset);
+                }
+            });
+        });
+    }
+
+    private static async loadAssetIndex() {
+        const a = await this.asyncLoad("base", "assetIndex", cc.JsonAsset);
+        this._assetIndex = a.json;
+    }
+
+    private static async loadLangJson() {
+        const a = await this.asyncLoad("base", "lang", cc.JsonAsset);
+        GLang.setData(a.json);
+    }
+
+    private static loadBundle(name: string): Promise<cc.AssetManager.Bundle> {
+        return new Promise((resolve, reject) => {
+            cc.assetManager.loadBundle(name, (err, bundle) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(bundle);
+                }
+            });
+        });
+    }
+    static isSpineExist(name: string): boolean {
+        return !!this._assetIndex.spine[name];
+    }
+
+    static async loadAtlas(name: string): Promise<cc.SpriteAtlas> {
+        const data = this._assetIndex.atlas[name];
+        const bundleName = data.bundle;
+        return await this.asyncLoad(bundleName, data.path, cc.SpriteAtlas);
+    }
+
+    static async loadImageByAtlas(name: string): Promise<cc.SpriteFrame> {
+        GLog.verbose("loadImageByAtlas", name);
+        const atlas = this._assetIndex.imageNameToAtlas[name];
+        const data = this._assetIndex.atlas[atlas];
+        if (!data) throw new Error(`load img error, imgName: ${name} atla:${atlas}, please check assetIndex`);
+        const a = await this.loadAtlas(atlas);
+        return a.getSpriteFrame(name);
+    }
+
+    static async preloadPrefab(name: string): Promise<void> {
+        const p = await this.loadPrefab(name);
+        this._preloadPrefabMap.set(name, p);
+    }
+
+    static async loadPrefab(name: string): Promise<cc.Prefab> {
+        GLog.verbose("loadPrefab", name);
+        const bundleName = this._assetIndex.prefab[name].bundle;
+        return await this.asyncLoad(bundleName, this._assetIndex.prefab[name].path, cc.Prefab);
+    }
+
+    static async loadSpine(name: string): Promise<sp.SkeletonData> {
+        GLog.verbose("loadSpine", name);
+        const bundleName = this._assetIndex.spine[name].bundle;
+        return this.asyncLoad(bundleName, this._assetIndex.spine[name].path, sp.SkeletonData);
+    }
+
+    /** 为了避免错误，该方法应该由框架调用，不应该手动调用 */
+    static getNodeSync<T extends typeof UIComponent>(cls: T, prefab: cc.Prefab, _initState?: any): T["prototype"] {
+        let res: T["prototype"] = null;
+        if (cls._poolSize > 0) {
+            if (!this._nodePool.get(cls["__clsName"])) {
+                const nodePool = new cc.NodePool();
+                for (let i = 0; i < cls._poolSize; i++) {
+                    const node = cc.instantiate(prefab);
+                    res = node.addComponent(cls["__clsName"]);
+                    res._nodeInit(_initState);
+                    nodePool.put(node);
+                }
+                this._nodePool.set(cls["__clsName"], nodePool);
+            }
+            const pool = this._nodePool.get(cls["__clsName"]);
+            const node = pool.get();
+            if (node) {
+                res = node.getComponent(cls);
+            } else {
+                const node = cc.instantiate(prefab);
+                res = node.addComponent(cls["__clsName"]);
+                res._nodeInit(_initState);
+            }
+        } else {
+            const node = cc.instantiate(prefab);
+            res = node.addComponent(cls["__clsName"]);
+            res._nodeInit(_initState);
+        }
+        return res;
+    }
+    /** 使用已经预先加载完成的预制体来获取节点，注意需要在窗口信息里注册需要预加载的预制体 */
+    static getNodeSyncWithPreload<T extends typeof UIComponent>(cls: T, _initState?: any): T["prototype"] {
+        const prefab = this._preloadPrefabMap.get(cls["__clsName"]);
+        if (!prefab) {
+            throw new Error(`prefab ${cls["__clsName"]} not preload`);
+        }
+        return this.getNodeSync(cls, prefab, _initState);
+    }
+    /** 使用已经预先加载完成的预制体来获取节点，注意需要在窗口信息里注册需要预加载的预制体 */
+    static getNodeSyncWithPreloadWithGroup<T extends typeof UIComponent>(
+        cls: T,
+        group: string,
+        _initState?: any
+    ): T["prototype"] {
+        const prefab = this._preloadPrefabMap.get(cls["__clsName"]);
+        if (!prefab) {
+            throw new Error(`prefab ${cls["__clsName"]} not preload`);
+        }
+        const comp = this.getNodeSync(cls, prefab, _initState);
+        comp.setGroup(group);
+        return comp;
+    }
+    /** 根据component获取预制体节点 */
+    static async getNode<T extends typeof UIComponent>(cls: T, _initState?: any): Promise<T["prototype"]> {
+        const prefab = await this.loadPrefab(cls["__clsName"]);
+        return this.getNodeSync(cls, prefab, _initState);
+    }
+
+    /** 将节点回收，如果开启了对象池，将回收到对象池 */
+    static recycleNode(node: cc.Node) {
+        const comp = node.getComponent(UIComponent);
+        comp._nodeRecycle();
+        const name = comp.name;
+        const pool = this._nodePool.get(name);
+        if (pool) {
+            pool.put(node);
+        } else {
+            node.destroy();
+        }
+    }
+
+    /** 预加载资源 */
+    static async preload(): Promise<void> {
+        const beginStamp = Date.now();
+        const bundleNames = ["common", "build", "mainscene"];
+        GSDK.report({ kind: "loadResource", data: { percent: 0, cost: 0 } });
+        let reportProgress = 10;
+        await this.preloadBundles(bundleNames, (p) => {
+            if (p > reportProgress / 100) {
+                GSDK.report({ kind: "loadResource", data: { percent: reportProgress, cost: Date.now() - beginStamp } });
+                reportProgress += 10;
+            }
+            EventBus.emit(EventName.setLoadProgress, [GLang.code.ui.loading_load_resource], p);
+        });
+        GSDK.report({ kind: "loadResource", data: { percent: 100, cost: Date.now() - beginStamp } });
+        this.preloadBundles(["battle"]);
+    }
+
+    /** 预加载多个bundle */
+    private static async preloadBundles(bundleNames: string[], onProgress?: (p: number) => void) {
+        const pList = bundleNames.map(() => 0);
+        await Promise.all(
+            bundleNames.map((bundleName, i) => {
+                return this.preloadBundle(bundleName, (p) => {
+                    pList[i] = p;
+                    if (onProgress) onProgress(pList.reduce((a, b) => a + b) / bundleNames.length);
+                });
+            })
+        );
+    }
+
+    /** 预加载bundle */
+    private static async preloadBundle(bundleName: string, onProgress?: (p: number) => void) {
+        const bundle = await this.loadBundle(bundleName);
+        let p = 0;
+        return new Promise<void>((resolve, reject) => {
+            bundle.preloadDir(
+                "",
+                (f, t) => {
+                    const _p = f / t;
+                    if (_p > p) {
+                        if (onProgress) onProgress(f / t);
+                    }
+                },
+                (err, items) => {
+                    resolve();
+                }
+            );
+        });
+    }
+}

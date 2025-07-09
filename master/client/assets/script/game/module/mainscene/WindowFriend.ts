@@ -1,0 +1,61 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemFriend from "./ListItemFriend";
+import WindowFriendManagement from "./WindowFriendManagement";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowFriend")
+@ccclass
+export default class WindowFriend extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**好友人数 */
+    @autowired(UILabel) friendCount: UILabel = null;
+    /**暂无好友 */
+    @autowired(UILabel) noFriends: UILabel = null;
+    /**好友列表 */
+    @autowired(UIScrollList) friendsList: UIScrollList<ListItemFriend> = null;
+    /**管理感叹号 */
+    @autowired(UIImage) exclamation: UIImage = null;
+    /**管理按钮 */
+    @autowired(UIButton) management: UIButton = null;
+    /**一键赠送按钮 */
+    @autowired(UIButton) send: UIButton = null;
+    /**关闭按钮 */
+    @autowired(UIButton) closeWindow: UIButton = null;
+    _windowParam: any;
+    _returnValue: any;
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.management.onClick = () => {
+            GWindow.open(WindowFriendManagement);
+        };
+        this.send.onClick = () => {
+            GTip.showTip(["_rs开发中"]);
+        };
+        this.closeWindow.onClick = () => {
+            this.close();
+        };
+
+        this.friendRefresh();
+    }
+    // @message([EventName.stateKey.friend])
+    async friendRefresh() {
+        this.exclamation.node.active = (await GModel.friend.friendApplicationList()).length > 0;
+        let state = await GModel.friend.friendList();
+        this.friendCount.setText(["_rs" + (await GModel.friend.onlineFriend()) + "/" + state.length]);
+        this.noFriends.node.active = state.length === 0;
+        if (state.length > 0) this.friendsList.setState(state);
+    }
+}

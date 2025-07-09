@@ -1,0 +1,110 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { GameDate } from "../../../framework/date/GameDate";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import { DateUtil } from "../../../framework/utils/DateUtils";
+import EventName from "../../event/EventName";
+import WindowRule from "../mainscene/WindowRule";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemInstance")
+@ccclass
+export default class ListItemInstance extends UIListItem {
+    @autowired(UIButton) enter: UIButton = null;
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UILabel) tips1: UILabel = null;
+    @autowired(UILabel) tips2: UILabel = null;
+    @autowired(UILabel) tips3: UILabel = null;
+    @autowired(UIImage) banner: UIImage = null;
+    @autowired(cc.Node) exclamation: cc.Node = null;
+    @autowired(UIButton) rule: UIButton = null;
+
+    state: { id: number };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.refresh();
+    }
+
+    refresh() {
+        this.tips1.node.active = false;
+        this.tips2.node.active = false;
+        this.tips3.node.active = false;
+
+        switch (this.state.id) {
+            case 1032:
+                this.rule.onClick = () => {
+                    GWindow.open(WindowRule, { ruleId: GIndex.id.ruleId.enemy });
+                };
+                this.tips1.node.active = true;
+                const data = GModel.infiniteBattle.data();
+                // 这里是寻找历史记录的下一关，例如通过了80关，在81关被打败，那么记录点是按照81关的来，这处逻辑可能需要再对需求
+                const ibt =
+                    GTable.getList("InfiniteBattleTbl").find(
+                        (t) => t.lv[0] <= data.historyRecord + 1 && t.lv[1] >= data.historyRecord + 1
+                    ) ||
+                    GTable.getList("InfiniteBattleTbl").find(
+                        (t) => t.lv[0] <= data.historyRecord && t.lv[1] >= data.historyRecord
+                    );
+                const index = GTable.getList("InfiniteBattleTbl").indexOf(ibt);
+                let lv = GTable.getList("InfiniteBattleTbl")[index + 1].recordPoint - 1;
+                this.tips1.setText(["_rs关卡数" + lv]);
+                break;
+            case 1033:
+                this.rule.onClick = () => {
+                    GWindow.open(WindowRule, { ruleId: GIndex.id.ruleId.jxbj });
+                };
+                this.tips2.node.active = true;
+                const dmt1 = GTable.getList("DamageMonsterTbl").find((t) => t.kind === 1);
+                this.tips2.setText([dmt1.limitDesc]);
+                break;
+            case 1034:
+                this.rule.onClick = () => {
+                    GWindow.open(WindowRule, { ruleId: GIndex.id.ruleId.zxjt });
+                };
+                this.tips2.node.active = true;
+                const dmt2 = GTable.getList("DamageMonsterTbl").find((t) => t.kind === 2);
+                this.tips2.setText([dmt2.limitDesc]);
+                break;
+            case 1035:
+                this.rule.onClick = () => {
+                    GWindow.open(WindowRule, { ruleId: GIndex.id.ruleId.arenaList });
+                };
+                this.tips1.node.active = true;
+                this.tips1.setText(["_rs当前层数：" + GModel.tower.level()]);
+                break;
+            case 1036:
+                this.rule.onClick = () => {
+                    GWindow.open(WindowRule, { ruleId: GIndex.id.ruleId.mine });
+                };
+                this.tips1.node.active = true;
+                this.tips1.setText(["_rs当前层数：" + GModel.mine.getCurrentFloor()]);
+                break;
+        }
+
+        const tbl = GTable.getById("UIMainSceneTbl", this.state.id);
+        this.enter.onClick = () => {
+            let day = new Date(GameDate.now()).getDay();
+
+            if (this.state.id == 1033 && day % 2 == 0) {
+                GTip.showTip(["_rs未到"], [tbl.text], ["_rs开启时间"]);
+                return;
+            } else if (this.state.id == 1034 && day % 2 != 0) {
+                GTip.showTip(["_rs未到"], [tbl.text], ["_rs开启时间"]);
+                return;
+            }
+
+            GModel.player.openWindowWithSystemUnlockCheck(tbl);
+        };
+        this.title.setText([tbl.text]);
+        this.banner.imgName = tbl.img;
+        this.refreshRedTip();
+    }
+
+    @message([EventName.redTipRefresh])
+    refreshRedTip() {
+        const tbl = GTable.getById("UIMainSceneTbl", this.state.id);
+        this.exclamation.active = GModel.redTip.getRed(tbl.redTip) > 0;
+    }
+}

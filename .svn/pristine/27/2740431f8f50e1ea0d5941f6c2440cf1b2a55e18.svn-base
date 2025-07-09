@@ -1,0 +1,67 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../../framework/ui/GWindow";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIWindow from "../../../../framework/ui/UIWindow";
+import ListItemRogueEquipment from "./ListItemRogueEquipment";
+import ListItemRogueSkill from "./ListItemRogueSkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowRogueEquipment")
+@ccclass
+export default class WindowRogueEquipment extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: {
+        id: number;
+    } = { id: -1 };
+
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UILabel) tips: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemRogueEquipment> = null;
+    @autowired(UIButton) refresh: UIButton = null;
+    @autowired(UIButton) refreshAd: UIButton = null;
+
+    protected onInited(): void {
+        this.refresh.onClick = () => {
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                const property = api.rogueEquipmentManager();
+                property.reRoll();
+                this.refreshUI(false);
+            }
+        };
+        this.refreshAd.onClick = () => {
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                const property = api.rogueEquipmentManager();
+                property.reRoll();
+                this.refreshUI(false);
+            }
+        };
+        this.refreshUI(true);
+    }
+
+    refreshUI(playAnim: boolean) {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            const equipmentMgr = api.rogueEquipmentManager();
+            const state = equipmentMgr.currentCards.map((id, index) => {
+                return {
+                    index,
+                    id,
+                    cb: () => {
+                        this._returnValue.id = id;
+                        this.close();
+                    },
+                    playAnim,
+                };
+            });
+            this.uiList.setState(state);
+        }
+    }
+}

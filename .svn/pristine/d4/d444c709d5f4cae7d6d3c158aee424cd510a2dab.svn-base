@@ -1,0 +1,68 @@
+import Item from "../entity/Item";
+import WindowBattleScene from "../module/battle/WindowBattleScene";
+import WindowBattleStageInfo from "../module/battle/WindowBattleStageInfo";
+import WindowCongratulation from "../module/common/WindowCongratulation";
+import WindowInfiniteBattle from "../module/tower/WindowInfiniteBattle";
+import WindowInstance from "../module/tower/WindowInstance";
+
+export default class InfiniteBattleModel {
+    // /** 更新记录 */
+    // updateRecord(x: { lv: number }): Promise<void> {
+    //     return GApi.infinite.updateRecord(x);
+    // }
+    /** 获取今日奖励 */
+    async obtainReward() {
+        const reward = await GApi.infinite.obtainReward();
+        GWindow.open(WindowCongratulation, { items: reward });
+    }
+
+    data() {
+        return GState.data.infiniteData;
+    }
+    /** 挑战 */
+    async challenge() {
+        GWindow.close(WindowInstance);
+        GWindow.close(WindowInfiniteBattle);
+        const processor = GModel.battle.createStageBattle();
+        const end = async () => {
+            GModel.stage.battleSceneMainLoop();
+            GWindow.open(WindowInstance);
+            GWindow.open(WindowInfiniteBattle);
+            await GApi.infinite.updateRecord({ lv: processor.getInfiniteWave() });
+        };
+        GWindow.open(WindowBattleScene, {
+            startOnInit: true,
+            processor,
+            battleType: "stage",
+        });
+        // await GWindow.get(WindowBattleScene).battle(processor);
+        // end();
+    }
+
+    /** 获取未领取奖励 */
+    getReward(): Item[] {
+        return this.getRewardByWave(GState.data.infiniteData.todayRecord);
+    }
+    getRewardByWave(wave: number) {
+        const list: Item[] = [];
+        const data = this.data();
+        const m = {
+            lv: 0,
+        };
+        for (let i = data.todayHasGet + 1; i <= wave; i++) {
+            m.lv = i;
+            const tbl = GTable.getList("InfiniteBattleTbl").find((t) => t.lv[0] <= i && t.lv[1] >= i);
+            const firstReward = tbl.reward.map((t) => new Item(Number(t[0]), Math.round(AstUtil.eval(t[1], [m]))));
+            const specialReward = tbl.specialReward
+                .filter((t) => i % Number(t[0]) === 0)
+                .map((t) => new Item(Number(t[1]), Math.round(AstUtil.eval(t[2], [m]))));
+            firstReward.forEach((d) => list.push(d));
+            specialReward.forEach((d) => list.push(d));
+        }
+        return Item.combine(list);
+    }
+
+    hasRemainReward() {
+        return GState.data.infiniteData.todayRecord > GState.data.infiniteData.todayHasGet;
+    }
+}

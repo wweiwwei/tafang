@@ -1,0 +1,177 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemItem from "../common/ListItemItem";
+import ListItemCostItem from "../hero/ListItemCostItem";
+import WindowStrangeKnapsack from "./WindowStrangeKnapsack";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStrangeProperty")
+@ccclass
+export default class WindowStrangeProperty extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UIButton) change: UIButton = null;
+    @autowired(UIButton) takeoff: UIButton = null;
+    @autowired(cc.Node) star: cc.Node = null;
+    @autowired(cc.Node) colors: cc.Node = null;
+    @autowired(UILabel) property0: UILabel = null;
+    @autowired(UILabel) property1: UILabel = null;
+    @autowired(UILabel) property2: UILabel = null;
+    @autowired(UILabel) property3: UILabel = null;
+
+    @autowired(cc.Node) life: cc.Node = null;
+    @autowired(UIList) item: UIList<ListItemItem> = null;
+    @autowired(UILabel) itemName: UILabel = null;
+    @autowired(UILabel) property: UILabel = null;
+    @autowired(cc.Node) forSell: cc.Node = null;
+    @autowired(UIButton) sell: UIButton = null;
+    @autowired(UIList) cost: UIList<ListItemCostItem> = null;
+    _windowParam: {
+        /**0-命星，1-命格，2-出售 */
+        status: number;
+        id: number;
+        index?: number;
+    };
+    _returnValue: any;
+    private nodeList: cc.Node[] = [];
+    private propertys: UILabel[] = [];
+    protected onInited(): void {
+        this.node.getComponent(UIButton).onClick = () => {
+            this.close();
+        };
+        this.node.getComponent(UIButton).setTransition(false);
+        for (let i = 0; i < 4; i++) {
+            this.propertys.push(this[`property${i}`]);
+        }
+        this.windowInit();
+    }
+    @message([EventName.stateKey.fossilData])
+    windowInit() {
+        switch (this._windowParam.status) {
+            case 0:
+                this.initStar();
+                break;
+            case 1:
+                this.initLife();
+                break;
+            case 2:
+                this.initSell();
+                break;
+            default:
+                break;
+        }
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.change.node.active = this._windowParam.status !== 2;
+        this.takeoff.node.active = this._windowParam.status !== 2;
+        this.forSell.active = this._windowParam.status === 2;
+        this.star.active = this._windowParam.status === 0;
+        this.life.active = this._windowParam.status !== 0;
+    }
+    initStar() {
+        if (GModel.fossil.getStar() !== this._windowParam.id) this.close();
+        let tbls = GTable.getList("FossilComboTbl").filter((t) => t.itemId === this._windowParam.id);
+        this.title.setText([GLang.code.ui.stange_star], [GLang.code.ui.property]);
+        let color = tbls[0].combo;
+        let gray = cc.color(182, 169, 163, 255);
+        const node: cc.Node = this.colors.getChildByName("UILabel");
+        color.forEach((c, i) => {
+            const copy = cc.instantiate(node);
+            copy.getComponent(UILabel).setText([GConstant.colorLabel[c]]);
+            copy.color = GConstant.itemColor[c];
+            copy.setParent(this.colors);
+            this.nodeList.push(copy);
+        });
+        let formation = GModel.fossil.getFormation();
+        let quality = -1;
+        if (!GModel.fossil.isStarActive()) {
+            this.propertys.forEach((la) => (la.node.color = gray));
+        } else {
+            quality = GUtils.array.min(formation.map((t) => GTable.getById("ItemTbl", t).quality));
+        }
+        this.propertys.forEach((la, i) => {
+            let des = tbls[i].property
+                .map((p, n) => [
+                    [GIndex.battle.propertyText(p[0])],
+                    [`_rs+${p[1]}`],
+                    n < tbls[i].property.length - 1 ? ["_rs，"] : [],
+                ])
+                .reduce((p, c) => p.concat(c), []);
+            la.setText([GLang.code.ui.map_unlock_level, `_rs${i + 1}`], ["_rs："], ...des);
+            if (i > quality) la.node.color = gray;
+        });
+        this.change.onClick = () => {
+            GWindow.open(WindowStrangeKnapsack, { status: 0, id: this._windowParam.id });
+        };
+        this.takeoff.onClick = async () => {
+            await GModel.fossil.setStar(-1);
+            this.close();
+        };
+    }
+    initLife() {
+        this.initProperty();
+        let formation = GModel.fossil.getFormation();
+        if (!formation.includes(this._windowParam.id)) this.close();
+        this.change.onClick = () => {
+            GWindow.open(WindowStrangeKnapsack, {
+                status: 1,
+                id: this._windowParam.id,
+                index: this._windowParam.index,
+            });
+        };
+        this.takeoff.onClick = async () => {
+            await GModel.fossil.unEquipStone(this._windowParam.index);
+            this.close();
+        };
+    }
+    initSell() {
+        this.initProperty();
+        let tbl = GModel.fossil.getFossilTblById(this._windowParam.id);
+        this.cost.setState(
+            tbl.price.map((p) => {
+                return { item: new Item(p[0], p[1]), status: 0 };
+            })
+        );
+        this.sell.onClick = async () => {
+            let data = await GModel.fossil.sellItem(new Item(this._windowParam.id, 1));
+            data.forEach((v) => GTip.showRewardItem(v));
+            this.close();
+        };
+    }
+    protected onDestroy(): void {
+        this.nodeList.forEach((node) => node.destroy());
+    }
+    initProperty() {
+        let item = new Item(this._windowParam.id, 1);
+        this.title.setText([GLang.code.ui.stange_life], [GLang.code.ui.property]);
+        this.item.setState([{ item, status: 1 }]);
+        this.itemName.setText(Item.getName(item));
+        let fossilTbl = GModel.fossil.getFossilTblById(this._windowParam.id);
+        this.property.setText(...this.propertyLabelText(fossilTbl.property));
+    }
+
+    propertyLabelText(des: string[][]): string[][] {
+        return des
+            .map((p, n) => {
+                let value: string[];
+                if (p[1].endsWith("%")) {
+                    value = ["_rs+" + p[1]];
+                } else {
+                    const showFunc = GIndex.battle.propertyShowMethod(p[0])(Number(p[1]));
+                    value = ["_rs+" + showFunc];
+                }
+                return [[GIndex.battle.propertyText(p[0])], value, n < des.length - 1 ? ["_rs，"] : []];
+            })
+            .reduce((p, c) => p.concat(c), []);
+    }
+}

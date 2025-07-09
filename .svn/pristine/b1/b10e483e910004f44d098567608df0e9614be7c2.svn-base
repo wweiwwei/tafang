@@ -1,0 +1,86 @@
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import { BattleDisplayEvent } from "../Display/BattleDisplayEvent";
+import { BattleGlobalPropertyManager } from "./BattleGlobalPropertyManager";
+import { BattleDisplayToLogicApi } from "../../battleApi/BattleDisplayToLogicApi";
+import { BattleObjectInfo } from "../Object/BattleStage/BattleObjectInfo";
+import { BattlePlayerCommand } from "./BattleCommandHandler";
+import BattleMonsterQueueInfiniteMode from "./MonsterQueue/BattleMonsterQueueInfiniteMode";
+
+export type BattleKind =
+    | "peace"
+    | "normal"
+    | "damage"
+    | "damageBoss"
+    | "tower"
+    | "boss"
+    | "guide"
+    | "infinite"
+    | "rabbitSheep";
+/** 战斗进程 */
+export class BattleProcessor {
+    constructor(
+        /** 进攻方队伍 */
+        public attackTeam: BattleObjectInfo[],
+        /** 防守方队伍 */
+        public defendTeam: BattleObjectInfo[],
+        /** 关卡配置 */
+        public waveId: number,
+        /** 随机种子 */
+        public seed: number,
+        /** 战斗模式 */
+        public mode: "pve" | "pvp",
+        /** 战斗指令获取器 */
+        public commandGetter: (frame: number) => BattlePlayerCommand[],
+        /** 环境参数 */
+        public env: any[],
+        /** 地图id */
+        public mapId: number,
+        /** 战斗时长限制 */
+        public tickLimit: number,
+        /** 战斗类型 */
+        public battleKind: BattleKind = "normal",
+        /** 是否自动 */
+        public auto: boolean = true,
+        /** 是否需要引导战斗 */
+        public needGuideBattle: boolean = false
+    ) {
+        this.battleData = new BattleBattleStageData(this);
+    }
+
+    /** 当前状态，battle战斗，end结束 */
+    curState: "battle" | "end" = "battle";
+
+    /** 战斗阶段数据 */
+    battleData: BattleBattleStageData;
+    /** 展示事件列表 */
+    private displayEventList: BattleDisplayEvent<any>[] = [];
+
+    /** 加入一个展示事件 */
+    pushDisplayEvent<Key extends keyof BattleDisplayToLogicApi>(e: BattleDisplayEvent<Key>) {
+        this.displayEventList.push(e);
+    }
+
+    /** 获取并清除所有展示事件 */
+    getAndClearDisplayEvent() {
+        const list = this.displayEventList;
+        this.displayEventList = [];
+        return list;
+    }
+
+    /** 获取无尽模式通关波数 */
+    getInfiniteWave() {
+        return this.battleData.monsterQueue.getWave() - 1;
+    }
+
+    /** 获取进攻方造成的总伤害 */
+    getTotalDamage() {
+        let res = 0;
+        this.battleData.initObjToUid.forEach((uid) => {
+            const info = this.battleData.statistcs[uid];
+            if (info) {
+                res += info.attack;
+            }
+        });
+        return res;
+    }
+}

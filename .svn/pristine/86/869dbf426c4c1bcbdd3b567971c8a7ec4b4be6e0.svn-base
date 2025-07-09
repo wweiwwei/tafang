@@ -1,0 +1,13 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+
+export class BattleGlobalBuff {
+    kind: string;
+    value: string | number;
+
+    constructor(public ctx: BattleBattleStageData) {}
+
+    effect(): { property: string; value: number } {
+        const value = AstUtil.eval(this.value.toString(), [this.ctx.globalPropertyManager]);
+        return { property: this.kind, value };
+    }
+}

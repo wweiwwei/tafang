@@ -1,0 +1,212 @@
+import { BattleVec } from "../../Map/BattleVec";
+import { BattleGlobalProperty } from "../../Processor/BattleGlobalProperty";
+import { BattleBattleStageObject } from "./BattleBattleStageObject";
+
+export class BattleProperty {
+    constructor(public ctx: BattleBattleStageObject) {
+        Reflect.defineProperty(this, "ctx", { enumerable: false });
+    }
+
+    // 状态属性
+    get hp(): number {
+        return this.ctx.propertyManager.hp;
+    }
+    get energy(): number {
+        return this.ctx.propertyManager.energy;
+    }
+    get hurt(): number {
+        return this.ctx.propertyManager.hurt;
+    }
+
+    get heroFlag(): string[] {
+        return this.ctx.propertyManager.heroFlag;
+    }
+
+    // 一级属性
+    /** 星级 */
+    star: number;
+    /** 阶数 */
+    rank: number;
+    /** 品质 */
+    quality: number;
+    /** 强度等级 */
+    level: number;
+
+    // 计算属性
+    /** 生命值比例（生命值/最大生命值） */
+    get hpRate() {
+        return this.hp / this.maxHp;
+    }
+    /** 怒气比例（怒气/最大怒气 ） */
+    get energyRate() {
+        return this.energy / this.maxEnergy;
+    }
+
+    get heroIndex() {
+        return this.ctx.heroIndex;
+    }
+
+    distance(obj: BattleProperty): number {
+        const p1 = this.ctx.position;
+        const p2 = obj.ctx.position;
+        return BattleVec.distance(p1, p2);
+    }
+
+    // 二级属性
+
+    /** 攻击 */
+    attack: number = 0;
+    /** 防御 */
+    armor: number = 0;
+    // /** 法术强度 */
+    // spellStrength: number;
+    /** 最大生命值 */
+    maxHp: number = 0;
+    /** 最大怒气 */
+    maxEnergy: number = 0;
+    /** 初始怒气 */
+    initialEnergy: number = 0;
+    /** 击杀恢复怒气 */
+    killEnergy: number = 0;
+    /** 单次攻击恢复怒气 */
+    energyRecover: number = 0;
+    /** 受击怒气恢复 */
+    hitEnergyRecover: number = 0;
+    /** 命中 */
+    hit: number = 0;
+    /** 闪避 */
+    dodge: number = 0;
+    /** 暴击率 */
+    critical: number = 0;
+    /** 反暴击 */
+    criticalImmune: number = 0;
+    // /** 法术暴击 */
+    // spellCritical: number;
+    // /** 法术反暴击 */
+    // spellCriticalImmune: number;
+    /** 暴击伤害 */
+    criticalDamage: number = 0;
+    /** 暴击伤害抵抗 */
+    criticalResistant: number = 0;
+    /** 增伤 */
+    damage: number = 0;
+    /** 减伤 */
+    defence: number = 0;
+    /** 治疗强度系数 */
+    healFactor: number = 0;
+    /** 被治疗时的恢复系数 */
+    recoverFactor: number = 0;
+    /** 对附带某一个tag伤害的特殊增伤 */
+    specialDamage: { [tag: string]: number } = {};
+    /** 对附带某一个tag伤害的特殊减伤 */
+    specialDefence: { [tag: string]: number } = {};
+    /** 对带有某一个tag的角色的特殊增伤 */
+    specialDamageByHeroTag: { [tag: string]: number } = {};
+    /** 对带有某一个tag的角色的特殊减伤 */
+    specialDefenceByHeroTag: { [tag: string]: number } = {};
+    /** 对附带某一个tag伤害额外攻击附加 */
+    specialAttack: { [tag: string]: number } = {};
+    /** 格挡率 */
+    block: number = 0;
+    /** 破击率 */
+    penetrate: number = 0;
+    /** 格挡减伤 */
+    blockDefence: number = 0;
+    /** 破击增伤 */
+    penetrateDamage: number = 0;
+    /** 破击增伤 */
+    fixDamage: number = 0;
+    /** 固定值减伤 */
+    fixDefense: number = 0;
+    /** 无视闪避概率 */
+    ignoreDodge: number = 0;
+    /** 移动速度 */
+    moveSpeed: number = 0;
+    /** 普通攻击间隔 */
+    normalAttackInterval: number = 0;
+    /** 普通攻击速度 */
+    normalAttackSpeed: number = 0;
+    /** 普通攻击范围 */
+    normalAttackRange: number = 0;
+    /** 技能范围 */
+    skillRange: number = 0;
+    /** 复活概率 */
+    revive: number = 0;
+    /** 普攻连击率 */
+    combo: number = 0;
+    /** 普攻连击减免 */
+    antiCombo: number = 0;
+    /** 普攻击晕率 */
+    stun: number = 0;
+    /** 普攻击晕减免 */
+    antiStun: number = 0;
+    /** 普攻吸血 */
+    lifeSteal: number = 0;
+    /** 普攻吸血减免 */
+    antiLifeSteal: number = 0;
+    /** 生命恢复(每秒) */
+    lifeRecover: number = 0;
+    /** 生命恢复抑制(每秒) */
+    antiLifeRecover: number = 0;
+    /** 技能 cd 系数 */
+    skillColdDown: number = 0;
+    /** 防御塔普攻伤害提升 */
+    towerNormalAttackDamage: number = 0;
+    /** 防御塔普攻速度增加 */
+    towerNormalAttackSpeed: number = 0;
+    /** 防御塔技能cd减少 */
+    towerSkillColdDownReduce: number = 0;
+    /** 防御塔普攻射程 */
+    towerNormalAttackRange: number = 0;
+    /** 防御塔普攻吸血 */
+    towerLifeSteal: number = 0;
+    /** 防御塔属性继承比例提升 */
+    towerSucceed: number = 0;
+    /** 特殊属性，每个游戏会有一些不一样的特殊属性 */
+    sp = {};
+    /** 英雄tag */
+    get heroTag() {
+        return this.ctx.propertyManager.heroTag;
+    }
+
+    /** 拷贝 */
+    static copy(p: BattleProperty): BattleProperty {
+        const c: BattleProperty = JSON.parse(JSON.stringify(p));
+        Reflect.setPrototypeOf(c, BattleProperty.prototype);
+        c.ctx = p.ctx;
+        Reflect.defineProperty(c, "ctx", { enumerable: false });
+        return c;
+    }
+
+    static empty = new BattleProperty(null);
+
+    static isPropertyKey(key: string) {
+        return key in this.empty || key.startsWith("special");
+    }
+
+    static addProperty(p: BattleProperty, key: string, value: number) {
+        if (BattleGlobalProperty.isGlobalPropertyKey(key)) return;
+        if (!this.isPropertyKey(key)) {
+            throw new Error(`${key}不是一个合法的属性值`);
+        }
+        if (key.startsWith("special")) {
+            const [main, sub] = key.split(".");
+            if (p[main][sub]) {
+                p[main][sub] += value;
+            } else {
+                p[main][sub] = value;
+            }
+        } else {
+            p[key] += value;
+        }
+    }
+
+    getProperty(key: string) {
+        if (key.startsWith("sp")) {
+            const [p1, p2] = key.split(".");
+            return this[p1][p2];
+        } else {
+            return this[key];
+        }
+    }
+}

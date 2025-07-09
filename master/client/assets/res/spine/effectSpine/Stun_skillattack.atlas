@@ -1,0 +1,20 @@
+
+Stun_skillattack.png
+size: 85,68
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/xuanyun
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+images/xuanyun_star
+  rotate: false
+  xy: 68, 39
+  size: 15, 27
+  orig: 15, 27
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,115 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemItem from "../common/ListItemItem";
+import ListItemUIMonster from "../mainscene/ListItemUIMonster";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowInfiniteBattle")
+@ccclass
+export default class WindowInfiniteBattle extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    /**  */
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /** 奖励列表 */
+    @autowired(UIList) rewardList: UIList<ListItemItem> = null;
+    /** 无奖励显示 */
+    @autowired(UILabel) tip: UILabel = null;
+    /** 关卡Label */
+    @autowired(UILabel) stage: UILabel = null;
+    /** 保存点Label */
+    @autowired(UILabel) savePoint: UILabel = null;
+    /** 规则按钮 */
+    @autowired(UIButton) rule: UIButton = null;
+    /** 挑战按钮 */
+    @autowired(UIButton) challengeBtn: UIButton = null;
+    /** 获取奖励按钮 */
+    @autowired(UIButton) obtainRewardBtn: UIButton = null;
+    /** 获取奖励按钮 */
+    @autowired(UIButton) returnBtn: UIButton = null;
+    /** 下一存档点 */
+    @autowired(UIRichText) nextSavePoint: UIRichText = null;
+    /** 奖励红点 */
+    @autowired(cc.Node) rewardTips: cc.Node = null;
+
+    @autowired(UISpine) monster: UISpine = null;
+
+    //奖励按钮
+    @autowired(UIButton) rewardBtn: UIButton = null;
+    //排行榜按钮
+    @autowired(UIButton) rankBtn: UIButton = null;
+
+    _windowParam: any;
+    _returnValue: any;
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.returnBtn.onClick = () => {
+            this.close();
+        };
+        this.obtainRewardBtn.onClick = () => {
+            GModel.infiniteBattle.obtainReward();
+        };
+        this.challengeBtn.onClick = () => {
+            GModel.infiniteBattle.challenge();
+        };
+        this.rule.onClick = () => {
+            // todo
+        };
+        this.refresh();
+    }
+
+    @message([EventName.stateKey.infiniteData])
+    refresh() {
+        const data = GModel.infiniteBattle.data();
+        this.stage.setText([`_rs${data.todayRecord}`]);
+        // 这里是寻找历史记录的下一关，例如通过了80关，在81关被打败，那么记录点是按照81关的来，这处逻辑可能需要再对需求
+        const tbl =
+            GTable.getList("InfiniteBattleTbl").find(
+                (t) => t.lv[0] <= data.historyRecord + 1 && t.lv[1] >= data.historyRecord + 1
+            ) ||
+            GTable.getList("InfiniteBattleTbl").find(
+                (t) => t.lv[0] <= data.historyRecord && t.lv[1] >= data.historyRecord
+            );
+        this.savePoint.setText([`_rs${tbl.recordPoint}`]);
+        const index = GTable.getList("InfiniteBattleTbl").indexOf(tbl);
+        if (index < GTable.getList("InfiniteBattleTbl").length - 1) {
+            const nextTbl = GTable.getList("InfiniteBattleTbl")[index + 1];
+            this.nextSavePoint.setText([
+                GLang.code.ui.Endless_savepoint_tip,
+                "_rs" + tbl.lv[1],
+                "_rs" + nextTbl.recordPoint,
+            ]);
+        } else {
+            this.nextSavePoint.setText(["_rs"]);
+        }
+        const reward = GModel.infiniteBattle.getReward();
+        this.rewardList.setState(
+            reward.map((item) => {
+                return {
+                    item,
+                    status: 0,
+                };
+            })
+        );
+        this.rewardTips.active = reward.length > 0;
+        this.tip.node.active = reward.length <= 0;
+
+        //const wave = tbl.guard;
+        //const waveTbl = GTable.getById("MonsterWaveTbl", wave);
+        //this.bossName.setText([tbl.bossName]);
+        // const waveTbl = GTable.getById("MonsterWaveDetailTbl", wave);
+        // const monsterTbl = GTable.getById("MonsterTbl", waveTbl.wave[0][0]);
+        // this.monster.setSpine(monsterTbl.img, "default", "idle");
+        // const spineTbl = GTable.getList("SpineInfoTbl").find((t) => t.spine === monsterTbl.img);
+        // this.monster.node.scale = spineTbl.uiScale;
+    }
+}

@@ -1,0 +1,90 @@
+
+Boss_Bull.png
+size: 156,402
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 199
+  size: 109, 107
+  orig: 109, 107
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: true
+  xy: 2, 123
+  size: 74, 90
+  orig: 74, 90
+  offset: 0, 0
+  index: -1
+cloak_02
+  rotate: false
+  xy: 94, 48
+  size: 56, 88
+  orig: 56, 88
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 2
+  size: 71, 68
+  orig: 71, 68
+  offset: 0, 0
+  index: -1
+left-arm
+  rotate: false
+  xy: 94, 138
+  size: 60, 56
+  orig: 60, 56
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: false
+  xy: 113, 196
+  size: 36, 35
+  orig: 36, 35
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 2, 72
+  size: 49, 82
+  orig: 49, 82
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 113, 233
+  size: 40, 43
+  orig: 40, 43
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: true
+  xy: 75, 15
+  size: 31, 33
+  orig: 31, 33
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: false
+  xy: 117, 278
+  size: 37, 64
+  orig: 37, 64
+  offset: 0, 0
+  index: -1
+weapon
+  rotate: true
+  xy: 2, 308
+  size: 34, 113
+  orig: 34, 113
+  offset: 0, 0
+  index: -1
+weijin
+  rotate: false
+  xy: 2, 344
+  size: 136, 56
+  orig: 136, 56
+  offset: 0, 0
+  index: -1

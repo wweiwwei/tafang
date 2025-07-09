@@ -1,0 +1,251 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import EventBus from "../../../framework/event/EventBus";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { PlayerEquipment } from "../../entity/PlayerEquipment";
+import EventName from "../../event/EventName";
+import { StoneAutoSetting } from "../../model/StoneAutoSetting";
+import ListItemMainSceneMenu from "../mainscene/ListItemMainSceneMenu";
+import WindowDamage from "../mainscene/WindowDamage";
+import ListItemPropItem from "./ListItemPropItem";
+import WindowEquipDetails from "./WindowEquipDetails";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowMainSceneUIView", {
+    // sceneWindow: {
+    //     kind: "main",
+    //     openIndex: 1,
+    // },
+})
+@ccclass
+export default class WindowMainSceneUIView extends UIWindow {
+    static _poolSize: number = 1;
+    _windowParam: any;
+    _returnValue: any;
+    /**菜单栏**/
+    @autowired(UIList) upMenu: UIList<ListItemMainSceneMenu> = null;
+    /**玩家头像**/
+    @autowired(UIButton) heroIconBtn: UIButton = null;
+    /**玩家战力**/
+    @autowired(UILabel) powerLabel: UILabel = null;
+    /**金币按钮 */
+    @autowired(UIButton) coinBtn: UIButton = null;
+    /**钻石数量 */
+    @autowired(UIButton) diamondBtn: UIButton = null;
+    /**公告**/
+    @autowired(UILabel) noticeLabel: UILabel = null;
+    /**速度**/
+    @autowired(UIButton) speedBtn: UIButton = null;
+
+    /**开启自动技能**/
+    @autowired(UIButton) autoBtn: UIButton = null;
+    /**自动技能**/
+    @autowired(cc.Node) autoSkillRoot: cc.Node = null;
+    /**装备展示**/
+    @autowired(cc.Node) equipmentRoot: cc.Node = null;
+    /**聊天**/
+    @autowired(UILabel) chatLabel: UILabel = null;
+    /**任务**/
+    @autowired(UILabel) taskLabel: UILabel = null;
+    /**抽卡**/
+    @autowired(UIButton) drawCard: UIButton = null;
+    /**抽卡设置**/
+    @autowired(UIButton) stoneSet: UIButton = null;
+    /**石头等级**/
+    @autowired(UIButton) stoneRank: UIButton = null;
+    /**挑战boss */
+    @autowired(UIButton) challenge: UIButton = null;
+
+    // /**测试**/
+    // @autowired(UIList) list: UIList<ListItemEquipmenPower> = null;
+
+    private ornamentArr: { bgName: string; icon: UIImage; lv: UILabel; name: UILabel }[] = [];
+
+    private equipmentArr: Array<UIList<ListItemPropItem>> = [];
+    private noticeList: string[] = ["1消息来罗！", "2消息来罗！"];
+    private regionNameArr: Array<string> = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    private speed: number = 2;
+    private addNotice(str: string) {
+        this.noticeList.push(str);
+    }
+    private moveNotice(dt: number) {
+        if (this.noticeLabel.node.x + this.noticeLabel.node.x <= 0 && this.noticeList.length > 0) {
+            this.noticeLabel.node.x = 400;
+            this.noticeList.shift();
+            this.noticeLabel.setText([this.noticeList[0]]);
+        }
+        if (this.noticeLabel.node.x > 0) {
+            this.noticeLabel.node.x -= this.speed * dt;
+        }
+    }
+
+    protected onInited(): void {
+        // this.list.setState([{ origin: 888, final: 666 }]);
+        this.challenge.onClick = () => {
+            GWindow.open(WindowDamage);
+        };
+        this.drawCard.onClick = () => {
+            this.drawStone();
+        };
+        this.stoneRank.onClick = () => {
+            GTest.showWindowSetRank();
+        };
+        this.equipmentRoot.children.forEach((node) => {
+            this.equipmentArr.push(node.getComponent(UIList));
+        });
+
+        this.shwoEquip();
+        this.refreshMenu();
+    }
+
+    async drawStone() {
+        EventBus.emit(EventName.playerEquipmentDrawcard);
+    }
+
+    async nextAuto(setting: StoneAutoSetting) {
+        // //抽出 展示 分解
+        // const s = await GModel.stone.drawCard(setting.all, true);
+        // //属性是否有等级提升
+        // if (s.equipment.length > 0 && this.checkIsUpLevel(s.equipment) && this.filterCondition(s.equipment)) {
+        //     GModel.stone.stopAuto();
+        //     if (s.equipment.length == 1) {
+        //         GWindow.open(WindowSelectProp, {
+        //             playerEquipment: s.equipment[0],
+        //             tempIndex: 0,
+        //         });
+        //     } else {
+        //         GWindow.open(WindowSelectManyProp, { playerEquipments: s.equipment });
+        //     }
+        // } else {
+        //     //todo 播放获得动画
+        //     this.scheduleOnce(() => {
+        //         if (GModel.stone.isAuto()) {
+        //             GModel.playerEquipment.sellAll();
+        //             //todo +经验值，展示奖励;
+        //             this.nextAuto(setting);
+        //         } else {
+        //             if (s.equipment.length == 1) {
+        //                 GWindow.open(WindowSelectProp, {
+        //                     playerEquipment: s.equipment[0],
+        //                     tempIndex: 0,
+        //                 });
+        //             } else {
+        //                 GWindow.open(WindowSelectManyProp, { playerEquipments: s.equipment });
+        //             }
+        //         }
+        //     }, 3);
+        // }
+    }
+
+    /**过滤条件 */
+    filterCondition(equipments: PlayerEquipment[]) {
+        GModel.stone.stoneAuto().filter1;
+        return true;
+    }
+
+    /**检查是否可升级 */
+    checkIsUpLevel(equipments: PlayerEquipment[]) {
+        let isUpLevelEquipmeent = false;
+        let temp = equipments;
+
+        for (let i = 0; i < temp.length; i++) {
+            let o = temp[i];
+            let part = o.tbl().part;
+            let lastPlayerEquipment: PlayerEquipment = GModel.playerEquipment.equipment()[part];
+            if (!lastPlayerEquipment) {
+                return true;
+            }
+            o.propertyString().base.forEach((element) => {
+                if (lastPlayerEquipment) {
+                    let a = lastPlayerEquipment.propertyString().base.map((d) => {
+                        if (d.property == element.property) return d;
+                    });
+
+                    if (a[0] && a[0].property == element.property)
+                        if (Number(element.value) > Number(a[0].value)) {
+                            isUpLevelEquipmeent = true;
+                        } else if (Number(element.value) < Number(a[0].value)) {
+                        }
+                }
+            });
+
+            o.propertyString().stat.forEach((element) => {
+                if (lastPlayerEquipment) {
+                    let a = lastPlayerEquipment.propertyString().stat.map((d) => {
+                        if (d.property == element.property) return d;
+                    });
+
+                    if (a[0] && a[0].property == element.property)
+                        if (Number(element.value) > Number(a[0].value)) {
+                            isUpLevelEquipmeent = true;
+                        } else if (Number(element.value) < Number(a[0].value)) {
+                        }
+                }
+            });
+
+            if (isUpLevelEquipmeent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @message([
+        EventName.stateKey.storage,
+        EventName.stateKey.mainMissionTask,
+        EventName.stateKey.chargeData,
+        EventName.stateKey.giftPack,
+    ])
+    refreshMenu() {
+        const tblList = GTable.getList("UIMainSceneTbl").filter((t) => t.position === 2 && t.id !== 1008);
+        const state = tblList.map((t) => {
+            const id = t.id;
+            const cb = () => {
+                GModel.player.openWindowWithSystemUnlockCheck(t);
+            };
+            return { id, cb };
+        });
+        // todo 取消顶部菜单屏蔽
+        // this.upMenu.setState(state);
+    }
+
+    @message([EventName.stateKey.playerEquipment])
+    playerEquipmentEven() {
+        console.log("playerEquipment 1");
+    }
+
+    @message([EventName.stateKey.playerEquipment])
+    /**展示装备 */
+    shwoEquip() {
+        GModel.playerEquipment.equipment().forEach((element, index) => {
+            this.equipmentArr[index].setState([
+                {
+                    playerEquipment: element,
+                    tempIndex: index,
+                    clickCB: (clickIndex) => {
+                        this.showEquipmentTips(clickIndex);
+                    },
+                },
+            ]);
+        });
+    }
+
+    showEquipmentTips(part) {
+        let a = GModel.playerEquipment.equipment()[part];
+        if (!a) {
+            GTip.showTip(["_rs" + "未拥有该部件装备！"]);
+            return;
+        }
+        GWindow.open(WindowEquipDetails, {
+            // playerEquipment: a,
+            part: part,
+        });
+    }
+
+    protected update(dt: number): void {
+        this.moveNotice(dt);
+    }
+}

@@ -1,0 +1,100 @@
+import EventBus from "../../framework/event/EventBus";
+import AfkData from "../entity/AfkData";
+import Item from "../entity/Item";
+import MainStage from "../entity/MainStage";
+import EventName from "../event/EventName";
+import WindowBattleScene from "../module/battle/WindowBattleScene";
+import WindowSettlement from "../module/battle/WindowSettlement";
+import WindowCommonTip from "../module/common/WindowCommonTip";
+import WindowCongratulation from "../module/common/WindowCongratulation";
+import WindowMainSceneBottomUI from "../module/mainscene/WindowMainSceneBottomUI";
+import WindowBattle from "../module/battle/rogue/WindowBattle";
+import WindowStage from "../module/tower/WindowStage";
+import { WindowOpenAnimationEnum } from "../../framework/ui/GWindow";
+import WindowVictoryAndFailure from "../module/mainscene/WindowVictoryAndFailure";
+
+export default class StageModel {
+    /** 挑战关卡 */
+    async challengeStage(mapIndex: number, stageIndex: number): Promise<void> {
+        GWindow.close(WindowStage);
+        GWindow.hide(WindowMainSceneBottomUI);
+        const processor = GModel.battle.createStageBattle(mapIndex, stageIndex);
+        const end = async () => {
+            GWindow.show(WindowMainSceneBottomUI);
+            GWindow.open(WindowStage);
+            await GApi.infinite.updateRecord({ lv: processor.getInfiniteWave() });
+        };
+        GWindow.open(WindowBattle);
+        const { win } = await GWindow.open(WindowBattleScene, {
+            startOnInit: true,
+            processor,
+            battleType: "stage",
+        });
+        if (win) {
+            const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+            // await GWindow.open(WindowCongratulation, { items: reward });
+            await GWindow.open(WindowVictoryAndFailure, { processor, state: "victory", items: reward });
+        } else {
+            const { reward } = await GApi.stage.challengeStageFail({ mapIndex, stageIndex, ratio: 0.5 });
+            // await GWindow.open(WindowCommonTip, { tip: ["_rs战斗失败"] });
+            await GWindow.open(WindowVictoryAndFailure, { processor, state: "defeat", items: reward });
+        }
+        GWindow.close(WindowBattle);
+        end();
+    }
+
+    async sweep(mapIndex: number, stageIndex: number): Promise<void> {
+        const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+        await GWindow.open(WindowCongratulation, { items: reward });
+    }
+
+    /** 挑战视频双倍奖励 */
+    challengeVideoReward() {
+        return GApi.stage.challengeVideoReward();
+    }
+
+    /** 获取关卡成就任务奖励 */
+    obtainAchievementReward(id: number): Promise<Item[]> {
+        return GApi.stage.obtainAchievementReward({ id });
+    }
+
+    /** 获取所有关卡数据 */
+    getAllStage(): MainStage[] {
+        return GTable.getList("StageMapTbl").map((t) => {
+            return this.getStageByMapIndex(t.mapIndex);
+        });
+    }
+
+    /** 获取指定关卡数据 */
+    getStageByMapIndex(mapIndex: number): MainStage {
+        return GState.data.stage[mapIndex] || MainStage.empty(mapIndex);
+    }
+
+    /** 主线关卡当前挂机地图 */
+    getStageAfkMap(): number {
+        return GState.data.stageAfkMap;
+    }
+
+    /**是否通关该关卡 */
+    isStagePass(mapIndex: number, stageIndex: number): boolean {
+        return this.getStageByMapIndex(mapIndex).stageIndex > stageIndex;
+    }
+
+    /** 获取现在的关卡 */
+    getCurrentStage(): MainStage {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        return stage;
+    }
+
+    /** 获取当前关卡信息 */
+    getCurrentStageInfo() {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        return {
+            levelName: [stage.getMapTbl().name],
+            current: [`_rs${stage.mapIndex}-${stage.stageIndex}`],
+            pre: [`_rs${stage.mapIndex}-${stage.stageIndex - 1}`],
+        };
+    }
+}

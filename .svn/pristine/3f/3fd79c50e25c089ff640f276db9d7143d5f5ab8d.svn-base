@@ -1,0 +1,2 @@
+.\dotnet\gamePipeline.exe
+pause

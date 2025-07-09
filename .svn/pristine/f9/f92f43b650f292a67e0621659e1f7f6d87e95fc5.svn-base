@@ -1,0 +1,60 @@
+import EventBus from "../../framework/event/EventBus";
+import Item from "../entity/Item";
+import { Sprite } from "../entity/Sprite";
+import EventName from "../event/EventName";
+
+export default class SpriteModel {
+    getFormation(): number[] {
+        return GState.data.spriteFormation;
+    }
+    /** 设置方案 */
+    async setFormation(formation: number[]): Promise<void> {
+        const origin = GModel.battle.getBattlePoint();
+        await GApi.sprite.setFormation({ formation });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+        // EventBus.emit(EventName.resetBattle);
+    }
+    /** 升级 */
+    async upgradeSprite(id: number, count: number): Promise<void> {
+        const origin = GModel.battle.getBattlePoint();
+        await GApi.sprite.upgradeSprite({ id, count });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+        // EventBus.emit(EventName.resetBattle);
+    }
+    /** 升阶 */
+    async uprankSprite(id: number): Promise<void> {
+        const origin = GModel.battle.getBattlePoint();
+        await GApi.sprite.uprankSprite({ id });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+        // EventBus.emit(EventName.resetBattle);
+    }
+    /**获得精灵列表 */
+    getSprites(): Sprite[] {
+        return Object.keys(GState.data.sprites).map((id) => {
+            return GState.data.sprites[id];
+        });
+    }
+    /**根据id获取 */
+    getSpriteById(id: number): Sprite {
+        return GState.data.sprites[id];
+    }
+    /**召唤 */
+    call(count: number, free: boolean): Promise<Item[]> {
+        return GApi.sprite.drawCard({ count, free });
+    }
+    /**精灵赋能 返回index索引,-1表示失败*/
+    async upgradeSpritePower(id: number): Promise<number> {
+        const origin = GModel.battle.getBattlePoint();
+        let data = await GApi.sprite.upgradeSpritePower({ id });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+        return data;
+    }
+
+    getOwnProperty() {
+        this.getSprites().map((s) => {});
+    }
+}

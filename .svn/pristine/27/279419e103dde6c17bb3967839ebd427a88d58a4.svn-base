@@ -1,0 +1,46 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UISpine from "../../../framework/ui/UISpine";
+import { BattleEffectArea } from "../../battleLogic/Object/Area/BattleEffectArea";
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemBattleEffectArea")
+@ccclass
+export default class ListItemBattleEffectArea extends UIListItem {
+    static _poolSize: number = 1;
+
+    @autowired(UISpine) spine: UISpine = null;
+
+    protected onInjected(): void {
+        this.spine.setEventListener((entry: sp.spine.TrackEntry, event) => {
+            if (event.data.name === "shock") {
+                GTip.shockScreen();
+            } else if ((event.data.name as string).startsWith("sound_")) {
+                GAudio.playEffect(event.data.name);
+            }
+        });
+    }
+    state: {
+        area: BattleEffectArea;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.spine.setCompleteListener(null);
+        const { x, y } = this.state.area.getDisplayPosition();
+        this.node.angle = this.state.area.getAngle();
+        this.node.position = cc.v3(x, y);
+        this.spine.setSpine(this.state.area.effect, "default", this.state.area.animation);
+        this.spine.loop = true;
+        this.setAnimationSpeed(1);
+    }
+
+    setAnimationSpeed(ts: number) {
+        this.spine.timeScale = ts;
+    }
+
+    refresh() {
+        const { x, y } = this.state.area.getDisplayPosition();
+        this.node.position = cc.v3(x, y);
+        this.node.angle = this.state.area.getAngle();
+    }
+}

@@ -1,0 +1,42 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIListItem from "../../../framework/ui/UIListItem";
+import EventName from "../../event/EventName";
+import WindowDiamondShop from "./WindowDiamondShop";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemCurrencyTop")
+@ccclass
+export default class ListItemCurrencyTop extends UIListItem {
+    /**银 */
+    @autowired(UIButton) silverBtn: UIButton = null;
+    /**玉数量 */
+    @autowired(UIButton) jadeBtn: UIButton = null;
+    /**体力数量 */
+    @autowired(UIButton) powerBtn: UIButton = null;
+
+    state: {};
+    setState(state: this["state"]): void {
+        this.state = state;
+        // this.state.unlockable = true;
+        this.silverBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.jadeBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.powerBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+    }
+    @message([EventName.stateKey.storage, EventName.stateKey.powerData])
+    refresh() {
+        const powerInfo = GModel.power.powerInfo();
+        this.powerBtn.text.setText([`_rs${powerInfo.power}/${powerInfo.maxPower}`]);
+        this.jadeBtn.text.setText([
+            "_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(GIndex.id.diamondId), 7),
+        ]);
+        this.silverBtn.text.setText([
+            "_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(GIndex.id.coinId), 7),
+        ]);
+    }
+}

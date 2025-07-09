@@ -1,0 +1,69 @@
+
+UI_ChooseWeapon.png
+size: 590,347
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/effect
+  rotate: false
+  xy: 2, 199
+  size: 218, 146
+  orig: 218, 146
+  offset: 0, 0
+  index: -1
+images/quality_1
+  rotate: false
+  xy: 413, 234
+  size: 175, 111
+  orig: 227, 134
+  offset: 21, 13
+  index: -1
+images/quality_2
+  rotate: false
+  xy: 413, 121
+  size: 165, 111
+  orig: 227, 134
+  offset: 26, 13
+  index: -1
+images/quality_3
+  rotate: false
+  xy: 411, 8
+  size: 165, 111
+  orig: 227, 134
+  offset: 26, 13
+  index: -1
+images/quality_4
+  rotate: false
+  xy: 222, 119
+  size: 187, 112
+  orig: 227, 134
+  offset: 15, 12
+  index: -1
+images/quality_5
+  rotate: true
+  xy: 110, 2
+  size: 195, 105
+  orig: 227, 134
+  offset: 11, 16
+  index: -1
+images/quality_6
+  rotate: true
+  xy: 2, 2
+  size: 195, 106
+  orig: 227, 134
+  offset: 11, 15
+  index: -1
+images/quality_7
+  rotate: false
+  xy: 222, 233
+  size: 189, 112
+  orig: 227, 134
+  offset: 14, 12
+  index: -1
+images/quality_8
+  rotate: false
+  xy: 217, 5
+  size: 183, 112
+  orig: 227, 134
+  offset: 17, 12
+  index: -1

@@ -1,0 +1,12 @@
+{
+    "name": "asset-index",
+    "version": "0.0.1",
+    "description": "资源索引生成",
+    "author": "Lucas",
+    "main": "main.js",
+    "main-menu": {
+        "Packages/生成资源索引": {
+            "message": "asset-index:generate"
+        }
+    }
+}

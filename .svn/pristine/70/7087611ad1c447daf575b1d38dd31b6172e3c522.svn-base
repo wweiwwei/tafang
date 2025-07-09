@@ -1,0 +1,61 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import WindowCongratulation from "../common/WindowCongratulation";
+import ListItemHeroDetail from "./ListItemHeroDetail";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemStageReward")
+@ccclass
+export default class ListItemStageReward extends UIListItem {
+    /** */
+    @autowired(UILabel) lv: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemHeroDetail> = null;
+
+    state: {
+        mapIndex: number;
+        stageIndex: number;
+        list: {
+            /** 序号 */
+            index: number;
+            /** 奖励 */
+            item: Item;
+            /** 波数 */
+            wave: number;
+            /** 0 不可领取 1 可领取 2 已领取 */
+            status: 0 | 1 | 2;
+        }[];
+        stageId?: number;
+        lv?: string;
+        rewards?: Item[];
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.lv.setText(["_rs" + state.mapIndex + "-" + state.stageIndex]);
+        this.refList();
+    }
+
+    refList() {
+        let cb = async () => {
+            let d = await GModel.stage.obtainFirstAllReward();
+            if (d.length > 0) GWindow.open(WindowCongratulation, { items: d });
+        };
+        let state = this.state.list.map((d) => {
+            let tbl = GTable.getById("ItemTbl", d.item.id);
+            return {
+                id: d.item.id,
+                icon: tbl.img,
+                quailtyImg: GConstant.itemQualityBg[tbl.quality],
+                lv: "_rs" + d.item.count,
+                downText: "_rs通过第" + d.wave + "波",
+                get: d.status == 2,
+                tips: d.status == 1,
+                cb: cb,
+                isHave: true,
+            };
+        });
+        this.uiList.setState(state);
+    }
+}

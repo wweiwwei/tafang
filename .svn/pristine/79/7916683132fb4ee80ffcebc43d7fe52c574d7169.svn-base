@@ -1,0 +1,237 @@
+
+Role_deer.png
+size: 427,546
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+null0
+  rotate: true
+  xy: 38, 109
+  size: 125, 75
+  orig: 125, 75
+  offset: 0, 0
+  index: -1
+null10
+  rotate: true
+  xy: 249, 89
+  size: 44, 82
+  orig: 44, 86
+  offset: 0, 4
+  index: -1
+null11
+  rotate: false
+  xy: 260, 22
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+null12
+  rotate: true
+  xy: 361, 317
+  size: 67, 62
+  orig: 67, 102
+  offset: 0, 40
+  index: -1
+null13
+  rotate: true
+  xy: 333, 83
+  size: 37, 83
+  orig: 37, 84
+  offset: 0, 1
+  index: -1
+null14
+  rotate: false
+  xy: 375, 456
+  size: 50, 88
+  orig: 50, 88
+  offset: 0, 0
+  index: -1
+null15
+  rotate: true
+  xy: 252, 174
+  size: 55, 90
+  orig: 55, 90
+  offset: 0, 0
+  index: -1
+null16
+  rotate: true
+  xy: 252, 135
+  size: 37, 94
+  orig: 37, 94
+  offset: 0, 0
+  index: -1
+null17
+  rotate: false
+  xy: 319, 2
+  size: 34, 79
+  orig: 34, 79
+  offset: 0, 0
+  index: -1
+null18
+  rotate: false
+  xy: 371, 223
+  size: 49, 92
+  orig: 49, 92
+  offset: 0, 0
+  index: -1
+null19
+  rotate: false
+  xy: 145, 325
+  size: 112, 90
+  orig: 112, 90
+  offset: 0, 0
+  index: -1
+null2
+  rotate: false
+  xy: 259, 318
+  size: 44, 97
+  orig: 44, 97
+  offset: 0, 0
+  index: -1
+null20
+  rotate: false
+  xy: 284, 419
+  size: 89, 125
+  orig: 89, 125
+  offset: 0, 0
+  index: -1
+null21
+  rotate: false
+  xy: 174, 2
+  size: 48, 68
+  orig: 48, 68
+  offset: 0, 0
+  index: -1
+null22
+  rotate: false
+  xy: 355, 3
+  size: 35, 78
+  orig: 35, 78
+  offset: 0, 0
+  index: -1
+null23
+  rotate: true
+  xy: 2, 236
+  size: 152, 124
+  orig: 152, 124
+  offset: 0, 0
+  index: -1
+null3
+  rotate: true
+  xy: 375, 386
+  size: 68, 50
+  orig: 75, 50
+  offset: 0, 0
+  index: -1
+null4
+  rotate: true
+  xy: 348, 122
+  size: 56, 62
+  orig: 56, 62
+  offset: 0, 0
+  index: -1
+null5
+  rotate: false
+  xy: 2, 10
+  size: 34, 224
+  orig: 34, 224
+  offset: 0, 0
+  index: -1
+null6
+  rotate: true
+  xy: 227, 240
+  size: 76, 46
+  orig: 76, 46
+  offset: 0, 0
+  index: -1
+null7
+  rotate: true
+  xy: 38, 10
+  size: 97, 88
+  orig: 97, 88
+  offset: 0, 0
+  index: -1
+null8
+  rotate: false
+  xy: 2, 390
+  size: 141, 154
+  orig: 219, 230
+  offset: 54, 76
+  index: -1
+null9
+  rotate: false
+  xy: 145, 417
+  size: 137, 127
+  orig: 137, 131
+  offset: 0, 4
+  index: -1
+renmazhanshi/huoquan_00003
+  rotate: false
+  xy: 174, 72
+  size: 73, 69
+  orig: 100, 116
+  offset: 15, 26
+  index: -1
+renmazhanshi/huoquan_00004
+  rotate: true
+  xy: 275, 231
+  size: 82, 94
+  orig: 100, 116
+  offset: 8, 14
+  index: -1
+renmazhanshi/huoquan_00005
+  rotate: false
+  xy: 170, 143
+  size: 80, 95
+  orig: 100, 116
+  offset: 7, 15
+  index: -1
+renmazhanshi/huoquan_00006
+  rotate: true
+  xy: 128, 240
+  size: 83, 97
+  orig: 100, 116
+  offset: 7, 14
+  index: -1
+renmazhanshi/huoquan_00007
+  rotate: false
+  xy: 115, 133
+  size: 53, 101
+  orig: 100, 116
+  offset: 8, 12
+  index: -1
+renmazhanshi/huoquan_00008
+  rotate: false
+  xy: 305, 315
+  size: 54, 102
+  orig: 100, 116
+  offset: 8, 10
+  index: -1
+renmazhanshi/huoquan_00009
+  rotate: false
+  xy: 128, 46
+  size: 44, 85
+  orig: 100, 116
+  offset: 10, 12
+  index: -1
+renmazhanshi/huoquan_00010
+  rotate: true
+  xy: 344, 180
+  size: 41, 74
+  orig: 100, 116
+  offset: 11, 14
+  index: -1
+renmazhanshi/huoquan_00011
+  rotate: false
+  xy: 224, 2
+  size: 34, 68
+  orig: 100, 116
+  offset: 15, 20
+  index: -1
+renmazhanshi/huoquan_00012
+  rotate: false
+  xy: 392, 17
+  size: 16, 64
+  orig: 100, 116
+  offset: 27, 20
+  index: -1

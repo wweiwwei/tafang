@@ -1,0 +1,173 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay
+{
+    public class StageManager : AbstractManager<StageData>, IBaseManager
+    {
+        public StageManager(JToken saveData, PlayerDataManager ctx) : base(saveData, ctx)
+        {
+        }
+
+        public override void DailyRefresh()
+        {
+
+        }
+
+        public override void InitData()
+        {
+            if (Data.stage.IsEmpty)
+            {
+                var sMap = Data.stage.SetItem(1, MainStage.Empty(1));
+                var afkData = AfkData.Empty(1, Ctx);
+                Data = Data with
+                {
+                    stage = sMap,
+                    afkBattleReward = afkData,
+                    mapProduceLastRefreshStamp = Ctx.Now(),
+                    afkMapProduce = ImmutableDictionary<int, long>.Empty
+                };
+            }
+        }
+
+
+
+        [Handle("stage/challengeStage")]
+        public Dictionary<string, object> ChallengeStage(int mapIndex, int stageIndex)
+        {
+            var s = Data.stage[mapIndex];
+            GameAssert.Must(s.stageIndex >= stageIndex, "unvalid challenge");
+            // todo 体力检测
+            if (s.stageIndex == stageIndex && !s.clear)
+            {
+                var exist = Ctx.Table.StageTblList.Any(t => t.MapIndex == s.mapIndex && t.StageIndex == s.stageIndex + 1);
+                if (exist)
+                {
+                    var sMap = Data.stage.SetItem(mapIndex, s with { stageIndex = s.stageIndex + 1 });
+                    Data = Data with { stage = sMap };
+                }
+                else
+                {
+                    var sMap = Data.stage.SetItem(mapIndex, s with { clear = true });
+                    Data = Data with { stage = sMap };
+                    if (Ctx.Table.StageMapTblList.Any(t => t.MapIndex == s.mapIndex + 1))
+                    {
+                        var newS = MainStage.Empty(s.mapIndex + 1);
+                        Data = Data with { stage = Data.stage.SetItem(newS.mapIndex, newS), afkMap = newS.mapIndex };
+                        Ctx.MissionManager.CheckNewMission();
+                        Ctx.Emit(CachePath.stage, newS.mapIndex);
+                        Ctx.Emit(CachePath.stageAfkMap);
+                    }
+                }
+                // 首通
+                var reward = s.FirstClearReward(Ctx);
+                var finalReward = Ctx.KnapsackManager.AddItem(reward);
+                Ctx.Emit(CachePath.stage, mapIndex);
+                Ctx.MissionManager.UpdateMissionProgress(4, 1);
+                Data = Data with { lastStageBattleTime = Ctx.Now() };
+                Ctx.Emit(CachePath.lastStageBattleTime);
+                Data = Data with { ExtraReward = finalReward };
+                return new Dictionary<string, object> { { "reward", finalReward } };
+            }
+            else
+            {
+                // 扫荡
+                var reward = s.SweepReward(Ctx, stageIndex);
+                var finalReward = Ctx.KnapsackManager.AddItem(reward);
+                Ctx.Emit(CachePath.stage, mapIndex);
+                Ctx.MissionManager.UpdateMissionProgress(4, 1);
+                Data = Data with { lastStageBattleTime = Ctx.Now() };
+                Ctx.Emit(CachePath.lastStageBattleTime);
+                Data = Data with { ExtraReward = finalReward };
+                return new Dictionary<string, object> { { "reward", finalReward } };
+            }
+        }
+
+        [Handle("stage/challengeVideoReward")]
+        public Dictionary<string, object> ChallengeVideoReward()
+        {
+            var reward = Data.ExtraReward;
+            var finalReward = Ctx.KnapsackManager.AddItem(reward);
+            Data = Data with { ExtraReward = [] };
+            return new Dictionary<string, object> { { "reward", finalReward.Select(i => i.Mul(2)).ToArray() } };
+        }
+
+        [Handle("stage/challengeStageFail")]
+        public Dictionary<string, object> ChallengeStageFail(int mapIndex, int stageIndex, double ratio)
+        {
+            var s = Data.stage[mapIndex];
+            GameAssert.Must(s.stageIndex >= stageIndex, "unvalid challenge");
+            // 失败按比例给扫荡奖励
+            // todo 体力检测
+            var tbl = s.Tbl(Ctx);
+            var rf = ratio;
+            if (rf > 1)
+            {
+                rf = 1;
+            }
+            else if (rf < 0)
+            {
+                rf = 0;
+            }
+            var r = AstUtil.Eval(tbl.Ratio, new Dictionary<string, double> { { "ratio", ratio } });
+            var reward = s.SweepReward(Ctx, stageIndex).Select(i =>
+            {
+                return new Item(i.id, (long)Math.Round(i.count * r));
+            })
+            .Where(i => i.count > 0)
+            .ToArray();
+            var finalReward = Ctx.KnapsackManager.AddItem(reward);
+            Ctx.Emit(CachePath.stage, mapIndex);
+            Ctx.MissionManager.UpdateMissionProgress(4, 1);
+            Data = Data with { lastStageBattleTime = Ctx.Now() };
+            Ctx.Emit(CachePath.lastStageBattleTime);
+            Data = Data with { ExtraReward = finalReward };
+            return new Dictionary<string, object> { { "reward", finalReward } };
+        }
+
+        [Handle("stage/reportStageBattleEnd")]
+        public void ReportStageBattleEnd()
+        {
+            Data = Data with { lastStageBattleTime = Ctx.Now() };
+            Ctx.Emit(CachePath.lastStageBattleTime);
+        }
+
+
+        [Handle("stage/obtainAchievementReward")]
+        public IEnumerable<Item> ObtainAchievementReward(int id)
+        {
+            var tbl = Ctx.Table.StageAchievementTblMap[id];
+            var s = Data.stage[tbl.Stage[0]];
+            GameAssert.Expect(!Data.achievementRewardHasGet.Contains(id), 4005);
+            GameAssert.Expect(s.stageIndex >= tbl.Stage[1], 4004);
+            var reward = Item.FromItemArray(tbl.Reward);
+            var finalReward = Ctx.KnapsackManager.AddItem(reward);
+            Data = Data with { achievementRewardHasGet = Data.achievementRewardHasGet.Add(id) };
+            Ctx.Emit(CachePath.stageAchievementRewardHasGet);
+            return finalReward;
+        }
+
+        [PartialUpdate("stage")]
+        public ImmutableDictionary<int, MainStage> AllStage() => Data.stage;
+
+        [Update("stageAfkMap")]
+        public int AfkMap() => Data.afkMap;
+
+        [Update("stageAchievementRewardHasGet")]
+        public ImmutableArray<int> StageAchievementRewardHasGet() => Data.achievementRewardHasGet;
+
+        [Update("lastStageBattleTime")]
+        public long LastStageBattleTime() => Data.lastStageBattleTime;
+
+
+        public void GmTestOffline()
+        {
+            Data = Data with { lastStageBattleTime = 0L };
+        }
+
+    }
+}

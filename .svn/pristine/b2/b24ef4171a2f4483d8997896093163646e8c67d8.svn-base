@@ -1,0 +1,36 @@
+{
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "build/": true,
+        "temp/": true,
+        "library/": true,
+        "**/*.anim": true
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/*.meta": true,
+        "library/": true,
+        "local/": true,
+        "temp/": true,
+        "build/": true,
+        "node_modules/": true,
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": false,
+    "prettier.printWidth": 120,
+    //"prettier.useTabs": true,
+    "prettier.useEditorConfig": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}

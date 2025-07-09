@@ -1,0 +1,37 @@
+import { BattleTriggerEvent } from "../../../Event/BattleTriggerEvent";
+import { BattleSkill } from "../../BattleSkill";
+import { BattleSkillTimer } from "../../Duration/BattleSkillTimer";
+import { IBattleSkillTrigger } from "./IBattleSkillTrigger";
+
+export class BattleTriggerEx implements IBattleSkillTrigger {
+    require: number = 1000;
+    nextLaunch: number = 0;
+    constructor(public coldDown: number | string) {}
+    reset(skill: BattleSkill): void {
+        this.nextLaunch = skill.ctx.data.globalPropertyManager.totalKill + this.require;
+    }
+    tick(skill: BattleSkill): boolean {
+        return false;
+    }
+    init(skill: BattleSkill): void {
+        this.require = skill.evalValue(this.coldDown.toString(), "base");
+        this.nextLaunch = 0;
+    }
+    onPassive(skill: BattleSkill): boolean {
+        return false;
+    }
+    onEvent(skill: BattleSkill, e: BattleTriggerEvent): boolean {
+        return false;
+    }
+    onAttack(skill: BattleSkill): boolean {
+        return false;
+    }
+    onOrder(skill: BattleSkill): boolean {
+        if (skill.ctx.data.globalPropertyManager.totalKill >= this.nextLaunch) {
+            this.reset(skill);
+            return true;
+        }
+        return false;
+    }
+    kind: "main" | "normalAttack" | "passive" | "event" | "independent" | "ex" = "ex";
+}

@@ -1,0 +1,13 @@
+
+Role_trashcan.png
+size: 96,114
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 92, 110
+  orig: 92, 110
+  offset: 0, 0
+  index: -1

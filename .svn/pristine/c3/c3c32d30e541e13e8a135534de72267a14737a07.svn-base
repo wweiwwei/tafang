@@ -1,0 +1,50 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowGongFaDetail")
+@ccclass
+export default class WindowGongFaDetail extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        iconImg: string;
+        name: string;
+        lv: number;
+        typeText: "秘笈" | "心法" | "神通";
+        maxLv: boolean;
+        text1: string[];
+        text2: string[];
+    };
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UIImage) itemBtn: UIImage = null;
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UILabel) typeText: UILabel = null;
+    @autowired(UILabel) maxLv: UILabel = null;
+    @autowired(UILabel) text1: UILabel = null;
+    @autowired(UILabel) text2: UILabel = null;
+    @autowired(UILabel) lv: UILabel = null;
+
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.icon.imgName = this._windowParam.iconImg;
+        this.name1.setText([this._windowParam.name]);
+        this.typeText.setText(["_rs" + this._windowParam.typeText]);
+        console.log("text1 =", this._windowParam.text1);
+        this.text1.setText(this._windowParam.text1);
+        this.text2.setText(this._windowParam.text2);
+        this.lv.setText(["_rsLv." + this._windowParam.lv]);
+        this.maxLv.node.active = this._windowParam.maxLv;
+    }
+}

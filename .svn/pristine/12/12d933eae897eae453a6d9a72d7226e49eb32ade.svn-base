@@ -1,0 +1,7 @@
+{
+    "name": "customize_component",
+    "version": "0.0.1",
+    "description": "层级管理器右键添加自定义节点",
+    "author": "",
+    "main": "main.js"
+}

@@ -1,0 +1,118 @@
+
+swords_skilltail.png
+size: 794,298
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/ayan_5
+  rotate: false
+  xy: 318, 10
+  size: 126, 63
+  orig: 126, 63
+  offset: 0, 0
+  index: -1
+TX/ayan_6
+  rotate: true
+  xy: 553, 165
+  size: 131, 90
+  orig: 131, 90
+  offset: 0, 0
+  index: -1
+TX/ayan_7
+  rotate: true
+  xy: 2, 50
+  size: 246, 114
+  orig: 246, 114
+  offset: 0, 0
+  index: -1
+TX/shouji11_5
+  rotate: false
+  xy: 724, 203
+  size: 68, 93
+  orig: 68, 93
+  offset: 0, 0
+  index: -1
+TX/shouji11_6
+  rotate: false
+  xy: 645, 198
+  size: 77, 98
+  orig: 77, 98
+  offset: 0, 0
+  index: -1
+TX/shouji20_1
+  rotate: false
+  xy: 446, 2
+  size: 156, 136
+  orig: 156, 136
+  offset: 0, 0
+  index: -1
+TX/shouji20_2
+  rotate: true
+  xy: 118, 140
+  size: 156, 143
+  orig: 156, 143
+  offset: 0, 0
+  index: -1
+TX/shouji20_3
+  rotate: true
+  xy: 263, 140
+  size: 156, 143
+  orig: 156, 143
+  offset: 0, 0
+  index: -1
+TX/shouji20_4
+  rotate: true
+  xy: 408, 140
+  size: 156, 143
+  orig: 156, 143
+  offset: 0, 0
+  index: -1
+skill/skill1_3_1
+  rotate: true
+  xy: 604, 48
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+skill/skill2_5_1
+  rotate: true
+  xy: 698, 110
+  size: 86, 87
+  orig: 88, 88
+  offset: 1, 0
+  index: -1
+skill2/chongjibo_0001
+  rotate: false
+  xy: 118, 70
+  size: 159, 68
+  orig: 162, 68
+  offset: 0, 0
+  index: -1
+skill2/chongjibo_0003
+  rotate: false
+  xy: 279, 75
+  size: 161, 63
+  orig: 164, 63
+  offset: 0, 0
+  index: -1
+skill2/chongjibo_0005
+  rotate: false
+  xy: 155, 3
+  size: 161, 65
+  orig: 164, 65
+  offset: 0, 0
+  index: -1
+skill2/hero_cjdzf000_0
+  rotate: true
+  xy: 698, 44
+  size: 64, 88
+  orig: 64, 88
+  offset: 0, 0
+  index: -1
+skill2/shenti2
+  rotate: true
+  xy: 2, 5
+  size: 43, 151
+  orig: 43, 151
+  offset: 0, 0
+  index: -1

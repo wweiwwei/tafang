@@ -1,0 +1,34 @@
+
+Artifact_zong.png
+size: 233,145
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bottle
+  rotate: false
+  xy: 123, 24
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+flag
+  rotate: false
+  xy: 198, 2
+  size: 33, 141
+  orig: 33, 141
+  offset: 0, 0
+  index: -1
+flag_02
+  rotate: false
+  xy: 2, 3
+  size: 119, 93
+  orig: 119, 93
+  offset: 0, 0
+  index: -1
+ribbon
+  rotate: false
+  xy: 2, 98
+  size: 194, 45
+  orig: 194, 45
+  offset: 0, 0
+  index: -1

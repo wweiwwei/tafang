@@ -1,0 +1,34 @@
+
+Moster_Fox.png
+size: 130,76
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 2, 2
+  size: 72, 68
+  orig: 72, 68
+  offset: 0, 0
+  index: -1
+left-ear
+  rotate: true
+  xy: 95, 2
+  size: 23, 19
+  orig: 23, 19
+  offset: 0, 0
+  index: -1
+right_ear
+  rotate: true
+  xy: 72, 2
+  size: 23, 21
+  orig: 23, 21
+  offset: 0, 0
+  index: -1
+trail
+  rotate: true
+  xy: 72, 27
+  size: 47, 56
+  orig: 47, 56
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,76 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../../framework/ui/GWindow";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIWindow from "../../../../framework/ui/UIWindow";
+import ListItemRogueBlessSkill from "../../mainscene/ListItemRogueBlessSkill";
+import ListItemRogueBless from "./ListItemRogueBless";
+import ListItemRogueSkill from "./ListItemRogueSkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowRogueBless")
+@ccclass
+export default class WindowRogueBless extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+    };
+    _windowParam: any;
+    _returnValue: {
+        id: number;
+    } = { id: -1 };
+
+    @autowired(UIImage) titleIcon: UIImage = null;
+    @autowired(UILabel) tips: UILabel = null;
+    @autowired(UIList) uiList: UIList<ListItemRogueBless> = null;
+    @autowired(UIButton) refresh: UIButton = null;
+    @autowired(UIButton) refreshAd: UIButton = null;
+    @autowired(cc.Node) skillNode: cc.Node = null;
+    @autowired(UILabel) skillName: UILabel = null;
+    @autowired(UIList) skillList: UIList<ListItemRogueBlessSkill> = null;
+    private touchIndex: number = 0;
+
+    protected onInited(): void {
+        this.refresh.onClick = () => {
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                const blessMgr = api.rogueBlessManager();
+                blessMgr.reRoll();
+                this.refreshUI(false);
+            }
+        };
+        this.refreshAd.onClick = () => {
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                const blessMgr = api.rogueBlessManager();
+                blessMgr.reRoll();
+                this.refreshUI(false);
+            }
+        };
+        this.refreshUI(true);
+    }
+
+    refreshUI(playAnim: boolean) {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            const blessMgr = api.rogueBlessManager();
+            const state = blessMgr.currentCards.map((id, index) => {
+                return {
+                    index,
+                    id,
+                    cb: () => {
+                        this._returnValue.id = id;
+                        this.close();
+                    },
+                    touchIndex: this.touchIndex,
+                    touchCb: () => {
+                        this.touchIndex = index;
+                        this.refreshUI(false);
+                    },
+                };
+            });
+            this.uiList.setState(state);
+        }
+    }
+}

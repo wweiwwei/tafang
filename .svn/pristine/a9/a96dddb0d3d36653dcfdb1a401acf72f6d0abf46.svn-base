@@ -1,0 +1,5 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+
+export class BattleRogueEquipmentManager {
+    constructor(public ctx: BattleBattleStageData) {}
+}

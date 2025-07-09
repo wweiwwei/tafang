@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace GamePlay
+{
+    public record MainStage(
+        /** 地图序号 */
+        int mapIndex,
+
+        /** 关卡序号 */
+        int stageIndex,
+
+        /** 地图总声望 */
+        long reputation,
+
+        /** 通关所有关卡 */
+        bool clear
+    )
+    {
+        public StageMapTbl MapTbl(PlayerDataManager Ctx)
+        {
+            return Ctx.Table.StageMapTblList.First(t => t.MapIndex == mapIndex);
+        }
+
+        public StageTbl Tbl(PlayerDataManager Ctx)
+        {
+            return Ctx.Table.StageTblList.First(t => t.MapIndex == mapIndex && stageIndex == t.StageIndex);
+        }
+        /** 地图挂机产量 */
+        public long Produce(PlayerDataManager Ctx)
+        {
+            return Ctx.Index.Stage.AfkProduceByMapIndexAndStageIndex[mapIndex][stageIndex - 1].afkMapProduce;
+        }
+        /** 地图产出物品id */
+        public int ProduceId(PlayerDataManager Ctx)
+        {
+            return 0;
+        }
+        /** 地图挂机容量限制 */
+        public long ProduceMaxStorage(PlayerDataManager Ctx)
+        {
+            return Produce(Ctx) * Ctx.Config.Stage.MapMaxAfkTime;
+        }
+        /** 战斗挂机奖励 */
+        public List<Item> BattleReward(long times, PlayerDataManager Ctx)
+        {
+            var ab = new List<Item>();
+            Ctx.Index.Stage.AfkProduceByMapIndexAndStageIndex[mapIndex][stageIndex - 1].afkReward.ForEach(arr =>
+            {
+                var p = (int)arr[0];
+                var id = (int)arr[1];
+                var count = arr[2];
+                var c = 0L;
+                for (var i = 1; i <= times; i++)
+                {
+                    if (p > RandomUtils.RandomInt(0, 10000))
+                    {
+                        c += count;
+                    }
+                }
+                if (c > 0)
+                {
+                    ab.Add(new Item(id, c));
+                }
+            });
+            return ab;
+        }
+        /** 首次通关奖励 */
+        public ImmutableArray<Item> FirstClearReward(PlayerDataManager Ctx)
+        {
+            return Ctx.Index.Stage.AfkProduceByMapIndexAndStageIndex[mapIndex][stageIndex - 1].firstReward;
+        }
+
+        /** 常规通关奖励 */
+        public ImmutableArray<Item> NormalReward(PlayerDataManager Ctx, int challengeStageIndex)
+        {
+            return Ctx.Index.Stage.AfkProduceByMapIndexAndStageIndex[mapIndex][challengeStageIndex - 1].firstReward;
+        }
+        /** 声望等级 */
+        public int ReputationLevel(PlayerDataManager Ctx)
+        {
+            var l = 0;
+            Ctx.Config.Stage.ReputationLevelRequire.ForEach((eq, i) =>
+            {
+                if (reputation >= eq) l = i;
+            });
+            return l;
+        }
+        /** 本地图剩余声望 */
+        public long ReputationRemain(PlayerDataManager Ctx)
+        {
+            var shopList = Ctx.Table.StageReputationShopTblList.Where(t => t.MapIndex == mapIndex);
+            var hasBuy = Ctx.StageManager.StageShopHasBuy();
+            var hasUse = shopList.Select(t =>
+            {
+                if (hasBuy.ContainsKey(t.Id))
+                {
+                    return t.Reputation * hasBuy[t.Id];
+                }
+                else
+                {
+                    return 0L;
+                }
+            }).Sum();
+            return reputation - hasUse;
+        }
+        public int SurvivorCount(PlayerDataManager Ctx)
+        {
+            var t = Tbl(Ctx);
+            if (t.Survivor.Contains(stageIndex))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public static MainStage Empty(int mapIndex)
+        {
+            return new MainStage(
+                mapIndex: mapIndex,
+                stageIndex: 1,
+                reputation: 0,
+                clear: false
+            );
+        }
+    }
+
+}

@@ -1,0 +1,160 @@
+import { GameSharedDataCache } from "../server/GameSharedDataCache";
+import { NetWorkDataCache } from "../server/NetWorkDataCache";
+
+export default class EventName {
+    /** 玩家数据的更新事件 */
+    static stateKey: Record<keyof NetWorkDataCache, symbol> = (() => {
+        const d = new NetWorkDataCache();
+        const res: any = {};
+        Object.keys(d).forEach((k) => {
+            res[k] = Symbol();
+        });
+        return res;
+    })();
+
+    /** 共享数据的更新事件 */
+    static sharedDataKey: Record<keyof GameSharedDataCache, symbol> = (() => {
+        const d = new GameSharedDataCache();
+        const res: any = {};
+        Object.keys(d).forEach((k) => {
+            res[k] = Symbol();
+        });
+        return res;
+    })();
+
+    /** 窗口打开，事件参数为打开的窗口 */
+    static windowOpen = Symbol();
+    /** 窗口打开完成（播放完了窗口过渡动画），事件参数为打开的窗口 */
+    static windowHasOpened = Symbol();
+    /** 窗口关闭，事件参数为关闭的窗口 */
+    static windowClose = Symbol();
+    /** 窗口完全关闭（播放完了窗口过渡动画），事件参数为关闭的窗口 */
+    static windowHasClosed = Symbol();
+
+    /** 开启建筑详情页面 */
+    static openFacilityDetail = Symbol();
+    /** 添加幸存者 */
+    static addSurvivor = Symbol();
+    /** 移除幸存者 */
+    static removeSurvivor = Symbol();
+    /** 添加场景英雄 */
+    static addSceneHero = Symbol();
+    /** 移除场景英雄 */
+    static removeSceneHero = Symbol();
+    /** 聚焦建筑物 */
+    static focusFacility = Symbol();
+
+    /** 幸存者展示生产 */
+    static showProduce = Symbol();
+    /** 幸存者展示吃饭 */
+    static showEat = Symbol();
+    /** 刷新食堂库存显示 */
+    static refreshFood = Symbol();
+    /** 幸存者展示睡觉 */
+    static showSleep = Symbol();
+    /** 幸存者展示治疗 */
+    static showHeal = Symbol();
+
+    /** 设置加载界面的进度 */
+    static setLoadProgress = Symbol();
+    /** 隐藏加载界面的进度 */
+    static hideLoadProgress = Symbol();
+
+    /** 重置战斗 */
+    static resetBattle = Symbol();
+
+    /** 跟随幸存者 */
+    static followSurvivor = Symbol();
+    /** 转盘数据 */
+    static turntableData = Symbol();
+    /** 解锁监听 */
+    static systemUnlock = Symbol();
+
+    /** 刷新挂机战斗状态 */
+    static refreshAfkBattleState = Symbol();
+
+    /** 选中英雄 */
+    static chosenHero = Symbol();
+    /** 刷新加载界面userId */
+    static refreshUserId = Symbol();
+    /** 刷新用户信息 */
+    static refreshUserInfo = Symbol();
+
+    /** 刷新装备信息 */
+    static refreshEquipmentInfo = Symbol();
+
+    /** 隐藏庄园格子 */
+    static hideGrid = Symbol();
+    /** 显示庄园格子 */
+    static showGrid = Symbol();
+    /** 刷新庄园格子 */
+    static refreshGrid = Symbol();
+    /** 检测边缘 */
+    static restrictPic = Symbol();
+
+    /** 玩家点击装备抽卡按钮 */
+    static playerEquipmentDrawcard = Symbol();
+    /** 刷新好友信息 */
+    static refreshFriend = Symbol();
+
+    /**竞技场刷新列表 */
+    static refreshChallengeList = Symbol();
+
+    /** 竞技场挑战完成 */
+    static arenaAfterChallenge = Symbol();
+
+    /** 装备场景怪物刷新 */
+    static equipmentSceneMonsterRefresh = Symbol();
+
+    /** 替换玩家装备 */
+    static replacePlayerEquipment = Symbol();
+
+    /** 售出玩家装备 */
+    static sellPlayerEquipment = Symbol();
+
+    /** 售出所有玩家装备 */
+    static sellAllPlayerEquipment = Symbol();
+
+    /** 和平模式切换 */
+    static peaceModeSwitch = Symbol();
+
+    /** 更换防御塔 */
+    static changeTower = Symbol();
+
+    /** 更换防御塔位置 */
+    static changeTowerPosition = Symbol();
+
+    /**刷新战斗力 */
+    static refreshBattlePoint = Symbol();
+    /** 接收到了世界聊天信息
+     * 参数1 接收到的信息 类型:{ data: PlayerChatMessage; info: FriendInfo }
+     * */
+    static receiveWorldMsg = Symbol();
+    /** 接收到私聊信息
+     * 参数1 接收到的信息 类型:{ data: PlayerChatMessage; info: FriendInfo }
+     * 参数2 私聊频道channel 类型:number
+     */
+    static receivePrivateMsg = Symbol();
+
+    /** 自动设置发生变化 */
+    static stoneAutoChange = Symbol();
+
+    /** 战斗开始 */
+    static battleStart = Symbol();
+
+    /** 展示塔的范围 */
+    static showTowerRange = Symbol();
+    /** 隐藏塔的范围 */
+    static HideTowerRange = Symbol();
+
+    /** 红点刷新 */
+    static redTipRefresh = Symbol();
+    /** 隐藏所有战斗变化提示 */
+    static hideAllPowerChange = Symbol();
+
+    static hideMainSceneLeftMenuUi = Symbol();
+    /** 暂停战斗 */
+    static pauseBattle = Symbol();
+    /**打开选择关卡 */
+    static openWindowStage = Symbol();
+}

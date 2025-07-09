@@ -1,0 +1,1621 @@
+
+declare type TblTypeMap = {
+    GameConfigTbl:GameConfigTbl
+    ItemTbl:ItemTbl
+    ChestTbl:ChestTbl
+    HeroTbl:HeroTbl
+    HeroRankBuffTbl:HeroRankBuffTbl
+    HeroRankSpecialTbl:HeroRankSpecialTbl
+    HeroRankPropertyTbl:HeroRankPropertyTbl
+    HeroEquipmentTbl:HeroEquipmentTbl
+    HeroSkillTbl:HeroSkillTbl
+    HeroLevelTbl:HeroLevelTbl
+    HeroRankTbl:HeroRankTbl
+    HeroStarTbl:HeroStarTbl
+    HeroEquipmentLevelTbl:HeroEquipmentLevelTbl
+    HeroEquipmentRankTbl:HeroEquipmentRankTbl
+    FacilityTbl:FacilityTbl
+    FacilityLevelTbl:FacilityLevelTbl
+    FacilityRankTbl:FacilityRankTbl
+    FacilityHeroLevelBuffTbl:FacilityHeroLevelBuffTbl
+    FacilityStarTbl:FacilityStarTbl
+    FacilityBuffTbl:FacilityBuffTbl
+    StageMapTbl:StageMapTbl
+    StageTbl:StageTbl
+    StageReputationShopTbl:StageReputationShopTbl
+    StageAchievementTbl:StageAchievementTbl
+    EquipmentMonsterTbl:EquipmentMonsterTbl
+    MonsterWaveTbl:MonsterWaveTbl
+    MonsterWaveDetailTbl:MonsterWaveDetailTbl
+    MonsterTbl:MonsterTbl
+    ShopTbl:ShopTbl
+    PlayerLevelTbl:PlayerLevelTbl
+    PlayerRankTbl:PlayerRankTbl
+    PlayerMissionTbl:PlayerMissionTbl
+    MainMissionTaskTbl:MainMissionTaskTbl
+    MainMissionTbl:MainMissionTbl
+    TowerChallengeTbl:TowerChallengeTbl
+    TowerLevelRewardTbl:TowerLevelRewardTbl
+    ArenaRewardTbl:ArenaRewardTbl
+    BattleSkillTbl:BattleSkillTbl
+    CarTbl:CarTbl
+    CarSkillTbl:CarSkillTbl
+    CarLevelTbl:CarLevelTbl
+    CarEquipmentTbl:CarEquipmentTbl
+    CarEquipmentLevelTbl:CarEquipmentLevelTbl
+    CardPoolTbl:CardPoolTbl
+    CardPoolLevelTbl:CardPoolLevelTbl
+    SpineAttackAnimationInfoTbl:SpineAttackAnimationInfoTbl
+    SpineInfoTbl:SpineInfoTbl
+    HeroFormationTbl:HeroFormationTbl
+    RelationBuffTbl:RelationBuffTbl
+    FacilityTunnelTbl:FacilityTunnelTbl
+    FacilityPositionTbl:FacilityPositionTbl
+    EnemyBattleTbl:EnemyBattleTbl
+    MineRewardTbl:MineRewardTbl
+    MineMapAreaTbl:MineMapAreaTbl
+    MineBattleMapTbl:MineBattleMapTbl
+    GiftPackTbl:GiftPackTbl
+    PackRuleTbl:PackRuleTbl
+    DialogueTbl:DialogueTbl
+    DialogueContentTbl:DialogueContentTbl
+    GuideTbl:GuideTbl
+    GuideContentTbl:GuideContentTbl
+    HeroCollectionTbl:HeroCollectionTbl
+    HeroCollectionPointTbl:HeroCollectionPointTbl
+    HeroCollectionLevelRewardTbl:HeroCollectionLevelRewardTbl
+    MusicInfoTbl:MusicInfoTbl
+    BattleSceneInfoTbl:BattleSceneInfoTbl
+    BattleRoadInfoTbl:BattleRoadInfoTbl
+    ClearAdTbl:ClearAdTbl
+    MagicStaffTbl:MagicStaffTbl
+    SystemUnlockTbl:SystemUnlockTbl
+    WeakGuideTbl:WeakGuideTbl
+    WeakGuideContentTbl:WeakGuideContentTbl
+    TurntableTbl:TurntableTbl
+    ChestItemPoolTbl:ChestItemPoolTbl
+    OptionalChestPoolTbl:OptionalChestPoolTbl
+    FirstPackageTbl:FirstPackageTbl
+    MonthCardTbl:MonthCardTbl
+    CaptainMissionTbl:CaptainMissionTbl
+    CaptainBuffTbl:CaptainBuffTbl
+    WarOrderTbl:WarOrderTbl
+    WarOrderRewardTbl:WarOrderRewardTbl
+    RuleTextTbl:RuleTextTbl
+    RankMissionTbl:RankMissionTbl
+    RankPackTbl:RankPackTbl
+    RankRewardTbl:RankRewardTbl
+    VideoGroupPurchaseTbl:VideoGroupPurchaseTbl
+    BanquetLevelTbl:BanquetLevelTbl
+    BanquetPointRewardTbl:BanquetPointRewardTbl
+    BanquetMissionTbl:BanquetMissionTbl
+    BanquetShopTbl:BanquetShopTbl
+    BanquetPackTbl:BanquetPackTbl
+    BanquetGroupTbl:BanquetGroupTbl
+    TowerStrengthenTbl:TowerStrengthenTbl
+    TowerWashTbl:TowerWashTbl
+    TowerWashRareTbl:TowerWashRareTbl
+    EquipmentTbl:EquipmentTbl
+    EquipmentStatTbl:EquipmentStatTbl
+    StoneLevelTbl:StoneLevelTbl
+    PlayerSkillTbl:PlayerSkillTbl
+    PlayerSkillLevelTbl:PlayerSkillLevelTbl
+    PlayerSkillTalentTbl:PlayerSkillTalentTbl
+    PetTbl:PetTbl
+    PetLevelTbl:PetLevelTbl
+    ManorFacilityTbl:ManorFacilityTbl
+    ManorDecorationTbl:ManorDecorationTbl
+    ManorPlantTbl:ManorPlantTbl
+    JobChangeTbl:JobChangeTbl
+    JobSkillTbl:JobSkillTbl
+    JobTalentTbl:JobTalentTbl
+    JobTalentLevelTbl:JobTalentLevelTbl
+    DamageChallengeTbl:DamageChallengeTbl
+    DamageMonsterTbl:DamageMonsterTbl
+    HeroSoulTbl:HeroSoulTbl
+    HeroSoulValueTbl:HeroSoulValueTbl
+    HeroSoulLevelTbl:HeroSoulLevelTbl
+    HeroSoulBreakTbl:HeroSoulBreakTbl
+    DefendTowerTbl:DefendTowerTbl
+    InfiniteBattleTbl:InfiniteBattleTbl
+    RogueSkillTbl:RogueSkillTbl
+    RogueSkillDetailTbl:RogueSkillDetailTbl
+    RogueSkillEnhanceTbl:RogueSkillEnhanceTbl
+    RogueBlessTbl:RogueBlessTbl
+    RogueEquipmentTbl:RogueEquipmentTbl
+    RogueExSkillTbl:RogueExSkillTbl
+    RogueExSkillEnhanceTbl:RogueExSkillEnhanceTbl
+    TechTreeTbl:TechTreeTbl
+    MountTbl:MountTbl
+    MountRankTbl:MountRankTbl
+    MountPoolTbl:MountPoolTbl
+    MountPoolRewardTbl:MountPoolRewardTbl
+    PlayerSkinTbl:PlayerSkinTbl
+    PlayerMountTbl:PlayerMountTbl
+    MallTbl:MallTbl
+    BattleRogueBossTbl:BattleRogueBossTbl
+    BattleRogueBossSkillTbl:BattleRogueBossSkillTbl
+    BossDialogueConfigTbl:BossDialogueConfigTbl
+    FossilTbl:FossilTbl
+    FossilComboTbl:FossilComboTbl
+    ChargeTbl:ChargeTbl
+    ActivitiesTbl:ActivitiesTbl
+    MetaTableExtendTbl:MetaTableExtendTbl
+    EnumTbl:EnumTbl
+    UIBindTbl:UIBindTbl
+    UIMainSceneTbl:UIMainSceneTbl
+    ClientLangTbl:ClientLangTbl
+    MissionKindTbl:MissionKindTbl
+    UIRedTipTbl:UIRedTipTbl
+    BattlePropertyTbl:BattlePropertyTbl
+
+}
+
+
+declare type GameConfigTbl = {
+    /**主键，可以随便改*/ readonly id: number;
+    /**配置说明*/ readonly tip: string;
+    /**配置值*/ readonly config: string[];
+    /**配置路径（程序配置，策划不要修改）*/ readonly configPath: string;
+    /**转换器（程序配置，策划不要修改）*/ readonly adaptor: string;
+
+}
+declare type ItemTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**物品名称*/ readonly name: string;
+    /**物品类型*/ readonly kind: number;
+    /**品质*/ readonly quality: number;
+    /**图片资源*/ readonly img: string;
+    /**物品描述*/ readonly description: string;
+
+}
+declare type ChestTbl = {
+    /**跟物品表中的宝箱id对应*/ readonly id: number;
+    /**宝箱产出*/ readonly reward: number[][];
+
+}
+declare type HeroTbl = {
+    /**唯一id*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**英雄职业*/ readonly kind: string;
+    /**图片资源*/ readonly img: string;
+    /**英雄名称*/ readonly name: string;
+    /**英雄描述*/ readonly description: string;
+    /**攻击*/ readonly attack: string;
+    /**防御*/ readonly armor: string;
+    /**生命*/ readonly maxHp: string;
+    /**普攻间隔(毫秒)*/ readonly normalAttackInterval: number;
+    /**普攻范围(像素)*/ readonly normalAttackRange: number;
+    /**移动速度（像素/秒）*/ readonly moveSpeed: number;
+    /**角色碎片*/ readonly frag: number;
+    /**普攻*/ readonly normalAttack: number;
+    /**主动技能*/ readonly mainSkill: number;
+    /**技能范围*/ readonly skillRange: number;
+
+}
+declare type HeroRankBuffTbl = {
+    /**不读*/ readonly id: number;
+    /**职业*/ readonly kind: string;
+    /**阶数*/ readonly rank: number;
+    /**绿卡*/ readonly quality0: string[][];
+    /**蓝卡*/ readonly quality1: string[][];
+    /**紫卡*/ readonly quality2: string[][];
+    /**橙卡*/ readonly quality3: string[][];
+    /**红卡*/ readonly quality4: string[][];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**描述（有填写描述优先显示描述，没有则按属性加成显示）*/ readonly description: string;
+
+}
+declare type HeroRankSpecialTbl = {
+    /**不读*/ readonly id: number;
+    /**英雄id*/ readonly heroId: number;
+    /**阶数*/ readonly rank: number;
+    /**属性*/ readonly property: string[][];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**描述（有填写描述优先显示描述，没有则按属性加成显示）*/ readonly description: string;
+
+}
+declare type HeroRankPropertyTbl = {
+    /**不读*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**阶数*/ readonly rank: number;
+    /**攻击*/ readonly attack: number;
+    /**防御*/ readonly armor: number;
+    /**生命值*/ readonly maxHp: number;
+
+}
+declare type HeroEquipmentTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**装备名称*/ readonly name: string;
+    /**品质*/ readonly quality: number;
+    /**部位*/ readonly part: number;
+    /**图片资源*/ readonly img: string;
+    /**装备描述*/ readonly description: string;
+    /**属性*/ readonly property: string[][];
+    /**突破属性*/ readonly rankProperty: string[][];
+
+}
+declare type HeroSkillTbl = {
+    /**唯一id（不可修改，保持和英雄id相同）*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**技能名称*/ readonly name: string;
+    /**图片资源*/ readonly img: string;
+    /**技能描述*/ readonly description: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**技能描述参数*/ readonly descriptionParam: string[][];
+
+}
+declare type HeroLevelTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**英雄等级*/ readonly level: number[];
+    /**升级经验值*/ readonly require: string;
+    /**金币消耗*/ readonly coinCost: string;
+
+}
+declare type HeroRankTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**英雄突破阶数*/ readonly level: number;
+    /**升阶需求突破书*/ readonly require: number;
+    /**金币消耗*/ readonly coinCost: number;
+
+}
+declare type HeroStarTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**英雄星级*/ readonly level: number;
+    /**碎片消耗*/ readonly fragCost: number;
+    /**金币消耗*/ readonly coinCost: number;
+    /**属性比例*/ readonly property: number;
+    /**技能等级*/ readonly skillLevel: number[];
+
+}
+declare type HeroEquipmentLevelTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**英雄等级*/ readonly level: number[];
+    /**布料消耗*/ readonly coinCost: string;
+
+}
+declare type HeroEquipmentRankTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**英雄装备突破阶数*/ readonly level: number;
+    /**升阶材料数量*/ readonly require: number;
+    /**金币消耗*/ readonly coinCost: number;
+
+}
+declare type FacilityTbl = {
+    /**唯一id*/ readonly id: number;
+    /**建筑名称*/ readonly name: string;
+    /**建筑描述*/ readonly description: string;
+    /**建筑类型*/ readonly kind: number;
+    /**是否可入驻*/ readonly enableHero: number;
+    /**是否供水*/ readonly useWater: number;
+    /**解锁*/ readonly captainRankRequire: number;
+    /**解锁前置条件*/ readonly pre: number[];
+    /**消耗材料id*/ readonly materialId: number;
+    /**建筑原料消耗比例*/ readonly materialCost: number;
+    /**产出材料id*/ readonly produceId: number;
+    /**建筑初始属性*/ readonly baseProperty: number[][];
+    /**预制体名称*/ readonly prefab: string;
+    /**守卫怪物阵容*/ readonly guard: number;
+    /**位置id*/ readonly posId: number;
+    /**升级1名称*/ readonly level1Name: string;
+    /**升级2名称*/ readonly level2Name: string;
+    /**建筑图片*/ readonly image: string;
+    /**缩略图*/ readonly image2: string;
+    /**解锁奖励*/ readonly reward: number[][];
+    /**产量物品*/ readonly chestId: number;
+    /**占领获得幸存者数量*/ readonly survivor: number;
+    /**每个工作格子所需要的英雄阶数*/ readonly workRequire: number[];
+    /**每个游戏小时产出多少次*/ readonly produceCount: number;
+    /**怪物等级*/ readonly monsterLv: number;
+
+}
+declare type FacilityLevelTbl = {
+    /**不读*/ readonly id: number;
+    /**建筑id*/ readonly facilityId: number;
+    /**等级*/ readonly level: number[];
+    /**升级材料消耗*/ readonly cost: string[][];
+    /**水消耗*/ readonly maintenance: string;
+    /**等级数值*/ readonly value: string[];
+    /**满级奖励*/ readonly maxValue: number[];
+
+}
+declare type FacilityRankTbl = {
+    /**不读*/ readonly id: number;
+    /**建筑id*/ readonly facilityId: number;
+    /**阶数*/ readonly rank: number;
+    /**材料消耗*/ readonly cost: number[][];
+    /**升阶奖励*/ readonly reward: number[][];
+    /**船长室产量*/ readonly captainProduce: number;
+    /**建筑等级上限*/ readonly lvLimit: number;
+    /**阶数前置条件*/ readonly pre: number[][];
+
+}
+declare type FacilityHeroLevelBuffTbl = {
+    /**不读*/ readonly id: number;
+    /**英雄阶数*/ readonly level: number;
+    /**生产效率*/ readonly produce: number;
+    /**食堂专用*/ readonly eat: number;
+    /**医院专用*/ readonly heal: number;
+
+}
+declare type FacilityStarTbl = {
+    /**不读*/ readonly id: number;
+    /**建筑id*/ readonly facilityId: number;
+    /**星级*/ readonly star: number;
+    /**材料消耗*/ readonly cost: number[][];
+    /**升星属性*/ readonly reward: number[];
+
+}
+declare type FacilityBuffTbl = {
+    /**不读*/ readonly id: number;
+    /**buff类型*/ readonly buffKind: number;
+    /**公式计算*/ readonly config: string;
+
+}
+declare type StageMapTbl = {
+    /**不读*/ readonly id: number;
+    /**地图编号*/ readonly mapIndex: number;
+    /**地图名称*/ readonly name: string;
+    /**选关图标*/ readonly banner: string;
+    /**LV系数*/ readonly baseLv: number;
+
+}
+declare type StageTbl = {
+    /**不读*/ readonly id: number;
+    /**地图编号*/ readonly mapIndex: number;
+    /**关卡编号*/ readonly stageIndex: number;
+    /**地图配置*/ readonly mapId: number;
+    /**守卫怪物阵容*/ readonly guard: number;
+    /**LV系数*/ readonly baseLv: number;
+    /**波数奖励*/ readonly wave: number[];
+    /**首次通关奖励*/ readonly firstReward: number[][];
+    /**扫荡奖励*/ readonly sweepReward: number[][];
+    /**未通关奖励比率*/ readonly ratio: string;
+
+}
+declare type StageReputationShopTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**地图编号*/ readonly mapIndex: number;
+    /**物品*/ readonly item: number[];
+    /**声望价格*/ readonly reputation: number;
+    /**库存数量*/ readonly storage: number;
+    /**解锁声望等级*/ readonly unlockReputationLevel: number;
+
+}
+declare type StageAchievementTbl = {
+    /**唯一id*/ readonly id: number;
+    /**地图编号和关卡编号*/ readonly stage: number[];
+    /**奖励*/ readonly reward: number[][];
+
+}
+declare type EquipmentMonsterTbl = {
+    /**主键*/ readonly id: number;
+    /**装备品质*/ readonly quality: number;
+    /**生命值倍率*/ readonly life: number;
+
+}
+declare type MonsterWaveTbl = {
+    /**唯一id*/ readonly id: number;
+    /**失败怪物数*/ readonly monsterLimit: number;
+    /**boss配置*/ readonly boss: number;
+    /**波次*/ readonly waveList: number[];
+
+}
+declare type MonsterWaveDetailTbl = {
+    /**唯一id*/ readonly id: number;
+    /**波数时间(毫秒)*/ readonly waveTime: number;
+    /**波数附加等级*/ readonly waveLevel: number;
+    /**波数提示*/ readonly waveTip: number;
+    /**波数*/ readonly wave: number[][];
+
+}
+declare type MonsterTbl = {
+    /**唯一id*/ readonly id: number;
+    /**怪物名*/ readonly name: string;
+    /**怪物关卡*/ readonly gauka: number;
+    /**品质*/ readonly quality: number;
+    /**移动类型*/ readonly moveType: number;
+    /**攻击类型*/ readonly attackType: number;
+    /**怪物tag*/ readonly tag: string[];
+    /**图片资源*/ readonly img: string;
+    /**普攻间隔(毫秒)*/ readonly normalAttackInterval: number;
+    /**普攻范围(像素)*/ readonly normalAttackRange: number;
+    /**普攻*/ readonly normalAttack: number;
+    /**体型尺寸*/ readonly size: number[];
+    /**主动技能*/ readonly mainSkill: number[];
+    /**其它技能*/ readonly skill: number[];
+    /**移动速度（像素/秒）*/ readonly moveSpeed: number;
+    /**攻击力*/ readonly attack: string;
+    /**防御力*/ readonly armor: string;
+    /**生命值*/ readonly maxHp: string;
+    /**命中*/ readonly hit: string;
+    /**闪避*/ readonly dodge: string;
+    /**暴击率*/ readonly critical: string;
+    /**反暴击*/ readonly criticalImmune: string;
+    /**暴击伤害*/ readonly criticalDamage: string;
+    /**暴击伤害抵抗*/ readonly criticalResistant: string;
+    /**增伤*/ readonly damage: string;
+    /**减伤*/ readonly defence: string;
+    /**技能范围*/ readonly skillRange: number;
+    /**普攻连击率*/ readonly combo: string;
+    /**普攻连击减免*/ readonly antiCombo: string;
+    /**普攻击晕率*/ readonly stun: string;
+    /**普攻击晕减免*/ readonly antiStun: string;
+    /**普攻吸血*/ readonly lifeSteal: string;
+    /**普攻吸血减免*/ readonly antiLifeSteal: string;
+    /**生命恢复(每秒)*/ readonly lifeRecover: string;
+
+}
+declare type ShopTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**物品*/ readonly item: number[];
+    /**商店分页编号*/ readonly page: number;
+    /**购买次数限制*/ readonly storage: number;
+    /**购买价格*/ readonly price: number[];
+    /**库存刷新逻辑*/ readonly refresh: number;
+    /**解锁等级*/ readonly unlock: number;
+
+}
+declare type PlayerLevelTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**玩家等级*/ readonly level: number;
+    /**升级消耗*/ readonly require: number;
+    /**称号*/ readonly levelName: string;
+    /**属性，加百分比*/ readonly property: string[][];
+
+}
+declare type PlayerRankTbl = {
+    /**不读*/ readonly id: number;
+    /**职业阶数*/ readonly rank: number;
+    /**等级上限*/ readonly levelLimit: number;
+    /**职业称号*/ readonly careerName: string;
+    /**属性，加百分比*/ readonly property: string[][];
+
+}
+declare type PlayerMissionTbl = {
+    /**唯一id(注意所有任务类型都不能使用重复id)*/ readonly id: number;
+    /**职业阶数*/ readonly rank: number;
+    /**任务类型*/ readonly kind: number;
+    /**任务需求*/ readonly require: number[];
+    /**任务参数*/ readonly param: number[];
+    /**奖励*/ readonly reward: number[][];
+    /**任务最大阶段数*/ readonly stage: number;
+
+}
+declare type MainMissionTaskTbl = {
+    /**目标id（不可修改）*/ readonly id: number;
+    /**奖励*/ readonly reward: number[][];
+    /**目标需求*/ readonly require: number;
+
+}
+declare type MainMissionTbl = {
+    /**唯一id*/ readonly id: number;
+    /**位置*/ readonly index: number;
+    /**层级*/ readonly order: number;
+    /**任务类型*/ readonly kind: number;
+    /**任务需求*/ readonly require: number[];
+    /**任务参数*/ readonly param: number[];
+    /**奖励*/ readonly reward: number[][];
+    /**开启条件*/ readonly unlock: number[];
+    /**任务最大阶段数*/ readonly stage: number;
+
+}
+declare type TowerChallengeTbl = {
+    /**不读*/ readonly id: number;
+    /**塔层数*/ readonly towerLv: number;
+    /**怪物*/ readonly guard: number;
+    /**奖励*/ readonly reward: number[][];
+    /**怪物等级*/ readonly monsterLv: number;
+    /**每分钟挂机收益*/ readonly afkReward: string[][];
+
+}
+declare type TowerLevelRewardTbl = {
+    /**不读*/ readonly id: number;
+    /**塔层数*/ readonly towerLv: number;
+    /**奖励*/ readonly reward: number[][];
+
+}
+declare type ArenaRewardTbl = {
+    /**不读*/ readonly id: number;
+    /**类型*/ readonly kind: number;
+    /**排名范围*/ readonly rank: number[];
+    /**奖励物品*/ readonly reward: number[][];
+
+}
+declare type BattleSkillTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**配置文件*/ readonly config: string;
+    /**参数1*/ readonly param1: string;
+    /**参数2*/ readonly param2: string;
+    /**参数3*/ readonly param3: string;
+    /**参数4*/ readonly param4: string;
+    /**参数5*/ readonly param5: string;
+    /**标志位*/ readonly flag: string[];
+    /**属性加成*/ readonly property: string[][];
+    /**眩晕*/ readonly stupor: number;
+    /**缴械*/ readonly disarm: number;
+    /**恐惧*/ readonly fear: number;
+    /**沉默*/ readonly silence: number;
+    /**嘲讽*/ readonly sneer: number;
+
+}
+declare type CarTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**图片资源*/ readonly img: string;
+    /**战车名称*/ readonly name: string;
+    /**战车描述*/ readonly description: string;
+    /**攻击*/ readonly attack: string;
+    /**防御*/ readonly armor: string;
+    /**生命*/ readonly maxHp: string;
+    /**主动技能*/ readonly mainSkill: number;
+    /**被动技能*/ readonly skill: number[];
+
+}
+declare type CarSkillTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**图片资源*/ readonly img: string;
+    /**技能名*/ readonly name: string;
+    /**技能描述*/ readonly description: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+
+}
+declare type CarLevelTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**战车等级*/ readonly level: number[];
+    /**升级经验值*/ readonly require: string;
+    /**金币消耗*/ readonly coinCost: string;
+
+}
+declare type CarEquipmentTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**装备名称*/ readonly name: string;
+    /**品质*/ readonly quality: number;
+    /**部位*/ readonly part: number;
+    /**图片资源*/ readonly img: string;
+    /**装备描述*/ readonly description: string;
+    /**属性*/ readonly property: string[][];
+
+}
+declare type CarEquipmentLevelTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**战车部件等级*/ readonly level: number;
+    /**升阶材料数量*/ readonly require: number;
+    /**金币消耗*/ readonly coinCost: number;
+
+}
+declare type CardPoolTbl = {
+    /**卡池id，不可修改*/ readonly id: number;
+    /**抽卡券id*/ readonly ticket: number;
+    /**15抽钻石价格*/ readonly price15: number;
+    /**35抽钻石价格*/ readonly price35: number;
+    /**每日上限*/ readonly dailyLimit: number;
+
+}
+declare type CardPoolLevelTbl = {
+    /**唯一id*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**升级所需抽卡次数*/ readonly require: number;
+    /**品质0概率*/ readonly rare0: number;
+    /**品质1概率*/ readonly rare1: number;
+    /**品质2概率*/ readonly rare2: number;
+    /**品质3概率*/ readonly rare3: number;
+    /**品质4概率*/ readonly rare4: number;
+    /**品质5概率*/ readonly rare5: number;
+    /**品质6概率*/ readonly rare6: number;
+    /**品质7概率*/ readonly rare7: number;
+    /**品质8概率*/ readonly rare8: number;
+
+}
+declare type SpineAttackAnimationInfoTbl = {
+    /**不读*/ readonly id: number;
+    /**骨骼动画名称*/ readonly spine: string;
+    /**动画名称*/ readonly animation: string;
+    /**技能关键帧（帧，以30帧为基准）*/ readonly keyFrame: number[];
+    /**总帧数（帧，以30帧为基准）*/ readonly total: number;
+    /**默认动画速度*/ readonly animationSpeed: number;
+
+}
+declare type SpineInfoTbl = {
+    /**不读*/ readonly id: number;
+    /**骨骼动画名称*/ readonly spine: string;
+    /**骨骼皮肤*/ readonly skin: string;
+    /**子弹发射起点*/ readonly bulletBegin: number[];
+    /**角色缩放*/ readonly scale: number;
+    /**角色ui缩放*/ readonly uiScale: number;
+    /**角色在场景行走的尺寸*/ readonly sceneScale: number;
+    /**生命/能量条位置(y坐标)*/ readonly barPosition: number;
+    /**生命/能量条缩放*/ readonly barScale: number;
+    /**阴影缩放*/ readonly shadowScale: number;
+    /**阴影位置(y坐标)*/ readonly shadowPosition: number;
+    /**是否显示阴影*/ readonly showShadow: number;
+    /**冲刺配置*/ readonly rush: number[];
+    /**护盾配置*/ readonly shield: number[];
+    /**眩晕配置*/ readonly stupor: number[];
+    /**普攻击中特效*/ readonly hitEffect: string;
+    /**击中特效缩放*/ readonly hitEffectScale: string;
+    /**击中特效延迟*/ readonly hitEffectDelay: string;
+    /**击中特效偏移*/ readonly hitEffectOffset: number[];
+    /**普攻子弹资源*/ readonly bulletImg: string;
+    /**普攻子弹速度（像素/秒）*/ readonly bulletSpeed: number;
+    /**普攻弹道类型（1、贝塞尔曲线 2、直线）*/ readonly curveType: number;
+    /**曲线参数*/ readonly curveParam: number;
+    /**子弹缩放*/ readonly bulletScale: number;
+
+}
+declare type HeroFormationTbl = {
+    /**不读*/ readonly id: number;
+    /**位置编号*/ readonly index: number;
+    /**生命/能量条位置(y坐标)*/ readonly barPosition: number;
+    /**生命/能量条缩放*/ readonly barScale: number;
+
+}
+declare type RelationBuffTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**羁绊分页*/ readonly page: number;
+    /**羁绊id*/ readonly relationId: number[];
+    /**词条1*/ readonly buff1: string[];
+    /**词条2*/ readonly buff2: string[];
+    /**词条3*/ readonly buff3: string[];
+    /**词条4*/ readonly buff4: string[];
+
+}
+declare type FacilityTunnelTbl = {
+    /**不读*/ readonly id: number;
+    /**通道连接区域*/ readonly area: number[];
+    /**通道类型*/ readonly tunnelType: number;
+    /**路径定位点*/ readonly pathPoint: number[][];
+
+}
+declare type FacilityPositionTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**层级*/ readonly zIndex: number;
+    /**通行区域编号*/ readonly area: number;
+    /**坐标*/ readonly position: number[];
+
+}
+declare type EnemyBattleTbl = {
+    /**不读*/ readonly id: number;
+    /**排名*/ readonly rank: number;
+    /**奖励*/ readonly reward: string[][];
+    /**积分*/ readonly point: number;
+    /**战力倍数*/ readonly power: number;
+    /**名称*/ readonly teamName: string;
+
+}
+declare type MineRewardTbl = {
+    /**主键，不可修改*/ readonly id: number;
+    /**奖励类型*/ readonly rewardType: number;
+    /**奖励ID*/ readonly rewardId: number;
+    /**权重*/ readonly weight: number;
+    /**最小数量|最大数量*/ readonly count: number[];
+    /**图片*/ readonly img: string;
+
+}
+declare type MineMapAreaTbl = {
+    /**Id*/ readonly id: number;
+    /**区域ID*/ readonly areaId: number;
+    /**解锁层数*/ readonly unlockFloor: number[];
+    /**列1*/ readonly col1: number;
+    /**列2*/ readonly col2: number;
+    /**列3*/ readonly col3: number;
+    /**列4*/ readonly col4: number;
+    /**列5*/ readonly col5: number;
+    /**列6*/ readonly col6: number;
+    /**权重*/ readonly weight: number[];
+
+}
+declare type MineBattleMapTbl = {
+    /**主键，不可更改*/ readonly id: number;
+    /**怪物组合名称*/ readonly name: string;
+    /**小怪解锁层数*/ readonly unlockFloor: number[];
+    /**小怪权重*/ readonly weight: number;
+    /**boss守卫层数*/ readonly boss: number;
+    /**怪物组合*/ readonly guard: number;
+    /**奖励*/ readonly reward: number[][];
+    /**挖矿积分*/ readonly point: number;
+    /**体力消耗*/ readonly powerCost: number;
+    /**怪物等级*/ readonly monsterLv: number;
+
+}
+declare type GiftPackTbl = {
+    /**唯一id，与充值id对应*/ readonly id: number;
+    /**奖励物品*/ readonly reward: number[][];
+
+}
+declare type PackRuleTbl = {
+    /**主键，不可修改*/ readonly id: number;
+    /**规则*/ readonly kind: number;
+    /**触发条件*/ readonly trigger: number[][];
+    /**玩家充值档位*/ readonly playerClass: number[];
+    /**礼包id*/ readonly packageId: number[];
+    /**持续时间*/ readonly duration: number;
+    /**推送次数限制*/ readonly limit: number;
+    /**礼包分组*/ readonly group: number;
+    /**主界面入口图标*/ readonly entranceImg: string;
+
+}
+declare type DialogueTbl = {
+    /**对话编号*/ readonly id: number;
+    /**触发条件*/ readonly trigger: number[];
+
+}
+declare type DialogueContentTbl = {
+    /**主键*/ readonly id: number;
+    /**对话编号*/ readonly dialogueId: number;
+    /**对话角色*/ readonly role: string;
+    /**对话角色位置*/ readonly rolePos: number;
+    /**对话内容*/ readonly content: string;
+
+}
+declare type GuideTbl = {
+    /**引导编号*/ readonly id: number;
+    /**在线触发检测*/ readonly trigger: number[];
+    /**登录触发检测*/ readonly loginTrigger: string[][];
+    /**跳过条件*/ readonly skip: string[][];
+
+}
+declare type GuideContentTbl = {
+    /**主键*/ readonly id: number;
+    /**引导编号*/ readonly guideId: number;
+    /**对话角色*/ readonly role: string;
+    /**对话角色位置*/ readonly rolePos: number;
+    /**引导内容*/ readonly content: string;
+    /**定位节点*/ readonly point: string;
+    /**引导完成条件*/ readonly complete: string[][];
+    /**按键屏蔽*/ readonly buttonBlock: number;
+    /**场景事件屏蔽*/ readonly sceneBlock: number;
+    /**手动战斗*/ readonly guideBattle: number;
+    /**对话位置偏移量*/ readonly dialogueOffset: number;
+    /**预触发*/ readonly preRun: string[];
+    /**结束触发*/ readonly afterRun: string[];
+    /**引导手指坐标偏移*/ readonly hand: number[];
+
+}
+declare type HeroCollectionTbl = {
+    /**不读*/ readonly id: number;
+    /**分页*/ readonly page: number;
+    /**图鉴等级*/ readonly level: number;
+    /**升级点数要求*/ readonly pointRequire: number;
+    /**词条1*/ readonly buff1: string[];
+    /**词条2*/ readonly buff2: string[];
+    /**词条3*/ readonly buff3: string[];
+    /**词条4*/ readonly buff4: string[];
+
+}
+declare type HeroCollectionPointTbl = {
+    /**不读*/ readonly id: number;
+    /**分页*/ readonly page: number;
+    /**英雄星级*/ readonly star: number;
+    /**点数获取（按品质）*/ readonly point: number[];
+
+}
+declare type HeroCollectionLevelRewardTbl = {
+    /**不读*/ readonly id: number;
+    /**分页*/ readonly page: number;
+    /**图鉴等级*/ readonly level: number;
+    /**奖励*/ readonly reward: number[][];
+
+}
+declare type MusicInfoTbl = {
+    /**不读*/ readonly id: number;
+    /**音乐名*/ readonly music: string;
+    /**音量*/ readonly volume: number;
+
+}
+declare type BattleSceneInfoTbl = {
+    /**唯一id*/ readonly id: number;
+    /**预制体*/ readonly prefab: string;
+    /**背景音乐*/ readonly music: string;
+    /**场景缩放比例*/ readonly scale: number;
+    /**默认镜头缩放*/ readonly defaultRatio: number;
+    /**主角位置*/ readonly playerPos: number[];
+    /**默认摄像机位置*/ readonly defaultCameraPos: number[];
+    /**允许移动镜头*/ readonly allowMove: number;
+    /**地图偏移量*/ readonly mapOffset: number;
+    /**怪物起始点配置*/ readonly monsterBegin: number;
+    /**路径id*/ readonly roadId: number;
+    /**路径缩放*/ readonly roadScale: number;
+    /**路径位置*/ readonly roadPos: number[];
+
+}
+declare type BattleRoadInfoTbl = {
+    /**唯一id*/ readonly id: number;
+    /**图片资源*/ readonly img: string;
+    /**路径类型*/ readonly kind: number;
+    /**路径配置*/ readonly road: number[][];
+
+}
+declare type ClearAdTbl = {
+    /**唯一id，与充值id对应*/ readonly id: number;
+    /**奖励物品*/ readonly reward: number[][];
+
+}
+declare type MagicStaffTbl = {
+    /**法杖id，跟物品表对应*/ readonly id: number;
+    /**持续时间（分钟）*/ readonly duration: number;
+    /**攻击频率（次/秒）*/ readonly attackSpeed: number;
+    /**战斗速率（万分比）*/ readonly battleSpeed: number;
+    /**攻击力加成（万分比）*/ readonly attackBuff: number;
+    /**钻石购买价格*/ readonly price: number;
+    /**每日广告次数*/ readonly videoLimit: number;
+    /**每次广告获取个数*/ readonly videoCount: number;
+    /**解锁id*/ readonly systemId: number;
+
+}
+declare type SystemUnlockTbl = {
+    /**功能id*/ readonly id: number;
+    /**条件*/ readonly condition: number[];
+    /**是否有解锁通知窗口*/ readonly inform: number;
+    /**解锁的文本*/ readonly text: string;
+    /**解锁图片*/ readonly img: string;
+
+}
+declare type WeakGuideTbl = {
+    /**引导编号*/ readonly id: number;
+    /**触发检测*/ readonly trigger: number[];
+    /**跳过条件*/ readonly skip: string[][];
+
+}
+declare type WeakGuideContentTbl = {
+    /**主键*/ readonly id: number;
+    /**引导编号*/ readonly guideId: number;
+    /**定位节点*/ readonly point: string;
+    /**引导完成条件*/ readonly complete: string[][];
+    /**引导手指坐标偏移*/ readonly hand: number[];
+
+}
+declare type TurntableTbl = {
+    /**主键*/ readonly id: number;
+    /**物品id*/ readonly itemId: number;
+    /**初始量区间*/ readonly rewardCount: number[];
+    /**额外奖励（产量箱）*/ readonly reward: number[];
+    /**权重*/ readonly weight: number;
+    /**是否属于保底*/ readonly rare: number;
+    /**解锁前置条件*/ readonly pre: number[];
+
+}
+declare type ChestItemPoolTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**物品id*/ readonly itemId: number;
+    /**奖励*/ readonly reward: number[];
+    /**权重*/ readonly weight: number;
+
+}
+declare type OptionalChestPoolTbl = {
+    /**主键，可修改*/ readonly id: number;
+    /**物品id*/ readonly itemId: number;
+    /**奖励*/ readonly reward: number[];
+
+}
+declare type FirstPackageTbl = {
+    /**主键，不可修改*/ readonly id: number;
+    /**充值金额*/ readonly total: number;
+    /**奖励*/ readonly reward: number[][];
+
+}
+declare type MonthCardTbl = {
+    /**唯一id，与充值id对应*/ readonly id: number;
+    /**每日奖励物品*/ readonly reward: number[][];
+    /**购买奖励*/ readonly purchase: number[][];
+
+}
+declare type CaptainMissionTbl = {
+    /**唯一id(注意所有任务类型都不能使用重复id)*/ readonly id: number;
+    /**庇护所阶数*/ readonly rank: number;
+    /**任务类型*/ readonly kind: number;
+    /**任务需求*/ readonly require: number[];
+    /**任务参数*/ readonly param: number[];
+    /**奖励*/ readonly reward: number[][];
+    /**任务最大阶段数*/ readonly stage: number;
+
+}
+declare type CaptainBuffTbl = {
+    /**不读*/ readonly id: number;
+    /**庇护所阶数*/ readonly rank: number;
+    /**建筑等级上限*/ readonly levelLimit: number;
+    /**建筑星级上限*/ readonly starLimit: number;
+    /**整体建筑产量buff*/ readonly produceBuff: number;
+    /**特定建筑产量buff*/ readonly specialProduceBuff: number[][];
+    /**员工属性buff*/ readonly attackBuff: number;
+    /**解锁建筑*/ readonly unlockFacility: number[];
+
+}
+declare type WarOrderTbl = {
+    /**唯一id，与充值表id对应*/ readonly id: number;
+    /**战令类型*/ readonly orderKind: number;
+    /**图片资源*/ readonly img: string;
+    /**任务类型*/ readonly kind: number;
+    /**任务参数*/ readonly param: number[];
+    /**进度文本*/ readonly text: string;
+    /**标题文本*/ readonly titleText: string;
+    /**免费文本*/ readonly freeText: string;
+    /**付费文本*/ readonly chargeText: string;
+    /**菜单*/ readonly menuText: string;
+    /**战令类型*/ readonly WarOrderType: number;
+
+}
+declare type WarOrderRewardTbl = {
+    /**唯一id*/ readonly id: number;
+    /**战令id*/ readonly warOrderId: number;
+    /**任务需求*/ readonly require: number;
+    /**免费奖励*/ readonly freeReward: string[][];
+    /**付费奖励*/ readonly reward: string[][];
+
+}
+declare type RuleTextTbl = {
+    /**唯一id*/ readonly id: number;
+    /**规则文本*/ readonly text: string;
+    /**多语言备注*/ readonly title: string;
+
+}
+declare type RankMissionTbl = {
+    /**唯一id*/ readonly id: number;
+    /**任务类型*/ readonly kind: number;
+    /**任务需求*/ readonly require: number[];
+    /**任务参数*/ readonly param: number[];
+    /**奖励*/ readonly reward: number[][];
+    /**任务最大阶段数*/ readonly stage: number;
+    /**挑战或招募*/ readonly page: number;
+    /**轮次*/ readonly round: number;
+
+}
+declare type RankPackTbl = {
+    /**唯一id，与充值id对应*/ readonly id: number;
+    /**奖励*/ readonly reward: number[][];
+    /**限购*/ readonly limit: number;
+    /**挑战或招募*/ readonly page: number;
+
+}
+declare type RankRewardTbl = {
+    /**ID*/ readonly id: number;
+    /**奖励*/ readonly reward: number[][];
+    /**排名范围*/ readonly rank: number[];
+    /**挑战或招募*/ readonly page: number;
+
+}
+declare type VideoGroupPurchaseTbl = {
+    /**唯一id,不可删除*/ readonly id: number;
+    /**奖励*/ readonly reward: number[][];
+    /**人数限制*/ readonly limit: number;
+    /**时间限制（分钟）*/ readonly time: number;
+
+}
+declare type BanquetLevelTbl = {
+    /**不读*/ readonly id: number;
+    /**宴会等级*/ readonly level: number;
+    /**菜肴名字*/ readonly name: string;
+    /**升级所需*/ readonly require: number;
+    /**奖励*/ readonly reward: number[][];
+    /**不同等级下的图片*/ readonly img: string;
+
+}
+declare type BanquetPointRewardTbl = {
+    /**ID*/ readonly id: number;
+    /**积分区间*/ readonly point: number[];
+    /**奖励*/ readonly reward: number[][];
+
+}
+declare type BanquetMissionTbl = {
+    /**唯一id*/ readonly id: number;
+    /**任务类型*/ readonly kind: number;
+    /**任务需求*/ readonly require: number[];
+    /**任务参数*/ readonly param: number[];
+    /**奖励*/ readonly reward: number[][];
+    /**任务最大阶段数*/ readonly stage: number;
+    /**天数*/ readonly day: number;
+
+}
+declare type BanquetShopTbl = {
+    /**唯一id（不可修改）*/ readonly id: number;
+    /**物品|数量*/ readonly item: number[];
+    /**商店分页编号*/ readonly page: number;
+    /**购买次数限制*/ readonly storage: number;
+    /**购买价格*/ readonly price: number[];
+    /**积分解锁条件*/ readonly unlock: number;
+
+}
+declare type BanquetPackTbl = {
+    /**唯一id，与充值id对应*/ readonly id: number;
+    /**奖励*/ readonly reward: number[][];
+    /**限购*/ readonly limit: number;
+    /**购买价格*/ readonly price: number[];
+
+}
+declare type BanquetGroupTbl = {
+    /**ID*/ readonly id: number;
+    /**类型*/ readonly kind: number;
+    /**消耗*/ readonly cost: number[];
+    /**天数*/ readonly day: number;
+    /**开启时间*/ readonly startTime: number;
+    /**结束时间*/ readonly endTime: number;
+    /**折扣*/ readonly discount: number;
+    /**获得*/ readonly reward: number[];
+
+}
+declare type TowerStrengthenTbl = {
+    /**主键*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**消耗*/ readonly cost: number[][];
+    /**属性，攻防血加点数，其它加百分比*/ readonly property: string[][];
+
+}
+declare type TowerWashTbl = {
+    /**唯一id*/ readonly id: number;
+    /**词条id*/ readonly pid: number;
+    /**属性*/ readonly property: string;
+    /**最小属性*/ readonly min: string;
+    /**最大属性*/ readonly max: string;
+    /**品质*/ readonly quailty: number;
+
+}
+declare type TowerWashRareTbl = {
+    /**唯一id*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**升级消耗*/ readonly exp: number;
+    /**词条*/ readonly pool: number[];
+    /**词条权重*/ readonly weight: number[];
+    /**品质权重*/ readonly rare: number[];
+
+}
+declare type EquipmentTbl = {
+    /**唯一id*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**装备名称*/ readonly name: string;
+    /**装备类型*/ readonly type: string;
+    /**图片资源*/ readonly img: string;
+    /**部位*/ readonly part: number;
+    /**固定属性*/ readonly property: string[][];
+    /**额外词条1*/ readonly stat1: number;
+    /**额外词条2*/ readonly stat2: number;
+    /**词条池*/ readonly statPool: number[];
+    /**词条权重*/ readonly statWeight: number[];
+    /**金币*/ readonly coin: number;
+    /**经验*/ readonly exp: number;
+    /**关联技能天赋*/ readonly skillTalent: number;
+    /**生命系数*/ readonly life: string;
+    /**防御系数*/ readonly armor: string;
+    /**伤害系数*/ readonly damage: string;
+
+}
+declare type EquipmentStatTbl = {
+    /**唯一id*/ readonly id: number;
+    /**属性*/ readonly property: string;
+    /**最小属性*/ readonly min: string;
+    /**最大属性*/ readonly max: string;
+
+}
+declare type StoneLevelTbl = {
+    /**唯一id*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**品质0概率*/ readonly rare0: number;
+    /**品质1概率*/ readonly rare1: number;
+    /**品质2概率*/ readonly rare2: number;
+    /**品质3概率*/ readonly rare3: number;
+    /**品质4概率*/ readonly rare4: number;
+    /**品质5概率*/ readonly rare5: number;
+    /**品质6概率*/ readonly rare6: number;
+    /**品质7概率*/ readonly rare7: number;
+    /**品质8概率*/ readonly rare8: number;
+    /**升级时间（分钟）*/ readonly upgradeTime: number;
+    /**升级次数*/ readonly upgradeCount: number;
+    /**升级消耗*/ readonly upgradeCost: number;
+    /**同时开箱数量*/ readonly openCount: number;
+
+}
+declare type PlayerSkillTbl = {
+    /**唯一id*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**图片资源*/ readonly img: string;
+    /**技能名称*/ readonly name: string;
+    /**技能描述*/ readonly description: string;
+    /**技能描述参数*/ readonly descriptionParam: string[];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**冷却时间(毫秒)*/ readonly coldDown: number;
+    /**关联装备部位*/ readonly part: number;
+
+}
+declare type PlayerSkillLevelTbl = {
+    /**不读*/ readonly id: number;
+    /**技能等级*/ readonly level: number;
+    /**升级所需碎片数（按品质）*/ readonly require: number[];
+
+}
+declare type PlayerSkillTalentTbl = {
+    /**唯一id*/ readonly id: number;
+    /**关联部位*/ readonly part: number;
+    /**格子编号*/ readonly grid: number[];
+    /**前置ID*/ readonly pre: number[];
+    /**天赋位置*/ readonly index: number;
+    /**天赋级别*/ readonly rank: number;
+    /**技能名称*/ readonly name: string;
+    /**天赋描述*/ readonly description: string;
+    /**属性加成*/ readonly property: string[][];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**技能脚本片段*/ readonly scriptFrag: string;
+    /**使用脚本插槽*/ readonly slot: string;
+    /**模板限制*/ readonly templateLimit: string[];
+    /**解锁品质*/ readonly needQuality: number;
+    /**解锁条件*/ readonly unlock: number;
+
+}
+declare type PetTbl = {
+    /**唯一id*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**图片资源*/ readonly img: string;
+    /**同伴名称*/ readonly name: string;
+    /**上阵效果描述*/ readonly description: string;
+    /**技能描述参数*/ readonly descriptionParam: string[];
+    /**战斗属性*/ readonly battleProperty: string[][];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**攻击速度*/ readonly attackSpeed: number;
+    /**伤害系数*/ readonly damage: string;
+    /**普攻战斗技能*/ readonly normalAttack: number;
+    /**普攻范围(像素)*/ readonly normalAttackRange: number;
+    /**移动速度*/ readonly moveSpeed: number;
+
+}
+declare type PetLevelTbl = {
+    /**不读*/ readonly id: number;
+    /**技能等级*/ readonly level: number;
+    /**升级所需碎片数（按品质）*/ readonly require: number[];
+
+}
+declare type ManorFacilityTbl = {
+    /**唯一id*/ readonly id: number;
+    /**设施类型*/ readonly kind: number;
+    /**庄园建筑名称*/ readonly name: string;
+    /**庄园建筑描述*/ readonly description: string;
+    /**图片资源*/ readonly img: string;
+    /**大小*/ readonly area: number[];
+    /**解锁等级*/ readonly unlock: number;
+    /**初始位置*/ readonly initPosition: number[];
+    /**背景缩放*/ readonly scale: number;
+
+}
+declare type ManorDecorationTbl = {
+    /**唯一id，跟物品表中的装饰品id对应*/ readonly id: number;
+    /**图片偏移量*/ readonly imgOffset: number[];
+    /**大小*/ readonly area: number[];
+    /**属性加成*/ readonly property: string[][];
+    /**出售价格*/ readonly price: number[];
+    /**背景缩放*/ readonly scale: number;
+
+}
+declare type ManorPlantTbl = {
+    /**唯一id，跟物品表中的种子或幼崽id对应*/ readonly id: number;
+    /**生长时间(秒)*/ readonly time: number;
+    /**产出权重*/ readonly weight: number[];
+    /**产出物品*/ readonly reward: number[][];
+
+}
+declare type JobChangeTbl = {
+    /**唯一id，确定后不可修改*/ readonly id: number;
+    /**职业名称*/ readonly name: string;
+    /**头像*/ readonly avatar: string;
+    /**图片资源*/ readonly img: string;
+    /**动画皮肤*/ readonly skin: string;
+    /**职业描述*/ readonly description: string;
+    /**职业分支*/ readonly branch: number;
+    /**职业阶数*/ readonly rank: number;
+    /**技能解锁等级需求*/ readonly levelRequire: number;
+    /**普攻*/ readonly normalAttack: number;
+    /**主动技能*/ readonly mainSkill: number;
+    /**被动技能*/ readonly skill: number[];
+    /**攻击*/ readonly attack: string;
+    /**防御*/ readonly armor: string;
+    /**生命*/ readonly maxHp: string;
+    /**普攻间隔(毫秒)*/ readonly normalAttackInterval: number;
+    /**普攻范围(像素)*/ readonly normalAttackRange: number;
+
+}
+declare type JobSkillTbl = {
+    /**唯一id，确定后不可修改*/ readonly id: number;
+    /**图标*/ readonly img: string;
+    /**技能名称*/ readonly name: string;
+    /**技能描述*/ readonly description: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**附加属性*/ readonly property: string[][];
+
+}
+declare type JobTalentTbl = {
+    /**唯一id，不读*/ readonly id: number;
+    /**赋能效果，万分比*/ readonly property: string[][];
+    /**图标*/ readonly img: string;
+    /**名字*/ readonly talentName: string;
+    /**赋能描述*/ readonly description: string;
+    /**权重*/ readonly weight: string;
+    /**等级上限*/ readonly limit: number;
+
+}
+declare type JobTalentLevelTbl = {
+    /**唯一id，不读*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**需要次数*/ readonly require: number;
+
+}
+declare type DamageChallengeTbl = {
+    /**唯一id，确定后不可修改*/ readonly id: number;
+    /**挑战类型*/ readonly kind: number;
+    /**伤害数值*/ readonly damage: number;
+    /**奖励*/ readonly reward: number[][];
+    /**称号*/ readonly name: string;
+
+}
+declare type DamageMonsterTbl = {
+    /**唯一id，与关卡波次对应*/ readonly id: number;
+    /**标题*/ readonly title: string;
+    /**怪物名称*/ readonly bossName: string;
+    /**怪物*/ readonly monsters: number[];
+    /**描述*/ readonly description: string;
+    /**开放限制描述*/ readonly limitDesc: string;
+    /**挑战类型*/ readonly kind: number;
+    /**缩放*/ readonly scale: number;
+
+}
+declare type HeroSoulTbl = {
+    /**唯一id，确定后不可修改*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**英魂类型*/ readonly kind: number;
+    /**分组*/ readonly group: number;
+    /**英魂名称*/ readonly name: string;
+    /**描述*/ readonly description: string;
+    /**描述参数*/ readonly descriptionParam: string[];
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**属性加成*/ readonly property: string[][];
+
+}
+declare type HeroSoulValueTbl = {
+    /**主键，不读*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**升级价值*/ readonly value: number;
+
+}
+declare type HeroSoulLevelTbl = {
+    /**主键，不读*/ readonly id: number;
+    /**等级*/ readonly level: number;
+    /**升级消耗*/ readonly require: number;
+
+}
+declare type HeroSoulBreakTbl = {
+    /**主键，不读*/ readonly id: number;
+    /**突破等级*/ readonly level: number;
+    /**升级经验需求*/ readonly exp: number;
+    /**突破消耗*/ readonly require: number[][];
+    /**属性万分比*/ readonly buff: number;
+
+}
+declare type DefendTowerTbl = {
+    /**唯一id*/ readonly id: number;
+    /**图片资源*/ readonly img: string;
+    /**防御塔名称*/ readonly name: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**关联装备部位*/ readonly part: number;
+    /**普攻间隔(毫秒)*/ readonly normalAttackInterval: number;
+    /**生命系数*/ readonly life: string;
+    /**防御系数*/ readonly armor: string;
+    /**伤害系数*/ readonly damage: string;
+    /**普攻战斗技能*/ readonly normalAttack: number;
+    /**普攻范围(像素)*/ readonly normalAttackRange: number;
+
+}
+declare type InfiniteBattleTbl = {
+    /**唯一id*/ readonly id: number;
+    /**波数*/ readonly lv: number[];
+    /**回退记录点*/ readonly recordPoint: number;
+    /**出现boss的关卡*/ readonly boss: number;
+    /**守卫怪物阵容*/ readonly guard: number;
+    /**波数附加等级*/ readonly waveLevel: string;
+    /**波次奖励*/ readonly reward: string[][];
+    /**特殊通关奖励*/ readonly specialReward: string[][];
+
+}
+declare type RogueSkillTbl = {
+    /**唯一id*/ readonly id: number;
+    /**被动*/ readonly passive: number;
+    /**伤害类型*/ readonly kind: number;
+    /**技能名称*/ readonly name: string;
+    /**基本描述*/ readonly description: string;
+    /**条件*/ readonly condition: number[];
+    /**基本描述参数*/ readonly descriptionParam: string[];
+    /**属性*/ readonly property: string[][];
+    /**图片资源*/ readonly img: string;
+
+}
+declare type RogueSkillDetailTbl = {
+    /**不读*/ readonly id: number;
+    /**技能id*/ readonly skillId: number;
+    /**等级*/ readonly level: number;
+    /**技能描述*/ readonly description: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**图片资源*/ readonly img: string;
+    /**出售价格*/ readonly price: number;
+
+}
+declare type RogueSkillEnhanceTbl = {
+    /**唯一id*/ readonly id: number;
+    /**技能id*/ readonly skillId: number;
+    /**秘籍名称*/ readonly name: string;
+    /**描述*/ readonly description: string;
+    /**描述参数*/ readonly descriptionParam: string[];
+    /**属性*/ readonly property: string[][];
+    /**消耗*/ readonly cost: string;
+    /**最大等级*/ readonly maxLevel: number;
+    /**图片资源*/ readonly img: string;
+
+}
+declare type RogueBlessTbl = {
+    /**唯一id*/ readonly id: number;
+    /**名称*/ readonly name: string;
+    /**多语言备注*/ readonly title: string;
+    /**描述*/ readonly description: string;
+    /**图片资源*/ readonly img: string;
+    /**是否核心*/ readonly core: number;
+    /**技能脚本*/ readonly script: string;
+    /**流派编号*/ readonly series: number;
+    /**流派名称*/ readonly seriesName: string;
+
+}
+declare type RogueEquipmentTbl = {
+    /**唯一id*/ readonly id: number;
+    /**品质*/ readonly quality: number;
+    /**物品类型*/ readonly kind: number;
+    /**物品系列*/ readonly series: number;
+    /**额外参数*/ readonly extra: number[];
+    /**名称*/ readonly name: string;
+    /**描述*/ readonly description: string;
+    /**图片资源*/ readonly img: string;
+    /**属性*/ readonly property: string[][];
+    /**普通商店权重*/ readonly weight: number;
+    /**高级商店权重*/ readonly weight2: number;
+
+}
+declare type RogueExSkillTbl = {
+    /**唯一id*/ readonly id: number;
+    /**伤害类型*/ readonly kind: number;
+    /**技能名称*/ readonly name: string;
+    /**技能描述*/ readonly description: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**图片资源*/ readonly img: string;
+
+}
+declare type RogueExSkillEnhanceTbl = {
+    /**唯一id*/ readonly id: number;
+    /**神通id*/ readonly skillId: number;
+    /**等级*/ readonly level: number;
+    /**描述*/ readonly description: string;
+    /**属性*/ readonly property: string[][];
+    /**隐藏属性*/ readonly hiddenProperty: string[][];
+    /**解锁*/ readonly unlock: number[][];
+
+}
+declare type TechTreeTbl = {
+    /**唯一id*/ readonly id: number;
+    /**解锁等级需求*/ readonly unlock: number;
+    /**最大等级*/ readonly maxLevel: number;
+    /**图片资源*/ readonly img: string;
+    /**知识等级*/ readonly levelRange: number[];
+    /**对应品质*/ readonly quality: number[];
+    /**科技名称*/ readonly name: string;
+    /**升级物品消耗*/ readonly cost: string[][];
+    /**主角属性加成*/ readonly property: string[][];
+    /**全局buff*/ readonly globalBuff: string[][];
+    /**科技描述*/ readonly description: string;
+    /**描述参数*/ readonly descriptionParam: string[];
+    /**排序*/ readonly sort: number;
+
+}
+declare type MountTbl = {
+    /**唯一id，与物品表的坐骑对应*/ readonly id: number;
+    /**部位*/ readonly part: number;
+    /**上阵效果*/ readonly formateProperty: string[][];
+    /**绑定肉鸽技能*/ readonly rogueSkill: number;
+    /**碎片*/ readonly frag: number;
+
+}
+declare type MountRankTbl = {
+    /**唯一id，不读*/ readonly id: number;
+    /**坐骑队数*/ readonly level: number;
+    /**需要道具数量*/ readonly require: number;
+
+}
+declare type MountPoolTbl = {
+    /**卡池id，不可修改*/ readonly id: number;
+    /**每日广告单抽次数*/ readonly video: number;
+    /**单抽基础价格*/ readonly singlePrice: number[];
+    /**十连抽基础价格*/ readonly tenPrice: number[];
+    /**每日上限*/ readonly dailyLimit: number;
+    /**保底抽数*/ readonly guarantee: number;
+    /**规则文本*/ readonly rule: string;
+    /**多语言备注*/ readonly title: string;
+
+}
+declare type MountPoolRewardTbl = {
+    /**主键*/ readonly id: number;
+    /**卡池id*/ readonly poolId: number;
+    /**奖励ID*/ readonly rewardId: number;
+    /**奖励最小数量*/ readonly minCount: number;
+    /**奖励最大数量*/ readonly maxCount: number;
+    /**出现权重*/ readonly weight: number;
+    /**是否属于保底*/ readonly rare: number;
+    /**解锁抽数*/ readonly unlock: number;
+
+}
+declare type PlayerSkinTbl = {
+    /**唯一id，与物品表的坐骑对应*/ readonly id: number;
+    /**初始拥有*/ readonly baseMount: number;
+    /**角色spine*/ readonly spine: string;
+    /**spine皮肤*/ readonly skin: string;
+    /**拥有效果*/ readonly property: string[][];
+    /**上阵效果*/ readonly formateProperty: string[][];
+    /**额外技能名称*/ readonly skillName: string;
+    /**额外技能描述*/ readonly skillDescription: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+
+}
+declare type PlayerMountTbl = {
+    /**唯一id，与物品表的坐骑对应*/ readonly id: number;
+    /**初始拥有*/ readonly baseMount: number;
+    /**坐骑spine*/ readonly spine: string;
+    /**spine皮肤*/ readonly skin: string;
+    /**拥有效果*/ readonly property: string[][];
+    /**上阵效果*/ readonly formateProperty: string[][];
+    /**额外技能名称*/ readonly skillName: string;
+    /**额外技能描述*/ readonly skillDescription: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+
+}
+declare type MallTbl = {
+    /**唯一id*/ readonly id: number;
+    /**类型*/ readonly kind: number;
+    /**每日广告*/ readonly video: number;
+    /**价格*/ readonly price: number[];
+    /**物品*/ readonly item: number[];
+    /**图标*/ readonly Img: string;
+
+}
+declare type BattleRogueBossTbl = {
+    /**唯一id*/ readonly id: number;
+    /**图片资源*/ readonly img: string;
+    /**动画资源*/ readonly spine: string;
+    /**名称*/ readonly name: string;
+    /**描述*/ readonly description: string;
+    /**tag文本*/ readonly tagText: string[];
+    /**技能配置*/ readonly skill: number[][];
+    /**对话配置*/ readonly dialogue: number;
+
+}
+declare type BattleRogueBossSkillTbl = {
+    /**唯一id*/ readonly id: number;
+    /**技能图标*/ readonly img: string;
+    /**技能名称*/ readonly name: string;
+    /**技能描述*/ readonly description: string;
+    /**boss台词*/ readonly word: string;
+    /**特效*/ readonly effect: string;
+    /**效果配置*/ readonly config: string[][];
+
+}
+declare type BossDialogueConfigTbl = {
+    /**唯一id*/ readonly id: number;
+    /**开局台词*/ readonly wordBegin: string;
+    /**在场怪物数量达到第三阶段动画*/ readonly wordDanger: string;
+    /**通关*/ readonly wordWin: string;
+    /**挑战失败*/ readonly wordFail: string;
+
+}
+declare type FossilTbl = {
+    /**唯一id，跟物品表中的化石物品对应*/ readonly id: number;
+    /**颜色*/ readonly color: number;
+    /**属性*/ readonly property: string[][];
+    /**出售价格*/ readonly price: number[];
+    /**出现权重*/ readonly weight: number;
+
+}
+declare type FossilComboTbl = {
+    /**唯一id*/ readonly id: number;
+    /**命星id*/ readonly itemId: number;
+    /**品质*/ readonly quality: number;
+    /**颜色组合*/ readonly combo: number[];
+    /**属性*/ readonly property: string[][];
+    /**大图标*/ readonly largeImg: string;
+    /**技能图标*/ readonly skillImg: string;
+    /**技能名称*/ readonly skillName: string;
+    /**技能描述*/ readonly skillDescription: string;
+    /**战斗技能*/ readonly battleSkill: number[];
+    /**特效图片*/ readonly effectImg: string;
+    /**环绕神器皮肤*/ readonly spineSkin: string;
+    /**环绕神器皮肤关键帧*/ readonly spineSkinKey: number[];
+
+}
+declare type ChargeTbl = {
+    /**唯一id，一经确定不可修改*/ readonly id: number;
+    /**类型*/ readonly kind: number;
+    /**商品名*/ readonly name: string;
+    /**商品描述*/ readonly description: string;
+    /**人民币价格（单位为分）*/ readonly cny: number;
+    /**美元价格（单位为分）*/ readonly usd: number;
+    /**易美商品id*/ readonly marSku: string;
+
+}
+declare type ActivitiesTbl = {
+    /**唯一id,不可修改,与ui绑定表对应*/ readonly id: number;
+    /**活动名*/ readonly activityName: string;
+    /**活动天数*/ readonly lastDay: number;
+    /**延迟开启活动天数*/ readonly delay: number;
+    /**活动类型*/ readonly kind: number;
+    /**邮件模板*/ readonly emailId: number;
+    /**排行榜编号*/ readonly rankingIndex: number;
+
+}
+declare type MetaTableExtendTbl = {
+    /**索引*/ readonly id: number;
+    /**基类名称*/ readonly name: string;
+    /**字段*/ readonly fields: string[][];
+    /**子类*/ readonly childClass: string[];
+
+}
+declare type EnumTbl = {
+    /**索引*/ readonly id: number;
+    /**枚举名称*/ readonly name: string;
+    /**枚举值*/ readonly value: string[];
+
+}
+declare type UIBindTbl = {
+    /**不读*/ readonly id: number;
+    /**预制体*/ readonly prefab: string;
+    /**节点*/ readonly node: string;
+    /**组件*/ readonly component: string;
+    /**组件属性*/ readonly property: string;
+    /**绑定类型*/ readonly bindType: string;
+    /**绑定逻辑*/ readonly logic: string;
+
+}
+declare type UIMainSceneTbl = {
+    /**主键，可以修改*/ readonly id: number;
+    /**位置*/ readonly position: number;
+    /**文本*/ readonly text: string;
+    /**图标*/ readonly img: string;
+    /**打开的窗口*/ readonly window: string;
+    /**打开窗口的参数*/ readonly windowParam: string;
+    /**解锁等级*/ readonly unlockLevel: number;
+    /**功能id*/ readonly systemId: number;
+    /**红点*/ readonly redTip: number;
+
+}
+declare type ClientLangTbl = {
+    /**主键，可以随便改*/ readonly id: number;
+    /**多语言key路径*/ readonly configPath: string;
+    /**简体*/ readonly zh_chs: string;
+    /**繁体*/ readonly zh_cht: string;
+    /**英文*/ readonly en: string;
+
+}
+declare type MissionKindTbl = {
+    /**主键，任务类型*/ readonly id: number;
+    /**分类*/ readonly kind: number;
+    /**基本描述文本*/ readonly description: string;
+    /**附加描述文本*/ readonly descriptionParam: string[];
+    /**跳转逻辑*/ readonly guide: string[];
+
+}
+declare type UIRedTipTbl = {
+    /**唯一id*/ readonly id: number;
+    /**处理函数*/ readonly func: string[];
+    /**依赖的状态key*/ readonly stateKey: string[];
+    /**依赖的额外事件*/ readonly extraEvent: string[];
+    /**功能id*/ readonly systemId: number;
+    /**子节点*/ readonly child: number[];
+
+}
+declare type BattlePropertyTbl = {
+    /**唯一id*/ readonly id: number;
+    /**符号*/ readonly key: string;
+    /**展示名称*/ readonly displayName: string;
+    /**展示描述*/ readonly displayDesc: string;
+    /**战斗力计算*/ readonly battlePoint: number;
+    /**展示方式*/ readonly displayMethod: number;
+    /**默认值*/ readonly defaultValue: number;
+    /**详情展示*/ readonly tipWindow: number[];
+
+}

@@ -1,0 +1,139 @@
+
+Electrostatic_skillattack.png
+size: 473,473
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/TX_a_tx2_0015
+  rotate: false
+  xy: 431, 348
+  size: 40, 36
+  orig: 44, 40
+  offset: 2, 2
+  index: -1
+effect/chih1
+  rotate: false
+  xy: 2, 113
+  size: 166, 163
+  orig: 166, 163
+  offset: 0, 0
+  index: -1
+effect/didong
+  rotate: true
+  xy: 431, 386
+  size: 85, 35
+  orig: 90, 36
+  offset: 2, 1
+  index: -1
+effect/guangyun
+  rotate: false
+  xy: 2, 278
+  size: 190, 193
+  orig: 218, 218
+  offset: 14, 11
+  index: -1
+effect/lizi
+  rotate: false
+  xy: 194, 354
+  size: 120, 117
+  orig: 120, 117
+  offset: 0, 0
+  index: -1
+effect/lvz_1
+  rotate: false
+  xy: 316, 357
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+effect/lvz_2
+  rotate: true
+  xy: 194, 239
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+effect/lvz_3
+  rotate: false
+  xy: 170, 123
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+effect/lvz_4
+  rotate: false
+  xy: 285, 123
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+effect/lvz_5
+  rotate: true
+  xy: 310, 239
+  size: 113, 114
+  orig: 113, 114
+  offset: 0, 0
+  index: -1
+effect/shouji001
+  rotate: false
+  xy: 400, 155
+  size: 63, 82
+  orig: 63, 82
+  offset: 0, 0
+  index: -1
+effect/shouji002
+  rotate: false
+  xy: 2, 19
+  size: 69, 79
+  orig: 69, 79
+  offset: 0, 0
+  index: -1
+effect/shouji003
+  rotate: false
+  xy: 400, 83
+  size: 65, 70
+  orig: 65, 70
+  offset: 0, 0
+  index: -1
+effect/shouji004
+  rotate: true
+  xy: 170, 50
+  size: 71, 73
+  orig: 71, 73
+  offset: 0, 0
+  index: -1
+effect/shouji005
+  rotate: true
+  xy: 245, 50
+  size: 71, 73
+  orig: 71, 73
+  offset: 0, 0
+  index: -1
+effect/shouji006
+  rotate: false
+  xy: 73, 25
+  size: 75, 73
+  orig: 75, 73
+  offset: 0, 0
+  index: -1
+effect/shouji007
+  rotate: false
+  xy: 320, 70
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect/shuye_1
+  rotate: false
+  xy: 426, 311
+  size: 32, 35
+  orig: 143, 73
+  offset: 111, 10
+  index: -1
+effect/teng1
+  rotate: true
+  xy: 2, 100
+  size: 11, 154
+  orig: 11, 154
+  offset: 0, 0
+  index: -1

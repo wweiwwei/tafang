@@ -1,0 +1,223 @@
+
+fan_skilltail.png
+size: 531,1036
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sk1/s2
+  rotate: true
+  xy: 495, 888
+  size: 146, 34
+  orig: 146, 35
+  offset: 0, 0
+  index: -1
+sk1/volibear_storm_01
+  rotate: false
+  xy: 183, 14
+  size: 75, 82
+  orig: 90, 90
+  offset: 6, 5
+  index: -1
+tx/A_sj_01
+  rotate: false
+  xy: 397, 443
+  size: 129, 126
+  orig: 129, 126
+  offset: 0, 0
+  index: -1
+tx/A_sj_02
+  rotate: false
+  xy: 378, 210
+  size: 126, 123
+  orig: 130, 126
+  offset: 2, 0
+  index: -1
+tx/A_sj_03
+  rotate: false
+  xy: 397, 571
+  size: 129, 127
+  orig: 129, 127
+  offset: 0, 0
+  index: -1
+tx/A_sj_04
+  rotate: true
+  xy: 257, 163
+  size: 107, 111
+  orig: 107, 111
+  offset: 0, 0
+  index: -1
+tx/S1_hj_01
+  rotate: false
+  xy: 190, 340
+  size: 28, 54
+  orig: 28, 54
+  offset: 0, 0
+  index: -1
+tx/daoguang_red
+  rotate: true
+  xy: 2, 396
+  size: 53, 217
+  orig: 61, 233
+  offset: 2, 6
+  index: -1
+tx/dian4_1
+  rotate: false
+  xy: 495, 700
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/dian4_2
+  rotate: true
+  xy: 2, 362
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/dian4_3
+  rotate: true
+  xy: 2, 328
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/dian4_4
+  rotate: true
+  xy: 190, 306
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/dian4_5
+  rotate: true
+  xy: 2, 294
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/dian4_7
+  rotate: true
+  xy: 190, 272
+  size: 32, 186
+  orig: 32, 186
+  offset: 0, 0
+  index: -1
+tx/guangyun
+  rotate: true
+  xy: 2, 451
+  size: 392, 393
+  orig: 418, 418
+  offset: 13, 12
+  index: -1
+tx/heiyan
+  rotate: true
+  xy: 409, 83
+  size: 125, 104
+  orig: 125, 104
+  offset: 0, 0
+  index: -1
+tx/leiming_0001
+  rotate: false
+  xy: 174, 178
+  size: 54, 30
+  orig: 54, 30
+  offset: 0, 0
+  index: -1
+tx/leiming_0002
+  rotate: false
+  xy: 174, 215
+  size: 81, 55
+  orig: 81, 55
+  offset: 0, 0
+  index: -1
+tx/leiming_0004
+  rotate: true
+  xy: 289, 109
+  size: 52, 49
+  orig: 52, 49
+  offset: 0, 0
+  index: -1
+tx/leiming_0005
+  rotate: false
+  xy: 340, 122
+  size: 64, 39
+  orig: 64, 39
+  offset: 0, 0
+  index: -1
+tx/leiming_0006
+  rotate: true
+  xy: 251, 99
+  size: 62, 36
+  orig: 62, 36
+  offset: 0, 0
+  index: -1
+tx/wqfm_l1
+  rotate: false
+  xy: 260, 24
+  size: 42, 73
+  orig: 42, 73
+  offset: 0, 0
+  index: -1
+tx/wqfm_l2
+  rotate: false
+  xy: 397, 702
+  size: 72, 141
+  orig: 72, 141
+  offset: 0, 0
+  index: -1
+tx/wqfm_l3
+  rotate: false
+  xy: 107, 16
+  size: 74, 158
+  orig: 74, 158
+  offset: 0, 0
+  index: -1
+tx/wqfm_l4
+  rotate: false
+  xy: 2, 13
+  size: 103, 161
+  orig: 103, 161
+  offset: 0, 0
+  index: -1
+tx/wqfm_l5
+  rotate: true
+  xy: 2, 176
+  size: 116, 170
+  orig: 116, 170
+  offset: 0, 0
+  index: -1
+tx/wqfm_l6
+  rotate: true
+  xy: 221, 340
+  size: 109, 171
+  orig: 109, 171
+  offset: 0, 0
+  index: -1
+tx/wqfm_l7
+  rotate: true
+  xy: 394, 335
+  size: 106, 134
+  orig: 106, 134
+  offset: 0, 0
+  index: -1
+tx/wqfm_l8
+  rotate: true
+  xy: 304, 2
+  size: 105, 103
+  orig: 105, 103
+  offset: 0, 0
+  index: -1
+tx/wqfm_l9
+  rotate: false
+  xy: 183, 98
+  size: 66, 78
+  orig: 66, 78
+  offset: 0, 0
+  index: -1
+tx/zbt_d
+  rotate: true
+  xy: 2, 845
+  size: 189, 491
+  orig: 189, 491
+  offset: 0, 0
+  index: -1

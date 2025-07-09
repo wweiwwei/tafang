@@ -1,0 +1,236 @@
+import { BattleObjectInfo } from "../battleLogic/Object/BattleStage/BattleObjectInfo";
+import { BattlePlayerCommand } from "../battleLogic/Processor/BattleCommandHandler";
+import { BattleProcessor } from "../battleLogic/Processor/BattleProcessor";
+import { BattleDirectorNormalMode } from "../battleLogic/Processor/Director/BattleDirectorNormalMode";
+
+/** 战斗进程，战斗阶段操作接口 */
+export class BattleProcessorBattleStageApi {
+    constructor(private ctx: BattleProcessor) {}
+
+    /** 获取对应uid的角色 */
+    getObjectByUid(uid: number) {
+        return GUtils.map.combine([this.ctx.battleData.attackTeam, this.ctx.battleData.defendTeam]).get(uid);
+    }
+    /** 获取所有角色 */
+    getAllObject() {
+        return GUtils.map.combine([this.ctx.battleData.attackTeam, this.ctx.battleData.defendTeam]);
+    }
+
+    /** 获取所有子弹 */
+    getAllBullet() {
+        return this.ctx.battleData.bulletMap;
+    }
+
+    /** 当前状态 */
+    get curState() {
+        return this.ctx.curState;
+    }
+
+    /** 执行一个逻辑帧 */
+    tick() {
+        if (this.ctx.curState !== "battle") return [];
+        this.ctx.battleData.tick();
+    }
+
+    /** 全局属性 */
+    globalProperty() {
+        return this.ctx.battleData.globalPropertyManager;
+    }
+    /** 肉鸽技能管理 */
+    rogueSkillManager() {
+        return this.ctx.battleData.rogueSkillManager;
+    }
+    /** 肉鸽祝福管理 */
+    rogueBlessManager() {
+        return this.ctx.battleData.rogueBlessManager;
+    }
+    /** 肉鸽装备管理 */
+    rogueEquipmentManager() {
+        return this.ctx.battleData.rogueEquipmentManager;
+    }
+
+    getAndClearDisplayEvent() {
+        return this.ctx.getAndClearDisplayEvent();
+    }
+
+    /** 战斗是否已结束 */
+    isBattleEnd(): boolean {
+        return this.ctx.battleData.director.isBattleEnd();
+    }
+
+    /** 战斗是否胜利 */
+    isBattleWin(): boolean {
+        return this.ctx.battleData.director.isBattleWin();
+    }
+
+    nextStage(waveId: number, lv: number, magicStaffId: number) {
+        GBattleApiManager.addCommand({
+            kind: "nextStage",
+            data: {
+                waveId,
+                lv,
+                magicStaffId,
+            },
+        });
+    }
+
+    addEquipmentMonster(quality: number, uniqueId: number) {
+        GBattleApiManager.addCommand({
+            kind: "addEquipmentMonster",
+            data: { quality, uniqueId },
+        });
+    }
+
+    equipmentMonsterCount() {
+        return this.ctx.battleData.equipmentMonster.length;
+    }
+
+    changePlayerState(info: BattleObjectInfo) {
+        GBattleApiManager.addCommand({
+            kind: "changePlayerState",
+            data: { info },
+        });
+    }
+
+    changeTower(index: number, info: BattleObjectInfo) {
+        GBattleApiManager.addCommand({
+            kind: "changeTower",
+            data: { index, info },
+        });
+    }
+
+    changeTowerPosition(fromIndex: number, toIndex: number) {
+        GBattleApiManager.addCommand({
+            kind: "changeTowerPosition",
+            data: { fromIndex, toIndex },
+        });
+    }
+
+    playerAttack() {
+        GBattleApiManager.addCommand({
+            kind: "playerAttack",
+            data: {},
+        });
+    }
+
+    setAutoAttack() {
+        GBattleApiManager.addCommand({
+            kind: "setAutoAttack",
+            data: {},
+        });
+    }
+    addGuideMonster(count: number) {
+        GBattleApiManager.addCommand({
+            kind: "addGuideMonster",
+            data: { count },
+        });
+    }
+    exSkillOrder(index: number) {
+        GBattleApiManager.addCommand({
+            kind: "exSkill",
+            data: { index },
+        });
+    }
+
+    switchToGuideMode() {
+        GBattleApiManager.addCommand({
+            kind: "switchToGuideMode",
+            data: {},
+        });
+    }
+
+    switchToPeaceMode() {
+        GBattleApiManager.addCommand({
+            kind: "switchToPeaceMode",
+            data: {},
+        });
+    }
+
+    getWaveInfo() {
+        const monsterCount = this.ctx.battleData.defendTeam.size;
+        const tbl = GTable.getById("MonsterWaveTbl", this.ctx.waveId);
+        const maxWave = tbl.waveList.length;
+        const monsterLimit = tbl.monsterLimit;
+        const wave = this.ctx.battleData.monsterQueue.getWave();
+        const progress = this.ctx.battleData.monsterQueue.getWaveProgress();
+        return { wave, progress, maxWave, monsterCount, monsterLimit };
+    }
+
+    getSkillInfo() {
+        const player = this.ctx.battleData.attackTeam.get(1);
+        return player.skillManager.getIndependantSkillInfo();
+    }
+
+    getExSkillInfo() {
+        const player = this.ctx.battleData.attackTeam.get(1);
+        return player.skillManager.getExSkillInfo();
+    }
+
+    getStageProgress(): {
+        progress: number;
+        text: string[][];
+    } {
+        if (this.ctx.battleKind === "boss") {
+            const progress = this.ctx.battleData.defendLifePercent();
+            return {
+                progress,
+                text: [[`_rs${Math.floor(progress * 100)}%`]],
+            };
+        } else if (this.ctx.battleKind === "damage" || this.ctx.battleKind === "damageBoss") {
+            const time = this.ctx.battleData.frame;
+            const limit = this.ctx.tickLimit;
+            const remain = limit - time;
+            const progress = remain / limit;
+            const timeStr = GUtils.date.formatRemainTime(remain * GConstant.battle.logicTick, "mm:ss");
+            return {
+                progress,
+                text: [["_rs" + timeStr]],
+            };
+        } else {
+            const progress = this.ctx.battleData.monsterQueue.progress(this.ctx.battleData);
+            return {
+                progress,
+                text: [[`_rs${Math.floor(progress * 100)}%`]],
+            };
+        }
+    }
+
+    getStageLabel(): string[][] {
+        if (this.ctx.battleKind === "infinite") {
+            const wave = this.ctx.battleData.monsterQueue.getWave();
+            return [["_rs第xxx_1波", "_rs" + wave]];
+        } else if (this.ctx.battleKind === "damage" || this.ctx.battleKind === "damageBoss") {
+            return [["_rs总伤害" + GUtils.ui.getNumberString(this.ctx.getTotalDamage(), 1)]];
+        } else if (this.ctx.battleKind === "tower") {
+            const lv = GModel.tower.level();
+            return [["_rs第xxx_1层", "_rs" + (lv + 1)]];
+        } else if (this.ctx.battleKind === "boss") {
+            const waveId = this.ctx.waveId;
+            const tbl = GTable.getById("MonsterWaveTbl", waveId);
+            const monsterTbl = GTable.getById("MonsterTbl", tbl.boss[0]);
+            return [[monsterTbl.name]];
+        } else {
+            let d = GModel.stage.getCurrentStage();
+            return [[GLang.code.ui.challengeStage, "_rs" + d.stageIndex]];
+        }
+    }
+    /** 获取无尽模式通关波数 */
+    getInfiniteWave() {
+        return this.ctx.battleData.monsterQueue.getWave() - 1;
+    }
+    /** 获取当前帧 */
+    getFrame() {
+        return this.ctx.battleData.frame;
+    }
+
+    /** 获取怪物数量 */
+    getMonsterCount() {
+        return this.ctx.battleData.defendTeam.size;
+    }
+
+    /** 超越怪物限制信息 */
+    getOverLimitTick() {
+        const director = this.ctx.battleData.director as BattleDirectorNormalMode;
+        return director.overLimitTick;
+    }
+}

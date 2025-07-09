@@ -1,0 +1,49 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "WindowCongratulationLoop_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2.6666666666666665,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "Title_Head/VFX_tuhao_guang": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 2.6666666666666665,
+              "value": 360
+            }
+          ]
+        }
+      },
+      "Title_Head/VFX_Rainbow": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Title_add": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

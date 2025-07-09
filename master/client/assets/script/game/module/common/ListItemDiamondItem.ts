@@ -1,0 +1,28 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemDiamondItem")
+@ccclass
+export default class ListItemDiamondItem extends UIListItem {
+    @autowired(UIImage) image: UIImage = null;
+    @autowired(UIImage) first: UIImage = null;
+    @autowired(UILabel) count: UILabel = null;
+    @autowired(UILabel) price: UILabel = null;
+    @autowired(UILabel) tips: UILabel = null;
+    @autowired(UIButton) btn: UIButton = null;
+    state: { id: number; cb: () => void; index: number };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.btn.onClick = this.state.cb;
+        let tbl = GTable.getById("ChargeTbl", this.state.id);
+        this.price.setText(["_rs￥" + tbl.cny / 100]);
+        this.count.setText([tbl.name]);
+        this.first.node.active = tbl.kind === 1 && !GState.data.charge.order.some((o) => o.itemId === this.state.id);
+        this.tips.setText(["_rs+"], [tbl.description]);
+        this.image.imgName = tbl.kind === 1 ? `lan_0${this.state.index}` : `fen_0${this.state.index}`;
+    }
+}

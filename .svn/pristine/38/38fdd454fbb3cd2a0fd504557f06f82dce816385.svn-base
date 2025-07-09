@@ -1,0 +1,88 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemBattleSkill from "../battle/rogue/ListItemBattleSkill";
+import ListItemItem from "../common/ListItemItem";
+import WindowSellSkill from "./WindowSellSkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowSkillDetails")
+@ccclass
+export default class WindowSkillDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        id: number;
+        index: number;
+    };
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**出售 */
+    @autowired(UIButton) sell: UIButton = null;
+    /**确认 */
+    @autowired(UIButton) confirmBtn: UIButton = null;
+    /**技能列表 */
+    @autowired(UIList) skillList: UIList<ListItemBattleSkill> = null;
+    /**技能名称 */
+    @autowired(UILabel) skillName: UILabel = null;
+    /** 出售价格 */
+    @autowired(UILabel) price: UILabel = null;
+    /**技能描述 */
+    @autowired(UIRichText) tips: UIRichText = null;
+    /**修行类型 如体修 */
+    @autowired(UIImage) typeIcon: UIImage = null;
+
+    private skilldeta: RogueSkillDetailTbl = null;
+
+    protected onInited(): void {
+        this.skilldeta = GTable.getById("RogueSkillDetailTbl", this._windowParam.id);
+        const skill = GTable.getById("RogueSkillTbl", this.skilldeta.skillId);
+        this.price.setText(["_rs" + this.skilldeta.price]);
+        this.skillName.setText([skill.name]);
+        this.tips.setText([this.skilldeta.description]);
+        this.typeIcon.imgName = GConstant.kindIcon[skill.kind - 1];
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.sell.onClick = async () => {
+            if (this._windowParam.index === 0) {
+                GTip.showTip([GLang.code.ui.can_not_sell_skill]);
+            } else {
+                let isSell = await GWindow.open(WindowSellSkill, { id: this._windowParam.id });
+                if (isSell.state) {
+                    const api = GBattleApiManager.getBattleStageApi(0);
+                    if (api) {
+                        api.rogueSkillManager().sellSkill(skill.id);
+                    }
+                    this.close();
+                }
+            }
+        };
+        this.sell.setGrey(this._windowParam.index === 0);
+        this.confirmBtn.onClick = () => {
+            this.close();
+        };
+
+        this.refreshList();
+    }
+
+    refreshList() {
+        let state = [
+            {
+                img: this.skilldeta.img,
+                id: this.skilldeta.id,
+                progress: 1,
+                cb: async () => {},
+            },
+        ];
+        this.skillList.setState(state);
+    }
+}

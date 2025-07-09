@@ -1,0 +1,142 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { EquipmentWrapper } from "../../entity/Equipment";
+import Item from "../../entity/Item";
+import { Sprite } from "../../entity/Sprite";
+import ListItemHeroItem from "./ListItemHeroItem";
+import ListItemItem from "./ListItemItem";
+import WindowItemDescription from "./WindowItemDescription";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowCongratulation", { preloadPrefab: ["ListItemHeroItem"] })
+@ccclass
+export default class WindowCongratulation extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIImage) newFunc: UIImage = null;
+    @autowired(UIImage) reward: UIImage = null;
+    @autowired(UIImage) func: UIImage = null;
+    @autowired(UILabel) label: UILabel = null;
+    @autowired(cc.Node) rewardList: cc.Node = null;
+    @autowired(UIList) heroitem: UIList<ListItemItem> = null;
+    _windowParam: {
+        items?: Item[];
+        text?: string;
+        img?: string;
+    };
+    _returnValue: any;
+    protected onInited(): void {
+        let btn = this.node.getComponent(UIButton);
+        btn.setTransition(false);
+        btn.onClick = () => {
+            this.close();
+        };
+        this.itemInit();
+    }
+    async itemInit() {
+        if (this._windowParam.items !== undefined) {
+            let count = 0;
+            let state: { item?: Item; status: number; equipment?: EquipmentWrapper; sprites?: Sprite }[];
+            this.reward.node.active = true;
+            let hero = this._windowParam.items.filter((item) => GTable.getById("HeroTbl", item.id));
+            let equip = this._windowParam.items.filter((item) => GTable.getById("HeroEquipmentTbl", item.id));
+            let mount = this._windowParam.items.filter((item) => GTable.getById("MountTbl", item.id));
+            let debris = this._windowParam.items.filter(
+                (item) =>
+                    !equip.includes(item) && !hero.includes(item) && !mount.includes(item) && Item.getKind(item) === 21
+            );
+            if (hero.length !== 0) {
+                count += hero.length;
+                hero.forEach(async (h) => {
+                    let comp = await ResourceLoader.getNode(ListItemHeroItem);
+                    comp.node.scale = 0.7;
+                    comp.node.setContentSize(82, 82);
+                    this.heroitem.node.addChild(comp.node);
+                    comp.setState({ uniqueId: h.id, id: h.id, status: 0, cb: () => {} });
+                });
+            }
+            if (debris.length !== 0) {
+                const result = debris.reduce((acc, curr) => {
+                    const index = acc.find((item) => item.id === curr.id);
+                    if (index) {
+                        index.count += curr.count;
+                    } else {
+                        acc.push(curr);
+                    }
+                    return acc;
+                }, []);
+                count += result.length;
+                // console.log(result);
+                result.forEach(async (re) => {
+                    let herotbl = GTable.getList("HeroTbl").find((t) => t.frag === re.id);
+                    let comp = await ResourceLoader.getNode(ListItemHeroItem);
+                    comp.node.scale = 0.7;
+                    comp.node.setContentSize(82, 82);
+                    this.heroitem.node.addChild(comp.node);
+                    comp.setState({
+                        uniqueId: -1,
+                        id: herotbl.id,
+                        status: 1,
+                        cb: () => {
+                            GWindow.open(WindowItemDescription, { item: re });
+                        },
+                        rightBottomText: ["_rsx" + re.count],
+                    });
+                });
+            }
+            state = this._windowParam.items
+                .filter(
+                    (item) =>
+                        !equip.includes(item) &&
+                        !hero.includes(item) &&
+                        !mount.includes(item) &&
+                        !debris.some((de) => de.id === item.id)
+                )
+                .map((t) => {
+                    return { item: t, status: 0 };
+                });
+            if (equip.length !== 0) {
+                equip.forEach(async (e) => {
+                    let equipment = new EquipmentWrapper(e.id, 1, 0, e.count, -1);
+                    state.unshift({ equipment, status: 0 });
+                });
+            }
+            // if (mount.length !== 0) {
+            // mount.forEach(async (e) => {
+            //     let tbl = GTable.getList("MountPowerTbl");
+            //     let sprites = new Sprite(
+            //         e.id,
+            //         1,
+            //         tbl.map((t) => 0),
+            //         -1
+            //     );
+            //     state.unshift({ sprites, status: 0 });
+            // });
+            // }
+            this.heroitem.setState(state);
+            count += state.length;
+            if (count > 6) {
+                this.heroitem.node.width = 600;
+                this.heroitem.node.parent.height = Math.ceil(count / 6) * 100;
+                if (Math.ceil(count / 6) === 2) {
+                    this.heroitem.node.setPosition(0, -40);
+                }
+            } else {
+                this.heroitem.node.width = 100 * count;
+                this.heroitem.node.parent.height = 100;
+                this.heroitem.node.setPosition(0, -85);
+            }
+        } else {
+            this.newFunc.node.active = true;
+            this.label.setText([this._windowParam.text]);
+            this.func.imgName = this._windowParam.img;
+        }
+    }
+}

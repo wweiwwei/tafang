@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "61a9cbee-49ad-442e-8e12-bf2804e36667",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 84,
+  "height": 117,
+  "platformSettings": {},
+  "subMetas": {
+    "Role_Nightlight": {
+      "ver": "1.0.6",
+      "uuid": "1d3e8837-8059-46e7-9d09-fe7d8ab2ab5d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "61a9cbee-49ad-442e-8e12-bf2804e36667",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 80,
+      "height": 113,
+      "rawWidth": 84,
+      "rawHeight": 117,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

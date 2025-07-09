@@ -1,0 +1,272 @@
+
+dragon_generaltail.png
+size: 1365,582
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+heilongpugong/hit/shouji_00019
+  rotate: false
+  xy: 900, 180
+  size: 113, 110
+  orig: 179, 166
+  offset: 37, 25
+  index: -1
+heilongpugong/hit/shouji_00020
+  rotate: false
+  xy: 888, 292
+  size: 128, 126
+  orig: 179, 166
+  offset: 29, 17
+  index: -1
+heilongpugong/hit/shouji_00021
+  rotate: false
+  xy: 726, 274
+  size: 160, 139
+  orig: 179, 166
+  offset: 10, 9
+  index: -1
+heilongpugong/hit/shouji_00022
+  rotate: false
+  xy: 1048, 434
+  size: 165, 146
+  orig: 179, 166
+  offset: 11, 6
+  index: -1
+heilongpugong/hit/shouji_00023
+  rotate: false
+  xy: 712, 415
+  size: 168, 165
+  orig: 179, 166
+  offset: 11, 0
+  index: -1
+heilongpugong/hit/shouji_00024
+  rotate: false
+  xy: 360, 247
+  size: 173, 165
+  orig: 179, 166
+  offset: 6, 0
+  index: -1
+heilongpugong/hit/shouji_00025
+  rotate: false
+  xy: 537, 415
+  size: 173, 165
+  orig: 179, 166
+  offset: 6, 0
+  index: -1
+heilongpugong/hit/shouji_00026
+  rotate: false
+  xy: 362, 414
+  size: 173, 166
+  orig: 179, 166
+  offset: 6, 0
+  index: -1
+heilongpugong/hit/shouji_00027
+  rotate: false
+  xy: 180, 78
+  size: 173, 166
+  orig: 179, 166
+  offset: 6, 0
+  index: -1
+heilongpugong/hit/shouji_00028
+  rotate: false
+  xy: 2, 78
+  size: 176, 166
+  orig: 179, 166
+  offset: 3, 0
+  index: -1
+heilongpugong/hit/shouji_00029
+  rotate: false
+  xy: 2, 414
+  size: 178, 166
+  orig: 179, 166
+  offset: 1, 0
+  index: -1
+heilongpugong/hit/shouji_00030
+  rotate: false
+  xy: 2, 246
+  size: 178, 166
+  orig: 179, 166
+  offset: 1, 0
+  index: -1
+heilongpugong/hit/shouji_00031
+  rotate: false
+  xy: 182, 414
+  size: 178, 166
+  orig: 179, 166
+  offset: 1, 0
+  index: -1
+heilongpugong/hit/shouji_00032
+  rotate: false
+  xy: 182, 246
+  size: 176, 166
+  orig: 179, 166
+  offset: 3, 0
+  index: -1
+heilongpugong/hit/shouji_00033
+  rotate: false
+  xy: 882, 420
+  size: 164, 160
+  orig: 179, 166
+  offset: 15, 1
+  index: -1
+heilongpugong/hit/shouji_00034
+  rotate: true
+  xy: 1215, 422
+  size: 158, 148
+  orig: 179, 166
+  offset: 20, 6
+  index: -1
+heilongpugong/zidan/huoqiu_00000
+  rotate: true
+  xy: 724, 199
+  size: 73, 174
+  orig: 81, 194
+  offset: 3, 3
+  index: -1
+heilongpugong/zidan/huoqiu_00001
+  rotate: false
+  xy: 1018, 241
+  size: 73, 177
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00002
+  rotate: true
+  xy: 355, 171
+  size: 73, 178
+  orig: 81, 194
+  offset: 3, 3
+  index: -1
+heilongpugong/zidan/huoqiu_00003
+  rotate: true
+  xy: 355, 96
+  size: 73, 180
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00004
+  rotate: true
+  xy: 380, 21
+  size: 73, 184
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00005
+  rotate: true
+  xy: 537, 115
+  size: 73, 186
+  orig: 81, 194
+  offset: 4, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00006
+  rotate: true
+  xy: 566, 40
+  size: 73, 186
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00007
+  rotate: true
+  xy: 2, 2
+  size: 74, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00008
+  rotate: true
+  xy: 537, 340
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00009
+  rotate: true
+  xy: 535, 265
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00010
+  rotate: true
+  xy: 535, 190
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00011
+  rotate: false
+  xy: 1093, 245
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00012
+  rotate: true
+  xy: 1168, 347
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00013
+  rotate: true
+  xy: 1168, 272
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00014
+  rotate: false
+  xy: 754, 11
+  size: 73, 186
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00015
+  rotate: true
+  xy: 829, 105
+  size: 73, 186
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00016
+  rotate: true
+  xy: 829, 30
+  size: 73, 186
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00017
+  rotate: false
+  xy: 1017, 53
+  size: 72, 186
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00018
+  rotate: true
+  xy: 1166, 123
+  size: 72, 183
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00019
+  rotate: false
+  xy: 1091, 55
+  size: 73, 184
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00020
+  rotate: true
+  xy: 1168, 197
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1
+heilongpugong/zidan/huoqiu_00021
+  rotate: true
+  xy: 191, 3
+  size: 73, 187
+  orig: 81, 194
+  offset: 3, 2
+  index: -1

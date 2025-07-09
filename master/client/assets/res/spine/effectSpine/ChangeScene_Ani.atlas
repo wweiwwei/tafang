@@ -1,0 +1,83 @@
+
+ChangeScene_Ani.png
+size: 775,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hei
+  rotate: false
+  xy: 215, 218
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1
+pian (1)
+  rotate: false
+  xy: 673, 371
+  size: 90, 150
+  orig: 90, 150
+  offset: 0, 0
+  index: -1
+pian (10)
+  rotate: true
+  xy: 371, 215
+  size: 154, 255
+  orig: 154, 255
+  offset: 0, 0
+  index: -1
+pian (2)
+  rotate: false
+  xy: 628, 251
+  size: 111, 118
+  orig: 111, 118
+  offset: 0, 0
+  index: -1
+pian (3)
+  rotate: true
+  xy: 231, 33
+  size: 180, 228
+  orig: 180, 228
+  offset: 0, 0
+  index: -1
+pian (4)
+  rotate: false
+  xy: 215, 225
+  size: 154, 296
+  orig: 154, 296
+  offset: 0, 0
+  index: -1
+pian (5)
+  rotate: true
+  xy: 371, 371
+  size: 150, 300
+  orig: 150, 300
+  offset: 0, 0
+  index: -1
+pian (6)
+  rotate: true
+  xy: 2, 2
+  size: 153, 227
+  orig: 153, 227
+  offset: 0, 0
+  index: -1
+pian (7)
+  rotate: false
+  xy: 624, 17
+  size: 149, 196
+  orig: 149, 196
+  offset: 0, 0
+  index: -1
+pian (8)
+  rotate: true
+  xy: 461, 22
+  size: 191, 161
+  orig: 191, 188
+  offset: 0, 27
+  index: -1
+pian (9)
+  rotate: false
+  xy: 2, 157
+  size: 211, 364
+  orig: 211, 364
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,490 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import BattleFactory from "../../battleLogic/Utils/BattleFactory";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemCareer1 from "../common/ListItemCareer1";
+import ListItemDragItem from "../common/ListItemDragItem";
+import ListItemProperty from "../common/ListItemProperty";
+import ListItemSprite from "../common/ListItemSprite";
+import WindowCongratulation_Sprite from "../common/WindowCongratulation_Sprite";
+import ListItemCost from "../hero/ListItemCost";
+import WindowSelectSprite from "./WindowSelectSprite";
+import WindowSpriitSummon_Ani from "./WindowSpriitSummon_Ani";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowSpriit")
+@ccclass
+export default class WindowSpriit extends UIListItem {
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UIButton) rule: UIButton = null;
+    /**精灵名节点 */
+    @autowired(cc.Node) sprite: cc.Node = null;
+    @autowired(UILabel) spriteName: UILabel = null;
+    @autowired(UILabel) rank: UILabel = null;
+    /**-------------底部------------- */
+    @autowired(cc.Node) bottonNode1: cc.Node = null;
+    /**升级 */
+    @autowired(cc.Node) bottomLevel: cc.Node = null;
+    @autowired(UIList) levelImprove: UIList<ListItemCareer1> = null;
+    @autowired(cc.ProgressBar) progressBar: cc.ProgressBar = null;
+    @autowired(UILabel) progressLabel: UILabel = null;
+    @autowired(UIList) propertyUiList: UIList<ListItemCareer1> = null;
+    /**赋能 */
+    @autowired(cc.Node) bottomPower: cc.Node = null;
+    @autowired(UILabel) powerLevel: UILabel = null;
+    @autowired(UILabel) powerRare: UILabel = null;
+    /**升级按钮 */
+    @autowired(UIButton) upgrade: UIButton = null;
+    @autowired(cc.Node) upgradeTip: cc.Node = null;
+    @autowired(UIList) upgradeCost: UIList<ListItemCost> = null;
+    /**一键升级按钮 */
+    @autowired(UIButton) upAll: UIButton = null;
+    @autowired(cc.Node) upAllTip: cc.Node = null;
+    @autowired(UIList) upAllCost: UIList<ListItemCost> = null;
+    /**升阶按钮 */
+    @autowired(UIButton) upRank: UIButton = null;
+    @autowired(cc.Node) upRankTip: cc.Node = null;
+    @autowired(UIList) upRankCost: UIList<ListItemCost> = null;
+    /**底部按钮 */
+    @autowired(UIButton) menuUpgrade: UIButton = null;
+    @autowired(cc.Node) tips1: cc.Node = null;
+    @autowired(UIButton) menuPower: UIButton = null;
+    @autowired(cc.Node) tips2: cc.Node = null;
+    @autowired(UIButton) menuCollection: UIButton = null;
+    @autowired(cc.Node) tips3: cc.Node = null;
+    @autowired(UIButton) menuCall: UIButton = null;
+    @autowired(cc.Node) tips4: cc.Node = null;
+
+    /**-------------升级------------- */
+    @autowired(cc.Node) spriteLevel: cc.Node = null;
+    @autowired(UILabel) lv: UILabel = null;
+    @autowired(UIButton) formate: UIButton = null;
+    /**技能 */
+    @autowired(UILabel) skillName: UILabel = null;
+    @autowired(UILabel) skillDes: UILabel = null;
+    @autowired(UILabel) skillLevel: UILabel = null;
+    /**拥有效果 */
+    @autowired(UILabel) ownEffect: UILabel = null;
+    /**技能图标 */
+    @autowired(UIImage) icon: UIImage = null;
+    @autowired(UIImage) skill: UIImage = null;
+    @autowired(cc.Node) spirit1: cc.Node = null;
+    @autowired(cc.Animation) spriitAddEffect1: cc.Animation = null;
+
+    /**-------------赋能------------- */
+    @autowired(cc.Node) spritePower: cc.Node = null;
+    @autowired(cc.Node) spirit2: cc.Node = null;
+    @autowired(cc.Animation) spriitAddEffect2: cc.Animation = null;
+    /**赋能属性等级 */
+    @autowired(UILabel) sx1Tips: UILabel = null;
+    @autowired(UILabel) sx2Tips: UILabel = null;
+    @autowired(UILabel) sx3Tips: UILabel = null;
+    @autowired(UILabel) sx1Lv: UILabel = null;
+    @autowired(UILabel) sx2Lv: UILabel = null;
+    @autowired(UILabel) sx3Lv: UILabel = null;
+
+    /**-------------图鉴------------- */
+    @autowired(cc.Node) spriteCollection: cc.Node = null;
+    @autowired(UIList) spriteFormation: UIList<ListItemSprite> = null;
+    @autowired(UIList) collectionProperty1: UIList<ListItemProperty> = null;
+    @autowired(UIList) collectionProperty2: UIList<ListItemProperty> = null;
+    @autowired(UIScrollList) spriteList: UIScrollList<ListItemDragItem> = null;
+
+    /**-------------召唤------------- */
+    @autowired(cc.Node) call: cc.Node = null;
+    @autowired(UIRichText) guarantee: UIRichText = null;
+    @autowired(UILabel) free: UILabel = null;
+    @autowired(cc.Node) freeTip: cc.Node = null;
+    @autowired(UIButton) freeBtn: UIButton = null;
+    @autowired(UIButton) draw: UIButton = null;
+    @autowired(cc.Node) tip1: cc.Node = null;
+    @autowired(UIButton) draw10: UIButton = null;
+    @autowired(cc.Node) tip2: cc.Node = null;
+    @autowired(UIList) drawCost: UIList<ListItemCost> = null;
+    @autowired(UIList) drawCost10: UIList<ListItemCost> = null;
+
+    @autowired(cc.Animation) heroUpGrade_Effect: cc.Animation = null;
+
+    state: { id: number };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.windowInit();
+    }
+    protected onInited(): void {
+        // this.node.getComponent(UIButton).onClick = () => {
+        //     this.close();
+        // };
+        this.node.getComponent(UIButton).setTransition(false);
+    }
+
+    private page = 0;
+    private auto = false;
+    windowInit() {
+        const sprite = GModel.sprite.getSpriteById(this.state.id);
+        const callBack = async () => {
+            if (!sprite.canUpgradePower() || !this.auto) return;
+            let index = await GModel.sprite.upgradeSpritePower(sprite.id);
+        };
+        this.schedule(callBack, 1);
+        this.refWindow();
+        this.menuUpgrade.onClick = () => {
+            this.page = 0;
+            this.auto = false;
+            this.refWindow();
+        };
+        this.menuPower.onClick = () => {
+            this.page = 1;
+            this.refWindow();
+        };
+        this.menuCollection.onClick = () => {
+            this.page = 2;
+            this.auto = false;
+            this.refWindow();
+        };
+        this.menuCall.onClick = () => {
+            this.page = 3;
+            this.auto = false;
+            this.refWindow();
+        };
+        this.upgrade.onClick = async () => {
+            if (this.page === 0) {
+                await GModel.sprite.upgradeSprite(sprite.id, 1);
+                this.heroUpGrade_Effect.play();
+            } else if (this.page === 1) {
+                await GModel.sprite.upgradeSpritePower(sprite.id);
+            }
+        };
+        this.upAll.onClick = async () => {
+            let sprite = GModel.sprite.getSpriteById(this.state.id);
+
+            if (this.page === 0) {
+                if (!sprite.canUpgrade()) {
+                    GTip.showTip(["超导电容道具不足"]);
+                    return;
+                }
+                let { count } = this.upgradeAllCount();
+                await GModel.sprite.upgradeSprite(sprite.id, count);
+                this.heroUpGrade_Effect.play();
+            } else if (this.page === 1) {
+                this.auto = !this.auto;
+            }
+        };
+        this.refreshUpgrade();
+        this.refreshPower();
+        this.refreshCollection();
+        this.refreshCall();
+    }
+    refWindow() {
+        const lang = [
+            GLang.code.ui.hero_update,
+            GLang.code.ui.mountView_Senior,
+            GLang.code.ui.handbook,
+            GLang.code.ui.sprite_call,
+        ];
+        this.title.setText([GLang.code.ui.sprite], [lang[this.page]]);
+        this.sprite.active = this.page === 0 || this.page === 1;
+        this.bottonNode1.active = this.page === 0 || this.page === 1;
+        this.bottomLevel.active = this.page === 0;
+        this.spriteLevel.active = this.page === 0;
+        this.bottomPower.active = this.page === 1;
+        this.spritePower.active = this.page === 1;
+        this.spriteCollection.active = this.page === 2;
+        this.call.active = this.page === 3;
+        this.menuUpgrade.bg.imgName = this.page === 0 ? "sprite_chosen" : "sprite_unchosen";
+        this.menuPower.bg.imgName = this.page === 1 ? "sprite_chosen" : "sprite_unchosen";
+        this.menuCollection.bg.imgName = this.page === 2 ? "sprite_chosen" : "sprite_unchosen";
+        this.menuCall.bg.imgName = this.page === 3 ? "sprite_chosen" : "sprite_unchosen";
+        this.refCost();
+        this.refTips();
+    }
+    @message([EventName.stateKey.storage, EventName.stateKey.sprites])
+    refCost() {
+        const sprite = GModel.sprite.getSpriteById(this.state.id);
+        this.upgrade.node.active =
+            ((this.page === 1 && !sprite.isAllPowerMaxLevel()) || (this.page === 0 && !sprite.isMaxLevel())) &&
+            sprite.level !== 0;
+        console.log(
+            "data test=",
+            this.page === 1,
+            "2  test=",
+            !sprite.isAllPowerMaxLevel(),
+            "3 test=",
+            this.page === 0 && !sprite.isMaxLevel(),
+            "4 test=",
+            sprite.level !== 0
+        );
+        this.upAll.node.active = this.page === 0 && !sprite.isMaxLevel() && sprite.level !== 0;
+        // ((this.page === 1 && !sprite.isAllPowerMaxLevel()) || (this.page === 0 && !sprite.isMaxLevel())) &&
+        // sprite.level !== 0;
+        this.upRank.node.active = this.page === 0 && sprite.isMaxLevel() && !sprite.isMaxRank();
+        this.upAllCost.node.active = this.page === 0;
+
+        if (this.page === 1)
+            this.upgradeCost.setState([
+                {
+                    item: new Item(GIndex.id.spritePowerId, 1),
+                    require: sprite.upgradePowerCost(),
+                    storage: GModel.knapsack.getStorageById(GIndex.id.spritePowerId),
+                },
+            ]);
+        else {
+            let cost = sprite.upgradeCost();
+            this.upgradeCost.setState(
+                cost
+                    ? cost.map((item) => {
+                          return { item, require: item.count, storage: GModel.knapsack.getStorageById(item.id) };
+                      })
+                    : []
+            );
+        }
+        this.upAllCost.setState(
+            this.upgradeAllCount().cost.map((item) => {
+                // console.log(item.count);
+
+                return { item, require: item.count, storage: GModel.knapsack.getStorageById(item.id) };
+            })
+        );
+        this.upRankCost.setState([
+            {
+                item: new Item(sprite.getTbl().frag, 1),
+                require: sprite.uprankCost(),
+                storage: sprite.exp,
+            },
+        ]);
+        const tbl = GTable.getList("MountPoolTbl")[0];
+        this.drawCost.setState([
+            {
+                item: new Item(tbl.singlePrice[0], 1),
+                require: tbl.singlePrice[1],
+                storage: GModel.knapsack.getStorageById(tbl.singlePrice[0]),
+            },
+        ]);
+        this.drawCost10.setState([
+            {
+                item: new Item(tbl.tenPrice[0], 1),
+                require: tbl.tenPrice[1],
+                storage: GModel.knapsack.getStorageById(tbl.tenPrice[0]),
+            },
+        ]);
+    }
+    @message([EventName.stateKey.storage, EventName.stateKey.sprites, EventName.stateKey.spritePool])
+    refTips() {
+        const sprite = GModel.sprite.getSpriteById(this.state.id);
+        this.upgradeTip.active =
+            (this.page === 0 && sprite.canUpgrade()) || (this.page === 1 && sprite.canUpgradePower());
+        this.upAllTip.active =
+            (this.page === 0 && sprite.canUpgrade()) || (this.page === 1 && sprite.canUpgradePower());
+        this.upRankTip.active = sprite.canUpRank();
+        let tbl = GTable.getList("MountPoolTbl")[0];
+        let single = tbl.singlePrice;
+        let ten = tbl.tenPrice;
+        this.freeTip.active = GState.data.spritePool.video > 0;
+        this.tip1.active = GModel.knapsack.checkStorage([new Item(single[0], single[1])], false);
+        this.tip2.active = GModel.knapsack.checkStorage([new Item(ten[0], ten[1])], false);
+        this.tips1.active = sprite.canUpgrade() || this.upRankTip.active;
+        this.tips2.active = sprite.canUpgradePower();
+        this.tips3.active;
+        this.tips4.active = this.freeTip.active || this.tip1.active;
+    }
+    @message([EventName.stateKey.spriteFormation, EventName.stateKey.sprites])
+    refreshUpgrade() {
+        const sprite = GModel.sprite.getSpriteById(this.state.id);
+        this.spriteName.setText([GTable.getById("ItemTbl", sprite.id).name]);
+        this.spriteName.node.color = GConstant.qualityColor[GTable.getById("ItemTbl", sprite.id).quality];
+        this.rank.node.active = sprite.rank > 0;
+        this.rank.setText(["_rs+" + sprite.rank]);
+        this.lv.setText([GLang.code.ui.hero_level], [GLang.code.ui.map_unlock_level, "_rs:" + sprite.level]);
+        this.skillName.setText([sprite.getTbl().skillName]);
+        this.skillDes.setText([GLang.code.ui.skill], ["_rs:"], sprite.getSkillDescription());
+        this.skillLevel.setText([GLang.code.ui.map_unlock_level, "_rs" + sprite.level]);
+        this.ownEffect.setText(
+            ...(sprite.level === 0 ? sprite.getNextLevel().getOwnPropertyDes() : sprite.getOwnPropertyDes())
+        );
+        this.skill.imgName;
+        this.icon.imgName;
+        this.spirit1.getComponent(UIImage).imgName = GTable.getById("ItemTbl", sprite.id).img;
+        this.upRank.onClick = async () => {
+            await GModel.sprite.uprankSprite(sprite.id);
+        };
+
+        this.formate.onClick = async () => {
+            let data = await GWindow.open(WindowSelectSprite, { id: this.state.id });
+            console.log(data);
+
+            if (data && data.id) {
+                this.state.id = data.id;
+                this.unscheduleAllCallbacks();
+                this.windowInit();
+            }
+        };
+        this.levelImprove.setState([
+            sprite.canUpRank()
+                ? { property: GLang.code.ui.rank_num, oldval: sprite.rank, newval: sprite.rank + 1 }
+                : { property: GLang.code.ui.hero_level, oldval: sprite.level, newval: sprite.level + 1 },
+        ]);
+        const levelList = sprite
+            .getNextLevel()
+            .getFormateProperty()
+            .map((p) => {
+                return {
+                    property: GIndex.battle.propertyText(p.property),
+                    oldval: sprite.getFormateProperty().find((pro) => pro.property === p.property).value,
+                    newval: p.value,
+                };
+            });
+        const rankList = sprite
+            .getNextRank()
+            .getFormateProperty()
+            .map((p) => {
+                return {
+                    property: GIndex.battle.propertyText(p.property),
+                    oldval: sprite.getFormateProperty().find((pro) => pro.property === p.property).value,
+                    newval: p.value,
+                };
+            });
+        this.propertyUiList.setState(sprite.isMaxLevel() ? rankList : levelList);
+        const tbl = GTable.getList("MountRankTbl").find((t) => t.level === sprite.rank);
+        this.progressBar.progress = 0;
+        if (tbl) {
+            this.progressBar.progress = sprite.level / tbl.limit;
+            this.progressLabel.setText([`_rs${sprite.level} / ${tbl.limit}`]);
+        } else this.progressBar.progress = 1;
+    }
+
+    @message([EventName.stateKey.spriteFormation, EventName.stateKey.sprites])
+    refreshCollection() {
+        let formation = GModel.sprite.getFormation();
+        let sprites = GModel.sprite.getSprites();
+        this.spriteFormation.setState(
+            formation.map((f) => {
+                return { id: f, cb: () => this.setFormation(f) };
+            })
+        );
+        this.spriteList.setState(
+            sprites.map((s) => {
+                return {
+                    id: s.id,
+                    window: this,
+                    cb: (index?) => {
+                        if (s.level > 0) {
+                            if (index) this.setFormation(s.id, index);
+                            else this.setFormation(s.id);
+                        }
+                    },
+                };
+            })
+        );
+        const proerty = sprites
+            .map((s) => BattleFactory.getMountOwnPropertyMap(s))
+            .reduce((pre, cur) => {
+                Object.keys(pre.addMap).forEach((p) => {
+                    if (cur.addMap[p]) cur.addMap[p] += pre.addMap[p];
+                    else cur.addMap[p] = pre.addMap[p];
+                });
+                Object.keys(pre.mulMap).forEach((p) => {
+                    if (cur.mulMap[p]) cur.mulMap[p] += pre.mulMap[p];
+                    else cur.mulMap[p] = pre.mulMap[p];
+                });
+                return cur;
+            });
+        this.collectionProperty1.setState(
+            Object.keys(proerty.addMap)
+                .filter((p) => proerty.addMap[p] > 0)
+                .map((p) => {
+                    return {
+                        property: [[GIndex.battle.propertyText(p)], ["_rs+" + proerty.addMap[p]]],
+                        color: cc.color().fromHEX("#3dd3ab"),
+                    };
+                })
+        );
+        this.collectionProperty2.setState(
+            Object.keys(proerty.mulMap)
+                .filter((p) => proerty.mulMap[p] > 0)
+                .map((p) => {
+                    return {
+                        property: [[GIndex.battle.propertyText(p)], ["_rs+" + proerty.mulMap[p] + "%"]],
+                        color: cc.color().fromHEX("#643c30"),
+                    };
+                })
+        );
+    }
+    @message([EventName.stateKey.spriteFormation, EventName.stateKey.sprites, EventName.stateKey.spritePool])
+    refreshCall() {
+        this.guarantee.setText([
+            GLang.code.ui.draw_sprite_guarantee,
+            "_rs" + (GTable.getList("MountPoolTbl")[0].guarantee - GState.data.spritePool.guarantee),
+        ]);
+        this.free.setText([
+            GLang.code.ui.free_draw_sprite,
+            "_rs" + GState.data.spritePool.video,
+            "_rs" + GConfig.mine.videoPowerLimit,
+        ]);
+        this.freeBtn.onClick = async () => {
+            const reward = await GModel.sprite.call(1, true);
+            await GWindow.open(WindowSpriitSummon_Ani);
+            GWindow.open(WindowCongratulation_Sprite, { items: reward });
+        };
+        this.draw.onClick = async () => {
+            const reward = await GModel.sprite.call(1, false);
+            await GWindow.open(WindowSpriitSummon_Ani);
+            GWindow.open(WindowCongratulation_Sprite, { items: reward });
+        };
+        this.draw10.onClick = async () => {
+            const reward = await GModel.sprite.call(10, false);
+            await GWindow.open(WindowSpriitSummon_Ani);
+            GWindow.open(WindowCongratulation_Sprite, { items: reward });
+        };
+    }
+    async setFormation(id: number, index?: number) {
+        if (id === -1) return;
+        let formation: number[] = JSON.parse(JSON.stringify(GModel.sprite.getFormation()));
+        if (index !== undefined) {
+            console.log("undefined");
+
+            if (!formation.some((f) => f !== id)) {
+                formation[index] = id;
+            } else if (index === -1) {
+                formation[formation.findIndex((f) => f === id)] = -1;
+            } else {
+                formation[formation.findIndex((f) => f === id)] = formation[index];
+                formation[index] = id;
+            }
+        } else {
+            if (formation.some((f) => f === id)) {
+                formation[formation.findIndex((f) => f === id)] = -1;
+            } else {
+                if (formation.some((f) => f === -1)) {
+                    formation[formation.findIndex((f) => f === -1)] = id;
+                } else {
+                    return GTip.showTip([GLang.code.ui.formation_full]);
+                }
+            }
+        }
+        await GModel.sprite.setFormation(formation);
+    }
+
+    upgradeAllCount() {
+        let sprite = GModel.sprite.getSpriteById(this.state.id);
+        let cost: Item[] = [];
+        let count = 0;
+        while (sprite.canUpgrade()) {
+            count++;
+            cost.push(...sprite.upgradeCost());
+            sprite = sprite.getNextLevel();
+        }
+        return { cost: Item.combine(cost), count };
+    }
+
+    protected onRecycle(): void {
+        this.unscheduleAllCallbacks();
+    }
+}

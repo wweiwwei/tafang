@@ -1,0 +1,58 @@
+export default class RogueModel {
+    /** 功法等级 */
+    getSkillData(): {
+        /** RogueSkillEnhanceTbl的id */
+        id: number;
+        /** 当前等级 */
+        lv: number;
+        /** 是否可解锁 */
+        unlockable: boolean;
+        /** 解锁条件提示 */
+        unlockTip: string[];
+    }[] {
+        return GTable.getList("RogueSkillEnhanceTbl").map((t) => {
+            const tbl = GTable.getById("RogueSkillTbl", t.skillId);
+            const id = t.id;
+            const lv = GState.data.skillLv[id] || 0;
+            const unlockable = GModel.player.checkUnlockCondition(tbl.condition, false);
+            return {
+                id,
+                lv,
+                unlockable,
+                unlockTip: [`_rs通关${tbl.condition[1]}-${tbl.condition[2]}解锁`],
+            };
+        });
+    }
+
+    /** 神通等级 */
+    getExSkillData(): {
+        /** RogueExSkillTbl的id */
+        id: number;
+        /** 当前等级 */
+        lv: number;
+        /** 是否已装备 */
+        isEquip: boolean;
+    }[] {
+        return GTable.getList("RogueExSkillTbl").map((t) => {
+            const id = t.id;
+            const lv = GState.data.exSkillLv[id] || 0;
+            return {
+                id,
+                lv,
+                isEquip: GState.data.curExSkill.includes(id),
+            };
+        });
+    }
+    /** 选择神通技能 */
+    changeExSkill(id: number) {
+        return GApi.rogue.changeExSkill({ id: [id] });
+    }
+    /** 升级技能 */
+    upgradeSkillLv(id: number) {
+        return GApi.rogue.upgradeSkillLv({ id });
+    }
+    /** 升级神通技能 */
+    upgradeExSkillLv(id: number) {
+        return GApi.rogue.upgradeExSkillLv({ id });
+    }
+}

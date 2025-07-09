@@ -1,0 +1,160 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Vfx_ UpGradeBt_Ani - 001",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.6333333333333333,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "VFX_Saoguang": {
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0.23333333333333334,
+                "value": {
+                  "__uuid__": "869b8e1d-2e84-40b6-8883-08a568370ded"
+                }
+              },
+              {
+                "frame": 0.26666666666666666,
+                "value": {
+                  "__uuid__": "20f17b22-7b13-43bc-8440-eb5c707093d8"
+                }
+              },
+              {
+                "frame": 0.3333333333333333,
+                "value": {
+                  "__uuid__": "d8bf4ece-a5b7-4ab3-8e01-3edaa3da4dd6"
+                }
+              },
+              {
+                "frame": 0.4,
+                "value": {
+                  "__uuid__": "ccc8c779-0847-4bef-a4ff-320015348416"
+                }
+              },
+              {
+                "frame": 0.4666666666666667,
+                "value": {
+                  "__uuid__": "45544dae-bd9a-49c7-a4fc-5b485fc8bc10"
+                }
+              },
+              {
+                "frame": 0.5333333333333333,
+                "value": {
+                  "__uuid__": "3e8ca6e2-b3b5-4078-91cf-6cbc45cf1b31"
+                }
+              },
+              {
+                "frame": 0.5666666666666667,
+                "value": {
+                  "__uuid__": "26745070-4dd9-4275-bc1a-6af058d9754d"
+                }
+              }
+            ]
+          }
+        },
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.2,
+              "value": 0
+            },
+            {
+              "frame": 0.23333333333333334,
+              "value": 213
+            },
+            {
+              "frame": 0.6,
+              "value": 213
+            },
+            {
+              "frame": 0.6333333333333333,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "Vfx_ UpGradeBt 2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.1,
+              "value": 172
+            },
+            {
+              "frame": 0.2,
+              "value": 172
+            },
+            {
+              "frame": 0.36666666666666664,
+              "value": 0
+            }
+          ]
+        }
+      }
+    },
+    "props": {
+      "scale": [
+        {
+          "frame": 0,
+          "value": {
+            "__type__": "cc.Vec3",
+            "x": 0.8,
+            "y": 0.8,
+            "z": 0.598
+          },
+          "curve": "cubicOut"
+        },
+        {
+          "frame": 0.13333333333333333,
+          "value": {
+            "__type__": "cc.Vec3",
+            "x": 1.229,
+            "y": 1.229,
+            "z": 1.229
+          },
+          "curve": "cubicIn"
+        },
+        {
+          "frame": 0.23333333333333334,
+          "value": {
+            "__type__": "cc.Vec3",
+            "x": 0.928,
+            "y": 0.928,
+            "z": 1.124
+          },
+          "curve": "cubicInOut"
+        },
+        {
+          "frame": 0.43333333333333335,
+          "value": {
+            "__type__": "cc.Vec3",
+            "x": 1.01,
+            "y": 1.01,
+            "z": 1.223
+          },
+          "curve": "cubicInOut"
+        },
+        {
+          "frame": 0.6333333333333333,
+          "value": {
+            "__type__": "cc.Vec3",
+            "x": 1,
+            "y": 1,
+            "z": 1.223
+          }
+        }
+      ]
+    }
+  },
+  "events": []
+}

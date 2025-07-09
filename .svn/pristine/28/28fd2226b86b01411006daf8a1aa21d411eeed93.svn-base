@@ -1,0 +1,39 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UIWindow from "../../../framework/ui/UIWindow";
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowSellSkill")
+@ccclass
+export default class WindowSellSkill extends UIWindow {
+    _windowParam: {
+        btnStr?: [];
+        tips?: string;
+    };
+    _returnValue: {
+        state: boolean;
+    };
+    /** */
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**出售 */
+    @autowired(UIButton) sell: UIButton = null;
+    /**取消 */
+    @autowired(UIButton) cancel: UIButton = null;
+    /**描述 */
+    @autowired(UILabel) tips: UILabel = null;
+
+    onInited() {
+        this.closeBtn.onClick = () => {};
+        this.sell.onClick = () => {
+            this.close();
+            this._returnValue.state = true;
+        };
+        this.cancel.onClick = () => {
+            this.close();
+            this._returnValue.state = false;
+        };
+        this.tips.setText([]);
+    }
+}

@@ -1,0 +1,201 @@
+import { GameDate } from "../../framework/date/GameDate";
+import EventBus from "../../framework/event/EventBus";
+import { BattleProcessor } from "../battleLogic/Processor/BattleProcessor";
+import { BattleProcessorBuilder } from "../battleLogic/Processor/BattleProcessorBuilder";
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import { FriendInfo } from "../entity/FriendInfo";
+import { PlayerFriendState } from "../entity/PlayerFriendState";
+import EventName from "../event/EventName";
+import WindowBattleScene from "../module/battle/WindowBattleScene";
+
+export class FriendModel {
+    private _stateCache: PlayerFriendState = {
+        applicationList: [],
+        blackList: [],
+        friendList: [],
+    };
+    private _roleInfoCache: {
+        [roleId: number]: FriendInfo;
+    } = {};
+    private _infoLastRefreshTime: {
+        [roleId: number]: number;
+    } = {};
+    /** 获取好友状态 */
+    getFriendState() {
+        return this._stateCache;
+    }
+    /** 根据id获取角色信息 */
+    async getRoleInfo(roleIdList: number[]): Promise<FriendInfo[]> {
+        // 10分钟刷新一次其他玩家的信息
+        let needRequest = roleIdList.filter(
+            (x) =>
+                x !== HttpServer.roleId &&
+                (!this._roleInfoCache[x] || GameDate.now() - this._infoLastRefreshTime[x] > GameDate.OneMinute * 10)
+        );
+        needRequest = Array.from(new Set(needRequest));
+        if (needRequest.length > 0) {
+            const res = await GApi.friend.roleInfo({ roleIdList: needRequest });
+            Object.keys(res).map((key) => {
+                this._roleInfoCache[key] = res[key];
+                this._infoLastRefreshTime[key] = GameDate.now();
+            });
+        }
+        return roleIdList.map((x) => {
+            if (x === HttpServer.roleId) {
+                return {
+                    roleIcon: GModel.player.roleIcon(),
+                    roleName: GModel.player.roleName(),
+                    roleId: HttpServer.roleId,
+                    // battlePoint: GModel.battle.getBattlePoint(),
+                    battlePoint: 100000,
+                    // level: GModel.facility.captainRank(),
+                    level: GModel.player.level(),
+                    lastOnLineTime: GameDate.now(),
+                    headFrame: GModel.player.headFreame(),
+                };
+            } else {
+                return this._roleInfoCache[x];
+            }
+        });
+    }
+    /** 刷线好友状态 */
+    async refreshFriendState(): Promise<void> {
+        this._stateCache = await GApi.friend.friendState();
+        EventBus.emit(EventName.refreshFriend);
+    }
+    /**好友列表 */
+    async friendList(): Promise<FriendInfo[]> {
+        return await this.getRoleInfo(this._stateCache.friendList);
+    }
+
+    /** 好友推荐列表，缓存 */
+    async friendRecommendCache(): Promise<FriendInfo[]> {
+        if (this._recommandCache.length === 0) {
+            return await this.friendRecommend();
+        }
+        return await this.getRoleInfo(this._recommandCache);
+    }
+    private _recommandCache: number[] = [];
+    private _lastRefreshRecommend = 0;
+    /**好友推荐列表，刷新 */
+    async friendRecommend(): Promise<FriendInfo[]> {
+        if (GameDate.now() - this._lastRefreshRecommend < 1000 * 5) {
+            GTip.showTip([GLang.code.ui.frequence_tip]);
+            return await this.getRoleInfo(this._recommandCache);
+        }
+        this._lastRefreshRecommend = GameDate.now();
+        const recommand = await GApi.friend.friendRecommend();
+        this._recommandCache = recommand;
+        return await this.getRoleInfo(recommand);
+    }
+    /** 获取好友申请列表 */
+    async friendApplicationList(): Promise<FriendInfo[]> {
+        return await this.getRoleInfo(this._stateCache.applicationList.map((x) => x.id));
+    }
+    /** 发送好友申请 */
+    async sendFriendApplication(friendId: number): Promise<void> {
+        await GApi.friend.sendFriendApplication({ friendId });
+        this._hasSendApplication.add(friendId);
+    }
+    /** 同意好友申请 */
+    async acceptFriendApplication(friendId: number): Promise<void> {
+        await GApi.friend.acceptFriendApplication({ friendId });
+        await this.refreshFriendState();
+    }
+    /** 同意所有好友申请 */
+    async acceptAllFriendApplication(): Promise<void> {
+        await GApi.friend.acceptAllFriendApplication();
+        await this.refreshFriendState();
+    }
+    /** 拒绝好友申请 */
+    async rejectFriendApplication(friendId: number): Promise<void> {
+        await GApi.friend.rejectFriendApplication({ friendId });
+        await this.refreshFriendState();
+    }
+    /** 拒绝所有好友申请 */
+    async rejectAllFriendApplication(): Promise<void> {
+        await GApi.friend.rejectAllFriendApplication();
+        await this.refreshFriendState();
+    }
+    /** 搜索玩家 */
+    async searchPlayer(query: string): Promise<FriendInfo[]> {
+        const roleIdList = await GApi.friend.searchPlayer({ query });
+        return await this.getRoleInfo(roleIdList);
+    }
+    /** 删除好友 */
+    async deleteFriend(friendId: number): Promise<void> {
+        await GApi.friend.deleteFriend({ friendId });
+        await this.refreshFriendState();
+    }
+    /**在线人数 */
+    async onlineFriend(): Promise<number> {
+        let list = await this.friendList();
+        let count = 0;
+        list.map((f) => {
+            if (this.isOnline(f.lastOnLineTime)) count++;
+        });
+        return count;
+    }
+    /**是否在线 */
+    isOnline(lastOnLineTime: number): boolean {
+        return GameDate.now() - lastOnLineTime <= GameDate.OneMinute * 15;
+    }
+
+    async blackList(): Promise<FriendInfo[]> {
+        return await this.getRoleInfo(this._stateCache.blackList);
+    }
+    async addBlackList(friendId: number): Promise<void> {
+        await GApi.friend.addBlackList({ friendId });
+        await this.refreshFriendState();
+    }
+
+    async removeBlackList(friendId: number): Promise<void> {
+        await GApi.friend.removeBlackList({ friendId });
+        await this.refreshFriendState();
+    }
+
+    private _hasSendApplication: Set<number> = new Set();
+
+    /** 是否已经发送过邀请 */
+    hasSendApplication(roleId: number): boolean {
+        return this._hasSendApplication.has(roleId);
+    }
+
+    private _lastChallengeTime = 0;
+
+    /** 挑战 */
+    async challenge(friendId: number): Promise<void> {
+        if (GameDate.now() - this._lastChallengeTime < 1000 * 10) {
+            GTip.showTip([GLang.code.ui.frequence_tip]);
+            return;
+        }
+        this._lastChallengeTime = GameDate.now();
+        const str = await GApi.friend.challenge({ friendId });
+        const { team } = JSON.parse(str);
+        const [attackInfo, defendInfo] = await GModel.friend.getRoleInfo([HttpServer.roleId, friendId]);
+        const processor = new BattleProcessorBuilder()
+            .setAttackTeam(BattleFactory.getPlayerPvpTeam(GState.data))
+            .pvp(team)
+            .setCommandGetter(() => [])
+            .setMapName("map_deck")
+            .setTickLimit(GConfig.battle.arenaTimeLimit * GConstant.battle.logicTickRate)
+            .build();
+        processor.attackRoleInfo = attackInfo;
+        processor.defendRoleInfo = defendInfo;
+        const { win } = await GWindow.open(WindowBattleScene, {
+            startOnInit: true,
+            processor: processor,
+            battleType: "friend",
+        });
+        GAudio.playMusic("main");
+    }
+    /** 是否是黑名单 */
+    isBlackList(id: number) {
+        return this._stateCache.blackList.includes(id);
+    }
+
+    /** 是否已经是好友 */
+    isFriend(id: number) {
+        return this._stateCache.friendList.includes(id);
+    }
+}

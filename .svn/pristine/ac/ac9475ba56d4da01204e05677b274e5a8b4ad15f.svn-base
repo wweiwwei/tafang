@@ -1,0 +1,118 @@
+
+Knife_generaltail.png
+size: 598,518
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+budai3z
+  rotate: false
+  xy: 259, 192
+  size: 14, 20
+  orig: 14, 20
+  offset: 0, 0
+  index: -1
+budai4z
+  rotate: false
+  xy: 448, 32
+  size: 13, 11
+  orig: 13, 11
+  offset: 0, 0
+  index: -1
+effect/daoguang_1
+  rotate: true
+  xy: 465, 224
+  size: 30, 126
+  orig: 37, 140
+  offset: 3, 5
+  index: -1
+effect/guangci1
+  rotate: false
+  xy: 465, 256
+  size: 121, 121
+  orig: 128, 128
+  offset: 3, 3
+  index: -1
+effect/guangyun
+  rotate: false
+  xy: 2, 214
+  size: 302, 302
+  orig: 348, 348
+  offset: 23, 23
+  index: -1
+effect/jianshen_ziguang
+  rotate: true
+  xy: 306, 153
+  size: 71, 149
+  orig: 75, 151
+  offset: 2, 1
+  index: -1
+effect/ps_1
+  rotate: false
+  xy: 465, 379
+  size: 131, 137
+  orig: 141, 148
+  offset: 5, 4
+  index: -1
+effect/ps_2
+  rotate: true
+  xy: 161, 2
+  size: 149, 140
+  orig: 160, 150
+  offset: 5, 4
+  index: -1
+effect/ps_3
+  rotate: false
+  xy: 306, 226
+  size: 157, 141
+  orig: 165, 149
+  offset: 3, 3
+  index: -1
+effect/ps_4
+  rotate: false
+  xy: 2, 7
+  size: 157, 144
+  orig: 166, 153
+  offset: 4, 3
+  index: -1
+effect/ps_5
+  rotate: false
+  xy: 306, 369
+  size: 157, 147
+  orig: 166, 155
+  offset: 6, 2
+  index: -1
+effect/trail
+  rotate: false
+  xy: 2, 153
+  size: 255, 59
+  orig: 257, 62
+  offset: 1, 2
+  index: -1
+effect/xishou
+  rotate: false
+  xy: 448, 45
+  size: 55, 106
+  orig: 56, 108
+  offset: 1, 1
+  index: -1
+jianshen
+  rotate: true
+  xy: 457, 161
+  size: 61, 137
+  orig: 62, 141
+  offset: 1, 4
+  index: -1
+jianshen_baiguang
+  rotate: false
+  xy: 377, 7
+  size: 69, 144
+  orig: 70, 145
+  offset: 1, 1
+  index: -1
+shenti_baiguang
+  rotate: false
+  xy: 303, 2
+  size: 72, 149
+  orig: 74, 150
+  offset: 2, 0
+  index: -1

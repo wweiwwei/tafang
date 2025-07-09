@@ -1,0 +1,174 @@
+
+Role_catgod.png
+size: 822,312
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+datui1
+  rotate: true
+  xy: 695, 86
+  size: 59, 67
+  orig: 59, 67
+  offset: 0, 0
+  index: -1
+datui2
+  rotate: true
+  xy: 694, 147
+  size: 68, 82
+  orig: 68, 82
+  offset: 0, 0
+  index: -1
+fazhang
+  rotate: false
+  xy: 305, 96
+  size: 48, 214
+  orig: 48, 214
+  offset: 0, 0
+  index: -1
+jian
+  rotate: true
+  xy: 725, 224
+  size: 86, 78
+  orig: 86, 78
+  offset: 0, 0
+  index: -1
+kua
+  rotate: true
+  xy: 523, 185
+  size: 125, 85
+  orig: 125, 85
+  offset: 0, 0
+  index: -1
+maojineng/aixin
+  rotate: false
+  xy: 369, 101
+  size: 47, 38
+  orig: 47, 38
+  offset: 0, 0
+  index: -1
+maojineng/fazhen(3)
+  rotate: true
+  xy: 422, 2
+  size: 137, 86
+  orig: 137, 86
+  offset: 0, 0
+  index: -1
+maojineng/glow(1)
+  rotate: false
+  xy: 676, 217
+  size: 47, 93
+  orig: 55, 105
+  offset: 4, 6
+  index: -1
+maojineng/glow(2)
+  rotate: false
+  xy: 510, 7
+  size: 79, 132
+  orig: 83, 143
+  offset: 2, 6
+  index: -1
+maojineng/glow(6)
+  rotate: true
+  xy: 647, 143
+  size: 62, 45
+  orig: 70, 52
+  offset: 4, 3
+  index: -1
+maojineng/guangxian (1)
+  rotate: false
+  xy: 2, 2
+  size: 301, 308
+  orig: 340, 355
+  offset: 24, 34
+  index: -1
+maojineng/line
+  rotate: false
+  xy: 355, 96
+  size: 12, 43
+  orig: 16, 47
+  offset: 2, 2
+  index: -1
+maojineng/lizi(3)
+  rotate: true
+  xy: 778, 142
+  size: 25, 30
+  orig: 37, 45
+  offset: 7, 5
+  index: -1
+maojineng/lizi（2）
+  rotate: true
+  xy: 695, 6
+  size: 22, 30
+  orig: 22, 32
+  offset: 0, 0
+  index: -1
+qianbi1
+  rotate: false
+  xy: 523, 141
+  size: 67, 42
+  orig: 67, 42
+  offset: 0, 0
+  index: -1
+qianbi2
+  rotate: true
+  xy: 592, 141
+  size: 42, 53
+  orig: 42, 53
+  offset: 0, 0
+  index: -1
+shenti
+  rotate: false
+  xy: 305, 5
+  size: 115, 89
+  orig: 115, 89
+  offset: 0, 0
+  index: -1
+shiwu
+  rotate: false
+  xy: 610, 207
+  size: 64, 103
+  orig: 64, 103
+  offset: 0, 0
+  index: -1
+tou
+  rotate: true
+  xy: 355, 141
+  size: 169, 166
+  orig: 169, 166
+  offset: 0, 0
+  index: -1
+weiba
+  rotate: true
+  xy: 591, 15
+  size: 124, 102
+  orig: 124, 102
+  offset: 0, 0
+  index: -1
+xiangbi1
+  rotate: true
+  xy: 695, 32
+  size: 52, 55
+  orig: 52, 55
+  offset: 0, 0
+  index: -1
+xiangbi2
+  rotate: false
+  xy: 778, 169
+  size: 30, 53
+  orig: 30, 53
+  offset: 0, 0
+  index: -1
+xiaotui1
+  rotate: true
+  xy: 764, 91
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+xiaotui2
+  rotate: false
+  xy: 764, 30
+  size: 55, 59
+  orig: 55, 59
+  offset: 0, 0
+  index: -1

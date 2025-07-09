@@ -1,0 +1,689 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UILongTouchButton from "../../../framework/ui/UILongTouchButton";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import { EnumHeroProperty } from "../../config/GEnum";
+import Hero from "../../entity/Hero";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemBottomMenu from "../common/ListItemBottomMenu";
+import ListItemStarItem from "../common/ListItemStarItem";
+import ListItemCost from "./ListItemCost";
+import ListItemEquipProperty from "./ListItemEquipProperty";
+import ListItemHeroSkillItem from "./ListItemHeroSkillItem";
+import ListItemImprove from "./ListItemImprove";
+import WindowPropertyList from "./WindowPropertyList";
+import WindowUprankImprove from "./WindowUprankImprove";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowHeroDetail")
+@ccclass
+export default class WindowHeroDetail extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        hero: Hero;
+        arr: Hero[];
+    };
+    _returnValue: any;
+    /**底部菜单容器 */
+    @autowired(UIList) bottomMenu: UIList<ListItemBottomMenu> = null;
+    /**英雄技能和装备容器 */
+    @autowired(UIList) heroEquipment: UIList<ListItemHeroSkillItem> = null;
+    /**升星后星级展示容器 */
+    @autowired(UIList) upStarList: UIList<ListItemStarItem> = null;
+    /**升星前星级展示容器 */
+    @autowired(UIList) stars: UIList<ListItemStarItem> = null;
+    /**英雄星级展示容器 */
+    @autowired(UIList) heroStars: UIList<ListItemStarItem> = null;
+    /**属性容器 */
+    @autowired(UIList) propertyList: UIList<ListItemEquipProperty> = null;
+    /**属性提升容器 */
+    @autowired(UIList) improveList: UIList<ListItemImprove> = null;
+    /**返回按钮 */
+    @autowired(UIButton) return: UIButton = null;
+    /**右箭头 */
+    @autowired(UIButton) rightArrow: UIButton = null;
+    /**左箭头 */
+    @autowired(UIButton) leftArrow: UIButton = null;
+    /**感叹号 */
+    @autowired(UIButton) exclamation: UIButton = null;
+    /**普攻 */
+    @autowired(UIButton) normal: UIButton = null;
+    /**必杀 */
+    @autowired(UIButton) mainskill: UIButton = null;
+    /**普攻图 */
+    @autowired(UIImage) normalbg: UIImage = null;
+    /**必杀图 */
+    @autowired(UIImage) mainbg: UIImage = null;
+    /**普工等级 */
+    @autowired(UILabel) normalLevel: UILabel = null;
+    /**必杀等级 */
+    @autowired(UILabel) mainLevel: UILabel = null;
+    /**英雄名 */
+    @autowired(UILabel) heroName: UILabel = null;
+    /**英雄阶数 */
+    @autowired(UILabel) stage: UILabel = null;
+    /**英雄等级 */
+    @autowired(UILabel) level1: UILabel = null;
+    @autowired(UILabel) level2: UILabel = null;
+    @autowired(UILabel) level3: UILabel = null;
+    /**英雄战力 */
+    @autowired(UILabel) power: UILabel = null;
+    @autowired(UILabel) oldPower: UILabel = null;
+    @autowired(UILabel) newPower: UILabel = null;
+    /**解锁天赋 */
+    @autowired(UILabel) talent: UILabel = null;
+    /**英雄职业 */
+    @autowired(UIImage) gift: UIImage = null;
+    /**技能描述 */
+    @autowired(UIImage) skillDescription: UIImage = null;
+    /**技能名 */
+    @autowired(UILabel) skillName: UILabel = null;
+    /**主动被动 */
+    @autowired(UILabel) skillKind: UILabel = null;
+    /**技能描述1 */
+    @autowired(UILabel) description: UILabel = null;
+    /**升星按钮 */
+    @autowired(UIButton) upstarBtn: UIButton = null;
+    /**升级按钮 */
+    @autowired(UILongTouchButton) updateBtn: UILongTouchButton = null;
+    /**升阶按钮 */
+    @autowired(UIButton) uprankBtn: UIButton = null;
+    /**升星感叹 */
+    @autowired(UIImage) upstarExclamation: UIImage = null;
+    /**升级感叹 */
+    @autowired(UIImage) updateExclamation: UIImage = null;
+    /**升阶感叹 */
+    @autowired(UIImage) uprankExclamation: UIImage = null;
+    /**一键穿脱按钮感叹 */
+    @autowired(UIImage) equipAllExclamation: UIImage = null;
+    /**一键穿脱按钮 */
+    @autowired(UIButton) equipAllBtn: UIButton = null;
+    /**一键穿脱按钮文本 */
+    @autowired(UILabel) wearOrRemove: UILabel = null;
+    /**升阶按钮 */
+    @autowired(UIButton) strengthenBtn: UIButton = null;
+    /**升阶按钮感叹 */
+    @autowired(UIImage) strenthenAllExclamation: UIImage = null;
+    /**升星材料 */
+    @autowired(UIImage) image: UIImage = null;
+    /**升星材料背景 */
+    @autowired(UIImage) herobg: UIImage = null;
+    /**升星所需 */
+    @autowired(UILabel) require: UILabel = null;
+    /**升星材料库存 */
+    @autowired(UILabel) storage: UILabel = null;
+    /**升级窗口节点 */
+    @autowired(cc.Node) upDateControl: cc.Node = null;
+    /**升星窗口节点 */
+    @autowired(cc.Node) upStarControl: cc.Node = null;
+    /**升阶窗口节点 */
+    @autowired(cc.Node) upRankControl: cc.Node = null;
+    /**装备窗口节点 */
+    @autowired(cc.Node) equipmentControl: cc.Node = null;
+    /**消耗列表节点 */
+    @autowired(UIList) costList: UIList<ListItemCost> = null;
+    /** 英雄spine */
+    @autowired(UISpine) heroSpine: UISpine = null;
+    /** 英雄阴影 */
+    @autowired(UIImage) shadow: UIImage = null;
+    /** 英雄图片 */
+    @autowired(UIImage) heroimg: UIImage = null;
+
+    /**显示感叹号的数组 */
+    private showExclamation: number[] = [-1, -1, -1, -1];
+
+    /**当前英雄序号 */
+    private heroIndex: number;
+
+    /**当前底部菜单序号 */
+    private page: number = 0;
+    /**当前技能描述序号 */
+    private clicked: number = -1;
+
+    protected onInited(): void {
+        let closebtn = this.node.getComponent(UIButton);
+        closebtn.onClick = () => {
+            this.clicked = -1;
+            this.skillDescription.node.active = this.clicked !== -1;
+        };
+        closebtn.setTransition(false);
+        this.upStarControl.active = false;
+        this.upRankControl.active = false;
+        this.equipmentControl.active = false;
+        this.heroInit();
+        this.downInit(0);
+        this.refreshBottom();
+        this.btnRefresh();
+    }
+    async strengthenAll() {
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        let equips = hero.getEquipmentWrapper().filter((e) => e !== null);
+        // let storage = GModel.knapsack.getStorageById(GIndex.id.heroEquipmentExpId);
+        // let equipMap = equips.map((e) => {
+        //     return { count: 0, e };
+        // });
+        if (equips.length <= 0) {
+            GTip.showTip(["_rs没有装备"]);
+            return;
+        }
+        if (equips.every((e) => !e.canUpgrade())) {
+            GTip.showTip(["_rs没有装备可以升级"]);
+            return;
+        }
+        // while (equips.length > 0 && equips.some((e) => e.canUpgrade(storage))) {
+        //     let temp = storage - equips[0].upgradeCoinRequire().count;
+        //     if (temp >= 0) {
+        //         storage = temp;
+        //         equips[0] = equips[0].getNextLevel();
+        //         equipMap.find((e) => e.e.id === equips[0].id).count++;
+        //         equips.sort((a, b) => a.level - b.level);
+        //     } else {
+        //         break;
+        //     }
+        // }
+        // equipMap.forEach(async (element) => {
+        //     await GModel.hero.upgradeHeroEquipmentLevel(hero.uniqueId, element.e.getPart(), element.count);
+        // });
+        await GModel.hero.upgradeAllEquipmentLevel(this._windowParam.hero.uniqueId);
+    }
+    @message([EventName.stateKey.hero])
+    btnRefresh() {
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        this.return.onClick = () => {
+            this.close();
+        };
+        this.rightArrow.onClick = () => {
+            this.changeHero(1);
+        };
+        this.leftArrow.onClick = () => {
+            this.changeHero(-1);
+        };
+        this.updateBtn.onClick = () => {
+            hero.isMaxLevel() ? GTip.showTip([GLang.code.ui.maxlevel]) : this.btnFunc(0);
+        };
+        this.uprankBtn.onClick = () => {
+            hero.isMaxRank() ? GTip.showTip([GLang.code.ui.maxrank]) : this.btnFunc(2);
+        };
+        this.upstarBtn.onClick = () => {
+            hero.isMaxStar() ? GTip.showTip([GLang.code.ui.maxstar]) : this.btnFunc(1);
+        };
+        this.exclamation.onClick = () => {
+            GWindow.open(WindowPropertyList, { uniqueId: hero.uniqueId });
+        };
+        this.strengthenBtn.onClick = () => {
+            this.strengthenAll();
+        };
+    }
+    /**-1:上一个英雄,1:下一个英雄 */
+    changeHero(arrow: number) {
+        this.clicked = -1;
+        this.heroIndex += arrow;
+        this.heroIndex = this.heroIndex < 0 ? this._windowParam.arr.length - 1 : this.heroIndex;
+        this.heroIndex = this.heroIndex >= this._windowParam.arr.length ? 0 : this.heroIndex;
+        this._windowParam.hero = GModel.hero.getHeroByUniqueId(this._windowParam.arr[this.heroIndex].uniqueId);
+        this.refreshBottom();
+        switch (this.page) {
+            case 0:
+                this.downInit(0);
+                break;
+            case 1:
+                this.downInit(1);
+                break;
+            case 2:
+                this.downInit(2);
+                break;
+            case 3:
+                this.equipmentInit();
+                break;
+
+            default:
+                break;
+        }
+        this.heroInit();
+    }
+
+    /**0-升级、1-升阶、2-升星按钮方法 */
+    async btnFunc(status: number) {
+        let ani = this.node.getChildByName("content").getChildByName("HeroUpGrade_Effect").getComponent(cc.Animation);
+        let ghero = GModel.hero;
+        const origin = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        switch (status) {
+            case 0:
+                await ghero.upgradeHeroLevel(this._windowParam.hero.uniqueId, this.countTimes().times);
+                GTip.showTip([GLang.code.ui.hero_update_success]);
+                this.heroInit();
+                this.downInit(0);
+                ani.play();
+                break;
+            case 1:
+                await ghero.upgradeHeroStar(this._windowParam.hero.uniqueId);
+                GTip.showTip([GLang.code.ui.hero_upstar_success]);
+                GWindow.open(WindowUprankImprove, { origin, uniqueId: this._windowParam.hero.uniqueId, status: 0 });
+                this.heroInit();
+                this.downInit(1);
+                ani.play();
+                break;
+            case 2:
+                await ghero.upgradeHeroRank(this._windowParam.hero.uniqueId);
+                GTip.showTip([GLang.code.ui.hero_upstage_success]);
+                GWindow.open(WindowUprankImprove, { origin, uniqueId: this._windowParam.hero.uniqueId, status: 1 });
+                this.heroInit();
+                this.downInit(2);
+                ani.play();
+                break;
+            default:
+                break;
+        }
+    }
+    countTimes(): { times: number; expCost: number; coinCost: number } {
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        let obj = { expCost: 0, coinCost: 0, times: 1 };
+        let temp = { expCost: 0, coinCost: 0, times: 1 };
+        for (let i = 1; i <= 50; i++) {
+            if (!hero.isRankLevelLimit()) {
+                obj.expCost += hero.upgradeRequire()[0].count;
+                obj.coinCost += hero.upgradeRequire()[1].count;
+                let enough =
+                    GModel.knapsack.getStorageById(GIndex.id.heroExpId) >= obj.expCost &&
+                    GModel.knapsack.getStorageById(GIndex.id.coinId) >= obj.coinCost;
+                if (i >= 5 && i < 10 && enough) {
+                    if (i === 5) temp = JSON.parse(JSON.stringify(obj));
+                    temp.times = 5;
+                }
+                if (i >= 10 && i < 50 && enough) {
+                    if (i === 10) temp = JSON.parse(JSON.stringify(obj));
+                    temp.times = 10;
+                }
+                if (i == 50 && enough) {
+                    temp = JSON.parse(JSON.stringify(obj));
+                    temp.times = 50;
+                }
+                hero = hero.getNextLevelHero();
+            }
+        }
+        return temp;
+    }
+    /**数据展示初始化 */
+    @message([EventName.stateKey.hero])
+    heroInit() {
+        this.heroIndex = this._windowParam.arr.findIndex((t) => t.uniqueId == this._windowParam.hero.uniqueId);
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        this.skillDescription.node.active = false;
+        let tbl = hero.getTbl();
+        if (ResourceLoader.isSpineExist(hero.getImg())) {
+            this.heroSpine.setSpine(tbl.img, "default", "idle");
+            this.heroSpine.node.scale = 0.7;
+            this.heroSpine.node.active = true;
+            this.heroimg.node.active = false;
+        } else {
+            this.heroimg.imgName = hero.getImg();
+            this.heroimg.node.active = true;
+            this.heroSpine.node.active = false;
+        }
+        this.refreshSkills();
+        this.heroName.setText([tbl.name]);
+        this.heroName.node.color = GConstant.heroNameQuality[hero.getQuality()];
+        this.stage.setText(["_rs" + "+" + hero.rank]);
+        this.stage.node.active = hero.rank > 0;
+        this.stage.node.color = GConstant.heroNameQuality[hero.getQuality()];
+        this.gift.imgName = "hero_kind_" + tbl.kind;
+        this.power.setText(["_rs" + hero.getBattlePoint()]);
+        this.oldPower.setText(["_rs" + hero.getBattlePoint()]);
+        this.newPower.setText(["_rs" + hero.getNextRankHero().getBattlePoint()]);
+        this.talent.setText(...hero.getRankTalent(hero.rank + 1));
+        let maxlevel = hero.getRankMaxLevel();
+        this.level1.setText(["_rs" + hero.level + "/" + maxlevel]);
+        this.level3.setText(["_rs" + hero.level + "/" + maxlevel]);
+        this.level2.setText([GLang.code.ui.map_unlock_level, "_rs" + hero.level]);
+        this.stars.setState(hero.getStarItem(1));
+        this.heroStars.setState(hero.getStarItem(1));
+        this.upStarList.setState(hero.getNextStarHero().getStarItem(1));
+        for (let i = 0; i < this.showExclamation.length; i++) {
+            switch (i) {
+                case 0:
+                    this.showExclamation[i] = hero.isFormated() && hero.canUpgrade() ? 1 : -1;
+                    this.updateBtn.setGrey(!hero.canUpgrade());
+                    this.updateExclamation.node.active = hero.canUpgrade();
+                    break;
+                case 1:
+                    this.showExclamation[i] = hero.canUpstar() ? 1 : -1;
+                    this.upstarBtn.setGrey(!hero.canUpstar());
+                    this.upstarExclamation.node.active = hero.canUpstar();
+                    break;
+                case 2:
+                    this.showExclamation[i] = hero.isFormated() && hero.canUprank() ? 1 : -1;
+                    this.uprankBtn.setGrey(!hero.canUprank());
+                    this.uprankExclamation.node.active = hero.canUprank();
+                    break;
+                default:
+                    break;
+            }
+        }
+        this.refreshBottom();
+        this.refreshEquip();
+        // if (hero.isMaxStar() || hero.getUpgradeStarCost()[0].count > GModel.knapsack.getStorageById(tbl.frag)) {
+        //     this.showExclamation[2] = -1;
+        //     this.upstarBtn.setGrey(true);
+        //     this.upstarExclamation.node.active = false;
+        //     // this.upstarBtn.interactable = false;
+        // } else {
+        //     this.showExclamation[2] = 1;
+        //     this.upstarExclamation.node.active = true;
+        //     this.upstarBtn.setGrey(false);
+        //     // this.upstarBtn.interactable = true;
+        // }
+        // if (
+        //     hero.isRankLevelLimit() ||
+        //     hero.isStarLevelLimit() ||
+        //     hero.isMaxLevel() ||
+        //     hero.upgradeRequire()[1].count > GModel.knapsack.getStorageById(GIndex.id.heroExpId) ||
+        //     hero.upgradeRequire()[0].count > GModel.knapsack.getStorageById(GIndex.id.coinId)
+        // ) {
+        //     this.showExclamation[0] = -1;
+        //     this.updateBtn.setGrey(true);
+        //     this.updateExclamation.node.active = false;
+        //     // this.updateBtn.interactable = false;
+        // } else {
+        //     this.showExclamation[0] = 1;
+        //     this.updateBtn.setGrey(false);
+        //     this.updateExclamation.node.active = true;
+        //     // this.updateBtn.interactable = true;
+        // }
+        // if (
+        //     !hero.isRankLevelLimit() ||
+        //     hero.isMaxRank() ||
+        //     hero.upgradeRankRequire()[0].count > GModel.knapsack.getStorageById(GIndex.id.coinId) ||
+        //     hero.upgradeRankRequire()[1].count > GModel.knapsack.getStorageById(GIndex.id.heroRankExpId)
+        // ) {
+        //     this.showExclamation[1] = -1;
+        //     this.uprankExclamation.node.active = false;
+        //     this.uprankBtn.setGrey(true);
+        //     // this.uprankBtn.interactable = false;
+        // } else {
+        //     this.showExclamation[1] = 1;
+        //     this.uprankBtn.setGrey(false);
+        //     this.uprankExclamation.node.active = true;
+        //     // this.uprankBtn.interactable = true;
+        // }
+    }
+    /**刷新数据0-升级，1-升星，2-升阶 */
+    downInit(status: number) {
+        this.heroEquipment.node.active = false;
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        let arr = ["attack", "armor", "maxHp"];
+        let obj = this.countTimes();
+        let state = arr.map((t) => {
+            let oldval: string | number;
+            let newval: string | number;
+            if (status == 1) {
+                oldval = hero.getStarBuff() / 100 + "%";
+                newval = hero.isMaxStar() ? oldval : hero.getNextStarHero().getStarBuff() / 100 + "%";
+            } else {
+                oldval = hero.getProperty(GConstant.propertyList[t]);
+                newval = hero.isMaxLevel() ? oldval : hero.getNextLevelHero().getProperty(GConstant.propertyList[t]);
+            }
+            return { property: t, oldval, newval };
+        });
+        this.updateBtn.text.setText([GLang.code.ui.update_times, "_rs" + obj.times]);
+        this.improveList.node.active = true;
+        this.improveList.setState(state);
+        if (status == 1) {
+            this.costList.node.active = false;
+            this.image.imgName = hero.getImg() + "_head";
+            this.herobg.imgName = GConstant.heroQuality[hero.getQuality()];
+            // + (hero.rank > 0 ? "+" + hero.rank : "");
+            let own = GModel.knapsack.getStorageById(hero.getTbl().frag);
+            this.storage.setText(["_rs" + own]);
+            if (!hero.isMaxStar()) {
+                let require = hero.getUpgradeStarCost()[0].count;
+                this.require.setText(["_rs/" + require]);
+                this.storage.node.color =
+                    own >= require ? GConstant.costLabelColor.green : GConstant.costLabelColor.red;
+            } else {
+                this.require.setText([GLang.code.ui.maxstar]);
+                this.storage.node.active = false;
+            }
+        } else {
+            let coststate: { item: Item; storage: number; require: number }[] = [];
+            coststate.push(
+                {
+                    item: new Item(GIndex.id.coinId, 0),
+                    storage: GModel.knapsack.getStorageById(GIndex.id.coinId),
+                    require:
+                        status === 0
+                            ? obj.coinCost === 0
+                                ? hero.upgradeRequire()[1].count
+                                : obj.coinCost
+                            : hero.upgradeRankRequire()[1].count,
+                },
+                {
+                    item: new Item(status === 0 ? GIndex.id.heroExpId : GIndex.id.heroRankExpId, 0),
+                    storage: GModel.knapsack.getStorageById(
+                        status === 0 ? GIndex.id.heroExpId : GIndex.id.heroRankExpId
+                    ),
+                    require:
+                        status === 0
+                            ? obj.expCost === 0
+                                ? hero.upgradeRequire()[0].count
+                                : obj.expCost
+                            : hero.upgradeRankRequire()[0].count,
+                }
+            );
+            this.costList.setState(coststate);
+            this.costList.node.active = true;
+        }
+    }
+
+    /**刷新技能展示 */
+    refreshSkills() {
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        let skillLevel = hero.getSkillLevel();
+        let maintbl = hero.getMainSkillTbl();
+        let normaltbl = hero.getNormalAttackTbl();
+        this.mainskill.onClick = () => {
+            this.skillDescription.node.active = this.clicked !== 0;
+            this.clicked !== 0 ? (this.clicked = 0) : (this.clicked = -1);
+            this.skillName.setText([GLang.code.ui.hero_skillname_level, maintbl.name, "_rs" + skillLevel[1]]);
+            this.skillKind.setText([GLang.code.ui.hero_skill_active]);
+            this.description.setText(hero.getMainSkillDescription());
+        };
+        this.normal.onClick = () => {
+            this.skillDescription.node.active = this.clicked !== 1;
+            this.clicked !== 1 ? (this.clicked = 1) : (this.clicked = -1);
+            this.skillName.setText([GLang.code.ui.hero_skillname_level, normaltbl.name, "_rs" + skillLevel[0]]);
+            this.skillKind.setText([GLang.code.ui.hero_normal_attack]);
+            this.description.setText(hero.getNormalAttackDescription());
+        };
+        this.normalLevel.setText(["_rs" + skillLevel[0]]);
+        this.mainLevel.setText(["_rs" + skillLevel[1]]);
+        this.normalbg.imgName = normaltbl.img;
+        this.mainbg.imgName = maintbl.img;
+    }
+    @message([EventName.stateKey.hero, EventName.stateKey.equipment])
+    /**刷新装备信息 */
+    equipmentInit() {
+        this.refreshEquip();
+        if (this.page === 3) {
+            this.heroEquipment.node.active = true;
+            this.improveList.node.active = false;
+            this.costList.node.active = false;
+        }
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        let property: { property: string; value: number; plus: number }[];
+        property = hero.getEquipmentBuff().map((t) => {
+            return { property: t.property, value: t.value, plus: 0 };
+        });
+        this.propertyList.setState(property);
+    }
+    @message([EventName.stateKey.hero, EventName.stateKey.equipment, EventName.stateKey.storage])
+    /**刷新装备展示 */
+    refreshEquip() {
+        this.showExclamation[3] = -1;
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        this.strenthenAllExclamation.node.active = hero
+            .getEquipmentWrapper()
+            .filter((e) => e !== null)
+            .some((e) => e.canUpgrade());
+        /**穿戴 */
+        let wear = false;
+        /**可升级或升阶 */
+        let enable = false;
+        let idleEquip = GModel.hero.getIdleEquipment();
+        let state = hero.getEquipmentWrapper().map((t, i) => {
+            if (t !== null) {
+                if (t.getBetterEquip().length > 0) wear = true;
+                if (t.canUpgrade() || t.canUprank()) enable = true;
+            } else {
+                if (idleEquip.filter((t) => t.getPart() === i).length > 0) wear = true;
+            }
+            return { equipment: t, hero, index: i };
+        });
+        if (this.page === 3) this.heroEquipment.setState(state);
+        this.wearOrRemove.setText(
+            [GLang.code.ui.equipment_oneBtn],
+            wear ? [GLang.code.ui.wear] : [GLang.code.ui.remove],
+            [GLang.code.ui.equipment]
+        );
+        (enable || wear) &&
+            GModel.player.checkSystemUnlock(GConstant.systemId.equipment, false) &&
+            hero.isFormated() &&
+            (this.showExclamation[3] = 1);
+        this.equipAllExclamation.node.active = wear && idleEquip.length > 0;
+        // this.strenthenAllExclamation.node.active = enable;
+        /**一键穿脱点击事件 */
+        this.equipAllBtn.onClick = async () => {
+            let equipments: { id: number; level: number; rank: number }[] = [];
+            if (wear) {
+                if (idleEquip.length > 0) {
+                    hero.getEquipmentWrapper().map((t, i) => {
+                        let idle = idleEquip
+                            .filter((e) => e.getPart() === i)
+                            .sort((a, b) => {
+                                return b.getBattlePoint() - a.getBattlePoint();
+                            });
+                        if (t !== null) {
+                            let better = t.getBetterEquip();
+                            equipments.push(better.length > 0 ? better[0] : t);
+                        } else {
+                            equipments.push(idle.length > 0 ? idle[0] : null);
+                        }
+                    });
+                    console.log(equipments);
+
+                    await GModel.hero.setHeroEquipment(this._windowParam.hero.uniqueId, equipments);
+                    let newHero = GModel.hero.getHeroByUniqueId(hero.uniqueId);
+                    newHero.getEquipmentWrapper().forEach((v, i) => {
+                        let oldEquip = hero.getEquipmentWrapper();
+                        if (
+                            v !== null &&
+                            (oldEquip[i] === null ||
+                                v.id !== oldEquip[i].id ||
+                                v.level !== oldEquip[i].level ||
+                                v.rank !== oldEquip[i].rank)
+                        )
+                            this.heroEquipment.node.children[i]
+                                .getChildByName("add_equipment_effect")
+                                .getComponent(cc.Animation)
+                                .play();
+                    });
+                    GTip.showImprove(GModel.hero.getHeroByUniqueId(hero.uniqueId).getEquipmentBuff(), wear);
+                } else {
+                    GTip.showTip([GLang.code.ui.noEquipment]);
+                }
+            } else {
+                GTip.showImprove(hero.getEquipmentBuff(), wear);
+                for (let i = 0; i < 4; i++) {
+                    equipments.push(null);
+                }
+                await GModel.hero.setHeroEquipment(this._windowParam.hero.uniqueId, equipments);
+            }
+        };
+        /**一键强化点击事件 */
+        // this.strengthenBtn.onClick = () => {
+        //     this.strengthenAll();
+        // };
+        this.refreshBottom();
+    }
+    /**一键强化 */
+    // strengthenAll() {
+    //     let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+    //     hero.getEquipmentWrapper().map((t, i) => {
+    //         if (
+    //             t !== null &&
+    //             t.getExpInfo().exp >= t.getExpInfo().require &&
+    //             t.upgradeCoinRequire().count <= GModel.knapsack.getStorageById(GIndex.id.coinId)
+    //         ) {
+    //             GModel.hero.upgradeHeroEquipmentLevel(this._windowParam.hero.uniqueId, i);
+    //             i === 3 && this.strengthenAll();
+    //         }
+    //     });
+    // }
+    /**刷新底部菜单 */
+    @message([EventName.stateKey.storage])
+    refreshBottom() {
+        const tblList = GTable.getList("UIMainSceneTbl").filter((t) => t.position === 4);
+        let hero = GModel.hero.getHeroByUniqueId(this._windowParam.hero.uniqueId);
+        const state = tblList.map((t, i) => {
+            let id = t.id;
+            const selected = this.page === i;
+            let status = 1;
+            t.systemId && (status = GModel.player.checkSystemUnlock(t.systemId, false, hero.level) ? 1 : 0);
+            const cb = () => {
+                switch (i) {
+                    case 0:
+                        this.page = 0;
+                        this.upStarControl.active = false;
+                        this.upRankControl.active = false;
+                        this.equipmentControl.active = false;
+                        this.upDateControl.active = true;
+                        this.downInit(0);
+                        break;
+                    case 1:
+                        if (t.systemId && GModel.player.checkSystemUnlock(t.systemId, true)) {
+                            this.page = 1;
+                            this.upStarControl.active = true;
+                            this.upRankControl.active = false;
+                            this.equipmentControl.active = false;
+                            this.upDateControl.active = false;
+                            this.downInit(1);
+                        }
+                        break;
+                    case 2:
+                        if (t.systemId && GModel.player.checkSystemUnlock(t.systemId, true, hero.level)) {
+                            this.page = 2;
+                            this.upDateControl.active = false;
+                            this.upRankControl.active = true;
+                            this.equipmentControl.active = false;
+                            this.upStarControl.active = false;
+                            this.downInit(2);
+                        }
+                        break;
+                    case 3:
+                        if (t.systemId && GModel.player.checkSystemUnlock(t.systemId, true)) {
+                            this.page = 3;
+                            this.upDateControl.active = false;
+                            this.upRankControl.active = false;
+                            this.upStarControl.active = false;
+                            this.equipmentControl.active = true;
+                            this.equipmentInit();
+                        }
+                    default:
+                        break;
+                }
+                this.refreshBottom();
+            };
+            return { id, selected, cb, status, show: this.showExclamation[i] };
+        });
+        this.bottomMenu.setState(state);
+    }
+}

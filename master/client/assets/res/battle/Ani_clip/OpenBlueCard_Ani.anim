@@ -1,0 +1,222 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "OpenBlueCard_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.9666666666666667,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "card_scale/card_bg_light": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/card_color": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.4,
+              "value": 0
+            },
+            {
+              "frame": 0.43333333333333335,
+              "value": 90
+            },
+            {
+              "frame": 0.7,
+              "value": 90
+            },
+            {
+              "frame": 0.9666666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "card_scale": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0.16666666666666666,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "linear"
+            },
+            {
+              "frame": 0.43333333333333335,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 0.015,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "linear"
+            },
+            {
+              "frame": 0.7,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              }
+            }
+          ]
+        }
+      },
+      "card_scale/id_backNode": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.4,
+              "value": 255,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.43333333333333335,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/id_updateLevelNode": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.43333333333333335,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/nameBg": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.43333333333333335,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/id_frontNode/id_newCardLab": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.43333333333333335,
+              "value": 0,
+              "curve": "constant"
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/card_color/card_color_nor": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      },
+      "card_scale/card_bg_light/card_bg_dark": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 26,
+                "g": 81,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 119
+            }
+          ]
+        }
+      },
+      "card_scale/card_bg_light/card_bg_outline": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 72,
+                "g": 160,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            }
+          ]
+        }
+      },
+      "card_scale/card_color/card_color_add": {
+        "props": {
+          "color": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Color",
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 255
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

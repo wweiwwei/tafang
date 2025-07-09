@@ -1,0 +1,52 @@
+import { BattleDisplayEvent } from "../../Display/BattleDisplayEvent";
+import { BattleTriggerEvent } from "../../Event/BattleTriggerEvent";
+import { BattleRect } from "../../Map/BattleRect";
+import { BattleDotArea } from "../../Object/Area/BattleDotArea";
+import { BattleEffectArea } from "../../Object/Area/BattleEffectArea";
+import { BattleBullet } from "../../Object/Bullet/BattleBullet";
+import { BattleBattleStageContext } from "../../Processor/BattleBattleStageContext";
+import { BattleUtils } from "../../Utils/BattleUtils";
+import { BattleSkillTemplateDotAreaBuilder } from "../Builder/Template/BattleSkillTemplateDotAreaBuilder";
+import { BattleSkillTemplateRectEffectBuilder } from "../Builder/Template/BattleSkillTemplateRectEffectBuilder";
+import { BattleSkillTemplateFireBulletBuilder } from "../Builder/Template/BattleSkillTemplateFireBulletBuilder";
+import { BattleTargetSearch } from "../Target/BattleTargetSearch";
+import { BattleSkillBaseTemplate } from "./BattleSkillBaseTemplate";
+
+export class BattleSkillTemplateDotArea extends BattleSkillBaseTemplate {
+    private handleCb: Function;
+    private targetFrame: number;
+    protected process(ctx: BattleBattleStageContext, e: BattleTriggerEvent): boolean {
+        this.handleCb = () => {
+            this.handleDotArea(ctx, e);
+        };
+        if (this.builder._delay === 0) {
+            this.handleCb();
+            return true;
+        } else {
+            this.targetFrame = ctx.data.frame + this.builder._delay / GConstant.battle.logicTick;
+            return false;
+        }
+    }
+
+    tick(ctx: BattleBattleStageContext): boolean {
+        if (ctx.data.frame >= this.targetFrame) {
+            this.handleCb();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    handleDotArea(ctx: BattleBattleStageContext, e: BattleTriggerEvent) {
+        const targetList = this.getTarget(ctx, e);
+        targetList.forEach((t) => {
+            const area = new BattleDotArea(
+                ctx.data.uuidGenerator.uuid(),
+                t.position.map((e) => e),
+                ctx,
+                this.builder as BattleSkillTemplateDotAreaBuilder
+            );
+            ctx.data.addEffectArea(area);
+        });
+    }
+}

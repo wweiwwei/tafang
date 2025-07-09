@@ -1,0 +1,47 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import { EnumHeroProperty } from "../../config/GEnum";
+import ListItemPropertyItem from "../common/ListItemPropertyItem";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowPropertyList")
+@ccclass
+export default class WindowPropertyList extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: { uniqueId?: number; status?: number; handbookPage?: number }; // status: 0-英雄属性加成，1-图鉴属性加成
+    _returnValue: any;
+    @autowired(UIScrollList) propertyList: UIScrollList<ListItemPropertyItem> = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        let state: { property: string; value: number | string; index: number; page?: number }[] = [];
+        let index = 1;
+        if (this._windowParam.status === 1) {
+            GModel.collection.getCollectionBuffString(this._windowParam.handbookPage).forEach((t, i) => {
+                state.push({ ...t, index: i + 1, page: 0 });
+            });
+            console.log(state);
+
+            this.propertyList.setState(state);
+            return;
+        }
+        for (let key in GConstant.propertyList) {
+            let value = GModel.hero
+                .getHeroByUniqueId(this._windowParam.uniqueId)
+                .getProperty(GConstant.propertyList[key]);
+            let property = GConstant.propertyList[key];
+            state.push({ value, property, index });
+            index++;
+        }
+        console.log(state);
+
+        this.propertyList.setState(state);
+    }
+}

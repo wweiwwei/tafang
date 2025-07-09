@@ -1,0 +1,369 @@
+import AfkData from "../entity/AfkData";
+import { CardPool } from "../entity/CardPool";
+import { EmailInfo } from "../entity/EmailInfo";
+import GiftPack from "../entity/GiftPack";
+import MainStage from "../entity/MainStage";
+import { MineBrick } from "../entity/MineBrick";
+import Mission from "../entity/Mission";
+import { PlayerEquipment } from "../entity/PlayerEquipment";
+import PlayerOrder from "../entity/PlayerOrder";
+import { Pet } from "../entity/Pet";
+import { PlayerSkill } from "../entity/PlayerSkill";
+import TowerAfkData from "../entity/TowerAfkData";
+import { StoneAutoSetting } from "../model/StoneAutoSetting";
+import { StoneInfo } from "../model/StoneInfo";
+import { Technology } from "../entity/Technology";
+import { EquipmentMonster } from "../entity/EquipmentMonster";
+import { PlayerEquipmentPlace } from "../entity/PlayerEquipmentPlace";
+import { CareerTalent } from "../entity/CareerTalent";
+import { Sprite } from "../entity/Sprite";
+import warOrder from "../entity/WarOrder";
+
+// 所有的数据初始值都应该是null
+export class NetWorkDataCache {
+    // 时间
+    /** 时间戳 */
+    time: number = null;
+
+    // 背包模块
+    /** 物品库存 */
+    storage: { [id: number]: number } = null;
+
+    // // 英雄模块
+    // /** 英雄 */
+    // hero: { [uniqueId: number]: Hero } = null;
+
+    // /** 装备 */
+    // equipment: { [id: number]: Equipment } = null;
+
+    // /** 编队 */
+    // formation: { [key: string]: number[] } = null;
+
+    // // 主线关卡模块
+    /** 主线关卡信息 */
+    stage: { [mapIndex: number]: MainStage } = null;
+
+    /** 主线关卡当前挂机地图 */
+    stageAfkMap: number = null;
+
+    // /** 主线关卡挂机地图产出 */
+    // stageAfkMapProduce: { [id: number]: number } = null;
+
+    /** 主线关卡当前挂机宝箱产出 */
+    stageAfkBattleReward: AfkData = null;
+
+    // /** 主线关卡成就任务已领取记录 */
+    // stageAchievementRewardHasGet: number[] = null;
+
+    // /** 主线关卡声望商店已购买记录 */
+    // stageShopHasBuy: { [id: number]: number } = null;
+
+    /** 上次主线战斗时间 */
+    lastStageBattleTime: number = null;
+
+    /** 邮件记录 */
+    email: { [id: number]: EmailInfo } = null;
+
+    /** 充值记录 */
+    charge: {
+        total: number;
+        order: PlayerOrder[];
+        canGetOrder: PlayerOrder[];
+    } = null;
+
+    /** 充值数据 */
+    chargeData: {
+        month1: {
+            /** 剩余天数 */
+            remain: number;
+            /** 今天是否可以领取奖励 */
+            reward: boolean;
+        };
+        month2: {
+            /** 是否激活 */
+            active: boolean;
+            /** 今天是否可以领取奖励 */
+            reward: boolean;
+        };
+        /** 去广告 */
+        clearAd: boolean;
+        /** 首充领取 */
+        firstPackage: number[];
+    } = null;
+
+    /**礼包数据 */
+    giftPack: {
+        [id: number]: GiftPack;
+    } = null;
+
+    /** 卡池信息 */
+    cardPool: { [id: number]: CardPool } = null;
+
+    /** 主线任务 */
+    mainMission: { [id: number]: Mission } = null;
+
+    /** 主线目标 */
+    mainMissionTask: {
+        id: number;
+        progress: number;
+        hasGet: boolean;
+    } = null;
+
+    // /** 战车 */
+    // battleCar: BattleCar = null;
+
+    // /** 战车装备 */
+    // battleCarEquipment: { [id: number]: CarEquipment } = null;
+
+    // /** 羁绊（图鉴） */
+    // relation: { [code: number]: number } = null;
+
+    // /** 外敌数据 */
+    // enemyTeam: EnemyInfo[] = null;
+
+    // /** 外敌信息 */
+    // enemyData: {
+    //     hasWin: number[];
+    //     refresh: number;
+    // } = null;
+
+    // /** 图鉴数据 */
+    // collectionData: {
+    //     info: {
+    //         [page: number]: {
+    //             exp: number;
+    //             level: number;
+    //             nextLevel: number;
+    //             levelRewardHasGet: number[];
+    //         };
+    //     };
+    //     hasGet: { [id: number]: number };
+    // } = null;
+
+    /** 矿井砖块 */
+    mineBrick: { [uniqueId: number]: MineBrick } = null;
+
+    /** 挖矿数据 */
+    mineData: {
+        /** 体力 */
+        power: number;
+        /** 层数 */
+        floor: number;
+        /** 当前boss */
+        boss: number;
+        /** 矿工位置 */
+        minerPos: number[];
+        /** 视频次数 */
+        videoPower: number;
+        /** 视频次数 */
+        videoDrill: number;
+        /** 视频次数 */
+        videoBomb: number;
+        /** 是否开启了自动 */
+        auto: boolean;
+    } = null;
+
+    /** 爬塔层数 */
+    towerData: {
+        level: number;
+        hasGet: number[];
+    } = null;
+
+    /** 爬塔挂机奖励 */
+    towerAfkReward: TowerAfkData = null;
+
+    /** 引导数据 */
+    guideData: {
+        hasComplete: number[];
+    } = null;
+
+    // /** 法杖数据 */
+    // magicStaff: {
+    //     /** 视频次数 */
+    //     video: {
+    //         [id: number]: number;
+    //     };
+    //     /** 剩余时间 */
+    //     remain: number;
+    //     /** 激活的法杖类型 */
+    //     kindId: number;
+    // } = null;
+
+    // /** 转盘数据 */
+    // turntableData: {
+    //     video: number;
+    //     videoStamp: number;
+    // } = null;
+
+    /** 主角装备 */
+    playerEquipment: number[] = null;
+
+    /** 主角装备库存 */
+    playerEquipmentStorage: {
+        [id: number]: PlayerEquipment;
+    } = null;
+    /** 塔位数据 */
+    playerEquipmentPlace: {
+        [id: number]: PlayerEquipmentPlace;
+    } = null;
+    /**洗练数据 */
+    towerWashData: {
+        exp: number;
+        washLevel: number;
+    } = null;
+
+    /** 临时装备 */
+    tempEquipment: number[] = null;
+
+    /** 石头信息 */
+    stone: StoneInfo = null;
+
+    /** 石头自动信息 */
+    stoneAuto: StoneAutoSetting = null;
+
+    /** 玩家等级 */
+    level: number = null;
+    rank: number = null;
+
+    /** 经验值 */
+    // exp: number = null;
+
+    /** 玩家数据 */
+    playerData: {
+        /** 是否可以免费改名 */
+        freeChangeName: boolean;
+        level: number;
+        rank: number;
+    } = null;
+    /** 角色任务 */
+    playerMission: { [id: number]: Mission } = null;
+    /**技能编队 */
+    skillFormation: { [key: number]: number[] } = null;
+    /**技能 */
+    playerSkill: {
+        [id: number]: PlayerSkill;
+    } = null;
+    /**当前技能编队 */
+    currentSkillFormation: number = null;
+    /** 同伴编队*/
+    petFormation: { [key: number]: number[] } = null;
+    /**同伴 */
+    playerPet: {
+        [id: number]: Pet;
+    } = null;
+    /**当前同伴编队 */
+    currentPetFormation: number = null;
+    /**化石数据 */
+    fossilData: {
+        fossilStar: number;
+        fossilFormation: number[];
+    } = null;
+    /**庄园 */
+    manorData: {
+        [id: number]: number[][];
+    } = null;
+    /**科技树数据 */
+    techData: {
+        nextTech: number;
+    } = null;
+    /**科技树 */
+    techTree: {
+        [id: number]: Technology;
+    } = null;
+    /**伤害 */
+    damageData: {
+        myDamage: number;
+        myMulDamage: number;
+        hasGetReward: number[];
+    } = null;
+    /**转职 */
+    careerData: {
+        currentCareer: number;
+    } = null;
+    /**职业天赋 */
+    careerTalent: {
+        [id: number]: CareerTalent;
+    } = null;
+    /** 装备图鉴 */
+    equipmentCollection: {
+        canActive: number[];
+        hasActive: number[];
+    } = null;
+    /** 塔阵容 */
+    towerFormation: number[] = null;
+    /** 塔天赋选择 */
+    towerTalent: { [part: number]: { [index: number]: number } } = null;
+
+    /** 视频团购数据 */
+    videoGroupPurchaseData: {
+        /** 已观看视频次数 */
+        videoCount: number;
+        /** 今日参加团购次数 */
+        todayJoin: number;
+        /** 今日发起团购次数 */
+        todayLaunch: number;
+        /** 本次发起的团购id */
+        rewardId: number;
+    } = null;
+    equipmentMonster: { [uid: number]: EquipmentMonster } = null;
+    /**精灵 */
+    sprites: { [id: number]: Sprite } = null;
+    /**精灵阵容 */
+    spriteFormation: number[] = null;
+    /**精灵卡池 */
+    spritePool: {
+        total: number;
+        today: number;
+        guarantee: number;
+        video: number;
+    } = null;
+
+    /** 无尽模式数据 */
+    infiniteData: {
+        /** 历史记录 */
+        historyRecord: number;
+        /** 今日记录 */
+        todayRecord: number;
+        /** 今日已领取奖励 */
+        todayHasGet: number;
+    } = null;
+
+    /**宴会 */
+    banquetData: {
+        /**积分 */
+        point: number;
+        /**等级 */
+        level: number;
+        /**已捐赠的免费次数 */
+        donateTimes: number;
+        /**活动开启时间 */
+        beginTime: number;
+        /**活动商店*/
+        shopItems: { [id: number]: number };
+        /**已获取的等级奖励 */
+        levelHasGet: number[];
+    } = null;
+    /**宴会任务 */
+    banquetMission: { [id: number]: Mission } = null;
+
+    warOrder: { [id: number]: warOrder } = null;
+
+    challengeMission: { [id: number]: Mission } = null;
+    // recruitMission: { [id: number]: Mission } = null;
+    // equipMission: { [id: number]: Mission } = null;
+    // arenaMission: { [id: number]: Mission } = null;
+    impactData: {
+        /**已购买的礼包 */
+        hasGetPackage: number[];
+        /**活动开始时间 */
+        beginTime: number;
+        /**刷新次数 */
+        recruitRound: number;
+        challengeRound: number;
+        arenaRound: number;
+        equipRound: number;
+        equipTotal: number;
+        heroTotal: number;
+        arenaTotal: number;
+    } = null;
+}

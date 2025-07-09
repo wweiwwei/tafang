@@ -1,0 +1,77 @@
+using System.Collections.Immutable;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay;
+
+public class RogueManager : AbstractManager<RogueData>, IBaseManager
+{
+    public RogueManager(JToken saveData, PlayerDataManager ctx) : base(saveData, ctx)
+    {
+    }
+
+    public override void DailyRefresh()
+    {
+
+    }
+
+    public override void InitData()
+    {
+    }
+
+    [PartialUpdate("skillLv")]
+    public ImmutableDictionary<int, int> SkillLv()
+    {
+        return Data.skillLv;
+    }
+
+    [PartialUpdate("exSkillLv")]
+    public ImmutableDictionary<int, int> ExSkillLv()
+    {
+        return Data.exSkillLv;
+    }
+
+    [Update("curExSkill")]
+    public ImmutableArray<int> CurExSkill()
+    {
+        return Data.curExSkill;
+    }
+    [Handle("rogue/upgradeSkillLv")]
+    public void UpgradeSkillLv(int id)
+    {
+        GameAssert.Must(Ctx.Table.RogueSkillEnhanceTblMap.ContainsKey(id), "skill not exist");
+        var tbl = Ctx.Table.RogueSkillEnhanceTblMap[id];
+        var cost = AstUtil.Eval(tbl.Cost, new Dictionary<string, double>
+        {
+            {"lv", Data.skillLv.GetValueOrDefault(id, 0)}
+        });
+        Ctx.KnapsackManager.SubItem(new Item(GameConstant.CoinId, (long)Math.Round(cost)));
+        Data = Data with { skillLv = Data.skillLv.SetItem(id, Data.skillLv.GetValueOrDefault(id, 0) + 1) };
+        Ctx.Emit(CachePath.skillLv, id);
+    }
+
+    [Handle("rogue/upgradeExSkillLv")]
+    public void UpgradeExSkillLv(int id)
+    {
+        GameAssert.Must(Ctx.Table.RogueExSkillTblMap.ContainsKey(id), "exSkill not exist");
+        var finalLv = Data.exSkillLv.GetValueOrDefault(id, 0) + 1;
+        GameAssert.Expect(Ctx.Table.RogueExSkillEnhanceTblList.Any(t => t.SkillId == id && t.Level == finalLv), 101001);
+        var tbl = Ctx.Table.RogueExSkillEnhanceTblList.First(t => t.SkillId == id && t.Level == finalLv);
+        var preOk =
+        Data = Data with { exSkillLv = Data.exSkillLv.SetItem(id, Data.exSkillLv.GetValueOrDefault(id, 0) + 1) };
+        Ctx.Emit(CachePath.exSkillLv, id);
+    }
+
+    [Handle("rogue/changeExSkill")]
+    public void ChangeExSkill(int[] id)
+    {
+        GameAssert.Must(id.Length == 1, "exSkill len error");
+        var lv = Data.exSkillLv.GetValueOrDefault(id[0], 0);
+        GameAssert.Must(lv > 0, "exSkill lv error");
+        // todo 数据验证
+        Data = Data with { curExSkill = [.. id] };
+        Ctx.Emit(CachePath.curExSkill);
+    }
+
+
+
+}

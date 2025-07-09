@@ -1,0 +1,50 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import { CarEquipmentWrapper } from "../../entity/CarEquipment";
+import { EquipmentWrapper } from "../../entity/Equipment";
+import Item from "../../entity/Item";
+import WindowEquipmentDescription from "../hero/WindowEquipmentDescription";
+import WindowExchangeHero from "../hero/WindowExchangeHero";
+import WindowItemDescription from "./WindowItemDescription";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemItem2")
+@ccclass
+export default class ListItemItem2 extends UIListItem {
+    @autowired(UIButton) btn: UIButton = null;
+    @autowired(UIImage) bg: UIImage = null;
+    @autowired(UIImage) image: UIImage = null;
+    /**选中高亮 */
+    @autowired(UIImage) selected: UIImage = null;
+    /**选中图标 */
+    @autowired(UIImage) select: UIImage = null;
+
+    state: {
+        id: number;
+        // uid: number;
+        bg: string;
+        image: string;
+        cb?: Function;
+        /**高亮 */
+        selected?: boolean;
+        /**选中图标 */
+        select?: boolean;
+    };
+
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.image.imgName = state.image;
+        this.bg.imgName = state.bg;
+        this.select.node.active = state.select;
+        this.selected.node.active = state.selected;
+        this.btn.onClick = () => {
+            if (state.cb) {
+                state.cb(state.id);
+            }
+        };
+    }
+}

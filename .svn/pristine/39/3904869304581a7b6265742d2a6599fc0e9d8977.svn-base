@@ -1,0 +1,54 @@
+declare type BattleTargetBuilder = {
+    /** 该字段只是用来标志这个类型，没有任何含义，不要使用 */
+    _targetSign: symbol;
+    /** 升序，按属性从小到大排序。注意这是个排序规规则，需要用 take 限制数量 */
+    ascBy(p: PropertySign): BattleTargetBuilder;
+    /** 降序，按属性从大到小排序。注意这是个排序规规则，需要用 take 限制数量 */
+    descBy(p: PropertySign): BattleTargetBuilder;
+    /** 随机取多少个 */
+    random(count: number | string): BattleTargetBuilder;
+    /** 距离最近的多少个目标 */
+    near(count: number | string): BattleTargetBuilder;
+    /** 距离最近的多少个目标，并且优先攻击装备怪 */
+    nearAndEquipmentFirst(count: number | string): BattleTargetBuilder;
+    /** 选择最近的目标并且锁定，直到目标死亡才会更换目标 */
+    nearestLock(): BattleTargetBuilder;
+    // /** 距离底部最近的目标 */
+    // nearBottom(count: number | string): BattleTargetBuilder;
+    /** 合并另一个目标 */
+    concat(t: BattleTargetBuilder): BattleTargetBuilder;
+    /** 过滤条件 */
+    filter(condition: string): BattleTargetBuilder;
+    /** 选取数量 */
+    take(count: number | string): BattleTargetBuilder;
+    /** 按距离筛选 */
+    range(range: number | string): BattleTargetBuilder;
+    /** 按技能距离筛选 */
+    skillRange(): BattleTargetBuilder;
+    /** 以角色为中心的矩形 */
+    centerRect(width: number, height: number): BattleTargetBuilder;
+    /** 只攻击主角 */
+    onlyPlayer(): BattleTargetBuilder;
+};
+
+/** 基本目标 */
+declare let target: {
+    /** 自身 */
+    self: BattleTargetBuilder;
+    /** 自身队伍 */
+    selfTeam: BattleTargetBuilder;
+    /** 自身队伍（排除自身） */
+    selfTeamExcludeSelf: BattleTargetBuilder;
+    /** 敌方队伍 */
+    enemyTeam: BattleTargetBuilder;
+    /** 触发事件的源头 */
+    triggerEventSource: BattleTargetBuilder;
+    /** 触发事件的目标 */
+    triggerEventTarget: BattleTargetBuilder;
+    /** 已死亡队友 */
+    selfTeamDead: BattleTargetBuilder;
+    /** 敌方城墙 */
+    enemyWall: BattleTargetBuilder;
+    /** 我方城墙 */
+    selfWall: BattleTargetBuilder;
+};

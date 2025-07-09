@@ -1,0 +1,76 @@
+
+BodyHit_witch.png
+size: 866,106
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+The_strike_0000s_0000_01
+  rotate: false
+  xy: 716, 15
+  size: 72, 89
+  orig: 100, 149
+  offset: 21, 5
+  index: -1
+The_strike_0000s_0001_02
+  rotate: false
+  xy: 382, 2
+  size: 80, 102
+  orig: 100, 149
+  offset: 18, 7
+  index: -1
+The_strike_0000s_0002_03
+  rotate: false
+  xy: 548, 8
+  size: 84, 96
+  orig: 100, 149
+  offset: 14, 6
+  index: -1
+The_strike_0000s_0003_04
+  rotate: false
+  xy: 292, 11
+  size: 88, 93
+  orig: 100, 149
+  offset: 9, 8
+  index: -1
+The_strike_0000s_0004_05
+  rotate: true
+  xy: 153, 8
+  size: 96, 137
+  orig: 100, 149
+  offset: 4, 1
+  index: -1
+The_strike_0000s_0005_06
+  rotate: true
+  xy: 2, 12
+  size: 92, 149
+  orig: 100, 149
+  offset: 3, 0
+  index: -1
+The_strike_0000s_0006_07
+  rotate: false
+  xy: 634, 8
+  size: 80, 96
+  orig: 100, 149
+  offset: 6, 2
+  index: -1
+The_strike_0000s_0007_08
+  rotate: false
+  xy: 464, 5
+  size: 82, 99
+  orig: 100, 149
+  offset: 6, 3
+  index: -1
+The_strike_0000s_0008_09
+  rotate: true
+  xy: 790, 43
+  size: 61, 74
+  orig: 100, 149
+  offset: 8, 14
+  index: -1
+The_strike_0000s_0009_10
+  rotate: false
+  xy: 790, 10
+  size: 50, 31
+  orig: 100, 149
+  offset: 1, 18
+  index: -1

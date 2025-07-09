@@ -1,0 +1,270 @@
+import { BattleBattleStageContext } from "../../Processor/BattleBattleStageContext";
+import { BattleBattleStageData } from "../../Processor/BattleBattleStageData";
+import { BattleSkillManager } from "../../Skill/BattleSkillManager";
+import { BattleBuffManager } from "../Buff/BattleBuffManager";
+import { BattleStateManager } from "../State/BattleStateManager";
+import { BattleFSMManager } from "../StateMachine/BattleFSMManager";
+import { BattlePropertyManager } from "./BattlePropertyManager";
+import { BattleVec } from "../../Map/BattleVec";
+import { BattleUtils } from "../../Utils/BattleUtils";
+import { BattleMoveFSM } from "../StateMachine/FSM/BattleMoveFSM";
+import { BattleSkillFSM } from "../StateMachine/FSM/BattleSkillFSM";
+import { BattleObjectInfo } from "./BattleObjectInfo";
+import { BattleSkillTimer } from "../../Skill/Duration/BattleSkillTimer";
+import BattleFactory from "../../Utils/BattleFactory";
+import { BattlePhysicManager } from "../Physic/BattlePhysicManager";
+export class BattleBattleStageObject {
+    public ctx: BattleBattleStageContext;
+    /** 角色类型 */
+    public objectType: string;
+    /** 角色id */
+    public id: number;
+    /** 英雄位置 */
+    public heroIndex: number;
+    /** 存放一些这个单位的额外信息，一般和战斗无关，例如装备怪的品质等 */
+    public extraInfo: {
+        /** 装备怪品质 */
+        equipmentQuality?: number;
+        /** 装备怪唯一id */
+        equipmentMonsterUniqueId?: number;
+    } = {};
+
+    constructor(
+        /** 当前战场上下文 */
+        data: BattleBattleStageData,
+        /** 战场上物体的唯一id */
+        public uid: number,
+        /** 角色的位置 */
+        public position: number[],
+        /** 角色信息 */
+        public info: BattleObjectInfo,
+        /** 属于战场的哪一边，0是玩家侧，1是怪物侧 */
+        public teamSide: 0 | 1
+    ) {
+        this.id = info.id;
+        this.objectType = info.objectType;
+        this.heroIndex = info.heroIndex;
+        // 初始化
+        this.ctx = new BattleBattleStageContext(data, this, null);
+        this.physicManager = new BattlePhysicManager(this.ctx);
+        this.stateManager = new BattleStateManager(this.ctx);
+        this.buffManager = new BattleBuffManager(this.ctx);
+        this.propertyManager = new BattlePropertyManager(this.ctx);
+        this.skillManager = new BattleSkillManager(this.ctx);
+    }
+
+    reInit() {
+        this.stateManager.dispel();
+        this.buffManager.dispel();
+        this.initProperty();
+    }
+
+    get tbl() {
+        if (this.objectType === GConstant.battle.battleObjectType.monster) {
+            return GTable.getById("MonsterTbl", this.id);
+        } else if (this.objectType === GConstant.battle.battleObjectType.pet) {
+            return GTable.getById("DefendTowerTbl", this.id);
+        } else {
+            return GTable.getById("JobChangeTbl", this.id);
+        }
+    }
+
+    /** 获取图片资源 */
+    getImg() {
+        return this.tbl.img;
+    }
+
+    getSkin() {
+        const tbl = this.tbl as JobChangeTbl;
+        return tbl.skin ? tbl.skin : "default";
+    }
+
+    /** 显示血条 */
+    needShowBar() {
+        if (this.objectType !== GConstant.battle.battleObjectType.monster) return true;
+        const tbl = this.tbl as MonsterTbl;
+        return tbl.tag.includes("boss");
+    }
+
+    needShowLifeBar() {
+        if (this.ctx.data.ctx.battleKind === "infinite") return false;
+        return true;
+    }
+
+    getName() {
+        // todo 玩家名
+        return this.tbl.name;
+    }
+
+    /** 获取怪物移动类型 */
+    getMonsterMoveType() {
+        return GTable.getById("MonsterTbl", this.id).moveType;
+    }
+
+    /** 获取怪物攻击类型 */
+    getMonsterAttackType() {
+        return GTable.getById("MonsterTbl", this.id).attackType;
+    }
+    /** 物理效果管理器 */
+    physicManager: BattlePhysicManager;
+    /** 技能管理器 */
+    skillManager: BattleSkillManager;
+    /** 属性管理器 */
+    propertyManager: BattlePropertyManager;
+    /** 附加状态管理器 */
+    stateManager: BattleStateManager;
+    /** buff管理器 */
+    buffManager: BattleBuffManager;
+    /** 状态机管理器 */
+    fsmManager: BattleFSMManager;
+    /** 是否存活 */
+    get isAlive(): boolean {
+        return this.propertyManager.isAlive;
+    }
+
+    /** 普攻计时器 */
+    normalAttackTimer: BattleSkillTimer;
+
+    /** 锁定的最近敌人 */
+    lockNearest: number = -1;
+    /** 锁定的最远敌人 */
+    lockFarthest: number = -1;
+    /** 最近攻击自身的角色 */
+    attacker: number = -1;
+
+    preBattle() {
+        this.skillManager.preBattle();
+    }
+
+    initProperty() {
+        this.propertyManager.initProperty();
+    }
+
+    start() {
+        this.normalAttackTimer = new BattleSkillTimer(this.propertyManager.finalProperty.normalAttackInterval);
+        this.fsmManager = new BattleFSMManager(this.ctx);
+        this.fsmManager.init();
+    }
+
+    tick() {
+        this.propertyManager.tick();
+        // 更新普攻计时器
+        this.ctx.object.normalAttackTimer.tick(
+            this.ctx.object.propertyManager.finalProperty.normalAttackSpeed * 0.0001
+        );
+        // 更新状态机
+        this.fsmManager.tick();
+        this.skillManager.tick();
+        this.physicManager.tick();
+        this.buffManager.tick();
+    }
+
+    distance(obj: BattleBattleStageObject) {
+        if (
+            this.objectType === GConstant.battle.battleObjectType.wall ||
+            obj.objectType === GConstant.battle.battleObjectType.wall
+        ) {
+            // 与城墙的距离按照y轴距离计算
+            return Math.abs(this.position[1] - obj.position[1]);
+        }
+        return BattleVec.distance(this.position, obj.position);
+    }
+
+    onTriggerEvent(e: any) {
+        this.skillManager.onTriggerEvent(e);
+    }
+
+    static createHero(
+        data: BattleBattleStageData,
+        info: BattleObjectInfo,
+        nextStage: boolean,
+        teamSide: 0 | 1,
+        mode: "pvp" | "pve"
+    ) {
+        let pos: number[];
+        if (mode === "pve") {
+            const playerPos = data.mapInfo.getPlayerPos();
+            pos = [playerPos.x, playerPos.y];
+            // if (nextStage) pos[0] -= 400;
+        } else {
+            // todo pvp站位
+            if (teamSide === 0) {
+                pos = GConstant.battle.pvp.attackTeamPosition[info.heroIndex].map((e) => e);
+                pos[0] -= GConstant.battle.pvp.pvpEnterDistance;
+            } else {
+                pos = GConstant.battle.pvp.defendTeamPosition[info.heroIndex].map((e) => e);
+                pos[0] += GConstant.battle.pvp.pvpEnterDistance;
+            }
+        }
+        return new BattleBattleStageObject(data, data.uuidGenerator.uuid(), pos, info, teamSide);
+    }
+    static createPet(data: BattleBattleStageData, info: BattleObjectInfo, teamSide: 0 | 1) {
+        const { x, y } = data.mapInfo.getTowerPos()[info.heroIndex];
+        const pos = [x, y];
+        return new BattleBattleStageObject(data, data.uuidGenerator.uuid(), pos, info, teamSide);
+    }
+
+    // 塔防模式
+    static createWall(data: BattleBattleStageData, info: BattleObjectInfo, teamSide: 0 | 1) {
+        const wallPos = GConstant.battle.wallPos;
+        const pos = [wallPos.x, wallPos.y];
+        return new BattleBattleStageObject(data, data.uuidGenerator.uuid(), pos, info, teamSide);
+    }
+
+    static createMonster(
+        data: BattleBattleStageData,
+        monsterId: number,
+        env: any[],
+        pos: { x: number; y: number },
+        extraLv = 0
+    ) {
+        let newEnv = env;
+        if (extraLv !== 0) {
+            // 修改波数附加等级
+            newEnv = JSON.parse(JSON.stringify(env));
+            newEnv.forEach((item) => {
+                if (item.lv !== undefined) {
+                    item.lv += extraLv;
+                }
+            });
+        }
+        const info = BattleFactory.initMonster(data, monsterId, newEnv);
+        return new BattleBattleStageObject(data, data.uuidGenerator.uuid(), [pos.x, pos.y], info, 1);
+    }
+
+    private _animationSpeed() {
+        if (this.ctx.object.fsmManager.curFSM instanceof BattleMoveFSM) {
+            return this.propertyManager.finalProperty.moveSpeed / this.propertyManager.baseProperty.moveSpeed;
+        } else if (
+            this.fsmManager.curFSM instanceof BattleSkillFSM &&
+            this.skillManager.getCurSkill().skillCategory === "normalAttack"
+        ) {
+            return this.propertyManager.finalProperty.normalAttackSpeed * 0.0001;
+        } else {
+            return 1;
+        }
+    }
+
+    private _skillAnimationSpeed(): number {
+        const img = this.getImg();
+        const animation = this.fsmManager.viewModel.animation;
+        const spineTbl = GTable.getList("SpineAttackAnimationInfoTbl").find(
+            (t) => t.spine === img && t.animation === animation
+        );
+        if (!spineTbl) return 1;
+        return spineTbl.animationSpeed;
+    }
+
+    getAnimationSpeed() {
+        return this._animationSpeed() * this._skillAnimationSpeed();
+    }
+
+    getSpineTbl() {
+        const img = this.getImg();
+        const spineTbl = GTable.getList("SpineInfoTbl").find((t) => t.spine === img);
+        return spineTbl;
+    }
+    isShowSkillProcess(): boolean {
+        return this.skillManager.hasMainSkill();
+    }
+}

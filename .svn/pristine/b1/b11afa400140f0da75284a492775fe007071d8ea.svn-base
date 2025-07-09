@@ -1,0 +1,17 @@
+import { BattleTriggerEvent } from "../../../Event/BattleTriggerEvent";
+import { BattleSkill } from "../../BattleSkill";
+
+export interface IBattleSkillTrigger {
+    onAttack(skill: BattleSkill): boolean;
+
+    onEvent(skill: BattleSkill, e: BattleTriggerEvent): boolean;
+
+    onPassive(skill: BattleSkill): boolean;
+
+    reset(skill: BattleSkill): void;
+    tick(skill: BattleSkill): boolean;
+
+    init(skill: BattleSkill): void;
+
+    kind: "main" | "normalAttack" | "passive" | "event" | "independent" | "coldDown";
+}

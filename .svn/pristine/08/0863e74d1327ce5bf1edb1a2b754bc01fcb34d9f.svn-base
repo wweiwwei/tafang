@@ -1,0 +1,93 @@
+using System.Collections.Immutable;
+
+namespace GamePlay;
+
+public record Sprite(
+    int id,
+    int level,
+    int rank,
+    long exp,
+    /** 赋能等级 */
+    ImmutableArray<int> power
+)
+{
+    private Dictionary<string, double> Env(int index)
+    {
+        var m = new Dictionary<string, double>
+            {
+                { "lv", power[index] }
+            };
+        return m;
+    }
+    public MountTbl Tbl(PlayerDataManager Ctx)
+    {
+        return Ctx.Table.MountTblMap[id];
+    }
+    public bool CanUprank(PlayerDataManager Ctx)
+    {
+        var cost = UprankCost(Ctx);
+        if (cost != null)
+            return !IsMaxRank(Ctx) && exp >= cost;
+        else
+            return false;
+    }
+    public bool IsMaxLevel(PlayerDataManager Ctx)
+    {
+        return level > Ctx.Table.MountBaseLevelTblList.Length || level >= Ctx.Table.MountRankTblList.First(t => t.Level == rank).Limit;
+    }
+    public bool IsMaxRank(PlayerDataManager Ctx)
+    {
+        return rank >= Ctx.Table.MountRankTblList.Length;
+    }
+
+    public ImmutableArray<Item>? UpgradeCost(PlayerDataManager Ctx)
+    {
+        var tbl = Ctx.Table.MountBaseLevelTblList.FirstOrDefault(t => t.Level == level);
+        if (tbl != null)
+            return Item.FromItemArray(tbl.Require);
+        else return null;
+    }
+    public long UprankCost(PlayerDataManager Ctx)
+    {
+        var tbl = Ctx.Table.MountRankTblList.FirstOrDefault(t => t.Level == rank);
+        if (tbl != null)
+            return tbl.Require;
+        else return 0;
+    }
+
+    public int GetPowerLevel()
+    {
+        return power.Sum();
+    }
+    public bool IsPowerMaxLevel(PlayerDataManager ctx, int index)
+    {
+        return power[index] >= ctx.Table.MountPowerTblList[index].Limit;
+    }
+
+    public bool IsAllPowerMaxLevel(PlayerDataManager ctx)
+    {
+        return GetPowerLevel() >= ctx.Table.MountPowerLevelTblList.Length;
+    }
+    public ImmutableArray<Item> UpgradePowerRequire(PlayerDataManager ctx)
+    {
+        var tbl = ctx.Table.MountPowerLevelTblList.FirstOrDefault(t => t.Level == GetPowerLevel());
+        if (tbl == null) return ImmutableArray<Item>.Empty;
+        return ImmutableArray<Item>.Empty.Add(new Item(GameConstant.MountPowerRequireId, tbl.Require));
+    }
+
+    public int UpgradePower(PlayerDataManager ctx)
+    {
+        var tbl = ctx.Table.MountPowerTblList;
+        var weights = tbl.Select((t, i) =>
+        {
+            if (!IsPowerMaxLevel(ctx, i))
+            {
+                return (int)AstUtil.Eval(t.Weight, Env(i));
+            }
+            else return 0;
+        });
+        GameAssert.Must(weights.Any(w => w != 0), "power level error");
+        var index = RandomUtils.GetHappenedIndex(weights);
+        return index;
+    }
+};

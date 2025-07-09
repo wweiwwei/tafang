@@ -1,0 +1,28 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.near(1);
+    skill1.range = 1000;
+    let volume = Number(tbl.param3);
+    let tFire = template
+        .fireBullet()
+        .img("fan_skilltail")
+        .speed(300)
+        .scale(volume)
+        .curveType(2)
+        .curveParam(250)
+        .lockRotate(true)
+        .penetrateMode(true)
+        .penetrateCount(999)
+        .penetrateRect([100 * volume, 100 * volume, 180 * volume, 0 * volume])
+        .penetrateDuration(4000);
+    tFire.target = target.enemyTeam.random(tbl.param4);
+    let tAfterBulletHit = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*" + tbl.param2 + "+self.sp.s10")
+        .addEffect(effect.offset(0, 20).effectName("fan_generaltail").effectAnimation("skillattack"));
+    tFire.afterHit = tAfterBulletHit;
+    skill1.next = tFire;
+}

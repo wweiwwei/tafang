@@ -1,0 +1,162 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIListItem from "../../../framework/ui/UIListItem";
+import { CarEquipmentWrapper } from "../../entity/CarEquipment";
+import { EquipmentWrapper } from "../../entity/Equipment";
+import Item from "../../entity/Item";
+import WindowEquipmentDescription from "../hero/WindowEquipmentDescription";
+import WindowExchangeHero from "../hero/WindowExchangeHero";
+import WindowItemDescription from "./WindowItemDescription";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemItem")
+@ccclass
+export default class ListItemItem extends UIListItem {
+    @autowired(UIButton) btn: UIButton = null;
+    @autowired(UIImage) bg: UIImage = null;
+    @autowired(UIImage) image: UIImage = null;
+    @autowired(UIImage) new: UIImage = null;
+    @autowired(UIImage) debris: UIImage = null;
+    @autowired(UILabel) count: UILabel = null;
+    @autowired(UILabel) rank: UILabel = null;
+    @autowired(UILabel) level: UILabel = null;
+    @autowired(UIImage) tips: UIImage = null;
+    @autowired(UIImage) answer: UIImage = null;
+
+    state: {
+        carEquipment?: CarEquipmentWrapper;
+        equipment?: EquipmentWrapper;
+        handbookItem?: any;
+        item?: Item;
+        mount?: Item;
+        status: number; //0-可点击，1-不可点击
+        page?: number; //0-图鉴装备 1-战车部件
+        new?: boolean;
+        debris?: boolean;
+        clickCb?: Function; //点击回调
+        tipsState?: boolean;
+        isShowAnswerIcon?: boolean;
+    };
+    setState(state: this["state"]): void {
+        console.log("state =", state);
+        this.state = state;
+        this.answer.node.active = state.isShowAnswerIcon == true;
+        this.tips.node.active = false;
+        if (state.tipsState) this.tips.node.active = state.tipsState;
+        this.btn.interactable = this.state.status === 0;
+        this.new.node.active = this.state.new;
+        this.debris.node.active = this.state.debris;
+        if (this.state.handbookItem) {
+            let own = null;
+            if (this.state.page === 0) {
+                this.level.node.active = false;
+                own = GModel.hero.getEquipmentById(this.state.handbookItem.id);
+                if (own) {
+                    const rank = own.getHasGetMaxRank(this.state.handbookItem.id);
+                    if (rank === 0) {
+                        this.rank.node.active = false;
+                    } else {
+                        this.rank.setText(["_rs+" + rank]);
+                    }
+                } else {
+                    this.btn.setGrey(true);
+                    this.rank.node.active = false;
+                }
+            } else if (this.state.page === 1) {
+                this.rank.node.active = false;
+                own = GModel.car.getCarEquipmentById(this.state.handbookItem.id);
+                if (own) {
+                    const level = own.getHasGetMaxLevel(this.state.handbookItem.id);
+                    if (level === 0) {
+                        this.level.node.active = false;
+                    } else {
+                        this.level.setText(["_rslv." + level]);
+                    }
+                } else {
+                    this.btn.setGrey(true);
+                    this.rank.node.active = false;
+                }
+            }
+            this.node.scale = 1.2;
+            this.count.node.active = false;
+            this.image.imgName = this.state.handbookItem.img;
+            this.bg.imgName = GConstant.itemQualityBg[this.state.handbookItem.quality];
+        } else if (this.state.equipment) {
+            this.rank.node.active = this.state.equipment.rank > 0;
+            this.level.node.active = true;
+            this.image.imgName = this.state.equipment.getTbl().img;
+            this.bg.imgName = GConstant.itemQualityBg[this.state.equipment.getTbl().quality];
+            this.count.setText(["_rsx" + GUtils.ui.getNumberString(this.state.equipment.count, 1)]);
+            this.level.setText(["_rslv." + this.state.equipment.level]);
+            this.rank.setText(["_rs+" + this.state.equipment.rank]);
+            this.btn.onClick = () => {
+                GWindow.open(WindowEquipmentDescription, {
+                    equipment: this.state.equipment,
+                    carEquipment: null,
+                    status: 1,
+                });
+            };
+        } else if (this.state.item) {
+            // this.rank.node.active = false;
+            // this.level.node.active = false;
+            // this.count.setText(Item.getCountString(this.state.item));
+            // this.image.imgName = Item.getImg(this.state.item);
+            // this.bg.imgName = GConstant.itemQualityBg[Item.getQuality(this.state.item)];
+            // this.btn.onClick = () => {
+            //     if (state.item.id == 30025 && cc.find("Canvas/window/WindowKnapsack")) {
+            //         GWindow.open(WindowExchangeHero, { exchaneMax: this.state.item.count, itemId: 30025 });
+            //     } else {
+            //         GWindow.open(WindowItemDescription, { item: this.state.item });
+            //     }
+            // };
+
+            this.rank.node.active = false;
+            this.level.node.active = false;
+            // console.log("this.state.item =", this.state.item);
+            this.count.setText(Item.getCountString(this.state.item));
+            this.image.imgName = Item.getImg(this.state.item);
+            this.bg.imgName = GConstant.itemQualityBg[Item.getQuality(this.state.item)];
+            this.btn.onClick = () => {
+                if (state.clickCb) {
+                    state.clickCb();
+                    return;
+                }
+                if (
+                    GTable.getById("ItemTbl", this.state.item.id).kind == 122 &&
+                    cc.find("Canvas/window/WindowKnapsack")
+                ) {
+                    GWindow.open(WindowExchangeHero, { exchaneMax: this.state.item.count, itemId: this.state.item.id });
+                } else if (GTable.getById("ItemTbl", this.state.item.id).kind == 1033) {
+                    // GWindow.open(WindowOpenStone, { item: this.state.item });
+                } else {
+                    // console.log("item =", this.state.item);
+                    GWindow.open(WindowItemDescription, { item: this.state.item });
+                }
+            };
+        }
+        // else if (this.state.mount) {
+        //     let tbl=GTable.getById("MountTbl",state.mount.id)
+        //     this.image.imgName = this.state.equipment.getTbl().img;
+        //     this.bg.imgName = GConstant.itemQualityBg[this.state.equipment.getTbl().quality];
+        //     this.count.setText(["_rsx" + GUtils.ui.getNumberString(this.state.mount.count, 1)]);
+        // }
+        else {
+            this.rank.node.active = false;
+            this.level.node.active = true;
+            this.image.imgName = this.state.carEquipment.getTbl().img;
+            this.bg.imgName = GConstant.itemQualityBg[this.state.carEquipment.getTbl().quality];
+            this.count.setText(["_rsx" + GUtils.ui.getNumberString(this.state.carEquipment.count, 1)]);
+            this.level.setText(["_rslv." + this.state.carEquipment.level]);
+            this.btn.onClick = () => {
+                GWindow.open(WindowEquipmentDescription, {
+                    equipment: null,
+                    carEquipment: this.state.carEquipment,
+                    status: 1,
+                });
+            };
+        }
+    }
+}

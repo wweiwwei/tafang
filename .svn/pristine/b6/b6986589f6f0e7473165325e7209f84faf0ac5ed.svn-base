@@ -1,0 +1,23 @@
+import { BattleUtils } from "../Utils/BattleUtils";
+
+export class BattleMapInfo {
+    private tbl: BattleSceneInfoTbl;
+
+    constructor(public mapName: string) {
+        this.tbl = GTable.getList("BattleSceneInfoTbl").find((t) => t.prefab === mapName);
+    }
+
+    getPlayerPos(): { x: number; y: number } {
+        const [x, y] = this.tbl.playerPos;
+        return { x, y };
+    }
+
+    getTowerPos(): { x: number; y: number }[] {
+        return this.tbl.towerPos.map(([x, y]) => ({ x, y }));
+    }
+
+    getBossPos(): { x: number; y: number } {
+        const [x, y] = this.tbl.bossPos;
+        return { x, y };
+    }
+}

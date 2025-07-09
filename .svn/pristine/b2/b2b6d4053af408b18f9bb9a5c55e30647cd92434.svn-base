@@ -1,0 +1,90 @@
+
+fan_generaltail.png
+size: 509,510
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/cici
+  rotate: false
+  xy: 2, 321
+  size: 186, 187
+  orig: 213, 214
+  offset: 15, 13
+  index: -1
+effect/daoguang
+  rotate: true
+  xy: 482, 63
+  size: 173, 25
+  orig: 175, 26
+  offset: 0, 1
+  index: -1
+effect/daoguang00
+  rotate: false
+  xy: 314, 47
+  size: 137, 84
+  orig: 142, 92
+  offset: 3, 3
+  index: -1
+effect/ps_1
+  rotate: true
+  xy: 164, 2
+  size: 141, 148
+  orig: 141, 148
+  offset: 0, 0
+  index: -1
+effect/ps_2
+  rotate: false
+  xy: 2, 12
+  size: 160, 150
+  orig: 160, 150
+  offset: 0, 0
+  index: -1
+effect/ps_3
+  rotate: true
+  xy: 358, 343
+  size: 165, 149
+  orig: 165, 149
+  offset: 0, 0
+  index: -1
+effect/ps_4
+  rotate: false
+  xy: 190, 355
+  size: 166, 153
+  orig: 166, 153
+  offset: 0, 0
+  index: -1
+effect/ps_5
+  rotate: false
+  xy: 2, 164
+  size: 166, 155
+  orig: 166, 155
+  offset: 0, 0
+  index: -1
+effect/xf001
+  rotate: false
+  xy: 190, 250
+  size: 154, 103
+  orig: 154, 103
+  offset: 0, 0
+  index: -1
+effect/xf002
+  rotate: false
+  xy: 346, 238
+  size: 154, 103
+  orig: 154, 103
+  offset: 0, 0
+  index: -1
+effect/xf003
+  rotate: false
+  xy: 170, 145
+  size: 154, 103
+  orig: 154, 103
+  offset: 0, 0
+  index: -1
+effect/xf004
+  rotate: false
+  xy: 326, 133
+  size: 154, 103
+  orig: 154, 103
+  offset: 0, 0
+  index: -1

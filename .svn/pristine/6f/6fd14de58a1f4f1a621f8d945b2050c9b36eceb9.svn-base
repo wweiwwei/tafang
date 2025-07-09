@@ -1,0 +1,77 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowMonthCard")
+@ccclass
+export default class WindowMonthCard extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    /**剩余时间 */
+    @autowired(UILabel) label1: UILabel = null;
+    /**剩余时间 */
+    @autowired(UILabel) label2: UILabel = null;
+    /**立即获得 */
+    @autowired(UILabel) get1: UILabel = null;
+    /**立即获得 */
+    @autowired(UILabel) get2: UILabel = null;
+    /**每日获得 */
+    @autowired(UIRichText) everyday1: UIRichText = null;
+    /**每日获得 */
+    @autowired(UIRichText) everyday2: UIRichText = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**购买月卡 */
+    @autowired(UIButton) purchase1: UIButton = null;
+    /**购买永久卡 */
+    @autowired(UIButton) purchase2: UIButton = null;
+    _windowParam: any;
+    _returnValue: any;
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.purchase1.onClick = () => {
+            // GModel.charge.pay(GConstant.monthCardId,"")
+            GModel.charge.pay(GConstant.monthCardId, "");
+        };
+        this.purchase2.onClick = () => {
+            // GModel.charge.pay(GConstant.permanentId,"")
+            GModel.charge.pay(GConstant.permanentId, "");
+        };
+        let tbl = GTable.getList("MonthCardTbl");
+        let monthCardtbl = tbl.find((t) => t.id === GConstant.monthCardId);
+        let permanenttbl = tbl.find((t) => t.id === GConstant.permanentId);
+        this.purchase1.text.setText(["_rs￥" + GTable.getById("ChargeTbl", monthCardtbl.id).cny / 100]);
+        this.purchase2.text.setText(["_rs￥" + GTable.getById("ChargeTbl", permanenttbl.id).cny / 100]);
+        this.get1.setText(["_rs" + Item.fromItemArray(monthCardtbl.purchase)[0].count]);
+        this.get2.setText(["_rs" + Item.fromItemArray(permanenttbl.purchase)[0].count]);
+        let monthReward = Item.fromItemArray(monthCardtbl.reward);
+        let permanentReward = Item.fromItemArray(permanenttbl.reward);
+        let string1 = monthReward.map((t) => {
+            return `<img src='${Item.getImg(t)}'/>${t.count}`;
+        });
+        let string2 = permanentReward.map((t) => {
+            return `<img src='${Item.getImg(t)}'/>${t.count}`;
+        });
+        this.everyday1.setText(["_rs<outline color=#000000 width=2>" + string1 + "</outline>"]);
+        this.everyday2.setText(["_rs<outline color=#000000 width=2>" + string2 + "</outline>"]);
+        this.textInit();
+    }
+    @message([EventName.stateKey.chargeData])
+    async textInit() {
+        let remain = await GModel.charge.checkMonthRemain();
+        let active = GState.data.chargeData.month2.active;
+        this.label1.setText(remain > 0 ? [GLang.code.ui.last_day, "_rs" + remain] : [GLang.code.ui.not_active]);
+        this.label2.setText([active ? GLang.code.ui.already_actived : GLang.code.ui.not_active]);
+        this.purchase2.setGrey(active);
+        this.purchase2.setEnable(!active);
+    }
+}

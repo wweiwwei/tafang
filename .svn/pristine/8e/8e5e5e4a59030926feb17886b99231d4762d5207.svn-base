@@ -1,0 +1,391 @@
+
+role_supporrabbit.png
+size: 598,519
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Staff
+  rotate: false
+  xy: 2, 285
+  size: 20, 232
+  orig: 20, 232
+  offset: 0, 0
+  index: -1
+back_arm2
+  rotate: false
+  xy: 340, 295
+  size: 54, 72
+  orig: 54, 72
+  offset: 0, 0
+  index: -1
+back_cloth
+  rotate: true
+  xy: 265, 286
+  size: 81, 41
+  orig: 81, 42
+  offset: 0, 1
+  index: -1
+back_foot
+  rotate: true
+  xy: 421, 317
+  size: 51, 23
+  orig: 51, 23
+  offset: 0, 0
+  index: -1
+back_hand2
+  rotate: false
+  xy: 538, 148
+  size: 55, 30
+  orig: 55, 30
+  offset: 0, 0
+  index: -1
+back_hand3
+  rotate: true
+  xy: 446, 278
+  size: 87, 94
+  orig: 87, 94
+  offset: 0, 0
+  index: -1
+back_leg
+  rotate: true
+  xy: 421, 12
+  size: 86, 59
+  orig: 86, 59
+  offset: 0, 0
+  index: -1
+back_leg2
+  rotate: true
+  xy: 542, 237
+  size: 43, 53
+  orig: 43, 53
+  offset: 0, 0
+  index: -1
+back_yixiu
+  rotate: false
+  xy: 308, 287
+  size: 30, 80
+  orig: 30, 80
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 2, 113
+  size: 170, 158
+  orig: 170, 158
+  offset: 0, 0
+  index: -1
+body_yixiu
+  rotate: true
+  xy: 410, 178
+  size: 49, 32
+  orig: 49, 32
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: false
+  xy: 24, 349
+  size: 137, 168
+  orig: 137, 168
+  offset: 0, 0
+  index: -1
+effect/Skill/sf0001
+  rotate: false
+  xy: 392, 138
+  size: 64, 38
+  orig: 171, 138
+  offset: 98, 17
+  index: -1
+effect/Skill/sf0003
+  rotate: false
+  xy: 446, 219
+  size: 90, 57
+  orig: 171, 138
+  offset: 78, 15
+  index: -1
+effect/Skill/sf0005
+  rotate: true
+  xy: 320, 17
+  size: 113, 99
+  orig: 171, 138
+  offset: 52, 18
+  index: -1
+effect/Skill/sf0007
+  rotate: true
+  xy: 163, 357
+  size: 160, 97
+  orig: 171, 138
+  offset: 5, 22
+  index: -1
+effect/Skill/sf0009
+  rotate: true
+  xy: 162, 130
+  size: 154, 92
+  orig: 171, 138
+  offset: 8, 24
+  index: -1
+effect/Skill/sf0011
+  rotate: true
+  xy: 256, 132
+  size: 152, 94
+  orig: 171, 138
+  offset: 9, 19
+  index: -1
+effect/Skill/sf0013
+  rotate: false
+  xy: 446, 367
+  size: 131, 88
+  orig: 171, 138
+  offset: 10, 22
+  index: -1
+effect/Skill/sf0015
+  rotate: true
+  xy: 234, 2
+  size: 126, 84
+  orig: 171, 138
+  offset: 12, 24
+  index: -1
+effect/Skill/sf0017
+  rotate: true
+  xy: 152, 11
+  size: 100, 80
+  orig: 171, 138
+  offset: 16, 24
+  index: -1
+effect/Skill/star0001
+  rotate: false
+  xy: 218, 118
+  size: 10, 10
+  orig: 26, 33
+  offset: 8, 13
+  index: -1
+effect/Skill/star0002
+  rotate: false
+  xy: 218, 118
+  size: 10, 10
+  orig: 26, 33
+  offset: 8, 13
+  index: -1
+effect/Skill/star0003
+  rotate: false
+  xy: 458, 151
+  size: 19, 26
+  orig: 26, 33
+  offset: 3, 4
+  index: -1
+effect/Skill/star0004
+  rotate: false
+  xy: 458, 151
+  size: 19, 26
+  orig: 26, 33
+  offset: 3, 4
+  index: -1
+effect/Skill/star0005
+  rotate: false
+  xy: 396, 337
+  size: 23, 31
+  orig: 26, 33
+  offset: 1, 2
+  index: -1
+effect/Skill/star0006
+  rotate: false
+  xy: 396, 337
+  size: 23, 31
+  orig: 26, 33
+  offset: 1, 2
+  index: -1
+effect/Skill/star0007
+  rotate: true
+  xy: 420, 290
+  size: 25, 24
+  orig: 26, 33
+  offset: 0, 6
+  index: -1
+effect/Skill/star0008
+  rotate: true
+  xy: 420, 290
+  size: 25, 24
+  orig: 26, 33
+  offset: 0, 6
+  index: -1
+effect/Skill/star0009
+  rotate: true
+  xy: 396, 309
+  size: 26, 22
+  orig: 26, 33
+  offset: 0, 8
+  index: -1
+effect/Skill/star0010
+  rotate: false
+  xy: 207, 117
+  size: 9, 11
+  orig: 26, 33
+  offset: 8, 12
+  index: -1
+effect/atk/ATK2-30001
+  rotate: true
+  xy: 482, 83
+  size: 30, 31
+  orig: 64, 65
+  offset: 17, 17
+  index: -1
+effect/atk/ATK2-30002
+  rotate: true
+  xy: 479, 115
+  size: 49, 51
+  orig: 64, 65
+  offset: 7, 7
+  index: -1
+effect/atk/ATK2-30003
+  rotate: false
+  xy: 151, 286
+  size: 61, 61
+  orig: 64, 65
+  offset: 1, 2
+  index: -1
+effect/atk/ATK2-30004
+  rotate: false
+  xy: 532, 83
+  size: 63, 63
+  orig: 64, 65
+  offset: 0, 1
+  index: -1
+effect/atk/ATK2-30005
+  rotate: true
+  xy: 352, 229
+  size: 64, 65
+  orig: 64, 65
+  offset: 0, 0
+  index: -1
+effect/atk/ATK2-30006
+  rotate: false
+  xy: 514, 20
+  size: 60, 61
+  orig: 64, 65
+  offset: 3, 4
+  index: -1
+effect/atk/ATK2-30007
+  rotate: false
+  xy: 481, 166
+  size: 55, 51
+  orig: 64, 65
+  offset: 6, 6
+  index: -1
+effect/atk/atk_01
+  rotate: false
+  xy: 162, 113
+  size: 43, 15
+  orig: 60, 55
+  offset: 0, 19
+  index: -1
+effect/atk/atk_02
+  rotate: false
+  xy: 538, 180
+  size: 58, 55
+  orig: 60, 55
+  offset: 2, 0
+  index: -1
+effect/atk/atk_03
+  rotate: true
+  xy: 352, 134
+  size: 44, 38
+  orig: 60, 55
+  offset: 10, 9
+  index: -1
+effect/atk/eff_guang
+  rotate: false
+  xy: 542, 282
+  size: 53, 55
+  orig: 74, 74
+  offset: 10, 10
+  index: -1
+finger
+  rotate: true
+  xy: 444, 179
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+front_arm
+  rotate: false
+  xy: 214, 286
+  size: 49, 69
+  orig: 49, 69
+  offset: 0, 0
+  index: -1
+front_foot
+  rotate: true
+  xy: 419, 233
+  size: 55, 25
+  orig: 55, 25
+  offset: 0, 0
+  index: -1
+front_foot2
+  rotate: false
+  xy: 542, 339
+  size: 54, 26
+  orig: 54, 26
+  offset: 0, 0
+  index: -1
+front_hand
+  rotate: false
+  xy: 81, 286
+  size: 68, 61
+  orig: 68, 62
+  offset: 0, 1
+  index: -1
+front_hand2
+  rotate: true
+  xy: 421, 100
+  size: 36, 50
+  orig: 36, 50
+  offset: 0, 0
+  index: -1
+front_leg
+  rotate: true
+  xy: 24, 285
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+front_leg2
+  rotate: true
+  xy: 352, 180
+  size: 47, 56
+  orig: 47, 56
+  offset: 0, 0
+  index: -1
+front_yixiu
+  rotate: true
+  xy: 482, 13
+  size: 68, 30
+  orig: 68, 30
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 5
+  size: 148, 106
+  orig: 148, 106
+  offset: 0, 0
+  index: -1
+hip
+  rotate: true
+  xy: 262, 369
+  size: 148, 97
+  orig: 148, 97
+  offset: 0, 0
+  index: -1
+left_ear
+  rotate: true
+  xy: 446, 457
+  size: 60, 146
+  orig: 60, 146
+  offset: 0, 0
+  index: -1
+right_ear
+  rotate: false
+  xy: 361, 370
+  size: 83, 147
+  orig: 83, 147
+  offset: 0, 0
+  index: -1

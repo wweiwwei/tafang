@@ -1,0 +1,139 @@
+import { BattleTriggerEvent } from "../Event/BattleTriggerEvent";
+import { BattleBattleStageContext } from "../Processor/BattleBattleStageContext";
+import { BattleSkill } from "./BattleSkill";
+import { BattleBuilderEnv } from "./Builder/BattleBuilderEnv";
+import { BattleTriggerColdDown } from "./Builder/Trigger/BattleTriggerColdDown";
+
+export class BattleSkillManager {
+    constructor(public ctx: BattleBattleStageContext) {
+        if (this.ctx.object.objectType === GConstant.battle.battleObjectType.wall) return;
+        const info = this.ctx.object.info;
+        const all = [...info.independentSkill, ...info.mainSkill, ...info.otherSkill, info.normalAttack];
+        // 初始化flag
+        all.forEach(({ id, level }) => {
+            const tbl = GTable.getById("BattleSkillTbl", id);
+            tbl.flag.forEach((f) => this.ctx.object.propertyManager.heroFlag.push(f));
+        });
+        const spineTbl = this.ctx.object.getSpineTbl();
+        const normalAttackSkills = BattleBuilderEnv.getSkills(
+            info.normalAttack.id,
+            info.normalAttack.level,
+            this.ctx.object,
+            spineTbl
+        );
+        const others = GUtils.array
+            .chain(info.otherSkill)
+            .flatMap(({ id, level }) => BattleBuilderEnv.getSkills(id, level, this.ctx.object, spineTbl))
+            .unwrap();
+        const mains = GUtils.array
+            .chain(info.mainSkill)
+            .flatMap(({ id, level }) => BattleBuilderEnv.getSkills(id, level, this.ctx.object, spineTbl))
+            .unwrap();
+        const independents = GUtils.array
+            .chain(info.independentSkill)
+            .flatMap(({ id, level }) => BattleBuilderEnv.getSkills(id, level, this.ctx.object, spineTbl))
+            .unwrap();
+        const allSkills = [...normalAttackSkills, ...others, ...mains, ...independents];
+        allSkills.forEach((skill) => {
+            switch (skill.skillCategory) {
+                case "independent":
+                    this.independentSkill.push(skill);
+                    break;
+                case "main":
+                    this.mainSkill.push(skill);
+                    break;
+                case "passive":
+                    this.passiveSkill.push(skill);
+                    break;
+                case "normalAttack":
+                    this.normalAttack = skill;
+                    break;
+            }
+        });
+    }
+
+    /** 普攻 */
+    private normalAttack: BattleSkill = null;
+    /** 独立技能 */
+    private independentSkill: BattleSkill[] = [];
+    /** 怒气技能 */
+    private mainSkill: BattleSkill[] = [];
+    /** 其他所有技能 */
+    private passiveSkill: BattleSkill[] = [];
+
+    private curSkill: BattleSkill = null;
+
+    hasMainSkill() {
+        return this.mainSkill.length > 0;
+    }
+
+    getMainSkillProcess() {
+        const t = this.mainSkill[0].trigger as BattleTriggerColdDown;
+        const frame = this.ctx.data.frame;
+        return (frame - t.lastLaunch) / t.interval;
+    }
+
+    onTriggerEvent(e: BattleTriggerEvent) {
+        this.passiveSkill.filter((x) => x.onEvent(e)).forEach((x) => x.start(e));
+    }
+
+    onEnter() {
+        this.normalAttack.onEnter();
+        this.mainSkill.forEach((s) => s.onEnter());
+        this.independentSkill.forEach((s) => s.onEnter());
+        this.passiveSkill.forEach((s) => s.onEnter());
+    }
+
+    onQuit() {
+        this.normalAttack.onQuit();
+        this.mainSkill.forEach((s) => s.onQuit());
+        this.independentSkill.forEach((s) => s.onQuit());
+        this.passiveSkill.forEach((s) => s.onQuit());
+    }
+
+    preBattle() {
+        this.passiveSkill.forEach((s) => {
+            const tbl = GTable.getById("BattleSkillTbl", s.id);
+            tbl.flag.forEach((f) => this.ctx.object.propertyManager.heroFlag.push(f));
+        });
+        // todo
+        // this.skill.filter((s) => s.graph.skillType === "prebattle").forEach((s) => s.launchDirect());
+    }
+
+    getNormalAttack(): BattleSkill {
+        return this.normalAttack;
+    }
+
+    tick() {
+        this.independentSkill.forEach((s) => s.independentTick());
+    }
+
+    /** 下一个可以主动释放的技能，已检测异常状态影响，所以该技能一定可以释放。没有任何技能可释放返回null */
+    nextLaunchSkill(): BattleSkill | null {
+        const readyMainSkill = this.mainSkill.filter((s) => s.onAttack())[0];
+        if (readyMainSkill) return readyMainSkill;
+        if (this.normalAttack.onAttack()) return this.normalAttack;
+        return null;
+    }
+
+    /** 下一个可以释放的技能，优先可达性 */
+    nextLaunchAndReachableSkill(): BattleSkill | null {
+        const readyMainSkill = this.mainSkill.filter((s) => s.onAttack())[0];
+        if (readyMainSkill && readyMainSkill.isPosCanLaunch()) return readyMainSkill;
+        if (this.normalAttack.onAttack()) return this.normalAttack;
+        return null;
+    }
+
+    setCurrentSkill(skill: BattleSkill) {
+        this.curSkill = skill;
+    }
+
+    getCurSkill() {
+        return this.curSkill;
+    }
+
+    endCurSkill() {
+        this.curSkill.endSkill();
+        this.curSkill = null;
+    }
+}

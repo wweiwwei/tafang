@@ -1,0 +1,63 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import ListItemItem from "../../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemRogueEquipment")
+@ccclass
+export default class ListItemRogueEquipment extends UIListItem {
+    /** */
+    @autowired(UIButton) click: UIButton = null;
+    @autowired(UILabel) nameLab: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UIImage) bg: UIImage = null;
+
+    /**确认 */
+    @autowired(UIButton) confirm: UIButton = null;
+    /**高亮*/
+    @autowired(UIImage) high: UIImage = null;
+    /**新装备 */
+    @autowired(UIImage) newEquipment: UIImage = null;
+    @autowired(UIImage) quality: UIImage = null;
+
+    state: {
+        index: number;
+        id: number;
+        cb: Function;
+        // playAnim: boolean;
+        touchIndex: number;
+        touchCb: Function;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.high.node.active = false;
+        this.confirm.node.active = false;
+
+        if (state.touchIndex == state.index) {
+            this.high.node.active = true;
+            this.confirm.node.active = true;
+        }
+        const api = GBattleApiManager.getBattleStageApi(0);
+        let data = api.rogueEquipmentManager().getAllStorage();
+        this.newEquipment.node.active = data.find((d) => d.id == state.id) ? false : true;
+        const tbl = GTable.getById("RogueEquipmentTbl", this.state.id);
+        this.img.imgName = tbl.img;
+
+        this.click.onClick = () => {
+            state.touchCb(state.index);
+        };
+
+        this.bg.imgName = GConstant.getRogueEquipmentQualityBg(tbl.quality);
+
+        this.confirm.onClick = () => {
+            this.state.cb();
+            this.high.node.active = true;
+        };
+        this.nameLab.setText([tbl.name]);
+        this.desc.setText([tbl.description]);
+    }
+}

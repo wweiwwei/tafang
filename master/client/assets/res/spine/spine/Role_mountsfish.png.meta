@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "cac6ee52-8a9e-4944-be3d-d2718741baf1",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 454,
+  "height": 229,
+  "platformSettings": {},
+  "subMetas": {
+    "Role_mountsfish": {
+      "ver": "1.0.6",
+      "uuid": "725bc6a6-c83c-4bc7-9ab9-20d0053f3de4",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "cac6ee52-8a9e-4944-be3d-d2718741baf1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 450,
+      "height": 225,
+      "rawWidth": 454,
+      "rawHeight": 229,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

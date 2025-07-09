@@ -1,0 +1,95 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import EventBus from "../../../framework/event/EventBus";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemBattleSkill from "../battle/rogue/ListItemBattleSkill";
+import ListItemRogueGift from "./ListItemRogueGift";
+import WindowSkillDetails from "./WindowSkillDetails";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowRogueGift")
+@ccclass
+export default class WindowRogueGift extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIButton) refreshAd: UIButton = null;
+    @autowired(UIButton) refresh: UIButton = null;
+    @autowired(UIList) uiList1: UIList<ListItemRogueGift> = null;
+    @autowired(UIList) uiList2: UIList<ListItemBattleSkill> = null;
+
+    protected onInited(): void {
+        this.refreshUI();
+    }
+
+    refreshUI() {
+        this.closeBtn.onClick = () => {
+            // this.close();
+        };
+
+        this.refreshAd.onClick = () => {
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                api.rogueEquipmentManager().reRollRare();
+                this.refreshUI();
+            }
+        };
+        this.refresh.onClick = () => {
+            // this.close();
+            const api = GBattleApiManager.getBattleStageApi(0);
+            if (api) {
+                api.rogueEquipmentManager().confirmRare();
+                this.close();
+            }
+        };
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            let id = api.rogueEquipmentManager().curRare;
+            let a = GTable.getById("RogueEquipmentTbl", id);
+            this.uiList1.setState([{ name: a.name, img: a.img }]);
+            this.desc.setText([a.description]);
+        }
+
+        this.refSkill();
+    }
+
+    refSkill() {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        const skillInfo = api.getSkillInfo();
+        const state = skillInfo.map(({ progress, info }, index) => {
+            const tbl = GTable.getById("RogueSkillDetailTbl", info.relateSkillId);
+            return {
+                img: tbl.img,
+                id: tbl.id,
+                progress: 1,
+                cb: async () => {
+                    // await GWindow.open(WindowSkillDetails, { id: tbl.id, index });
+                },
+            };
+        });
+        // for (let i = skillInfo.length; i < 6; i++) {
+        //     state.push({
+        //         img: "",
+        //         id: -1,
+        //         progress: 0,
+        //         cb: null,
+        //     });
+        // }
+        this.uiList2.setState(state);
+    }
+
+    protected update(dt: number): void {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (!api) this.close();
+    }
+}

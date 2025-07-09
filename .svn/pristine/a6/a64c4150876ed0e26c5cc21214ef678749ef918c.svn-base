@@ -1,0 +1,20 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.nearBottom(1);
+    skill1.range = Number(tbl.param3);
+    let tFire = template.fireBullet().img("Fireball_Skill").speed(1500).scale(1).curveType(2).curveParam(0);
+    tFire.target = target.enemyTeam.nearBottom("self.sp.fireCount");
+    let tAfterBulletHit = template
+        .damage()
+        .value(tbl.param2)
+        .addEffect(effect.offset(0, 20).effectName("BodyHit_witch").effectAnimation("skillattack"));
+    tFire.afterHit = tAfterBulletHit;
+    skill1.next = tFire;
+    if (condition.checkFlag("fireExplosion")) {
+        let tExplode = template.explosion().range(100).onlyEnemy();
+        tAfterBulletHit.afterHit = tExplode;
+        let tExplodeDamage = template.damage().value(tbl.param2 + "*0.4");
+        tExplode.afterHit = tExplodeDamage;
+    }
+}

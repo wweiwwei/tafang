@@ -1,0 +1,168 @@
+using System.Collections.Immutable;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay;
+
+public class SpriteManager : AbstractManager<SpriteData>, IBaseManager
+{
+    public SpriteManager(JToken saveData, PlayerDataManager ctx) : base(saveData, ctx)
+    {
+    }
+
+    public override void DailyRefresh()
+    {
+        Data = Data with { today = 0, video = Ctx.Config.Mine.VideoPowerLimit };
+        Ctx.Emit(CachePath.spritePool);
+    }
+
+    public override void InitData()
+    {
+        var newPet = Ctx.Table.MountTblList.ToImmutableDictionary(
+            tbl => tbl.Id,
+            tbl =>
+            {
+                if (Data.sprites.ContainsKey(tbl.Id))
+                {
+                    return Data.sprites[tbl.Id];
+                }
+                else
+                {
+                    return new Sprite(tbl.Id, 1, 0L);
+                }
+            }
+        );
+        Data = Data with { sprites = newPet };
+        if (Data.formation.IsEmpty)
+        {
+            Data = Data with { formation = new int[] { -1, -1, -1, -1, -1, -1 }.ToImmutableArray() };
+        }
+    }
+
+    [Update("spritePool")]
+    public Dictionary<string, object> InitSpritePool()
+    {
+        return new Dictionary<string, object>{
+            {"total",Data.total},
+            {"today",Data.today},
+            {"guarantee",Data.guarantee},
+            {"video",Data.video},
+        };
+    }
+    [Update("spriteFormation")]
+    public ImmutableArray<int> SpriteFormation()
+    {
+        return Data.formation;
+    }
+
+    [PartialUpdate("sprites")]
+    public ImmutableDictionary<int, Sprite> AllSprites()
+    {
+        return Data.sprites;
+    }
+
+    [Handle("sprite/setFormation")]
+    public void SetFormation(int[] formation)
+    {
+        GameAssert.Must(formation.All(id => id == -1 || (Data.sprites.ContainsKey(id) && Data.sprites[id].level > 0)), "id is illegal");
+        GameAssert.Must(formation.Length == 3, "formation size error");
+        Data = Data with { formation = formation.ToImmutableArray() };
+        Ctx.Emit(CachePath.spriteFormation);
+    }
+
+    public void _UpgradeSprite(int id)
+    {
+        var s = Data.sprites[id];
+        if (!s.IsMaxLevel(Ctx))
+        {
+            Ctx.KnapsackManager.SubItem(s.UpgradeCost(Ctx));
+            var newpet = s with { level = s.level + 1 };
+            Data = Data with { sprites = Data.sprites.SetItem(id, newpet) };
+            Ctx.Emit(CachePath.sprites, id);
+        }
+
+    }
+
+    [Handle("sprite/upgradeSprite")]
+    public void UpgradeSprite(int id, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            _UpgradeSprite(id);
+        }
+    }
+
+    public ImmutableArray<Item> AddSprite(int id, long count)
+    {
+        GameAssert.Must(count > 0, $"illegal input id:{id} count:{count}");
+        var s = Data.sprites[id];
+        Sprite newS;
+        var finalReward = new List<Item>();
+        if (s.level == 0)
+        {
+            newS = s with { level = 1 };
+            finalReward.Add(new Item(id, 1));
+        }
+        else
+        {
+            var num = count * Ctx.Config.Sprite.Debris_transfer;
+            newS = s with { exp = s.exp + num };
+            finalReward.Add(new Item(newS.Tbl(Ctx).Frag, num));
+        }
+        Data = Data with { sprites = Data.sprites.SetItem(id, newS) };
+        Ctx.Emit(CachePath.sprites, id);
+        return finalReward.ToImmutableArray();
+    }
+
+    public void SubSprite(int id, long count)
+    {
+        GameAssert.Must(count > 0, $"illegal input id:{id} count:{count}");
+        var s = Data.sprites[id];
+        GameAssert.Expect(s.exp - count >= 0, 1001, new string[] { Ctx.Table.ItemTblMap[s.Tbl(Ctx).Frag].Name });
+        var newS = s with { exp = s.exp - count };
+        Data = Data with { sprites = Data.sprites.SetItem(id, newS) };
+        Ctx.Emit(CachePath.sprites, id);
+    }
+
+    [Handle("sprite/drawCard")]
+    public ImmutableArray<Item> DrawCard(int count, bool free)
+    {
+        GameAssert.Must(count == 1 || count == 10, "drawCard count must be 1 or 10");
+        GameAssert.Expect(!free || Data.video > 0, 13002);
+        var tbl = Ctx.Table.MountPoolTblList.First();
+        // 扣除消耗
+        if (count == 1)
+        {
+            GameAssert.Expect(Data.total + 1 <= tbl.DailyLimit, 7002);
+            if (!free)
+                Ctx.KnapsackManager.SubItem(new Item(tbl.SinglePrice[0], tbl.SinglePrice[1]));
+        }
+        else
+        {
+            GameAssert.Expect(Data.total + 10 <= tbl.DailyLimit, 7002);
+            if (!free)
+                Ctx.KnapsackManager.SubItem(new Item(tbl.TenPrice[0], tbl.TenPrice[1]));
+        }
+        var finalReward = new List<Item>();
+        for (int i = 0; i < count; i++)
+        {
+            var guaranteeList = Ctx.Table.MountPoolRewardTblList.Where(t => t.Rare > 0 && Data.total >= t.Unlock).ToList();
+            var normalList = Ctx.Table.MountPoolRewardTblList.Where(t => Data.total >= t.Unlock).ToList();
+            var rewardList = Data.guarantee >= tbl.Guarantee - 1 && guaranteeList.Count > 0 ? guaranteeList : normalList;
+            rewardList = rewardList.Where(t => t.Unlock <= Data.total).ToList();
+            var index = RandomUtils.GetHappenedIndex(rewardList.Select(t => t.Weight));
+            finalReward.AddRange(AddSprite(rewardList[index].RewardId, 1));
+            var resetGuarantee = rewardList[index].Rare > 0;
+            var newGuarantee = resetGuarantee ? 0 : Data.guarantee + 1;
+            Data = Data with
+            {
+                guarantee = newGuarantee,
+                today = Data.today + 1,
+                total = Data.total + 1,
+                video = Data.video - (free ? 1 : 0)
+            };
+        }
+        Ctx.Emit(CachePath.spritePool);
+        Ctx.MissionManager.UpdateMissionProgress(44, count);
+        return finalReward.ToImmutableArray();
+    }
+}

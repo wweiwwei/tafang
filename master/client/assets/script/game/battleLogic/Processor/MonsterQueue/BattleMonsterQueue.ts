@@ -1,0 +1,23 @@
+import { BattleBattleStageObject } from "../../Object/BattleStage/BattleBattleStageObject";
+import { BattleBattleStageData } from "../BattleBattleStageData";
+
+export default abstract class BattleMonsterQueue {
+    // abstract newWave(ctx: BattleBattleStageData): void;
+    abstract nextMonster(ctx: BattleBattleStageData): BattleBattleStageObject[];
+    // abstract hasWaveRemain(): boolean;
+    abstract checkNextWave(ctx: BattleBattleStageData): void;
+    nextEquipmentMonster(ctx: BattleBattleStageData, quality: number, uniqueId: number): BattleBattleStageObject[] {
+        return [];
+    }
+    nextGuideMonster(ctx: BattleBattleStageData, count: number): BattleBattleStageObject[] {
+        return [];
+    }
+    abstract isEmpty(): boolean;
+    abstract progress(ctx: BattleBattleStageData): number;
+    getWave(): number {
+        return 0;
+    }
+    getWaveProgress(): number {
+        return 0;
+    }
+}

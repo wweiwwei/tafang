@@ -1,0 +1,82 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import EventName from "../../event/EventName";
+import ListItemDiamondItem2 from "../common/ListItemDiamondItem2";
+import WindowCommonConfirm from "../common/WindowCommonConfirm";
+import ListItemBoxItem from "./ListItemBoxItem";
+import ListItemYuanBaoItem2 from "./ListItemYuanBaoItem2";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemShop")
+@ccclass
+export default class ListItemShop extends UIListItem {
+    @autowired(UIImage) title: UIImage = null;
+    @autowired(UIList) uiList1: UIList<ListItemBoxItem> = null;
+    @autowired(UIList) uiList2: UIList<ListItemYuanBaoItem2> = null;
+    @autowired(UIList) uiList3: UIList<ListItemDiamondItem2> = null;
+
+    state: { type: "mound" | "yuabao" | "diamond" };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.uiList1.node.active = false;
+        this.uiList2.node.active = false;
+        this.uiList3.node.active = false;
+        this.refItem();
+    }
+
+    @message([EventName.stateKey.spritePool, EventName.stateKey.mallVideo])
+    refItem() {
+        switch (this.state.type) {
+            case "mound":
+                {
+                    this.title.imgName = "shop_title1";
+                    let state = GTable.getList("MountPoolTbl").map((d, index) => {
+                        return { id: d.id, index: index };
+                    });
+                    this.uiList1.setState(state);
+
+                    this.uiList1.node.active = true;
+                }
+                break;
+            case "yuabao":
+                {
+                    let chunkArray = (arr, size) => {
+                        let chunks = [];
+                        for (let i = 0; i < arr.length; i += size) {
+                            chunks.push(arr.slice(i, i + size));
+                        }
+                        return chunks;
+                    };
+                    this.title.imgName = "shop_title2";
+                    let arr = GTable.getList("MallTbl").map((d, index) => {
+                        return { id: d.id, index: index };
+                    });
+                    let state = chunkArray(arr, 3).map((d) => {
+                        return { items: d };
+                    });
+                    // console.log("state=", state);
+
+                    this.uiList2.setState(state);
+                    this.uiList2.node.active = true;
+                }
+                break;
+            case "diamond":
+                {
+                    this.title.imgName = "shop_title3";
+                    let state = GTable.getList("ChargeTbl")
+                        .filter((t) => t.kind === 2)
+                        .map((t, index) => {
+                            let cb = async () => {
+                                let result = await GWindow.open(WindowCommonConfirm, { tip: ["_rs是否购买"] });
+                                if (result) GTest.testOrder(t.id, "");
+                            };
+                            return { id: t.id, cb, index: index + 1 };
+                        });
+                    this.uiList3.setState(state);
+                    this.uiList3.node.active = true;
+                }
+                break;
+        }
+    }
+}

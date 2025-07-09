@@ -1,0 +1,272 @@
+
+Boss_WhiteBone.png
+size: 634,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+back_ribbon
+  rotate: true
+  xy: 538, 134
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 578, 2
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+hair
+  rotate: false
+  xy: 181, 2
+  size: 75, 65
+  orig: 75, 65
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 583, 142
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: true
+  xy: 614, 95
+  size: 12, 18
+  orig: 12, 18
+  offset: 0, 0
+  index: -1
+left_bone
+  rotate: false
+  xy: 552, 12
+  size: 24, 30
+  orig: 24, 30
+  offset: 0, 0
+  index: -1
+left_clothes
+  rotate: false
+  xy: 464, 17
+  size: 50, 46
+  orig: 50, 46
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: false
+  xy: 625, 132
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+left_hair
+  rotate: true
+  xy: 538, 91
+  size: 41, 50
+  orig: 41, 50
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 516, 20
+  size: 22, 34
+  orig: 22, 34
+  offset: 0, 0
+  index: -1
+left_leg1
+  rotate: false
+  xy: 616, 205
+  size: 10, 25
+  orig: 10, 25
+  offset: 0, 0
+  index: -1
+left_leg2
+  rotate: true
+  xy: 590, 95
+  size: 12, 22
+  orig: 12, 22
+  offset: 0, 0
+  index: -1
+m_bone
+  rotate: false
+  xy: 590, 109
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+neck
+  rotate: false
+  xy: 616, 195
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+ribbon
+  rotate: false
+  xy: 616, 232
+  size: 16, 35
+  orig: 16, 35
+  offset: 0, 0
+  index: -1
+right_bone
+  rotate: false
+  xy: 79, 35
+  size: 17, 24
+  orig: 17, 24
+  offset: 0, 0
+  index: -1
+right_clothes
+  rotate: true
+  xy: 523, 44
+  size: 45, 47
+  orig: 45, 47
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: false
+  xy: 523, 91
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+right_hair
+  rotate: false
+  xy: 572, 51
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: false
+  xy: 578, 18
+  size: 25, 31
+  orig: 25, 31
+  offset: 0, 0
+  index: -1
+right_leg1
+  rotate: false
+  xy: 79, 11
+  size: 10, 22
+  orig: 10, 22
+  offset: 0, 0
+  index: -1
+right_leg2 
+  rotate: true
+  xy: 464, 6
+  size: 9, 23
+  orig: 9, 23
+  offset: 0, 0
+  index: -1
+shenti/huodan1_000
+  rotate: false
+  xy: 2, 2
+  size: 30, 57
+  orig: 30, 57
+  offset: 0, 0
+  index: -1
+shenti/huodan1_002
+  rotate: false
+  xy: 34, 5
+  size: 43, 54
+  orig: 43, 54
+  offset: 0, 0
+  index: -1
+shenti/huodan1_004
+  rotate: true
+  xy: 467, 65
+  size: 33, 54
+  orig: 33, 54
+  offset: 0, 0
+  index: -1
+shenti/huodan1_006
+  rotate: true
+  xy: 319, 36
+  size: 37, 58
+  orig: 37, 58
+  offset: 0, 0
+  index: -1
+shenti/huodan1_007
+  rotate: true
+  xy: 319, 3
+  size: 31, 54
+  orig: 31, 54
+  offset: 0, 0
+  index: -1
+shenti/huodan3_000
+  rotate: false
+  xy: 379, 77
+  size: 86, 190
+  orig: 86, 190
+  offset: 0, 0
+  index: -1
+shenti/huodan3_024
+  rotate: false
+  xy: 2, 61
+  size: 96, 206
+  orig: 96, 206
+  offset: 0, 0
+  index: -1
+shenti/huodan3_026
+  rotate: false
+  xy: 100, 69
+  size: 93, 198
+  orig: 93, 198
+  offset: 0, 0
+  index: -1
+shenti/huodan3_028
+  rotate: false
+  xy: 195, 72
+  size: 90, 195
+  orig: 90, 195
+  offset: 0, 0
+  index: -1
+shenti/huodan3_030
+  rotate: false
+  xy: 287, 75
+  size: 90, 192
+  orig: 90, 192
+  offset: 0, 0
+  index: -1
+shenti/pg_0001
+  rotate: true
+  xy: 258, 3
+  size: 67, 59
+  orig: 100, 89
+  offset: 5, 20
+  index: -1
+shenti/pg_0002
+  rotate: true
+  xy: 100, 2
+  size: 65, 79
+  orig: 100, 89
+  offset: 14, 8
+  index: -1
+shenti/pg_0003
+  rotate: true
+  xy: 379, 2
+  size: 73, 83
+  orig: 100, 89
+  offset: 12, 2
+  index: -1
+shenti/pg_0004
+  rotate: false
+  xy: 467, 186
+  size: 75, 81
+  orig: 100, 89
+  offset: 17, 3
+  index: -1
+shenti/pg_0005
+  rotate: false
+  xy: 467, 100
+  size: 69, 84
+  orig: 100, 89
+  offset: 28, 4
+  index: -1
+shenti/pg_0006
+  rotate: false
+  xy: 544, 190
+  size: 70, 77
+  orig: 100, 89
+  offset: 28, 9
+  index: -1

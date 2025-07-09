@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "5743ab02-f597-47bd-ba78-dc964568bca0",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1505,
+  "height": 282,
+  "platformSettings": {},
+  "subMetas": {
+    "Role_Hippocampus": {
+      "ver": "1.0.6",
+      "uuid": "5251a334-973a-4f70-93ed-b277354c7d20",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "5743ab02-f597-47bd-ba78-dc964568bca0",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 1501,
+      "height": 278,
+      "rawWidth": 1505,
+      "rawHeight": 282,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

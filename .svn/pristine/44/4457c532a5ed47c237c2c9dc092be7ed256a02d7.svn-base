@@ -1,0 +1,255 @@
+import { BattleTriggerEvent } from "../Event/BattleTriggerEvent";
+import { BattleVec } from "../Map/BattleVec";
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleObjectInfoSkill } from "../Object/BattleStage/BattleObjectInfo";
+import { BattleProperty } from "../Object/BattleStage/BattleProperty";
+import { BattleBattleStageContext } from "../Processor/BattleBattleStageContext";
+import { BattleSkillBuilder } from "./Builder/Skill/BattleSkillBuilder";
+import { BattleSkillBaseTemplateBuilder } from "./Builder/Template/BattleSkillBaseTemplateBuilder";
+import { IBattleSkillTrigger } from "./Builder/Trigger/IBattleSkillTrigger";
+import { BattleSkillTimer } from "./Duration/BattleSkillTimer";
+import { BattleSkillBaseTemplate } from "./Template/BattleSkillBaseTemplate";
+
+export class BattleSkill {
+    constructor(
+        object: BattleBattleStageObject,
+        public skillInfo: BattleObjectInfoSkill,
+        public id: number,
+        public level: number,
+        public builder: BattleSkillBuilder
+    ) {
+        this.ctx = new BattleBattleStageContext(object.ctx.data, object.ctx.object, this);
+        this.trigger = builder.trigger.build();
+        this.trigger.init(this);
+        this.maxLaunchCount = this.evalValue(builder.triggerMaxCount, "base");
+        this.skillCategory = builder.skillCategory;
+    }
+
+    public skillCategory: "normalAttack" | "independent" | "main" | "passive" | "ex";
+
+    /** 是否为独立技能过程，一些因为技能效果触发的连续反应这个标志位为真 */
+    private independantProcess: boolean = false;
+
+    /** 创建独立过程 */
+    createIndependantProcess(
+        targetCache: BattleBattleStageObject[],
+        templateBuilder: BattleSkillBaseTemplateBuilder
+    ): BattleSkill {
+        const res = new BattleSkill(this.ctx.object, this.skillInfo, this.id, this.level, this.builder);
+        res.independantProcess = true;
+        res.currentTemplate = templateBuilder.build();
+        res.launchCount = this.launchCount;
+        res.currentTemplate.launch(res.ctx, null, targetCache);
+        return res;
+    }
+
+    public ctx: BattleBattleStageContext;
+    /** 最大释放次数 */
+    maxLaunchCount: number = 0;
+    /** 释放次数 */
+    launchCount: number = 0;
+
+    launchEnergy: number = 0;
+
+    trigger: IBattleSkillTrigger;
+    currentTemplate: BattleSkillBaseTemplate = null;
+
+    onEnter() {
+        // this.triggerManager.onEnter();
+    }
+
+    onQuit() {
+        // this.triggerManager.onQuit();
+    }
+
+    onPassive(): boolean {
+        if (this.launchCount >= this.maxLaunchCount) return false;
+        return this.trigger.onPassive(this);
+    }
+    onEvent(e: BattleTriggerEvent): boolean {
+        if (this.launchCount >= this.maxLaunchCount) return false;
+        return this.trigger.onEvent(this, e);
+    }
+    onAttack(): boolean {
+        if (this.launchCount >= this.maxLaunchCount) return false;
+        return this.trigger.onAttack(this);
+    }
+
+    evalValue(
+        str: string | number,
+        mode: "base" | "final",
+        targetProperty?: BattleProperty,
+        pre?: BattleSkillBaseTemplate,
+        triggerEvent?: BattleTriggerEvent
+    ): number {
+        if (typeof str === "number") {
+            return str;
+        }
+        const p = this.ctx.object.propertyManager.getPropertyByMode(mode);
+        const env = [
+            {
+                data: this.ctx.data,
+                skill: this,
+                self: p,
+                target: targetProperty,
+                pre,
+                triggerEvent,
+            },
+        ];
+        return AstUtil.eval(str, env);
+    }
+
+    evalCondition(
+        str: string,
+        mode: "base" | "final",
+        targetProperty?: BattleProperty,
+        pre?: BattleSkillBaseTemplate,
+        triggerEvent?: BattleTriggerEvent
+    ): boolean {
+        const p = this.ctx.object.propertyManager.getPropertyByMode(mode);
+        const env = [
+            {
+                data: this.ctx.data,
+                skill: this,
+                self: p,
+                target: targetProperty,
+                checkFlag: (f: string) => this.ctx.object.propertyManager.heroFlag.includes(f),
+                pre,
+                triggerEvent,
+            },
+        ];
+        return AstUtil.eval(str, env);
+    }
+    /** 本次发起技能的帧数 */
+    launchFrame: number = 0;
+
+    /** 发起的累计动画计时，单位帧，浮点数 */
+    launchAccTime: number = 0;
+
+    triggerEvent: BattleTriggerEvent;
+
+    start(e: BattleTriggerEvent = null): boolean {
+        this.triggerEvent = e;
+        this.launchCount += 1;
+        this.launchAccTime = 0;
+        this.launchFrame = this.ctx.data.frame;
+        // 重置触发器
+        this.trigger.reset(this);
+        // 重置普攻计时器
+        if (!this.independantProcess && this.skillCategory === "normalAttack") {
+            this.ctx.object.normalAttackTimer.reset();
+        }
+        // 切换动画
+        if (!this.independantProcess && (this.skillCategory === "normalAttack" || this.skillCategory === "main")) {
+            // 切换动画
+            this.ctx.object.fsmManager.viewModel.changeAnimation(this.builder.animation);
+            // 调整朝向
+            const target = this.searchTargetIgnoreRange();
+            if (target.length === 0) {
+                // 没有目标，存疑，这个技能其实不应该发动
+            } else if (target.length === 1 && target[0] === this.ctx.object) {
+                // 目标是自身，不用调整朝向
+            } else {
+                // 以第一个目标为朝向
+                const data = target.find((t) => t !== this.ctx.object);
+                const direction = BattleVec.normalize(BattleVec.sub(data.position, this.ctx.object.position));
+                this.ctx.object.fsmManager.viewModel.direction = { x: direction[0], y: direction[1] };
+            }
+        }
+        this.launchEnergy = this.ctx.object.propertyManager.energy;
+        this.firstTemplate();
+        const isEnd = this.currentTemplate.launch(this.ctx, e);
+        if (isEnd) {
+            return this.nextTemplate();
+        } else {
+            return false;
+        }
+    }
+
+    continueIndependent(e: BattleTriggerEvent = null): boolean {
+        const isEnd = this.currentTemplate.launch(this.ctx, e);
+        if (isEnd) {
+            return this.nextTemplate();
+        } else {
+            return false;
+        }
+    }
+
+    private firstTemplate() {
+        this.currentTemplate = this.builder.next.build();
+    }
+
+    private nextTemplate(): boolean {
+        while (true) {
+            if (!this.currentTemplate.builder.next) return true;
+            this.currentTemplate = this.currentTemplate.builder.next.build();
+            const isEnd = this.currentTemplate.launch(this.ctx, this.triggerEvent);
+            if (!isEnd) return false;
+            // 如果isEnd，则继续循环进行下一个模板
+        }
+    }
+
+    independentTick() {
+        const ok = this.trigger.tick(this);
+        if (!ok) return;
+        const target = this.searchTargetIgnoreRange();
+        if (!target || target.length === 0) return;
+        const range = this.getRange();
+        const launch = target.some((t) => t.distance(this.ctx.object) <= range);
+        if (launch) {
+            this.trigger.reset(this);
+            this.firstTemplate();
+            const isEnd = this.currentTemplate.launch(this.ctx, null);
+            if (isEnd) {
+                this.nextTemplate();
+            } else {
+                return;
+            }
+        }
+    }
+
+    tick(): boolean {
+        if (!this.independantProcess && (this.skillCategory === "normalAttack" || this.skillCategory === "main")) {
+            this.launchAccTime += this.ctx.object.getAnimationSpeed();
+        }
+        if (!this.currentTemplate) return true;
+        const isEnd = this.currentTemplate.tick(this.ctx);
+        if (isEnd) return this.nextTemplate();
+        return false;
+    }
+    endSkill() {}
+
+    /** 最近索敌锁定敌人 */
+    nearestLockCache: number;
+
+    searchTargetIgnoreRange(): BattleBattleStageObject[] {
+        const s = this.builder.searchTarget.build();
+        const list = s.searchTarget(this.ctx, null);
+        return list;
+    }
+
+    getRange() {
+        if (this.skillCategory === "normalAttack") {
+            return this.ctx.object.propertyManager.finalProperty.normalAttackRange;
+        } else {
+        }
+        return this.builder.range;
+    }
+
+    /** 无视技能范围获取最近的一个敌人 */
+    getNearestTargetIgnoreRange(): BattleBattleStageObject | null {
+        const target = this.searchTargetIgnoreRange();
+        if (target.length === 0) return null;
+        if (target.length === 1) return target[0];
+        const nearestTarget = GUtils.array.chain(target).minBy((o) => o.distance(this.ctx.object));
+        return nearestTarget;
+    }
+
+    /** 当前位置是否可以释放技能 */
+    isPosCanLaunch(): boolean {
+        const nearestTarget = this.getNearestTargetIgnoreRange();
+        if (!nearestTarget) return false;
+        const distance = this.ctx.object.distance(nearestTarget);
+        return distance <= this.getRange();
+    }
+}

@@ -1,0 +1,39 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemItem from "../common/ListItemItem";
+import ListItemClearAd from "./ListItemClearAd";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowRaid")
+@ccclass
+export default class WindowRaid extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIButton) sweepBtn: UIButton = null;
+    @autowired(UIButton) adSweepBtn: UIButton = null;
+    @autowired(UILabel) cost: UILabel = null;
+    @autowired(UILabel) videoRemain: UILabel = null;
+    @autowired(UIList) rewardList: UIList<ListItemItem> = null;
+
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.sweepBtn.onClick = () => {};
+        this.adSweepBtn.onClick = () => {};
+        this.refresh();
+    }
+
+    refresh() {}
+}

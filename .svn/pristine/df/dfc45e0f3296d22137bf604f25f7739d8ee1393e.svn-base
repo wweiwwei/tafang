@@ -1,0 +1,13 @@
+
+Role_Electrostatic.png
+size: 109,141
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 105, 137
+  orig: 105, 137
+  offset: 0, 0
+  index: -1

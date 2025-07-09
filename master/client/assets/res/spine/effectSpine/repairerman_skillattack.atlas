@@ -1,0 +1,174 @@
+
+repairerman_skillattack.png
+size: 870,158
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0001_01
+  rotate: false
+  xy: 305, 82
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_02
+  rotate: false
+  xy: 597, 83
+  size: 71, 73
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_03
+  rotate: false
+  xy: 313, 6
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_04
+  rotate: false
+  xy: 239, 5
+  size: 72, 74
+  orig: 72, 75
+  offset: 0, 1
+  index: -1
+0001_05
+  rotate: false
+  xy: 378, 82
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_06
+  rotate: false
+  xy: 605, 8
+  size: 71, 73
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_07
+  rotate: false
+  xy: 386, 6
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_08
+  rotate: false
+  xy: 451, 82
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_09
+  rotate: false
+  xy: 459, 6
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_10
+  rotate: false
+  xy: 524, 82
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_11
+  rotate: false
+  xy: 532, 6
+  size: 71, 74
+  orig: 72, 75
+  offset: 1, 1
+  index: -1
+0001_12
+  rotate: false
+  xy: 231, 81
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+0002_1
+  rotate: true
+  xy: 795, 12
+  size: 47, 65
+  orig: 49, 68
+  offset: 1, 1
+  index: -1
+0002_2
+  rotate: true
+  xy: 678, 62
+  size: 47, 66
+  orig: 49, 68
+  offset: 1, 1
+  index: -1
+0002_3
+  rotate: true
+  xy: 678, 13
+  size: 47, 66
+  orig: 49, 68
+  offset: 1, 1
+  index: -1
+0002_4
+  rotate: false
+  xy: 746, 41
+  size: 47, 66
+  orig: 49, 68
+  offset: 1, 2
+  index: -1
+0002_5
+  rotate: true
+  xy: 765, 109
+  size: 47, 67
+  orig: 49, 68
+  offset: 1, 1
+  index: -1
+0002_6
+  rotate: true
+  xy: 795, 61
+  size: 46, 67
+  orig: 49, 68
+  offset: 1, 1
+  index: -1
+fazhen01
+  rotate: false
+  xy: 670, 111
+  size: 93, 45
+  orig: 112, 56
+  offset: 9, 5
+  index: -1
+fazhen02
+  rotate: false
+  xy: 122, 14
+  size: 115, 64
+  orig: 126, 68
+  offset: 5, 1
+  index: -1
+fazhen03
+  rotate: false
+  xy: 2, 11
+  size: 118, 67
+  orig: 126, 70
+  offset: 4, 1
+  index: -1
+guangzhu
+  rotate: true
+  xy: 2, 80
+  size: 76, 227
+  orig: 112, 235
+  offset: 18, 6
+  index: -1
+guangzhu02
+  rotate: true
+  xy: 2, 2
+  size: 7, 235
+  orig: 21, 280
+  offset: 7, 24
+  index: -1
+xingxing
+  rotate: true
+  xy: 834, 125
+  size: 31, 34
+  orig: 35, 39
+  offset: 2, 2
+  index: -1

@@ -1,0 +1,111 @@
+
+UI_monthcard.png
+size: 183,78
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect2_1_0001
+  rotate: true
+  xy: 168, 35
+  size: 15, 13
+  orig: 80, 32
+  offset: 3, 19
+  index: -1
+effect2_1_0003
+  rotate: true
+  xy: 128, 2
+  size: 15, 17
+  orig: 80, 32
+  offset: 1, 13
+  index: -1
+effect2_1_0004
+  rotate: false
+  xy: 55, 4
+  size: 21, 21
+  orig: 80, 32
+  offset: 2, 7
+  index: -1
+effect2_1_0005
+  rotate: true
+  xy: 148, 26
+  size: 24, 18
+  orig: 80, 32
+  offset: 4, 5
+  index: -1
+effect2_1_0006
+  rotate: true
+  xy: 128, 19
+  size: 36, 18
+  orig: 80, 32
+  offset: 8, 3
+  index: -1
+effect2_1_0007
+  rotate: true
+  xy: 108, 14
+  size: 41, 18
+  orig: 80, 32
+  offset: 13, 1
+  index: -1
+effect2_1_0009
+  rotate: false
+  xy: 108, 57
+  size: 44, 19
+  orig: 80, 32
+  offset: 28, 2
+  index: -1
+effect2_1_0010
+  rotate: false
+  xy: 2, 4
+  size: 35, 19
+  orig: 80, 32
+  offset: 40, 3
+  index: -1
+effect2_1_0011
+  rotate: true
+  xy: 78, 5
+  size: 20, 21
+  orig: 80, 32
+  offset: 58, 6
+  index: -1
+effect2_1_0012
+  rotate: true
+  xy: 148, 8
+  size: 16, 18
+  orig: 80, 32
+  offset: 63, 10
+  index: -1
+effect2_1_0014
+  rotate: true
+  xy: 39, 8
+  size: 15, 14
+  orig: 80, 32
+  offset: 62, 15
+  index: -1
+effect2_1_0016
+  rotate: true
+  xy: 168, 19
+  size: 14, 13
+  orig: 80, 32
+  offset: 59, 18
+  index: -1
+g2
+  rotate: false
+  xy: 55, 27
+  size: 51, 49
+  orig: 60, 60
+  offset: 3, 2
+  index: -1
+tx_qua
+  rotate: false
+  xy: 2, 25
+  size: 51, 51
+  orig: 60, 58
+  offset: 5, 3
+  index: -1
+xingxing4
+  rotate: false
+  xy: 154, 52
+  size: 24, 24
+  orig: 30, 30
+  offset: 3, 3
+  index: -1

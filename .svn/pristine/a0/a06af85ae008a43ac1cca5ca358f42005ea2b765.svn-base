@@ -1,0 +1,265 @@
+
+sheep_generaltail.png
+size: 782,298
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+yangmushipugong/faqiu_00009
+  rotate: true
+  xy: 328, 2
+  size: 87, 49
+  orig: 98, 49
+  offset: 11, 0
+  index: -1
+yangmushipugong/faqiu_00010
+  rotate: true
+  xy: 430, 2
+  size: 89, 49
+  orig: 98, 49
+  offset: 9, 0
+  index: -1
+yangmushipugong/faqiu_00011
+  rotate: true
+  xy: 667, 109
+  size: 90, 49
+  orig: 98, 49
+  offset: 8, 0
+  index: -1
+yangmushipugong/faqiu_00012
+  rotate: true
+  xy: 583, 3
+  size: 92, 49
+  orig: 98, 49
+  offset: 6, 0
+  index: -1
+yangmushipugong/faqiu_00013
+  rotate: true
+  xy: 662, 201
+  size: 95, 49
+  orig: 98, 49
+  offset: 3, 0
+  index: -1
+yangmushipugong/faqiu_00014
+  rotate: true
+  xy: 616, 99
+  size: 97, 49
+  orig: 98, 49
+  offset: 1, 0
+  index: -1
+yangmushipugong/faqiu_00015
+  rotate: true
+  xy: 514, 97
+  size: 98, 49
+  orig: 98, 49
+  offset: 0, 0
+  index: -1
+yangmushipugong/faqiu_00016
+  rotate: true
+  xy: 565, 97
+  size: 98, 49
+  orig: 98, 49
+  offset: 0, 0
+  index: -1
+yangmushipugong/faqiu_00017
+  rotate: true
+  xy: 611, 198
+  size: 98, 49
+  orig: 98, 49
+  offset: 0, 0
+  index: -1
+yangmushipugong/faqiu_00018
+  rotate: true
+  xy: 532, 2
+  size: 93, 49
+  orig: 98, 49
+  offset: 5, 0
+  index: -1
+yangmushipugong/faqiu_00019
+  rotate: true
+  xy: 481, 3
+  size: 88, 49
+  orig: 98, 49
+  offset: 10, 0
+  index: -1
+yangmushipugong/faqiu_00020
+  rotate: true
+  xy: 379, 8
+  size: 81, 49
+  orig: 98, 49
+  offset: 17, 0
+  index: -1
+yangmushipugong/hit_00020
+  rotate: false
+  xy: 718, 104
+  size: 58, 59
+  orig: 107, 113
+  offset: 22, 30
+  index: -1
+yangmushipugong/hit_00021
+  rotate: true
+  xy: 2, 2
+  size: 78, 77
+  orig: 107, 113
+  offset: 13, 19
+  index: -1
+yangmushipugong/hit_00022
+  rotate: false
+  xy: 415, 197
+  size: 96, 99
+  orig: 107, 113
+  offset: 4, 8
+  index: -1
+yangmushipugong/hit_00023
+  rotate: false
+  xy: 513, 197
+  size: 96, 99
+  orig: 107, 113
+  offset: 4, 8
+  index: -1
+yangmushipugong/hit_00024
+  rotate: false
+  xy: 634, 2
+  size: 95, 95
+  orig: 107, 113
+  offset: 6, 12
+  index: -1
+yangmushipugong/hit_00025
+  rotate: false
+  xy: 210, 194
+  size: 101, 102
+  orig: 107, 113
+  offset: 3, 8
+  index: -1
+yangmushipugong/hit_00026
+  rotate: false
+  xy: 210, 90
+  size: 101, 102
+  orig: 107, 113
+  offset: 3, 8
+  index: -1
+yangmushipugong/hit_00027
+  rotate: false
+  xy: 107, 193
+  size: 101, 103
+  orig: 107, 113
+  offset: 3, 7
+  index: -1
+yangmushipugong/hit_00028
+  rotate: false
+  xy: 2, 82
+  size: 101, 105
+  orig: 107, 113
+  offset: 3, 5
+  index: -1
+yangmushipugong/hit_00029
+  rotate: false
+  xy: 2, 189
+  size: 103, 107
+  orig: 107, 113
+  offset: 2, 3
+  index: -1
+yangmushipugong/hit_00030
+  rotate: false
+  xy: 105, 84
+  size: 103, 103
+  orig: 107, 113
+  offset: 2, 7
+  index: -1
+yangmushipugong/hit_00031
+  rotate: true
+  xy: 224, 3
+  size: 85, 102
+  orig: 107, 113
+  offset: 4, 8
+  index: -1
+yangmushipugong/hit_00032
+  rotate: false
+  xy: 313, 194
+  size: 100, 102
+  orig: 107, 113
+  offset: 4, 8
+  index: -1
+yangmushipugong/hit_00033
+  rotate: false
+  xy: 313, 194
+  size: 100, 102
+  orig: 107, 113
+  offset: 4, 8
+  index: -1
+yangmushipugong/hit_00034
+  rotate: false
+  xy: 313, 91
+  size: 98, 101
+  orig: 107, 113
+  offset: 5, 8
+  index: -1
+yangmushipugong/hit_00035
+  rotate: false
+  xy: 313, 91
+  size: 98, 101
+  orig: 107, 113
+  offset: 5, 8
+  index: -1
+yangmushipugong/hit_00036
+  rotate: false
+  xy: 413, 93
+  size: 99, 99
+  orig: 107, 113
+  offset: 4, 9
+  index: -1
+yangmushipugong/hit_00037
+  rotate: false
+  xy: 413, 93
+  size: 99, 99
+  orig: 107, 113
+  offset: 4, 9
+  index: -1
+yangmushipugong/hit_00038
+  rotate: false
+  xy: 81, 10
+  size: 70, 70
+  orig: 107, 113
+  offset: 17, 23
+  index: -1
+yangmushipugong/hit_00039
+  rotate: false
+  xy: 153, 12
+  size: 69, 70
+  orig: 107, 113
+  offset: 17, 23
+  index: -1
+yangmushipugong/hit_00040
+  rotate: false
+  xy: 153, 12
+  size: 69, 70
+  orig: 107, 113
+  offset: 17, 23
+  index: -1
+yangmushipugong/hit_00041
+  rotate: true
+  xy: 713, 231
+  size: 65, 64
+  orig: 107, 113
+  offset: 19, 26
+  index: -1
+yangmushipugong/hit_00042
+  rotate: true
+  xy: 713, 231
+  size: 65, 64
+  orig: 107, 113
+  offset: 19, 26
+  index: -1
+yangmushipugong/hit_00043
+  rotate: true
+  xy: 718, 165
+  size: 64, 62
+  orig: 107, 113
+  offset: 19, 28
+  index: -1
+yangmushipugong/hit_00044
+  rotate: true
+  xy: 718, 165
+  size: 64, 62
+  orig: 107, 113
+  offset: 19, 28
+  index: -1

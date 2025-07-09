@@ -1,0 +1,50 @@
+import { BattleBattleStageObject } from "../../Object/BattleStage/BattleBattleStageObject";
+import { BattleBattleStageData } from "../BattleBattleStageData";
+
+export abstract class BattleDirector {
+    constructor(public ctx: BattleBattleStageData) {}
+
+    abstract initBattle(): void;
+    /** 战斗是否已结束 */
+    abstract isBattleEnd(): boolean;
+
+    /** 战斗是否胜利 */
+    abstract isBattleWin(): boolean;
+
+    abstract tick(): void;
+
+    protected initPlayer() {
+        // 初始化玩家
+        let playerObject: BattleBattleStageObject;
+        this.ctx.ctx.attackTeam
+            .filter((h) => h.objectType === GConstant.battle.battleObjectType.hero)
+            .map((h) => BattleBattleStageObject.createHero(this.ctx, h, false, 0, this.ctx.ctx.mode))
+            .forEach((h) => {
+                this.ctx.initObjToUid.set(h.info, h.uid);
+                this.ctx.attackTeam.set(h.uid, h);
+                playerObject = h;
+            });
+        return playerObject;
+    }
+    protected initTower() {
+        // 初始化防御塔
+        this.ctx.ctx.attackTeam
+            .filter((h) => h.objectType === GConstant.battle.battleObjectType.pet)
+            .map((h, i) => BattleBattleStageObject.createPet(this.ctx, h, 0))
+            .forEach((h) => {
+                this.ctx.attackTeam.set(h.uid, h);
+            });
+    }
+
+    protected battlePrepair() {
+        this.ctx.attackTeam.forEach((o) => o.preBattle());
+        this.ctx.attackTeam.forEach((o) => o.initProperty());
+        this.ctx.attackTeam.forEach((o) => o.start());
+        let antiLifeRecover = 0;
+        this.ctx.ctx.attackTeam.forEach((info) => {
+            antiLifeRecover += info.property.antiLifeRecover;
+        });
+        this.ctx.globalPropertyManager.baseProperty.antiLifeRecover = antiLifeRecover;
+        this.ctx.monsterQueue = this.ctx.getMonsterQueue(this.ctx.ctx.waveId);
+    }
+}

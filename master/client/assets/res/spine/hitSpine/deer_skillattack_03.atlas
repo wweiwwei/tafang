@@ -1,0 +1,216 @@
+
+deer_skillattack_03.png
+size: 1996,266
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+renmazhanshi/hit_00025
+  rotate: false
+  xy: 1805, 53
+  size: 105, 113
+  orig: 197, 152
+  offset: 45, 16
+  index: -1
+renmazhanshi/hit_00026
+  rotate: true
+  xy: 1575, 22
+  size: 135, 122
+  orig: 197, 152
+  offset: 32, 11
+  index: -1
+renmazhanshi/hit_00027
+  rotate: false
+  xy: 717, 137
+  size: 157, 127
+  orig: 197, 152
+  offset: 22, 8
+  index: -1
+renmazhanshi/hit_00028
+  rotate: false
+  xy: 876, 137
+  size: 157, 127
+  orig: 197, 152
+  offset: 22, 9
+  index: -1
+renmazhanshi/hit_00029
+  rotate: false
+  xy: 545, 136
+  size: 170, 128
+  orig: 197, 152
+  offset: 14, 9
+  index: -1
+renmazhanshi/hit_00030
+  rotate: true
+  xy: 2, 90
+  size: 174, 130
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00031
+  rotate: false
+  xy: 961, 4
+  size: 163, 131
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00032
+  rotate: false
+  xy: 633, 2
+  size: 163, 132
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00033
+  rotate: false
+  xy: 1290, 23
+  size: 161, 132
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00034
+  rotate: false
+  xy: 798, 2
+  size: 161, 133
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00035
+  rotate: false
+  xy: 1126, 9
+  size: 162, 134
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00036
+  rotate: true
+  xy: 408, 102
+  size: 162, 135
+  orig: 197, 152
+  offset: 10, 8
+  index: -1
+renmazhanshi/hit_00037
+  rotate: true
+  xy: 134, 99
+  size: 165, 135
+  orig: 197, 152
+  offset: 9, 8
+  index: -1
+renmazhanshi/hit_00038
+  rotate: true
+  xy: 271, 99
+  size: 165, 135
+  orig: 197, 152
+  offset: 9, 8
+  index: -1
+renmazhanshi/hit_00039
+  rotate: true
+  xy: 1453, 9
+  size: 147, 120
+  orig: 197, 152
+  offset: 27, 13
+  index: -1
+renmazhanshi/hit_00040
+  rotate: false
+  xy: 1035, 145
+  size: 149, 119
+  orig: 197, 152
+  offset: 26, 14
+  index: -1
+renmazhanshi/hit_00041
+  rotate: false
+  xy: 1337, 158
+  size: 149, 106
+  orig: 197, 152
+  offset: 26, 14
+  index: -1
+renmazhanshi/hit_00042
+  rotate: false
+  xy: 1186, 157
+  size: 149, 107
+  orig: 197, 152
+  offset: 26, 14
+  index: -1
+renmazhanshi/hit_00043
+  rotate: false
+  xy: 1640, 160
+  size: 149, 104
+  orig: 197, 152
+  offset: 26, 19
+  index: -1
+renmazhanshi/hit_00044
+  rotate: true
+  xy: 1699, 9
+  size: 149, 104
+  orig: 197, 152
+  offset: 26, 19
+  index: -1
+renmazhanshi/hit_00045
+  rotate: false
+  xy: 1488, 159
+  size: 150, 105
+  orig: 197, 152
+  offset: 25, 19
+  index: -1
+renmazhanshi/hit_00046
+  rotate: false
+  xy: 481, 4
+  size: 150, 96
+  orig: 197, 152
+  offset: 25, 29
+  index: -1
+renmazhanshi/hit_00047
+  rotate: false
+  xy: 1791, 168
+  size: 150, 96
+  orig: 197, 152
+  offset: 25, 29
+  index: -1
+renmazhanshi/hit_00048
+  rotate: false
+  xy: 187, 3
+  size: 96, 94
+  orig: 197, 152
+  offset: 45, 30
+  index: -1
+renmazhanshi/hit_00049
+  rotate: false
+  xy: 285, 4
+  size: 96, 93
+  orig: 197, 152
+  offset: 45, 30
+  index: -1
+renmazhanshi/hit_00050
+  rotate: false
+  xy: 383, 5
+  size: 96, 92
+  orig: 197, 152
+  offset: 46, 31
+  index: -1
+renmazhanshi/hit_00051
+  rotate: true
+  xy: 94, 4
+  size: 84, 91
+  orig: 197, 152
+  offset: 57, 31
+  index: -1
+renmazhanshi/hit_00052
+  rotate: true
+  xy: 2, 3
+  size: 85, 90
+  orig: 197, 152
+  offset: 56, 32
+  index: -1
+renmazhanshi/hit_00053
+  rotate: false
+  xy: 1912, 89
+  size: 82, 77
+  orig: 197, 152
+  offset: 59, 42
+  index: -1
+renmazhanshi/hit_00054
+  rotate: true
+  xy: 1912, 11
+  size: 76, 67
+  orig: 197, 152
+  offset: 65, 48
+  index: -1

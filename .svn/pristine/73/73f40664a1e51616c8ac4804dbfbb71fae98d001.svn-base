@@ -1,0 +1,81 @@
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import { BattleGlobalProperty } from "./BattleGlobalProperty";
+import { BattleGlobalBuff } from "./GlobalBuff/BattleGlobalBuff";
+import { BattleGlobalListener } from "./GlobalBuff/BattleGlobalListener";
+
+export class BattleGlobalPropertyManager {
+    constructor(public ctx: BattleBattleStageData) {
+        const origin = ctx.ctx.attackTeam[0].globalProperty;
+        this.baseProperty = BattleGlobalProperty.copy(origin);
+        this.baseProperty.ctx = ctx;
+        this.coin = this.baseProperty.initCoin;
+        this.diamond = this.baseProperty.initDiamond;
+    }
+    counter = {};
+    getCounter(key: string) {
+        return this.counter[key] || 0;
+    }
+
+    addCounter(key: string, count: number) {
+        this.counter[key] = (this.counter[key] || 0) + count;
+    }
+    coinRemain = 0;
+    monsterDie(o: BattleBattleStageObject) {
+        this.frameMonsterKill++;
+        this.totalKill++;
+        const coinRate = (10000 + this.finalProperty.coinRate) * 0.0001;
+        const coinAdd = GConstant.battle.baseCoinDrop * coinRate + this.finalProperty.extraCoinDrop;
+        const coinAddReal = Math.floor(coinAdd);
+        this.coin += coinAddReal;
+        const coinAddRemain = coinAdd - coinAddReal;
+        this.coinRemain += coinAddRemain;
+        if (this.coinRemain >= 1) {
+            const coinRemainAdd = Math.floor(this.coinRemain);
+            this.coin += coinRemainAdd;
+            this.coinRemain -= coinRemainAdd;
+        }
+        if (o.propertyManager.heroTag.includes("boss")) {
+            this.diamond += 1;
+        }
+    }
+    buff: BattleGlobalBuff[] = [];
+    listener: BattleGlobalListener[] = [];
+
+    listenEvent(key: string, count: number) {
+        this.listener.forEach((l) => l.add(key, count));
+    }
+
+    baseProperty: BattleGlobalProperty;
+    private _finalPropertyDirty: boolean = true;
+    /** 最终属性 */
+    private _finalPropertyCache: BattleGlobalProperty;
+    private refreshFinalProperty() {
+        this._finalPropertyDirty = false;
+        const res = BattleGlobalProperty.copy(this.baseProperty);
+        this.buff.forEach((b) => {
+            const e = b.effect();
+            BattleGlobalProperty.addProperty(res, e.property, e.value);
+        });
+        this._finalPropertyCache = res;
+    }
+
+    get finalProperty(): BattleGlobalProperty {
+        if (this._finalPropertyDirty) {
+            this.refreshFinalProperty();
+        }
+        return this._finalPropertyCache;
+    }
+
+    /** 当前帧击杀的怪物数量 */
+    frameMonsterKill: number = 0;
+    totalKill: number = 0;
+
+    coin = 0;
+    diamond = 0;
+
+    tick() {
+        this.frameMonsterKill = 0;
+        this._finalPropertyDirty = true;
+    }
+}

@@ -1,0 +1,38 @@
+import { BattleBattleStageObject } from "../../../Object/BattleStage/BattleBattleStageObject";
+import { BattleObjectInfoSkill } from "../../../Object/BattleStage/BattleObjectInfo";
+import { BattleSkill } from "../../BattleSkill";
+import { BattleTargetBuilder } from "../Target/BattleTargetBuilder";
+import { BattleSkillBaseTemplateBuilder } from "../Template/BattleSkillBaseTemplateBuilder";
+import { BattleTriggerBuilder } from "../Trigger/BattleTriggerBuilder";
+
+export class BattleSkillBuilder {
+    /** 指定这个技能播放的动画 */
+    animation: string;
+    skillCategory: "normalAttack" | "independent" | "main" | "passive";
+    _needFlag: string = "";
+    /** 需要某个标志位才生效 */
+    needFlag(f: string) {
+        this._needFlag = f;
+    }
+    /** 触发条件 */
+    trigger: BattleTriggerBuilder;
+    /** 技能目标机制，技能触发时会先触发该机制寻找目标，没有目标则无法触发技能 */
+    searchTarget: BattleTargetBuilder;
+    /** 最大触发次数，默认是无限制 */
+    triggerMaxCount: number | string = 99999;
+    /** 下一步执行的技能模板 */
+    next: BattleSkillBaseTemplateBuilder;
+    /** 技能范围 */
+    range: number = 600;
+
+    canBuild(): boolean {
+        return this.skillCategory !== undefined && this.trigger !== undefined && this.next !== undefined;
+    }
+
+    build(object: BattleBattleStageObject, skillInfo: BattleObjectInfoSkill, id: number, level: number) {
+        if (!this.canBuild()) {
+            throw new Error("BattleSkillBuilder lack trigger or next");
+        }
+        return new BattleSkill(object, skillInfo, id, level, this);
+    }
+}

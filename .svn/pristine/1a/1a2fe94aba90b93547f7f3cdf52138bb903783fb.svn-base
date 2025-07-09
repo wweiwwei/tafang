@@ -1,0 +1,70 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemMissionItem from "./ListItemMissionItem";
+import WindowChestReward from "./WindowChestReward";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowMission")
+@ccclass
+export default class WindowMission extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+    /**目标进度条 */
+    @autowired(cc.ProgressBar) progress: cc.ProgressBar = null;
+    /**目标进度 */
+    @autowired(UILabel) progressLabel: UILabel = null;
+    /**宝箱 */
+    @autowired(UIButton) chest: UIButton = null;
+    /**任务列表 */
+    @autowired(UIScrollList) missionList: UIScrollList<ListItemMissionItem> = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.windowInit();
+        this.refreshMission();
+    }
+    @message([EventName.stateKey.mainMissionTask])
+    /**初始化界面 */
+    windowInit() {
+        if (GModel.mission.taskInfo().progress >= GModel.mission.taskInfo().require) {
+            this.chest.onClick = async () => {
+                const reward = await GModel.mission.obtainTaskReward();
+                reward.forEach((t) => {
+                    GTip.showRewardItem(t);
+                    GTip.showFlyReward(this.chest.node.convertToWorldSpaceAR(cc.v2()), t);
+                });
+                this.chest.node.getComponent(cc.Animation).setCurrentTime(0, "MissionChest_Ani");
+                this.chest.node.getComponent(cc.Animation).stop();
+            };
+        } else {
+            this.chest.onClick = () => {
+                GWindow.open(WindowChestReward, { reward: GModel.mission.getTaskreward() });
+            };
+        }
+        this.progressLabel.setText([
+            "_rs" + GModel.mission.taskInfo().progress + "/" + GModel.mission.taskInfo().require,
+        ]);
+        this.progress.progress = GModel.mission.taskInfo().progress / GModel.mission.taskInfo().require;
+        GModel.mission.taskInfo().progress >= GModel.mission.taskInfo().require &&
+            this.chest.node.getComponent(cc.Animation).play();
+    }
+    @message([EventName.stateKey.mainMission])
+    /**刷新任务列表 */
+    refreshMission() {
+        let state = GModel.mission.mainMissionList().map((t) => {
+            return { mission: t };
+        });
+        this.missionList.setState(state);
+    }
+}

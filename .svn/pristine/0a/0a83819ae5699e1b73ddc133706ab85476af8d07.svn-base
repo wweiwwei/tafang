@@ -1,0 +1,76 @@
+
+Work_bear.png
+size: 406,217
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Hammer
+  rotate: true
+  xy: 331, 2
+  size: 76, 73
+  orig: 76, 73
+  offset: 0, 0
+  index: -1
+Rope
+  rotate: true
+  xy: 2, 8
+  size: 10, 73
+  orig: 10, 73
+  offset: 0, 0
+  index: -1
+back_arm
+  rotate: true
+  xy: 324, 80
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+back_hand
+  rotate: false
+  xy: 368, 93
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 197, 5
+  size: 74, 66
+  orig: 74, 66
+  offset: 0, 0
+  index: -1
+bottom
+  rotate: true
+  xy: 277, 76
+  size: 139, 45
+  orig: 139, 45
+  offset: 0, 0
+  index: -1
+flash
+  rotate: true
+  xy: 2, 20
+  size: 195, 193
+  orig: 195, 197
+  offset: 0, 0
+  index: -1
+front
+  rotate: true
+  xy: 197, 73
+  size: 142, 78
+  orig: 142, 78
+  offset: 0, 0
+  index: -1
+hand
+  rotate: true
+  xy: 273, 12
+  size: 59, 56
+  orig: 59, 56
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 324, 127
+  size: 88, 80
+  orig: 88, 80
+  offset: 0, 0
+  index: -1

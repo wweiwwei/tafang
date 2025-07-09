@@ -1,0 +1,426 @@
+
+Shields_skillattack.png
+size: 364,1029
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Shields
+  rotate: false
+  xy: 146, 282
+  size: 134, 122
+  orig: 135, 123
+  offset: 1, 0
+  index: -1
+atom
+  rotate: false
+  xy: 307, 491
+  size: 13, 13
+  orig: 14, 14
+  offset: 1, 1
+  index: -1
+atom_00
+  rotate: false
+  xy: 303, 747
+  size: 50, 43
+  orig: 51, 55
+  offset: 1, 2
+  index: -1
+atom_01
+  rotate: false
+  xy: 303, 702
+  size: 49, 43
+  orig: 51, 55
+  offset: 2, 3
+  index: -1
+atom_02
+  rotate: false
+  xy: 303, 657
+  size: 48, 43
+  orig: 51, 55
+  offset: 3, 4
+  index: -1
+atom_03
+  rotate: false
+  xy: 303, 612
+  size: 46, 43
+  orig: 51, 55
+  offset: 4, 5
+  index: -1
+atom_04
+  rotate: false
+  xy: 298, 546
+  size: 45, 43
+  orig: 51, 55
+  offset: 5, 6
+  index: -1
+atom_05
+  rotate: true
+  xy: 298, 506
+  size: 38, 43
+  orig: 51, 55
+  offset: 12, 7
+  index: -1
+atom_06
+  rotate: false
+  xy: 2, 2
+  size: 37, 43
+  orig: 51, 55
+  offset: 12, 8
+  index: -1
+atom_07
+  rotate: false
+  xy: 41, 3
+  size: 37, 42
+  orig: 51, 55
+  offset: 12, 10
+  index: -1
+atom_08
+  rotate: false
+  xy: 80, 4
+  size: 37, 41
+  orig: 51, 55
+  offset: 12, 11
+  index: -1
+atom_09
+  rotate: false
+  xy: 119, 4
+  size: 37, 41
+  orig: 51, 55
+  offset: 12, 12
+  index: -1
+atom_10
+  rotate: false
+  xy: 158, 5
+  size: 37, 40
+  orig: 51, 55
+  offset: 12, 13
+  index: -1
+atom_11
+  rotate: false
+  xy: 197, 5
+  size: 37, 40
+  orig: 51, 55
+  offset: 12, 14
+  index: -1
+atom_12
+  rotate: false
+  xy: 236, 6
+  size: 37, 39
+  orig: 51, 55
+  offset: 12, 15
+  index: -1
+atom_13
+  rotate: false
+  xy: 275, 6
+  size: 36, 39
+  orig: 51, 55
+  offset: 12, 16
+  index: -1
+atom_14
+  rotate: false
+  xy: 313, 7
+  size: 36, 38
+  orig: 51, 55
+  offset: 12, 17
+  index: -1
+atom_15
+  rotate: false
+  xy: 343, 512
+  size: 19, 20
+  orig: 51, 55
+  offset: 12, 18
+  index: -1
+atom_16
+  rotate: false
+  xy: 343, 490
+  size: 19, 20
+  orig: 51, 55
+  offset: 12, 19
+  index: -1
+atom_17
+  rotate: false
+  xy: 258, 261
+  size: 19, 19
+  orig: 51, 55
+  offset: 12, 20
+  index: -1
+atom_18
+  rotate: false
+  xy: 116, 51
+  size: 19, 19
+  orig: 51, 55
+  offset: 12, 21
+  index: -1
+atom_19
+  rotate: false
+  xy: 137, 52
+  size: 18, 18
+  orig: 51, 55
+  offset: 12, 22
+  index: -1
+atom_20
+  rotate: false
+  xy: 157, 52
+  size: 18, 18
+  orig: 51, 55
+  offset: 12, 23
+  index: -1
+atom_21
+  rotate: false
+  xy: 177, 52
+  size: 18, 18
+  orig: 51, 55
+  offset: 12, 24
+  index: -1
+atom_22
+  rotate: false
+  xy: 197, 52
+  size: 18, 18
+  orig: 51, 55
+  offset: 12, 24
+  index: -1
+atom_23
+  rotate: false
+  xy: 217, 52
+  size: 18, 18
+  orig: 51, 55
+  offset: 12, 25
+  index: -1
+atom_24
+  rotate: false
+  xy: 345, 572
+  size: 17, 17
+  orig: 51, 55
+  offset: 12, 26
+  index: -1
+atom_25
+  rotate: false
+  xy: 345, 553
+  size: 17, 17
+  orig: 51, 55
+  offset: 12, 27
+  index: -1
+atom_26
+  rotate: false
+  xy: 345, 534
+  size: 17, 17
+  orig: 51, 55
+  offset: 12, 28
+  index: -1
+atom_27
+  rotate: false
+  xy: 116, 141
+  size: 16, 16
+  orig: 51, 55
+  offset: 13, 29
+  index: -1
+atom_28
+  rotate: true
+  xy: 116, 124
+  size: 15, 16
+  orig: 51, 55
+  offset: 13, 30
+  index: -1
+atom_29
+  rotate: false
+  xy: 116, 107
+  size: 15, 15
+  orig: 51, 55
+  offset: 13, 31
+  index: -1
+atom_30
+  rotate: false
+  xy: 292, 490
+  size: 13, 14
+  orig: 51, 55
+  offset: 14, 33
+  index: -1
+atom_31
+  rotate: false
+  xy: 322, 491
+  size: 13, 13
+  orig: 51, 55
+  offset: 14, 34
+  index: -1
+dun_0000_01
+  rotate: true
+  xy: 303, 846
+  size: 23, 57
+  orig: 121, 118
+  offset: 98, 14
+  index: -1
+dun_0001_02
+  rotate: false
+  xy: 307, 926
+  size: 54, 101
+  orig: 121, 118
+  offset: 67, 17
+  index: -1
+dun_0002_03
+  rotate: false
+  xy: 292, 384
+  size: 65, 104
+  orig: 121, 118
+  offset: 56, 14
+  index: -1
+dun_0003_04
+  rotate: false
+  xy: 135, 72
+  size: 114, 105
+  orig: 121, 118
+  offset: 7, 13
+  index: -1
+dun_0004_05
+  rotate: false
+  xy: 135, 179
+  size: 121, 101
+  orig: 121, 118
+  offset: 0, 17
+  index: -1
+dun_0005_06
+  rotate: true
+  xy: 2, 47
+  size: 110, 112
+  orig: 121, 118
+  offset: 0, 6
+  index: -1
+dun_0006_07
+  rotate: true
+  xy: 251, 87
+  size: 72, 111
+  orig: 121, 118
+  offset: 0, 7
+  index: -1
+dun_0007_08
+  rotate: true
+  xy: 251, 47
+  size: 38, 95
+  orig: 121, 118
+  offset: 0, 11
+  index: -1
+dun_0008_09
+  rotate: true
+  xy: 298, 591
+  size: 19, 63
+  orig: 121, 118
+  offset: 0, 18
+  index: -1
+glow
+  rotate: false
+  xy: 307, 871
+  size: 53, 53
+  orig: 57, 57
+  offset: 2, 2
+  index: -1
+guangsu
+  rotate: true
+  xy: 282, 269
+  size: 18, 74
+  orig: 18, 78
+  offset: 0, 2
+  index: -1
+spark_0000s_0000_01
+  rotate: true
+  xy: 282, 289
+  size: 93, 76
+  orig: 155, 128
+  offset: 35, 16
+  index: -1
+spark_0000s_0001_02
+  rotate: false
+  xy: 2, 288
+  size: 142, 116
+  orig: 155, 128
+  offset: 10, 3
+  index: -1
+spark_0000s_0002_03
+  rotate: false
+  xy: 2, 406
+  size: 143, 120
+  orig: 155, 128
+  offset: 9, 2
+  index: -1
+spark_0000s_0003_04
+  rotate: false
+  xy: 2, 528
+  size: 143, 121
+  orig: 155, 128
+  offset: 8, 2
+  index: -1
+spark_0000s_0004_05
+  rotate: false
+  xy: 147, 406
+  size: 143, 121
+  orig: 155, 128
+  offset: 8, 2
+  index: -1
+spark_0000s_0005_06
+  rotate: false
+  xy: 151, 529
+  size: 145, 122
+  orig: 155, 128
+  offset: 7, 2
+  index: -1
+spark_0000s_0006_07
+  rotate: false
+  xy: 154, 653
+  size: 147, 122
+  orig: 155, 128
+  offset: 6, 2
+  index: -1
+spark_0000s_0007_08
+  rotate: false
+  xy: 2, 651
+  size: 147, 122
+  orig: 155, 128
+  offset: 5, 2
+  index: -1
+spark_0000s_0008_09
+  rotate: false
+  xy: 154, 777
+  size: 147, 123
+  orig: 155, 128
+  offset: 5, 2
+  index: -1
+spark_0000s_0009_10
+  rotate: false
+  xy: 155, 902
+  size: 150, 125
+  orig: 155, 128
+  offset: 3, 1
+  index: -1
+spark_0000s_0010_11
+  rotate: false
+  xy: 2, 775
+  size: 150, 125
+  orig: 155, 128
+  offset: 3, 2
+  index: -1
+spark_0000s_0011_12
+  rotate: false
+  xy: 2, 902
+  size: 151, 125
+  orig: 155, 128
+  offset: 2, 2
+  index: -1
+spark_0000s_0012_13
+  rotate: false
+  xy: 2, 159
+  size: 131, 127
+  orig: 155, 128
+  offset: 2, 1
+  index: -1
+star
+  rotate: false
+  xy: 303, 792
+  size: 52, 52
+  orig: 54, 54
+  offset: 1, 1
+  index: -1
+yellow_star
+  rotate: false
+  xy: 258, 161
+  size: 98, 98
+  orig: 102, 102
+  offset: 2, 2
+  index: -1

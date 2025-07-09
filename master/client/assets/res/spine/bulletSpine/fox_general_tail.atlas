@@ -1,0 +1,76 @@
+
+fox_general_tail.png
+size: 71,481
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ci/bao ci_00000
+  rotate: true
+  xy: 31, 109
+  size: 84, 36
+  orig: 153, 41
+  offset: 9, 3
+  index: -1
+ci/bao ci_00001
+  rotate: true
+  xy: 31, 23
+  size: 84, 36
+  orig: 153, 41
+  offset: 9, 3
+  index: -1
+ci/bao ci_00002
+  rotate: true
+  xy: 2, 375
+  size: 104, 41
+  orig: 153, 41
+  offset: 2, 0
+  index: -1
+ci/bao ci_00003
+  rotate: true
+  xy: 36, 195
+  size: 119, 31
+  orig: 153, 41
+  offset: 3, 5
+  index: -1
+ci/bao ci_00004
+  rotate: true
+  xy: 2, 248
+  size: 125, 32
+  orig: 153, 41
+  offset: 0, 5
+  index: -1
+ci/bao ci_00005
+  rotate: true
+  xy: 2, 9
+  size: 106, 27
+  orig: 153, 41
+  offset: 19, 7
+  index: -1
+ci/bao ci_00006
+  rotate: true
+  xy: 2, 117
+  size: 129, 27
+  orig: 153, 41
+  offset: 19, 7
+  index: -1
+ci/bao ci_00007
+  rotate: true
+  xy: 45, 387
+  size: 92, 24
+  orig: 153, 41
+  offset: 56, 7
+  index: -1
+ci/bao ci_00008
+  rotate: true
+  xy: 45, 316
+  size: 69, 21
+  orig: 153, 41
+  offset: 84, 8
+  index: -1
+ci/bao ci_00009
+  rotate: false
+  xy: 31, 2
+  size: 25, 19
+  orig: 153, 41
+  offset: 102, 8
+  index: -1

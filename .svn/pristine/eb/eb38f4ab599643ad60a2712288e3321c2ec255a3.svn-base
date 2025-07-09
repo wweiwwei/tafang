@@ -1,0 +1,258 @@
+
+electric_skilltail.png
+size: 932,534
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/07
+  rotate: true
+  xy: 169, 3
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: -1
+tx/08
+  rotate: true
+  xy: 809, 8
+  size: 44, 52
+  orig: 44, 52
+  offset: 0, 0
+  index: -1
+tx/09
+  rotate: false
+  xy: 607, 44
+  size: 53, 55
+  orig: 53, 55
+  offset: 0, 0
+  index: -1
+tx/10
+  rotate: false
+  xy: 662, 45
+  size: 51, 54
+  orig: 51, 54
+  offset: 0, 0
+  index: -1
+tx/atk_guang
+  rotate: false
+  xy: 759, 158
+  size: 101, 89
+  orig: 105, 89
+  offset: 2, 0
+  index: -1
+tx/dcq_2
+  rotate: false
+  xy: 2, 384
+  size: 223, 148
+  orig: 223, 148
+  offset: 0, 0
+  index: -1
+tx/dcq_3
+  rotate: false
+  xy: 2, 234
+  size: 223, 148
+  orig: 223, 148
+  offset: 0, 0
+  index: -1
+tx/dcq_4
+  rotate: false
+  xy: 227, 384
+  size: 223, 148
+  orig: 223, 148
+  offset: 0, 0
+  index: -1
+tx/dcq_5
+  rotate: false
+  xy: 2, 84
+  size: 223, 148
+  orig: 223, 148
+  offset: 0, 0
+  index: -1
+tx/g2
+  rotate: true
+  xy: 512, 97
+  size: 61, 92
+  orig: 63, 96
+  offset: 1, 2
+  index: -1
+tx/heiyan
+  rotate: false
+  xy: 635, 146
+  size: 122, 102
+  orig: 128, 107
+  offset: 3, 2
+  index: -1
+tx/leiming_0001
+  rotate: false
+  xy: 169, 51
+  size: 56, 31
+  orig: 56, 31
+  offset: 0, 0
+  index: -1
+tx/leiming_0002
+  rotate: false
+  xy: 759, 99
+  size: 83, 57
+  orig: 83, 57
+  offset: 0, 0
+  index: -1
+tx/leiming_0003
+  rotate: true
+  xy: 759, 54
+  size: 43, 50
+  orig: 43, 50
+  offset: 0, 0
+  index: -1
+tx/leiming_0004
+  rotate: false
+  xy: 715, 2
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+tx/leiming_0005
+  rotate: false
+  xy: 684, 105
+  size: 66, 39
+  orig: 66, 39
+  offset: 0, 0
+  index: -1
+tx/leiming_0006
+  rotate: false
+  xy: 607, 5
+  size: 64, 37
+  orig: 64, 37
+  offset: 0, 0
+  index: -1
+tx/lizi6_4
+  rotate: false
+  xy: 522, 13
+  size: 83, 82
+  orig: 87, 90
+  offset: 2, 5
+  index: -1
+tx/q2c1
+  rotate: false
+  xy: 637, 250
+  size: 134, 132
+  orig: 134, 132
+  offset: 0, 0
+  index: -1
+tx/q2c2
+  rotate: false
+  xy: 374, 97
+  size: 136, 132
+  orig: 136, 132
+  offset: 0, 0
+  index: -1
+tx/q2c3
+  rotate: false
+  xy: 773, 249
+  size: 134, 133
+  orig: 134, 133
+  offset: 0, 0
+  index: -1
+tx/q2c4
+  rotate: false
+  xy: 524, 269
+  size: 111, 116
+  orig: 111, 116
+  offset: 0, 0
+  index: -1
+tx/qc1
+  rotate: true
+  xy: 770, 3
+  size: 49, 37
+  orig: 49, 37
+  offset: 0, 0
+  index: -1
+tx/qc2
+  rotate: true
+  xy: 715, 54
+  size: 49, 42
+  orig: 49, 42
+  offset: 0, 0
+  index: -1
+tx/quan_add
+  rotate: true
+  xy: 374, 231
+  size: 151, 148
+  orig: 163, 148
+  offset: 6, 0
+  index: -1
+tx/s2_leidian3
+  rotate: true
+  xy: 643, 384
+  size: 148, 167
+  orig: 156, 177
+  offset: 4, 5
+  index: -1
+tx/tsy
+  rotate: true
+  xy: 862, 131
+  size: 116, 68
+  orig: 116, 68
+  offset: 0, 0
+  index: -1
+tx/wqfm_l1
+  rotate: true
+  xy: 606, 101
+  size: 43, 76
+  orig: 43, 76
+  offset: 0, 0
+  index: -1
+tx/wqfm_l2
+  rotate: true
+  xy: 374, 20
+  size: 75, 146
+  orig: 75, 146
+  offset: 0, 0
+  index: -1
+tx/wqfm_l3
+  rotate: true
+  xy: 2, 5
+  size: 77, 165
+  orig: 77, 165
+  offset: 0, 0
+  index: -1
+tx/wqfm_l4
+  rotate: false
+  xy: 227, 193
+  size: 145, 189
+  orig: 145, 189
+  offset: 0, 0
+  index: -1
+tx/wqfm_l5
+  rotate: false
+  xy: 227, 2
+  size: 145, 189
+  orig: 145, 189
+  offset: 0, 0
+  index: -1
+tx/wqfm_l6
+  rotate: true
+  xy: 452, 387
+  size: 145, 189
+  orig: 145, 189
+  offset: 0, 0
+  index: -1
+tx/wqfm_l7
+  rotate: false
+  xy: 812, 393
+  size: 111, 139
+  orig: 111, 139
+  offset: 0, 0
+  index: -1
+tx/wqfm_l8
+  rotate: false
+  xy: 524, 160
+  size: 109, 107
+  orig: 109, 107
+  offset: 0, 0
+  index: -1
+tx/wqfm_l9
+  rotate: true
+  xy: 844, 60
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1

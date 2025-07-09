@@ -1,0 +1,329 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import EventBus from "../../../framework/event/EventBus";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemFossil from "../common/ListItemFossil";
+import ListItemCost from "../hero/ListItemCost";
+import WindowStrangeKnapsack from "../mainsceneNew/WindowStrangeKnapsack";
+import WindowStrangeProperty from "../mainsceneNew/WindowStrangeProperty";
+import ListItemGongFaItem1 from "./ListItemGongFaItem1";
+import ListItemGongFaItem3 from "./ListItemGongFaItem3";
+import ListItemTree from "./ListItemTree";
+import ListItemTreeProperty from "./ListItemTreeProperty";
+import ListItemTreeProperty2 from "./ListItemTreeProperty2";
+import WindowDiamondShop from "./WindowDiamondShop";
+import WindowRule from "./WindowRule";
+import WindowTreeNodeInfo from "./WindowTreeNodeInfo";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowGongFa", { preloadPrefab: ["ListItemTree"] })
+@ccclass
+export default class WindowGongFa extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+        hideMainScene: false,
+    };
+    _windowParam: any;
+    _returnValue: any;
+    @autowired(UIButton) menu1: UIButton = null;
+    @autowired(UIButton) menu2: UIButton = null;
+    @autowired(UIButton) menu3: UIButton = null;
+    /**能量 */
+    @autowired(UIButton) powerBtn: UIButton = null;
+    /**玉 */
+    @autowired(UIButton) jadeBtn: UIButton = null;
+    /**银子 */
+    @autowired(UIButton) silverBtn: UIButton = null;
+    /**规则 */
+    @autowired(UIButton) rule: UIButton = null;
+    @autowired(cc.Node) stNode: cc.Node = null;
+    @autowired(UIButton) stRule: UIButton = null;
+    /**秘籍 */
+    @autowired(cc.Node) mijiNode: cc.Node = null;
+    /**秘籍列表 */
+    @autowired(UIList) mijiUiList: UIList<ListItemGongFaItem1> = null;
+    /**神通列表 */
+    @autowired(UIScrollList) stScrollList: UIList<ListItemGongFaItem3> = null;
+
+    /**心法 */
+    @autowired(cc.Node) xinfaNode: cc.Node = null;
+    @autowired(cc.Node) xinfaIemRoot: cc.Node = null;
+    @autowired(UIList) xinfaUpdateCost: UIList<ListItemCost> = null;
+    /**心法属性列表 */
+    @autowired(UIList) property: UIList<ListItemTreeProperty> = null;
+    @autowired(UIList) property2: UIList<ListItemTreeProperty2> = null;
+    /**升级 bg升级耗材 text数量*/
+    @autowired(UIButton) updateBtn: UIButton = null;
+    @autowired(UIImage) updateBtnTips: UIImage = null;
+    /**一键升级 */
+    @autowired(UIButton) allUpdateBtn: UIButton = null;
+
+    private touchMenu: number = 0;
+
+    private page = 0;
+    private comps: ListItemTree[] = [];
+
+    protected onInited(): void {
+        this.node.zIndex = -1;
+        this.reftCoinCont();
+        this.even();
+        this.refMenuTips();
+        this.topInit();
+
+        this.initProperty();
+        this.refMenuImg();
+        this.initXinfa();
+    }
+
+    /**初始化数据 */
+    @message([EventName.stateKey.storage])
+    topInit() {
+        this.powerBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10016), 7)]);
+        this.jadeBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10002), 7)]);
+        this.silverBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10014), 7)]);
+    }
+
+    even() {
+        this.silverBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.jadeBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.powerBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+
+        this.menu1.onClick = () => {
+            this.touchMenu = 0;
+            this.refMenuImg();
+        };
+        this.menu2.onClick = () => {
+            this.touchMenu = 1;
+            this.refMenuImg();
+        };
+        this.menu3.onClick = () => {
+            this.touchMenu = 2;
+            this.refMenuImg();
+        };
+        this.rule.onClick = () => {
+            this.openRule();
+        };
+        this.stRule.onClick = () => {
+            this.openRule();
+        };
+    }
+
+    openRule() {
+        let ruleid = 0;
+        if (this.touchMenu == 0) {
+            ruleid = GIndex.id.ruleId.miji;
+        } else if (this.touchMenu == 1) {
+            ruleid = GIndex.id.ruleId.xinfa;
+        } else if (this.touchMenu == 2) {
+            ruleid = GIndex.id.ruleId.shentogn;
+        }
+        GWindow.open(WindowRule, { ruleId: ruleid });
+    }
+
+    refMenuImg() {
+        this.mijiNode.active = this.touchMenu == 0;
+        this.xinfaNode.active = this.touchMenu == 1;
+        this.stScrollList.node.active = this.touchMenu == 2;
+        // if (this.touchMenu == 1) this.refreshFossil();
+        this.menu1.node.getChildByName("high").active = this.touchMenu == 0;
+        this.menu2.node.getChildByName("high").active = this.touchMenu == 1;
+        this.menu3.node.getChildByName("high").active = this.touchMenu == 2;
+
+        switch (this.touchMenu) {
+            case 0:
+                this.initMiji();
+                this.rule.node.active = true;
+                this.stNode.active = false;
+                break;
+            case 1:
+                this.windowInit();
+
+                this.initTree();
+                this.rule.node.active = true;
+                this.stNode.active = false;
+                break;
+            case 2:
+                this.initST();
+                this.rule.node.active = false;
+                this.stNode.active = true;
+                break;
+        }
+    }
+
+    refMenuTips() {
+        this.menu1.node.getChildByName("tips").active = false;
+        this.menu2.node.getChildByName("tips").active = false;
+        this.menu3.node.getChildByName("tips").active = false;
+    }
+
+    reftCoinCont() {
+        this.powerBtn.text.setText(["_rs" + GModel.knapsack.getStorageById(102)]);
+        this.jadeBtn.text.setText(["_rs" + GModel.knapsack.getStorageById(102)]);
+        this.silverBtn.text.setText(["_rs" + GModel.knapsack.getStorageById(102)]);
+    }
+
+    //心法
+    // @message([EventName.stateKey.techData, EventName.stateKey.techTree])
+    initXinfa() {
+        this.xinfaIemRoot.children.forEach((node, i) => {
+            const comp = ResourceLoader.getNodeSyncWithPreload(ListItemTree);
+            node.addChild(comp.node);
+            this.comps.push(comp);
+        });
+    }
+
+    @message([EventName.stateKey.techTree, EventName.stateKey.playerData, EventName.stateKey.level])
+    initProperty() {
+        this.property.setState(GModel.tree.getPropertyDescription());
+        let state = GModel.player
+            .getLevelProperty()
+            .map((obj) => {
+                return { property: obj.property, value: obj.value, status: 0 };
+            })
+            .concat(
+                GModel.player.getRankProperty().map((obj) => {
+                    return { property: obj.property, value: obj.value, status: 1 };
+                })
+            );
+        this.property2.setState(state);
+    }
+
+    @message([
+        EventName.stateKey.techTree,
+        EventName.stateKey.techData,
+        EventName.stateKey.level,
+        EventName.stateKey.storage,
+    ])
+    windowInit() {
+        let tbl = GModel.tree.getList();
+        let cost: {
+            item: Item;
+            require: number;
+            storage: number;
+        }[];
+        let rankTbl = GTable.getList("PlayerRankTbl").find((t) => t.rank == GState.data.rank);
+        // if (GModel.player.canPromote()) {
+        //     cost = [
+        //         {
+        //             item: new Item(GIndex.id.coinId, 1),
+        //             require: GTable.getList("PlayerLevelTbl").find((t) => t.level === GState.data.level).require,
+        //             storage: GModel.knapsack.getStorageById(GIndex.id.coinId),
+        //         },
+        //     ];
+        //     this.updateBtn.onClick = async () => {
+        //         // if (!GModel.player.IsMaxRank() && GModel.player.level() >= rankTbl.levelLimit)
+        //         //     return GTip.showTip([
+        //         //         GLang.code.ui.need_break_to,
+        //         //         GTable.getList("PlayerRankTbl").find((t) => t.rank == GState.data.rank + 1).careerName,
+        //         //     ]);
+        //         const origin = GModel.battle.getBattlePoint();
+        //         await GModel.player.upgradeLevel();
+        //         const after = GModel.battle.getBattlePoint();
+        //         GTip.showBattlePointChange(origin, after, [], [], false);
+        //         EventBus.emit(EventName.redTipRefresh);
+        //     };
+        //     this.updateBtn.text.setText([GLang.code.ui.promote]);
+        // } else {
+
+        cost = GModel.tree
+            .getNextTech()
+            .uppdateCost()
+            .map((c) => {
+                return {
+                    item: c,
+                    require: c.count,
+                    storage: GModel.knapsack.getStorageById(c.id),
+                };
+            });
+        this.updateBtn.onClick = async () => {
+            if (GModel.tree.getNextTech().canUpdate()) {
+                this.comps.find((t) => t.state.id === GModel.tree.getNextTech().id).playAni();
+                const origin = GModel.battle.getBattlePoint();
+                await GModel.tree.upDateTech();
+                const after = GModel.battle.getBattlePoint();
+                GTip.showBattlePointChange(origin, after, [], [], false);
+            }
+        };
+        this.updateBtn.text.setText([GLang.code.ui.tree_nodeInfo_yj]);
+        // }
+        this.xinfaUpdateCost.setState(cost);
+        // this.techName.setText([
+        //     GTable.getList("PlayerLevelTbl").find((t) => t.level === GModel.player.level()).levelName,
+        // ]);
+        this.updateBtn.setGrey(
+            (!GModel.player.canPromote() ||
+                GModel.player.level() >= rankTbl.levelLimit ||
+                !GModel.knapsack.checkStorage([GModel.player.upgradeCost()], false)) &&
+                !GModel.tree.getNextTech().canUpdate()
+        );
+        this.updateBtnTips.node.active =
+            (GModel.player.canPromote() &&
+                GModel.player.level() < rankTbl.levelLimit &&
+                GModel.knapsack.checkStorage([GModel.player.upgradeCost()], false)) ||
+            (!GModel.player.canPromote() && GModel.tree.getNextTech().canUpdate());
+
+        this.allUpdateBtn.onClick = () => {
+            GTip.showTip(["_rs开发中"]);
+        };
+        // this.left.onClick = () => {
+        //     this.page > 0 ? (this.page -= 1) : (this.page = tbl.length - 1);
+        //     this.initTree();
+        //     this.windowInit();
+        // };
+        // this.right.onClick = () => {
+        //     this.page < tbl.length - 1 ? (this.page += 1) : (this.page = 0);
+        //     this.initTree();
+        //     this.windowInit();
+        // };
+        // this.level.setText(["_rslv." + GModel.player.level()]);
+    }
+
+    @message([EventName.stateKey.techTree, EventName.stateKey.techData, EventName.stateKey.level])
+    initTree() {
+        let tbl = GModel.tree.getList();
+        console.log("tbl =", tbl);
+        this.comps.forEach((comp, i) => {
+            if (tbl[i])
+                comp.setState({
+                    id: tbl[i].id,
+                    isHideUpLvTime: true,
+                    cb: () => {
+                        GWindow.open(WindowTreeNodeInfo, { id: tbl[i].id });
+                    },
+                });
+        });
+    }
+    //心法end
+
+    @message([EventName.stateKey.skillLv])
+    initMiji() {
+        let state = GModel.rogueModel.getSkillData();
+        this.mijiUiList.setState(state);
+    }
+
+    @message([EventName.stateKey.exSkillLv])
+    initST() {
+        let state = GModel.rogueModel.getExSkillData();
+        this.stScrollList.setState(state);
+    }
+
+    protected onRecycle(): void {
+        this.comps.forEach((element) => {
+            element.recycle();
+        });
+    }
+}

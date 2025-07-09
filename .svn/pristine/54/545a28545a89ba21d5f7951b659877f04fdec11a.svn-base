@@ -1,0 +1,287 @@
+import Item from "../../game/entity/Item";
+import { PlayerEquipment } from "../../game/entity/PlayerEquipment";
+import EventName from "../../game/event/EventName";
+import ListItemChangeSceneEffect from "../../game/module/battle/ListItemChangeSceneEffect";
+import ListItemArtifactEffect from "../../game/module/battle/core/ListItemArtifactEffect";
+import ListItemFlyItems from "../../game/module/common/ListItemFlyItems";
+import ListItemImproveTip from "../../game/module/common/ListItemImproveTip";
+import ListItemPower from "../../game/module/common/ListItemPower";
+import ListItemProductionImprove from "../../game/module/common/ListItemProductionImprove";
+import ListItemReward from "../../game/module/common/ListItemReward";
+import ListItemTip from "../../game/module/common/ListItemTip";
+import ListItemUpgradeTip from "../../game/module/common/ListItemUpgradeTip";
+import ListItemWeakGuide from "../../game/module/common/ListItemWeakGuide";
+import ListItemEquipmenPower from "../../game/module/mainscene/ListItemEquipmenPower";
+import ListItemLevelUpEffect from "../../game/module/mainscene/ListItemLevelUpEffect";
+import ResourceLoader from "../ResourceLoader";
+import EventBus from "../event/EventBus";
+
+export default class TipHelper {
+    /**
+     * 设置文本
+     * 参数是一个字符串数组，数组中的每个元素都是一个多语言key，如果前缀为_rs，则该文本会被当作普通字符串处理，不会进行多语言转换，主要用于传入数字。
+     * rs的意思是raw string。
+     * 例如：["hero/hero1", "_rs50", "_rs1800"]。
+     * 上述例子中，如果hero/hero1对应的文本是"升到下一级需要xxx_1宝石和xxx_2金币"，那这个字符串会被显示为"升到下一级需要50宝石和1800金币"。
+     *  */
+    async showTip(...text: string[][]) {
+        const t = await ResourceLoader.getNode(ListItemTip);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ text });
+    }
+    async showUpgradeEffect() {
+        const t = await ResourceLoader.getNode(ListItemLevelUpEffect);
+        cc.find("Canvas/window/WindowCultivate/content/id_window/WindowTree/content/upgradeEffect").addChild(t.node);
+        t.setState({});
+    }
+    async showUpgradeTip(text: string[][], text2: string[][]) {
+        const t = await ResourceLoader.getNode(ListItemUpgradeTip);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ text, text2 });
+    }
+    async showPower(text: string[][]) {
+        const t = await ResourceLoader.getNode(ListItemPower);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ text });
+    }
+    async showProductinoImprove(img: string, text: string[][], newval: number, oldval: number) {
+        const t = await ResourceLoader.getNode(ListItemProductionImprove);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ img, text, newval, oldval });
+    }
+    async showImprove(list: { property: string; value: number | string }[], wear: boolean) {
+        const t = await ResourceLoader.getNode(ListItemImproveTip);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ list, wear });
+    }
+    private rewardTodoList: Function[] = [];
+    private rewardItems: ListItemReward[] = [];
+    private lastRewardStamp = 0;
+
+    /** 展示奖励 */
+    async showReward(img: string, text: string[][]) {
+        this.rewardTodoList.push(() => {
+            this.next(img, text);
+        });
+    }
+
+    /** 展示物品奖励 */
+    async showRewardItem(item: Item) {
+        this.rewardTodoList.push(() => {
+            this.next(Item.getImg(item), [Item.getName(item), ["_rs" + GUtils.ui.getNumberString(item.count, 1)]]);
+        });
+    }
+
+    async check() {
+        if (this.rewardTodoList.length > 0) {
+            const now = Date.now();
+            const offset = now - this.lastRewardStamp;
+            if (offset > 200) {
+                this.rewardTodoList.shift()();
+            }
+        }
+    }
+
+    private async next(img: string, text: string[][]) {
+        this.rewardItems.forEach((e) => cc.tween(e.node).by(0.1, { y: 70 }).start());
+        this.lastRewardStamp = Date.now();
+        const t = await ResourceLoader.getNode(ListItemReward);
+        cc.find("Canvas/tip").addChild(t.node);
+        this.rewardItems.push(t);
+        t.setState({ img, text });
+        await t.doTween();
+        t.recycle();
+        this.rewardItems = this.rewardItems.filter((e) => e !== t);
+    }
+
+    /** 展示战斗场景的飞行奖励 */
+    async showBattleSceneFlyReward(config: {
+        beginWorldPosition: cc.Vec2;
+        targetWorldPosition: cc.Vec2;
+        id: number;
+        time: number;
+        count: number;
+        scale: number;
+    }) {
+        const { beginWorldPosition, targetWorldPosition, id, time, count, scale } = config;
+        const container = cc.find("Canvas/window/WindowBattleScene");
+        const p0 = container.convertToNodeSpaceAR(beginWorldPosition);
+        const p2 = container.convertToNodeSpaceAR(targetWorldPosition);
+        for (let i = 0; i < count; i++) {
+            let p1 = cc.v2(p0.x + i * 40 - 280, p0.y - Math.random() * 300 + 400);
+            const t = await ResourceLoader.getNode(ListItemFlyItems);
+            if (!container) {
+                t.recycle();
+            } else {
+                cc.find("Canvas/tip").addChild(t.node);
+                t.setState({ item: { id, count: 1 }, p0, p1, p2, time, scale });
+            }
+        }
+    }
+
+    /** 展示飞行奖励，物品会飞入背包 */
+    showFlyReward(beginWorldPosition: cc.Vec2, item: Item) {
+        const container = cc.find("Canvas/tip");
+        const p0 = container.convertToNodeSpaceAR(beginWorldPosition);
+        const targetNode = cc.find("Canvas/window/WindowMainSceneBottomUI/content/bottom_toggle/id_bottomMenu");
+
+        if (!targetNode) return;
+        let bottom = targetNode.children[2].convertToWorldSpaceAR(cc.v2());
+        let p2: cc.Vec2 = container.convertToNodeSpaceAR(bottom);
+        let pos: { p0: cc.Vec2; p1: cc.Vec2; p2: cc.Vec2 }[] = [];
+        for (let i = 0; i < 10; i++) {
+            let p1 = cc.v2(p0.x + i * 40 - 280, p0.y - Math.random() * 300 + 400);
+            pos.push({ p0, p1, p2 });
+        }
+        pos.map(async (v) => {
+            let t = await ResourceLoader.getNode(ListItemFlyItems);
+            cc.find("Canvas/tip").addChild(t.node);
+            let arr = { item, p0: v.p0, p1: v.p1, p2: v.p2 };
+            t.setState(arr);
+        });
+    }
+
+    /** 展示图鉴星星，物品会积分星星 */
+    async showFlyHandbookStar(beginWorldPosition: cc.Vec2, config: { imgName: string; count: number }) {
+        const container = cc.find("Canvas/tip");
+        const p0 = container.convertToNodeSpaceAR(beginWorldPosition);
+        let bottom = cc
+            .find("Canvas/window/WindowHandbook2/content/bg/page/id_collectionContainer/UIImage/id_obtainReward")
+            .convertToWorldSpaceAR(cc.v2());
+        let p2: cc.Vec2 = container.convertToNodeSpaceAR(bottom);
+        let pos: { p0: cc.Vec2; p1: cc.Vec2; p2: cc.Vec2 }[] = [];
+        for (let i = 0; i < config.count; i++) {
+            let p1 = cc.v2(p0.x + i * 40 - 280, p0.y - Math.random() * 300 + 400);
+            pos.push({ p0, p1, p2 });
+        }
+        pos.map(async (v) => {
+            let t = await ResourceLoader.getNode(ListItemFlyItems);
+            cc.find("Canvas/tip").addChild(t.node);
+            let arr = { item: null, p0: v.p0, p1: v.p1, p2: v.p2, imgFly: config.imgName };
+            t.setState(arr);
+        });
+    }
+
+    /** 展示飞行的地图产物，物品会飞入背包 */
+    showFlyProduce(beginWorldPosition: cc.Vec2, item: Item) {
+        const container = cc.find("Canvas/tip");
+        const p0 = container.convertToNodeSpaceAR(beginWorldPosition);
+        const targetNode = cc.find("Canvas/window/WindowMainSceneBottomUI/content/bottom_toggle/id_bottomMenu");
+
+        if (!targetNode) return;
+        let bottom = targetNode.children[3].convertToWorldSpaceAR(cc.v2());
+        let p2: cc.Vec2 = container.convertToNodeSpaceAR(bottom);
+        let pos: { p0: cc.Vec2; p1: cc.Vec2; p2: cc.Vec2 }[] = [];
+        for (let i = 0; i < item.count; i++) {
+            let p1 = cc.v2(p0.x + i * 40 - 280, p0.y - Math.random() * 300 + 400);
+            pos.push({ p0, p1, p2 });
+        }
+        pos.map(async (v) => {
+            let t = await ResourceLoader.getNode(ListItemFlyItems);
+            cc.find("Canvas/tip").addChild(t.node);
+            let arr = { item, p0: v.p0, p1: v.p1, p2: v.p2 };
+            t.setState(arr);
+        });
+    }
+    async showBattlePointChange(
+        origin: number,
+        final: number,
+        beforeProperty: { property: string; value: number }[],
+        afterProperty: { property: string; value: number }[],
+        equip: boolean
+    ) {
+        // return;
+        // EventBus.emit(EventName.hideAllPowerChange);
+        // const t = await ResourceLoader.getNode(ListItemEquipmenPower);
+        // t.setState({ origin, final, beforeProperty, afterProperty, equip });
+        // cc.find("Canvas/tip").addChild(t.node);
+    }
+
+    async showArtifactEffect(img: string) {
+        const t = await ResourceLoader.getNode(ListItemArtifactEffect);
+        cc.find("Canvas/tip").addChild(t.node);
+        t.setState({ img });
+    }
+
+    /** 屏幕震动，时间单位毫秒 */
+    shakeScreen(duration: number) {
+        cc.tween(cc.find("Canvas/battleCamera"))
+            .repeatForever(
+                cc
+                    .tween(cc.find("Canvas/battleCamera"))
+                    .to(0.02, { x: 5, y: 7 })
+                    .to(0.02, { x: -6, y: 7 })
+                    .to(0.02, { x: -13, y: 3 })
+                    .to(0.02, { x: 3, y: -6 })
+                    .to(0.02, { x: -5, y: 5 })
+                    .to(0.02, { x: 2, y: -8 })
+                    .to(0.02, { x: -8, y: -10 })
+                    .to(0.02, { x: 3, y: 10 })
+                    .to(0.02, { x: 0, y: 0 })
+            )
+            .start();
+        setTimeout(() => {
+            cc.find("Canvas/battleCamera").stopAllActions();
+            cc.find("Canvas/battleCamera").setPosition(0, 0);
+        }, duration);
+    }
+
+    /** 震屏 */
+    shockScreen() {
+        if (GWindow.isAnyWindowOpening()) return;
+        cc.tween(cc.find("Canvas/battleCamera"))
+            .to(0.1, { x: GUtils.random.nextInt(-50, 50), y: GUtils.random.nextInt(-50, 50) })
+            .to(0.1, { x: GUtils.random.nextInt(-50, 50), y: GUtils.random.nextInt(-50, 50) })
+            .to(0.05, { x: 0, y: 0 })
+            .start();
+        GSDK.shockScreen();
+    }
+
+    async showChangeScene(kind: "boss" | "trans" | "enemy") {
+        const t = await ResourceLoader.getNode(ListItemChangeSceneEffect);
+        const container = cc.find("Canvas/window");
+        t.node.parent = container;
+        t.setState({ kind });
+    }
+
+    private weakGuideMap: Map<string, ListItemWeakGuide> = new Map();
+    /**弱引导 */
+    async weakGuide(data: { kind: string; id: number }) {
+        if (data.kind === "facility") {
+            if (this.weakGuideMap.get("facility")) return;
+            const tbl = GTable.getById("FacilityTbl", data.id);
+            const node = cc.find(`Canvas/window/WindowFacilityMap/touch/${tbl.posId}`);
+            if (node) {
+                const t = await ResourceLoader.getNode(ListItemWeakGuide);
+                node.addChild(t.node);
+                t.setState({ pos: cc.v2(0, 0) });
+                this.weakGuideMap.set("facility", t);
+                const callBack = () => {
+                    const c = this.weakGuideMap.get("facility");
+                    if (c) {
+                        c.recycle();
+                        this.weakGuideMap.delete("facility");
+                    }
+                    EventBus.off(EventName.windowOpen, callBack, this);
+                };
+                EventBus.on(EventName.windowOpen, callBack, this);
+            }
+        }
+    }
+
+    /** 展示物品捐赠提示 */
+    async showDonateItem(item: Item) {
+        this.rewardTodoList.push(() => {
+            this.next(Item.getImg(item), [
+                [GLang.code.ui.donate],
+                Item.getName(item),
+                ["_rs" + GUtils.ui.getNumberString(item.count, 1)],
+            ]);
+        });
+    }
+}
+
+window["GTip"] = new TipHelper();
+declare global {
+    const GTip: TipHelper;
+}

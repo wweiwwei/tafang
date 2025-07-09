@@ -1,0 +1,74 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import EventName from "../../event/EventName";
+import ListItemDiamondItem from "../common/ListItemDiamondItem";
+import WindowCommonConfirm from "../common/WindowCommonConfirm";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowDiamondShop")
+@ccclass
+export default class WindowDiamondShop extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIList) itemList: UIList<ListItemDiamondItem> = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UILabel) shopLabel: UILabel = null;
+    @autowired(UILabel) storage: UILabel = null;
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UIImage) imglabel: UIImage = null;
+    @autowired(cc.Node) pinkLabel: cc.Node = null;
+    @autowired(UIButton) blue: UIButton = null;
+    @autowired(UIButton) pink: UIButton = null;
+    _windowParam: any;
+    _returnValue: any;
+    private page = 0;
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.blue.onClick = () => {
+            this.page = 0;
+            this.changePage();
+        };
+        this.pink.onClick = () => {
+            this.page = 1;
+            this.changePage();
+        };
+        this.changePage();
+    }
+    @message([EventName.stateKey.charge])
+    changePage() {
+        this.pinkLabel.active = this.page === 1;
+        this.imglabel.imgName = this.page === 0 ? "diamond_shop_blue" : "diamond_shop_pink_label";
+        this.img.imgName = this.page === 0 ? "item_HighEnergyCrystal" : "item_coin02";
+        this.blue.bg.imgName = this.page === 0 ? "hero_list_chosen" : "hero_list_unchosen";
+        this.pink.bg.imgName = this.page === 1 ? "hero_list_chosen" : "hero_list_unchosen";
+        this.shopLabel.setText([this.page === 0 ? GLang.code.table_item.diamond : GLang.code.table_item.pink_diamond]);
+        this.storage.setText([
+            "_rs" +
+                GUtils.ui.getNumberString(
+                    this.page === 0
+                        ? GModel.knapsack.getStorageById(GIndex.id.diamondId)
+                        : GModel.knapsack.getStorageById(GIndex.id.pinkDiamondId),
+                    2
+                ),
+        ]);
+        let state = GTable.getList("ChargeTbl")
+            .filter((t) => t.kind === this.page + 1)
+            .map((t, index) => {
+                let cb = async () => {
+                    let result = await GWindow.open(WindowCommonConfirm, { tip: ["_rs是否购买"] });
+                    if (result) GTest.testOrder(t.id, "");
+                };
+                return { id: t.id, cb, index: index + 1 };
+            });
+        this.itemList.setState(state);
+    }
+}

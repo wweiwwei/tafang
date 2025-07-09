@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "08f5d0c0-a3c3-4593-bddc-87c887e439dc",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1560,
+  "height": 348,
+  "platformSettings": {},
+  "subMetas": {
+    "Hippocampus_skillattack": {
+      "ver": "1.0.6",
+      "uuid": "bf65f457-be0a-4a9f-860c-6311c5417d0f",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "08f5d0c0-a3c3-4593-bddc-87c887e439dc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 1556,
+      "height": 344,
+      "rawWidth": 1560,
+      "rawHeight": 348,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

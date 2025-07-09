@@ -1,0 +1,139 @@
+
+Skill_Lightningchain.png
+size: 1833,918
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/effect/heiyan
+  rotate: false
+  xy: 1610, 110
+  size: 221, 221
+  orig: 221, 221
+  offset: 0, 0
+  index: -1
+images/effect/q2c2
+  rotate: true
+  xy: 1387, 21
+  size: 271, 221
+  orig: 271, 221
+  offset: 0, 0
+  index: -1
+images/effect/q2c3
+  rotate: true
+  xy: 1609, 333
+  size: 271, 221
+  orig: 271, 221
+  offset: 0, 0
+  index: -1
+images/effect/qc1
+  rotate: true
+  xy: 810, 366
+  size: 94, 74
+  orig: 94, 74
+  offset: 0, 0
+  index: -1
+images/effect/qc2
+  rotate: true
+  xy: 886, 366
+  size: 94, 74
+  orig: 94, 74
+  offset: 0, 0
+  index: -1
+images/effect/s2_leidian1
+  rotate: true
+  xy: 2, 348
+  size: 568, 402
+  orig: 580, 410
+  offset: 12, 5
+  index: -1
+images/effect/s2_leidian2
+  rotate: true
+  xy: 406, 348
+  size: 568, 402
+  orig: 580, 410
+  offset: 12, 5
+  index: -1
+images/effect/s2_leidian3
+  rotate: false
+  xy: 1129, 2
+  size: 256, 290
+  orig: 256, 290
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l1
+  rotate: false
+  xy: 2, 36
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l2
+  rotate: false
+  xy: 242, 36
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l3
+  rotate: false
+  xy: 482, 36
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l4
+  rotate: false
+  xy: 722, 36
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l5
+  rotate: false
+  xy: 987, 606
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l6
+  rotate: false
+  xy: 1129, 294
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l7
+  rotate: false
+  xy: 1227, 606
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l8
+  rotate: false
+  xy: 1369, 294
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l9
+  rotate: false
+  xy: 1467, 606
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/zbt_d
+  rotate: false
+  xy: 810, 462
+  size: 175, 454
+  orig: 175, 454
+  offset: 0, 0
+  index: -1
+images/effect/zbt_d1
+  rotate: false
+  xy: 962, 15
+  size: 165, 445
+  orig: 165, 445
+  offset: 0, 0
+  index: -1

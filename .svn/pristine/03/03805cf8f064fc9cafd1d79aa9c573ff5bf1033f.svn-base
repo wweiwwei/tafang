@@ -1,0 +1,141 @@
+import ResourceLoader from "../ResourceLoader";
+
+const { ccclass, property, menu } = cc._decorator;
+
+if (CC_EDITOR) {
+    const skeletonDataSet = Object.getOwnPropertyDescriptor(sp.Skeleton.prototype, "skeletonData").set;
+    Object.defineProperty(sp.Skeleton.prototype, "skeletonData", {
+        //@ts-ignore
+        set(v) {
+            if (v) this.spineName = v.name;
+            skeletonDataSet.call(this, v);
+        },
+    });
+}
+
+@ccclass
+@menu("UI/UISpine")
+export default class UISpine extends sp.Skeleton {
+    private spineHasLoad = false;
+    private loadedTodo: (() => void)[] = [];
+
+    /** 设置骨骼动画数据，框架将自动动态加载对应的骨骼动画 */
+    async setSpine(name: string, skin: string, animation: string): Promise<void> {
+        if (this.childNode) {
+            this.childNode.destroy();
+            this.childNode = null;
+            // @ts-ignore
+            let attachUtil = this.attachUtil;
+            // 取得挂点工具
+            attachUtil.destroyAllAttachedNodes();
+        }
+        this.currentAnimation = animation;
+        if (animation === "run") {
+            const img = name;
+            const tbl = GTable.getList("SpineAttackAnimationInfoTbl").find(
+                (t) => t.animation === animation && t.spine === img
+            );
+            if (!tbl) {
+                animation = "walk";
+            }
+        }
+        this.spineHasLoad = false;
+        this.node.opacity = 0;
+        const sp = await ResourceLoader.loadSpine(name);
+        if (cc.isValid(this.node, true)) {
+            this.node.opacity = 255;
+            this.skeletonData = sp;
+            this.setSkin(skin);
+            this.animation = animation;
+            this.spineHasLoad = true;
+            if (this.loadedTodo.length > 0) {
+                this.loadedTodo.forEach((v) => v());
+                this.loadedTodo = [];
+            }
+        }
+    }
+    private childNode: cc.Node;
+    /** 设置骨骼动画数据，框架将自动动态加载对应的骨骼动画 */
+    async setSpineWithMount(mount: string, name: string): Promise<void> {
+        this.currentAnimation = "idle";
+        this.spineHasLoad = false;
+        this.node.opacity = 0;
+        const sp = await ResourceLoader.loadSpine(mount);
+        if (cc.isValid(this.node, true)) {
+            this.node.opacity = 255;
+            this.skeletonData = sp;
+            this.setSkin("default");
+            this.animation = "idle";
+            this.spineHasLoad = true;
+            if (this.loadedTodo.length > 0) {
+                this.loadedTodo.forEach((v) => v());
+                this.loadedTodo = [];
+            }
+            // @ts-ignore
+            let attachUtil = this.attachUtil;
+            // 取得挂点工具
+            attachUtil.generateAttachedNodes("mount");
+            // 因为同名骨骼可能不止一个，所以需要返回数组
+            let boneNodes = attachUtil.getAttachedNodes("mount");
+            // 取第一个骨骼作为挂点
+            let boneNode = boneNodes[0];
+            this.childNode = new cc.Node();
+            const child = this.childNode.addComponent(UISpine);
+            await child.setSpine(name, "default", "idle");
+            boneNode.addChild(this.childNode);
+        }
+    }
+
+    private safeRun(func: () => void) {
+        if (this.spineHasLoad) {
+            func();
+        } else {
+            this.loadedTodo.push(func);
+        }
+    }
+
+    currentAnimation: string = "";
+
+    /** 切换动画，调用该方法后，动画是从头开始播放的 */
+    changeAnimation(animation: string, loop: boolean) {
+        this.currentAnimation = animation;
+        this.safeRun(() => {
+            this.setAnimation(0, animation, loop);
+        });
+    }
+
+    changeAnimationIfDifferent(animation: string, loop: boolean) {
+        if (this.currentAnimation !== animation) {
+            this.changeAnimation(animation, loop);
+        }
+    }
+    /** 跳转到某一特定的帧 */
+    changeFrame(frame: number) {
+        this.safeRun(() => {
+            const track: sp.spine.TrackEntry = this.getCurrent(0);
+            track.trackTime = frame / 30;
+        });
+    }
+
+    /** 在某个帧范围内播放 */
+    loopOnFrameRange(start: number, end: number) {
+        this.safeRun(() => {
+            const track: sp.spine.TrackEntry = this.getCurrent(0);
+            track.animationStart = start / 30;
+            track.animationEnd = end / 30;
+        });
+    }
+
+    /** 设置为灰色 */
+    setGrey(isGrey: boolean) {
+        let m: cc.Material;
+        if (isGrey) {
+            m = ResourceLoader.internalResource.graySpineMaterial;
+        } else {
+            m = ResourceLoader.internalResource.normalSpineMaterial;
+        }
+        if (this.getMaterial(0)) {
+            this.setMaterial(0, m);
+        }
+    }
+}

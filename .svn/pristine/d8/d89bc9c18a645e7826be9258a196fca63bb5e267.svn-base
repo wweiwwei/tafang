@@ -1,0 +1,356 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIEditBox from "../../../framework/ui/UIEditBox";
+import UILabel from "../../../framework/ui/UILabel";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemSingleChat from "./ListItemSingleChat";
+import ListItemPrivateChat from "./ListItemPrivateChat";
+import EventName from "../../event/EventName";
+import { PlayerChatMessage } from "../../entity/PlayerChatMessage";
+import { FriendInfo } from "../../entity/FriendInfo";
+import { VideoGroupPurchase } from "../../entity/sharedData/VideoGroupPurchase";
+import UIList from "../../../framework/ui/UIList";
+import ListItemWordMsg from "./ListItemWordMsg";
+import UIImage from "../../../framework/ui/UIImage";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowChat", {
+    preloadPrefab: ["ListItemSingleChat", "ListItemPrivateChat", "ListItemVideoChat", "ListItemWordMsg"],
+})
+@ccclass
+export default class WindowChat extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    /**世界聊天 */
+    @autowired(UIList) wordChatList: UIList<ListItemWordMsg> = null;
+    @autowired(cc.ScrollView) wordScrollView: cc.ScrollView = null;
+    /**世界聊天 */
+    @autowired(UIList) privateChatList: UIList<ListItemSingleChat> = null;
+    @autowired(cc.ScrollView) privateChatScrollView: cc.ScrollView = null;
+    /**私聊及好友列表 */
+    @autowired(UIScrollList) privateList: UIScrollList<ListItemPrivateChat> = null;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    /**私聊 */
+    @autowired(UIButton) privateChatBtn: UIButton = null;
+    /**世界 */
+    @autowired(UIButton) wordBtn: UIButton = null;
+    /**发送 */
+    @autowired(UIButton) sendBtn: UIButton = null;
+    /**切换朋友和聊天记录 */
+    @autowired(UIButton) privateChatSwitchBtn: UIButton = null;
+    /**单人私聊退回 */
+    @autowired(UIButton) breakBtn: UIButton = null;
+    /**输入框 */
+    @autowired(UIEditBox) editBox: UIEditBox = null;
+    /**未读消息提示1 */
+    @autowired(UIButton) tips1: UIButton = null;
+    /**未读消息提示2 */
+    @autowired(UIButton) tips2: UIButton = null;
+
+    @autowired(UILabel) tips3: UILabel = null;
+    /**对话人名 */
+    @autowired(UILabel) dialogueName: UILabel = null;
+    /**私聊列表为空 */
+    @autowired(UILabel) privateListNullTips: UILabel = null;
+    /**私聊红点提示 */
+    @autowired(UIImage) privateRedTips: UIImage = null;
+
+    private switchStatusArr = {
+        color: [new cc.Color().fromHEX("#FFFFFF"), new cc.Color().fromHEX("#D7D0A3")],
+        bgName: ["chat_switch_bg1", "chat_switch_bg2"],
+    };
+
+    /**停留页面状态 */
+    private status: "word" | "friend" | "privateChatList" | "privateChat" = "word";
+
+    /**发送消息对象id */
+    private sendMsgRoleId: number = 0;
+
+    private lastPrivateMsg: { time: number; num: number; isOpenPrivate: boolean } = {
+        time: 0,
+        num: 0,
+        isOpenPrivate: false,
+    }; //上次接收私聊信息时间
+
+    protected async onInited(): Promise<void> {
+        this.editBox.maxLength = 50;
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.wordBtn.onClick = () => {
+            this.onWordBtn();
+        };
+        this.privateChatBtn.onClick = () => {
+            this.onPrivateChatBtn();
+        };
+        this.sendBtn.onClick = () => {
+            this.onSendMsgBtn();
+        };
+        this.privateChatSwitchBtn.onClick = () => {
+            this.onPrivateChatSwitchBtn();
+        };
+        this.breakBtn.onClick = () => {
+            this.onBreakBtn();
+        };
+
+        GModel.friend.refreshFriendState();
+
+        this.onWordBtn();
+        this.wordScrollView.node.on("scroll-ended", this.eventScrollView, this);
+    }
+
+    eventScrollView() {
+        // let spacingY = this.wordScrollView.content.getComponent(cc.Layout).spacingY;
+        // console.log("spacingY =", spacingY);
+    }
+
+    @message([EventName.receiveWorldMsg, EventName.sharedDataKey.videoGroupPurchaseShared])
+    /**获取世界聊天内容*/
+    async getWordChatList() {
+        let msgObj: { lastTime: number; scriptName: string; msg: any; headClickCB: Function; endCB: Function }[] = [];
+        let chatMsgs: { info: FriendInfo; data: PlayerChatMessage }[] = await GModel.chat.getWorldMessage();
+        let videoGroups: { info: FriendInfo; data: VideoGroupPurchase }[] =
+            await GModel.videoGroupPurchase.recentVideoGroupPurchase();
+
+        chatMsgs.forEach((d) => {
+            msgObj.push({
+                lastTime: d.data.ts,
+                scriptName: "ListItemSingleChat",
+                msg: d,
+                headClickCB: (id: number, name: string) => {
+                    this.windowScale();
+                    this.onPrivateChatBtn();
+                    this.openPrivateChat(id, name);
+                },
+                endCB: () => {
+                    this.wordScrollView.scrollToBottom(0.2);
+                    if (this.privateListNullTips.node.active) this.privateListNullTips.node.active = false;
+                },
+            });
+        });
+        videoGroups.forEach((d) => {
+            msgObj.push({
+                lastTime: d.data.beginTime,
+                scriptName: "ListItemVideoChat",
+                msg: d,
+                headClickCB: (id: number, name: string) => {
+                    this.windowScale();
+                    this.onPrivateChatBtn();
+                    this.openPrivateChat(id, name);
+                },
+                endCB: () => {
+                    this.wordScrollView.scrollToBottom(0.2);
+                    if (this.privateListNullTips.node.active) this.privateListNullTips.node.active = false;
+                },
+            });
+        });
+        msgObj.sort((a, b) => {
+            return a.lastTime - b.lastTime;
+        });
+        let time: number = 0;
+        for (let i = msgObj.length - 1; i > 0; i--) {
+            const element = msgObj[i];
+            if (msgObj[i - 1]) time = msgObj[i - 1].lastTime;
+            element.lastTime = time;
+        }
+
+        this.wordChatList.setState(msgObj);
+    }
+
+    @message([EventName.refreshFriend])
+    /**初始化私聊列表内容 */
+    async refPrivateChatList() {
+        let msg: any = null;
+        if (this.status == "privateChatList") {
+            msg = await GModel.chat.getPrivateList();
+        } else {
+            msg = await GModel.friend.friendList();
+        }
+        this.privateList.setState(
+            msg.map((s) => {
+                return {
+                    status: this.status,
+                    info: s,
+                    itemClickCB: (roleId: number, name: string) => {
+                        this.openPrivateChat(roleId, name);
+                    },
+                    // endCB: () => {
+                    //     this.privateList.getComponent(cc.ScrollView).scrollToBottom();
+                    //     if (this.privateListNullTips.node.active) this.privateListNullTips.node.active = false;
+                    // },
+                };
+            })
+        );
+
+        if (msg.length == 0) this.privateListNullTips.node.active = true;
+    }
+
+    /**私聊返回按钮 */
+    onBreakBtn() {
+        this.status = "privateChatList";
+        this.breakBtn.node.active = false;
+        this.privateChatSwitchBtn.node.active = true;
+        this.wordChatList.node.active = false;
+        this.editBox.node.parent.active = false;
+        this.tips3.node.parent.active = true;
+        this.privateList.node.active = true;
+        this.wordChatList.node.active = false;
+        this.privateChatScrollView.node.active = false;
+        this.privateListNullTips.node.active = false;
+        this.onPrivateChatSwitchBtn(false);
+        this.refPrivateChatList();
+    }
+
+    /**世界菜单按钮 */
+    onWordBtn() {
+        this.status = "word";
+        this.wordChatList.node.active = true;
+        this.privateList.node.active = false;
+        this.wordBtn.bg.imgName = this.switchStatusArr.bgName[0];
+        this.wordBtn.text.node.color = this.switchStatusArr.color[0];
+        this.privateChatBtn.bg.imgName = this.switchStatusArr.bgName[1];
+        this.privateChatBtn.text.node.color = this.switchStatusArr.color[1];
+        this.privateListNullTips.node.active = true;
+        this.dialogueName.node.active = false;
+        this.breakBtn.node.active = false;
+        this.privateChatSwitchBtn.node.active = false;
+
+        this.editBox.node.parent.active = true;
+        this.tips1.node.active = false;
+        this.tips2.node.active = false;
+        this.tips3.node.parent.active = false;
+        this.privateListNullTips.setText([GLang.code.ui.chatNoRecord]);
+        this.wordScrollView.node.active = true;
+        this.privateChatScrollView.node.active = false;
+        this.getWordChatList();
+    }
+
+    /**私聊菜单按钮 */
+    onPrivateChatBtn() {
+        this.status = "privateChatList";
+        this.wordBtn.bg.imgName = this.switchStatusArr.bgName[1];
+        this.wordBtn.text.node.color = this.switchStatusArr.color[1];
+        this.privateChatBtn.bg.imgName = this.switchStatusArr.bgName[0];
+        this.privateChatBtn.text.node.color = this.switchStatusArr.color[0];
+        this.privateList.node.active = true;
+        this.wordChatList.node.active = false;
+        this.dialogueName.node.active = false;
+        this.breakBtn.node.active = false;
+        this.privateChatSwitchBtn.node.active = true;
+        this.tips1.node.active = false;
+        this.tips2.node.active = false;
+        this.tips3.node.parent.active = true;
+        this.editBox.node.parent.active = false;
+        this.wordScrollView.node.active = false;
+
+        this.refPrivateChatList();
+        this.onPrivateChatSwitchBtn(false);
+    }
+
+    /**好友与聊天记录切换 */
+    onPrivateChatSwitchBtn(isSwitch: boolean = true) {
+        if (this.status == "privateChatList" && isSwitch) {
+            this.tips3.setText(["ui/chatMyFriend"]); //我的好友
+            this.status = "friend";
+            this.privateListNullTips.setText([GLang.code.ui.no_friends]);
+        } else {
+            this.tips3.setText(["ui/chatRecords"]); //聊天记录
+            if (isSwitch) this.status = "privateChatList";
+            this.privateListNullTips.setText([GLang.code.ui.chatNoRecord]);
+        }
+
+        this.tips1.node.active = false;
+        this.tips2.node.active = false;
+        this.tips3.node.parent.active = true;
+        this.refPrivateChatList();
+    }
+
+    /**发送信息 */
+    async onSendMsgBtn() {
+        if (this.editBox.string.length <= 0) {
+            GTip.showTip([GLang.code.ui.chatSendMsgNotBeBlank]);
+            return;
+        }
+        if (this.status == "word") {
+            GModel.chat.sendWorld(this.editBox.string);
+            this.editBox.string = "";
+            return;
+        }
+        GModel.chat.sendPrivate(this.sendMsgRoleId, this.editBox.string);
+        this.editBox.string = "";
+    }
+
+    /**进入私聊*/
+    async openPrivateChat(roleId: number, dialogueName: string) {
+        this.status = "privateChat";
+        this.wordChatList.node.active = true;
+        this.privateList.node.active = false;
+        this.tips3.node.parent.active = false;
+        this.sendMsgRoleId = roleId;
+        this.dialogueName.node.active = true;
+        this.dialogueName.setText(["_rs" + dialogueName]);
+        this.editBox.node.parent.active = true;
+        this.privateChatSwitchBtn.node.active = false;
+        this.breakBtn.node.active = true;
+        this.privateListNullTips.node.active = true;
+        this.privateListNullTips.setText([GLang.code.ui.chatNoRecord]);
+        this.wordScrollView.node.active = false;
+        this.privateChatScrollView.node.active = true;
+        this.lastPrivateMsg.time = 0;
+        this.privateRedTips.node.active = false;
+        this.getPrivateChat();
+    }
+
+    @message([EventName.receivePrivateMsg])
+    /**获取私聊对话 */
+    async getPrivateChat() {
+        let list = [];
+        let msg = await GModel.chat.getPrivateMessage(this.sendMsgRoleId);
+        let time = 0;
+        // this.lastPrivateMsg.time = 0;
+        msg.sort((a, b) => a.data.ts - b.data.ts);
+        list = msg.map((d, index) => {
+            // if (
+            //     this.lastPrivateMsg.isOpenPrivate &&
+            //     d.info.roleId != HttpServer.roleId &&
+            //     d.data.ts > this.lastPrivateMsg.time
+            // )
+            //     this.lastPrivateMsg.num++;
+            if (index > 0) time = msg[index - 1].data.ts;
+            return {
+                lastTime: time,
+                info: d,
+                endCB: () => {
+                    this.privateChatScrollView.scrollToBottom(0.2);
+                    if (this.privateListNullTips.node.active) this.privateListNullTips.node.active = false;
+                },
+            };
+        });
+
+        this.privateChatList.setState(list);
+
+        // this.lastPrivateMsg.time = msg[msg.length - 1] && msg[msg.length - 1].data.ts;
+        // this.lastPrivateMsg.isOpenPrivate = true;
+        // if (this.lastPrivateMsg.num > 0) {
+        //     this.privateRedTips.node.active = true;
+        // }
+    }
+
+    /**窗体缩放 */
+    private windowScale() {
+        this.node
+            .getChildByName("content")
+            .runAction(
+                cc.sequence(cc.scaleTo(0.07, 0.8).easing(cc.easeOut(1)), cc.scaleTo(0.07, 1).easing(cc.easeIn(1)))
+            );
+    }
+}

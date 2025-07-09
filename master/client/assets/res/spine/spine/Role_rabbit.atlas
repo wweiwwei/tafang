@@ -1,0 +1,489 @@
+
+Role_rabbit.png
+size: 1439,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Staff
+  rotate: false
+  xy: 2, 35
+  size: 20, 232
+  orig: 20, 232
+  offset: 0, 0
+  index: -1
+back_arm2
+  rotate: false
+  xy: 1227, 69
+  size: 54, 72
+  orig: 54, 72
+  offset: 0, 0
+  index: -1
+back_cloth
+  rotate: true
+  xy: 1184, 60
+  size: 81, 41
+  orig: 81, 42
+  offset: 0, 1
+  index: -1
+back_foot
+  rotate: true
+  xy: 1287, 104
+  size: 51, 23
+  orig: 51, 23
+  offset: 0, 0
+  index: -1
+back_hand2
+  rotate: false
+  xy: 1257, 157
+  size: 55, 30
+  orig: 55, 30
+  offset: 0, 0
+  index: -1
+back_hand3
+  rotate: false
+  xy: 965, 40
+  size: 87, 94
+  orig: 87, 94
+  offset: 0, 0
+  index: -1
+back_leg
+  rotate: true
+  xy: 1054, 51
+  size: 86, 59
+  orig: 86, 59
+  offset: 0, 0
+  index: -1
+back_leg2
+  rotate: true
+  xy: 1185, 143
+  size: 43, 53
+  orig: 43, 53
+  offset: 0, 0
+  index: -1
+back_yixiu
+  rotate: true
+  xy: 59, 3
+  size: 30, 80
+  orig: 30, 80
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 24, 97
+  size: 170, 158
+  orig: 170, 158
+  offset: 0, 0
+  index: -1
+body_yixiu
+  rotate: false
+  xy: 1134, 143
+  size: 49, 32
+  orig: 49, 32
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: false
+  xy: 184, 99
+  size: 137, 168
+  orig: 137, 168
+  offset: 0, 0
+  index: -1
+effect/Skill/Spring_atk_3_10001
+  rotate: false
+  xy: 141, 9
+  size: 28, 24
+  orig: 118, 68
+  offset: 47, 23
+  index: -1
+effect/Skill/Spring_atk_3_10002
+  rotate: true
+  xy: 1142, 188
+  size: 79, 67
+  orig: 118, 68
+  offset: 24, 0
+  index: -1
+effect/Skill/Spring_atk_3_10003
+  rotate: true
+  xy: 1115, 56
+  size: 81, 67
+  orig: 118, 68
+  offset: 21, 1
+  index: -1
+effect/Skill/Spring_atk_3_10004
+  rotate: true
+  xy: 328, 2
+  size: 103, 65
+  orig: 118, 68
+  offset: 9, 2
+  index: -1
+effect/Skill/Spring_atk_3_10005
+  rotate: true
+  xy: 900, 163
+  size: 104, 66
+  orig: 118, 68
+  offset: 8, 0
+  index: -1
+effect/Skill/Spring_atk_3_10006
+  rotate: true
+  xy: 769, 13
+  size: 105, 67
+  orig: 118, 68
+  offset: 7, 1
+  index: -1
+effect/Skill/Spring_atk_3_10007
+  rotate: true
+  xy: 701, 9
+  size: 108, 66
+  orig: 118, 68
+  offset: 5, 2
+  index: -1
+effect/Skill/Spring_atk_3_10008
+  rotate: true
+  xy: 634, 8
+  size: 109, 65
+  orig: 118, 68
+  offset: 5, 3
+  index: -1
+effect/Skill/Spring_atk_3_10009
+  rotate: true
+  xy: 968, 168
+  size: 99, 60
+  orig: 118, 68
+  offset: 3, 8
+  index: -1
+effect/Skill/Spring_atk_3_10010
+  rotate: true
+  xy: 477, 2
+  size: 111, 54
+  orig: 118, 68
+  offset: 4, 13
+  index: -1
+effect/Skill/Spring_atk_3_10011
+  rotate: true
+  xy: 1030, 175
+  size: 92, 51
+  orig: 118, 68
+  offset: 7, 15
+  index: -1
+effect/Skill/Spring_atk_3_10012
+  rotate: true
+  xy: 1211, 189
+  size: 78, 45
+  orig: 118, 68
+  offset: 24, 20
+  index: -1
+effect/Skill/Spring_atk_3_10013
+  rotate: false
+  xy: 1053, 139
+  size: 79, 34
+  orig: 118, 68
+  offset: 22, 28
+  index: -1
+effect/Skill/Spring_atk_3_10014
+  rotate: false
+  xy: 810, 123
+  size: 67, 11
+  orig: 118, 68
+  offset: 26, 29
+  index: -1
+effect/Skill/sf0001
+  rotate: true
+  xy: 838, 57
+  size: 64, 38
+  orig: 171, 138
+  offset: 98, 17
+  index: -1
+effect/Skill/sf0003
+  rotate: true
+  xy: 1083, 177
+  size: 90, 57
+  orig: 171, 138
+  offset: 78, 15
+  index: -1
+effect/Skill/sf0005
+  rotate: true
+  xy: 533, 4
+  size: 113, 99
+  orig: 171, 138
+  offset: 52, 18
+  index: -1
+effect/Skill/sf0007
+  rotate: true
+  xy: 323, 107
+  size: 160, 97
+  orig: 171, 138
+  offset: 5, 22
+  index: -1
+effect/Skill/sf0009
+  rotate: false
+  xy: 172, 3
+  size: 154, 92
+  orig: 171, 138
+  offset: 8, 24
+  index: -1
+effect/Skill/sf0011
+  rotate: true
+  xy: 422, 115
+  size: 152, 94
+  orig: 171, 138
+  offset: 9, 19
+  index: -1
+effect/Skill/sf0013
+  rotate: true
+  xy: 810, 136
+  size: 131, 88
+  orig: 171, 138
+  offset: 10, 22
+  index: -1
+effect/Skill/sf0015
+  rotate: true
+  xy: 879, 8
+  size: 126, 84
+  orig: 171, 138
+  offset: 12, 24
+  index: -1
+effect/Skill/sf0017
+  rotate: true
+  xy: 395, 5
+  size: 100, 80
+  orig: 171, 138
+  offset: 16, 24
+  index: -1
+effect/Skill/star0001
+  rotate: false
+  xy: 1257, 145
+  size: 10, 10
+  orig: 26, 33
+  offset: 8, 13
+  index: -1
+effect/Skill/star0002
+  rotate: false
+  xy: 1257, 145
+  size: 10, 10
+  orig: 26, 33
+  offset: 8, 13
+  index: -1
+effect/Skill/star0003
+  rotate: true
+  xy: 1311, 63
+  size: 19, 26
+  orig: 26, 33
+  offset: 3, 4
+  index: -1
+effect/Skill/star0004
+  rotate: true
+  xy: 1311, 63
+  size: 19, 26
+  orig: 26, 33
+  offset: 3, 4
+  index: -1
+effect/Skill/star0005
+  rotate: false
+  xy: 34, 2
+  size: 23, 31
+  orig: 26, 33
+  offset: 1, 2
+  index: -1
+effect/Skill/star0006
+  rotate: false
+  xy: 34, 2
+  size: 23, 31
+  orig: 26, 33
+  offset: 1, 2
+  index: -1
+effect/Skill/star0007
+  rotate: true
+  xy: 957, 136
+  size: 25, 24
+  orig: 26, 33
+  offset: 0, 6
+  index: -1
+effect/Skill/star0008
+  rotate: true
+  xy: 957, 136
+  size: 25, 24
+  orig: 26, 33
+  offset: 0, 6
+  index: -1
+effect/Skill/star0009
+  rotate: false
+  xy: 1283, 60
+  size: 26, 22
+  orig: 26, 33
+  offset: 0, 8
+  index: -1
+effect/Skill/star0010
+  rotate: true
+  xy: 769, 2
+  size: 9, 11
+  orig: 26, 33
+  offset: 8, 12
+  index: -1
+effect/atk/ATK2-30001
+  rotate: false
+  xy: 2, 2
+  size: 30, 31
+  orig: 64, 65
+  offset: 17, 17
+  index: -1
+effect/atk/ATK2-30002
+  rotate: false
+  xy: 1172, 3
+  size: 49, 51
+  orig: 64, 65
+  offset: 7, 7
+  index: -1
+effect/atk/ATK2-30003
+  rotate: false
+  xy: 1369, 75
+  size: 61, 61
+  orig: 64, 65
+  offset: 1, 2
+  index: -1
+effect/atk/ATK2-30004
+  rotate: false
+  xy: 1372, 138
+  size: 63, 63
+  orig: 64, 65
+  offset: 0, 1
+  index: -1
+effect/atk/ATK2-30005
+  rotate: true
+  xy: 1372, 203
+  size: 64, 65
+  orig: 64, 65
+  offset: 0, 0
+  index: -1
+effect/atk/ATK2-30006
+  rotate: false
+  xy: 1339, 12
+  size: 60, 61
+  orig: 64, 65
+  offset: 3, 4
+  index: -1
+effect/atk/ATK2-30007
+  rotate: false
+  xy: 1115, 3
+  size: 55, 51
+  orig: 64, 65
+  offset: 6, 6
+  index: -1
+effect/atk/atk_01
+  rotate: true
+  xy: 1240, 144
+  size: 43, 15
+  orig: 60, 55
+  offset: 0, 19
+  index: -1
+effect/atk/atk_02
+  rotate: true
+  xy: 1314, 139
+  size: 58, 55
+  orig: 60, 55
+  offset: 2, 0
+  index: -1
+effect/atk/atk_03
+  rotate: true
+  xy: 838, 11
+  size: 44, 38
+  orig: 60, 55
+  offset: 10, 9
+  index: -1
+effect/atk/eff_guang
+  rotate: true
+  xy: 1312, 84
+  size: 53, 55
+  orig: 74, 74
+  offset: 10, 10
+  index: -1
+finger
+  rotate: false
+  xy: 1017, 3
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+front_arm
+  rotate: false
+  xy: 1258, 198
+  size: 49, 69
+  orig: 49, 69
+  offset: 0, 0
+  index: -1
+front_foot
+  rotate: false
+  xy: 900, 136
+  size: 55, 25
+  orig: 55, 25
+  offset: 0, 0
+  index: -1
+front_foot2
+  rotate: true
+  xy: 1287, 4
+  size: 54, 26
+  orig: 54, 26
+  offset: 0, 0
+  index: -1
+front_hand
+  rotate: true
+  xy: 1309, 199
+  size: 68, 61
+  orig: 68, 62
+  offset: 0, 1
+  index: -1
+front_hand2
+  rotate: true
+  xy: 965, 2
+  size: 36, 50
+  orig: 36, 50
+  offset: 0, 0
+  index: -1
+front_leg
+  rotate: false
+  xy: 1223, 3
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+front_leg2
+  rotate: true
+  xy: 1057, 2
+  size: 47, 56
+  orig: 47, 56
+  offset: 0, 0
+  index: -1
+front_yixiu
+  rotate: false
+  xy: 983, 136
+  size: 68, 30
+  orig: 68, 30
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 518, 119
+  size: 148, 106
+  orig: 148, 106
+  offset: 0, 0
+  index: -1
+hip
+  rotate: true
+  xy: 626, 119
+  size: 148, 97
+  orig: 148, 97
+  offset: 0, 0
+  index: -1
+left_ear
+  rotate: true
+  xy: 24, 35
+  size: 60, 146
+  orig: 60, 146
+  offset: 0, 0
+  index: -1
+right_ear
+  rotate: false
+  xy: 725, 120
+  size: 83, 147
+  orig: 83, 147
+  offset: 0, 0
+  index: -1

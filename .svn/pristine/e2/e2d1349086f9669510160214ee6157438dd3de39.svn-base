@@ -1,0 +1,111 @@
+import { BattleSkillBaseTemplate } from "../../Template/BattleSkillBaseTemplate";
+import { BattleSkillTemplateFireBullet } from "../../Template/BattleSkillTemplateFireBullet";
+import { BattleSkillBaseTemplateBuilder } from "./BattleSkillBaseTemplateBuilder";
+/** 发射子弹模板 */
+export class BattleSkillTemplateFireBulletBuilder extends BattleSkillBaseTemplateBuilder {
+    build(): BattleSkillBaseTemplate {
+        if (!this._speed) {
+            throw new Error("BattleSkillTemplateFireBulletBuilder: speed is required");
+        }
+        if (!this._curveType) {
+            throw new Error("BattleSkillTemplateFireBulletBuilder: curveType is required");
+        }
+        if (!this._img) {
+            throw new Error("BattleSkillTemplateFireBulletBuilder: img is required");
+        }
+        if (!this._scale) {
+            throw new Error("BattleSkillTemplateFireBulletBuilder: scale is required");
+        }
+        return new BattleSkillTemplateFireBullet(this);
+    }
+
+    _speed: number | string;
+
+    /** 子弹速度，单位像素/秒 */
+    speed(v: number | string): this {
+        this._speed = v;
+        return this;
+    }
+    _curveType: number | string;
+    /** 普攻弹道类型（1、贝塞尔曲线 2、直线） */
+    curveType(v: string | number): this {
+        this._curveType = v;
+        return this;
+    }
+    _img: string;
+    /** 子弹外观 */
+    img(v: string): this {
+        this._img = v;
+        return this;
+    }
+    _count: string | number = 1;
+    /** 子弹数量 */
+    count(v: string | number): this {
+        this._count = v;
+        return this;
+    }
+    _curveParam: string | number = 0;
+    /** 曲线参数 */
+    curveParam(v: string | number): this {
+        this._curveParam = v;
+        return this;
+    }
+    _scale: string | number;
+    /** 子弹缩放 */
+    scale(v: string | number): this {
+        this._scale = v;
+        return this;
+    }
+
+    _focusMode: boolean = false;
+    /** 单体模式 */
+    focusMode(): this {
+        this._focusMode = true;
+        return this;
+    }
+
+    _interval: string | number = 0;
+    /** 子弹间隔，单位毫秒 */
+    interval(v: string | number): this {
+        this._interval = v;
+        return this;
+    }
+
+    _penetrateMode: boolean = false;
+    /** 穿透型子弹，该类型不追踪敌人，而是对沿途穿透的敌人都造成伤害 */
+    penetrateMode(b: boolean): this {
+        this._penetrateMode = b;
+        return this;
+    }
+    _penetrateCount: string | number = 1;
+    /** 穿透数，可穿透的敌人数量 */
+    penetrateCount(v: string | number): this {
+        this._penetrateCount = v;
+        return this;
+    }
+    _penetrateRadius: string | number = 0;
+    /** 穿透碰撞半径 */
+    penetrateRadius(v: string | number): this {
+        this._penetrateRadius = v;
+        return this;
+    }
+    _penetrateDuration: string | number = 0;
+    /** 穿透持续时间，单位毫秒 */
+    penetrateDuration(v: string | number): this {
+        this._penetrateDuration = v;
+        return this;
+    }
+    _penetrateRect: number[] = null;
+    /** 穿透碰撞矩形，格式为[left, right, top, bottom] */
+    penetrateRect(v: number[]): this {
+        this._penetrateRect = v;
+        return this;
+    }
+
+    _lockRotate: boolean = false;
+    /** 子弹锁定旋转，锁定后子弹将不会旋转 */
+    lockRotate(b: boolean): this {
+        this._lockRotate = b;
+        return this;
+    }
+}

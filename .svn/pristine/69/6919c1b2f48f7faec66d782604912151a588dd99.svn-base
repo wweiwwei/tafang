@@ -1,0 +1,195 @@
+
+Role_cooker.png
+size: 1088,1038
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/body
+  rotate: true
+  xy: 256, 8
+  size: 37, 82
+  orig: 37, 82
+  offset: 0, 0
+  index: -1
+images/effect/atk_guang
+  rotate: false
+  xy: 684, 30
+  size: 166, 146
+  orig: 172, 146
+  offset: 3, 0
+  index: -1
+images/effect/g2
+  rotate: false
+  xy: 852, 3
+  size: 100, 152
+  orig: 103, 160
+  offset: 0, 5
+  index: -1
+images/effect/leiming_0001
+  rotate: false
+  xy: 169, 2
+  size: 85, 43
+  orig: 180, 120
+  offset: 70, 65
+  index: -1
+images/effect/leiming_0002
+  rotate: true
+  xy: 971, 148
+  size: 128, 86
+  orig: 180, 120
+  offset: 35, 33
+  index: -1
+images/effect/leiming_0003
+  rotate: false
+  xy: 984, 417
+  size: 64, 73
+  orig: 180, 120
+  offset: 42, 36
+  index: -1
+images/effect/leiming_0004
+  rotate: true
+  xy: 984, 569
+  size: 81, 73
+  orig: 180, 120
+  offset: 18, 27
+  index: -1
+images/effect/leiming_0005
+  rotate: true
+  xy: 954, 42
+  size: 104, 58
+  orig: 180, 120
+  offset: 17, 21
+  index: -1
+images/effect/leiming_0006
+  rotate: true
+  xy: 1014, 48
+  size: 98, 53
+  orig: 180, 120
+  offset: 21, 20
+  index: -1
+images/effect/q2c2
+  rotate: false
+  xy: 423, 178
+  size: 217, 211
+  orig: 271, 221
+  offset: 36, 0
+  index: -1
+images/effect/q2c3
+  rotate: false
+  xy: 642, 178
+  size: 212, 207
+  orig: 271, 221
+  offset: 50, 4
+  index: -1
+images/effect/qc1
+  rotate: false
+  xy: 423, 4
+  size: 76, 58
+  orig: 94, 74
+  offset: 15, 0
+  index: -1
+images/effect/qc2
+  rotate: true
+  xy: 984, 492
+  size: 75, 65
+  orig: 94, 74
+  offset: 13, 0
+  index: -1
+images/effect/quan_add
+  rotate: false
+  xy: 731, 387
+  size: 251, 242
+  orig: 269, 242
+  offset: 8, 0
+  index: -1
+images/effect/s2_leidian1
+  rotate: false
+  xy: 2, 634
+  size: 568, 402
+  orig: 580, 410
+  offset: 12, 5
+  index: -1
+images/effect/s2_leidian3
+  rotate: false
+  xy: 179, 47
+  size: 242, 273
+  orig: 256, 290
+  offset: 7, 8
+  index: -1
+images/effect/wqfm_l1
+  rotate: false
+  xy: 1019, 920
+  size: 61, 116
+  orig: 238, 310
+  offset: 50, 95
+  index: -1
+images/effect/wqfm_l2
+  rotate: false
+  xy: 856, 157
+  size: 113, 228
+  orig: 238, 310
+  offset: 50, 14
+  index: -1
+images/effect/wqfm_l3
+  rotate: true
+  xy: 423, 64
+  size: 112, 259
+  orig: 238, 310
+  offset: 53, 13
+  index: -1
+images/effect/wqfm_l4
+  rotate: false
+  xy: 179, 322
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l5
+  rotate: true
+  xy: 572, 631
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l6
+  rotate: true
+  xy: 419, 391
+  size: 238, 310
+  orig: 238, 310
+  offset: 0, 0
+  index: -1
+images/effect/wqfm_l7
+  rotate: false
+  xy: 884, 652
+  size: 172, 217
+  orig: 238, 310
+  offset: 3, 11
+  index: -1
+images/effect/wqfm_l8
+  rotate: false
+  xy: 2, 11
+  size: 165, 165
+  orig: 238, 310
+  offset: 8, 63
+  index: -1
+images/effect/wqfm_l9
+  rotate: true
+  xy: 971, 278
+  size: 107, 115
+  orig: 238, 310
+  offset: 50, 113
+  index: -1
+images/effect/zbt_d
+  rotate: false
+  xy: 2, 178
+  size: 175, 454
+  orig: 175, 454
+  offset: 0, 0
+  index: -1
+images/effect/zbt_d1
+  rotate: true
+  xy: 572, 871
+  size: 165, 445
+  orig: 165, 445
+  offset: 0, 0
+  index: -1

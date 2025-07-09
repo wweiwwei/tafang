@@ -1,0 +1,104 @@
+
+deer_skillattack01.png
+size: 816,297
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+renmazhanshi/baozha_00017
+  rotate: false
+  xy: 167, 2
+  size: 205, 143
+  orig: 235, 237
+  offset: 13, 3
+  index: -1
+renmazhanshi/baozha_00019
+  rotate: true
+  xy: 363, 152
+  size: 143, 196
+  orig: 235, 237
+  offset: 48, 19
+  index: -1
+renmazhanshi/baozha_00020
+  rotate: false
+  xy: 2, 94
+  size: 154, 201
+  orig: 235, 237
+  offset: 47, 15
+  index: -1
+renmazhanshi/baozha_00022
+  rotate: true
+  xy: 374, 13
+  size: 137, 203
+  orig: 235, 237
+  offset: 52, 14
+  index: -1
+renmazhanshi/baozha_00023
+  rotate: true
+  xy: 158, 147
+  size: 148, 203
+  orig: 235, 237
+  offset: 47, 13
+  index: -1
+renmazhanshi/baozha_00025
+  rotate: true
+  xy: 561, 186
+  size: 109, 184
+  orig: 235, 237
+  offset: 56, 24
+  index: -1
+renmazhanshi/baozha_00026
+  rotate: true
+  xy: 2, 2
+  size: 90, 163
+  orig: 235, 237
+  offset: 69, 21
+  index: -1
+renmazhanshi/baozha_00028
+  rotate: true
+  xy: 579, 108
+  size: 76, 154
+  orig: 235, 237
+  offset: 80, 24
+  index: -1
+renmazhanshi/baozha_00029
+  rotate: false
+  xy: 579, 19
+  size: 72, 87
+  orig: 235, 237
+  offset: 82, 24
+  index: -1
+renmazhanshi/baozha_00031
+  rotate: false
+  xy: 653, 19
+  size: 72, 87
+  orig: 235, 237
+  offset: 82, 21
+  index: -1
+renmazhanshi/baozha_00032
+  rotate: false
+  xy: 735, 65
+  size: 71, 89
+  orig: 235, 237
+  offset: 83, 21
+  index: -1
+renmazhanshi/baozha_00034
+  rotate: false
+  xy: 747, 213
+  size: 67, 82
+  orig: 235, 237
+  offset: 85, 28
+  index: -1
+renmazhanshi/baozha_00035
+  rotate: true
+  xy: 747, 156
+  size: 55, 56
+  orig: 235, 237
+  offset: 94, 29
+  index: -1
+renmazhanshi/baozha_00036
+  rotate: true
+  xy: 747, 156
+  size: 55, 56
+  orig: 235, 237
+  offset: 94, 29
+  index: -1

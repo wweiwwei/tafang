@@ -1,0 +1,36 @@
+declare type SkillBuilder = {
+    // /** 需要某个标志位才生效 */
+    // needFlag(f: string);
+    /** 设置技能的类型
+     * normalAttack 普攻
+     * independent 独立技能，一般为玩家技能
+     * main 必杀技，一般为boss技能
+     * passive 被动技能
+     *  */
+    skillCategory: "normalAttack" | "independent" | "main" | "passive" | "ex" | "artifact";
+    /** 该字段只是用来标志这个类型，没有任何含义，不要使用 */
+    _skillSign: symbol;
+    /** 触发条件 */
+    trigger: SkillTriggerBuilder;
+    /** 技能目标机制，技能触发时会先触发该机制寻找目标，没有目标则无法触发技能，普攻和主动技能必须有这一项 */
+    searchTarget: BattleTargetBuilder;
+    /** 最大触发次数，默认是无限制 */
+    triggerMaxCount: number | string;
+    /** 下一步执行的技能模板 */
+    next: SkillTemplateBuilder;
+    /** 指定这个技能播放的动画 */
+    animation: "attack" | "skill";
+    /** 技能范围 */
+    range: number;
+};
+
+/** 技能1 */
+declare let skill1: SkillBuilder;
+/** 技能2 */
+declare let skill2: SkillBuilder;
+/** 技能3 */
+declare let skill3: SkillBuilder;
+/** 技能4 */
+declare let skill4: SkillBuilder;
+/** 技能5 */
+declare let skill5: SkillBuilder;

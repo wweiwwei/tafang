@@ -1,0 +1,202 @@
+
+supporrabbit_skillattack.png
+size: 507,142
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/ult/eff_guang
+  rotate: false
+  xy: 351, 3
+  size: 53, 55
+  orig: 74, 74
+  offset: 10, 10
+  index: -1
+effect/ult/flash
+  rotate: true
+  xy: 30, 7
+  size: 17, 79
+  orig: 18, 81
+  offset: 0, 1
+  index: -1
+effect/ult/guang
+  rotate: false
+  xy: 2, 26
+  size: 114, 114
+  orig: 120, 120
+  offset: 3, 3
+  index: -1
+effect/ult/line
+  rotate: true
+  xy: 118, 41
+  size: 99, 79
+  orig: 99, 82
+  offset: 0, 1
+  index: -1
+effect/ult/star0001
+  rotate: false
+  xy: 495, 90
+  size: 10, 10
+  orig: 26, 31
+  offset: 8, 11
+  index: -1
+effect/ult/star0002
+  rotate: false
+  xy: 495, 90
+  size: 10, 10
+  orig: 26, 31
+  offset: 8, 11
+  index: -1
+effect/ult/star0009
+  rotate: false
+  xy: 495, 90
+  size: 10, 10
+  orig: 26, 31
+  offset: 8, 11
+  index: -1
+effect/ult/star0003
+  rotate: true
+  xy: 2, 5
+  size: 19, 26
+  orig: 26, 31
+  offset: 3, 2
+  index: -1
+effect/ult/star0004
+  rotate: true
+  xy: 2, 5
+  size: 19, 26
+  orig: 26, 31
+  offset: 3, 2
+  index: -1
+effect/ult/star0005
+  rotate: true
+  xy: 466, 34
+  size: 23, 31
+  orig: 26, 31
+  offset: 1, 0
+  index: -1
+effect/ult/star0006
+  rotate: true
+  xy: 466, 34
+  size: 23, 31
+  orig: 26, 31
+  offset: 1, 0
+  index: -1
+effect/ult/star0007
+  rotate: false
+  xy: 439, 33
+  size: 25, 24
+  orig: 26, 31
+  offset: 0, 4
+  index: -1
+effect/ult/star0008
+  rotate: false
+  xy: 439, 33
+  size: 25, 24
+  orig: 26, 31
+  offset: 0, 4
+  index: -1
+effect/ult/star0010
+  rotate: false
+  xy: 118, 28
+  size: 9, 11
+  orig: 26, 31
+  offset: 8, 10
+  index: -1
+effect/ult/y_flash01
+  rotate: false
+  xy: 308, 60
+  size: 66, 80
+  orig: 91, 111
+  offset: 0, 0
+  index: -1
+effect/ult/y_flash02
+  rotate: false
+  xy: 250, 54
+  size: 56, 86
+  orig: 91, 111
+  offset: 2, 2
+  index: -1
+effect/ult/y_flash03
+  rotate: true
+  xy: 376, 63
+  size: 77, 71
+  orig: 91, 111
+  offset: 1, 17
+  index: -1
+effect/ult/y_flash04
+  rotate: true
+  xy: 199, 51
+  size: 89, 49
+  orig: 91, 111
+  offset: 2, 41
+  index: -1
+effect/ult/y_flash05
+  rotate: false
+  xy: 139, 5
+  size: 76, 34
+  orig: 91, 111
+  offset: 15, 55
+  index: -1
+effect/ult/y_flash06
+  rotate: true
+  xy: 317, 2
+  size: 56, 32
+  orig: 91, 111
+  offset: 35, 58
+  index: -1
+effect/ult/y_flash07
+  rotate: false
+  xy: 449, 102
+  size: 52, 38
+  orig: 91, 111
+  offset: 35, 58
+  index: -1
+effect/ult/y_flash08
+  rotate: false
+  xy: 217, 4
+  size: 52, 45
+  orig: 91, 111
+  offset: 36, 61
+  index: -1
+effect/ult/y_flash09
+  rotate: true
+  xy: 271, 3
+  size: 49, 44
+  orig: 91, 111
+  offset: 36, 63
+  index: -1
+effect/ult/y_flash10
+  rotate: true
+  xy: 449, 59
+  size: 41, 44
+  orig: 91, 111
+  offset: 35, 64
+  index: -1
+effect/ult/y_flash11
+  rotate: true
+  xy: 406, 3
+  size: 28, 43
+  orig: 91, 111
+  offset: 36, 68
+  index: -1
+effect/ult/y_flash12
+  rotate: true
+  xy: 406, 33
+  size: 28, 31
+  orig: 91, 111
+  offset: 36, 79
+  index: -1
+effect/ult/y_flash13
+  rotate: false
+  xy: 451, 4
+  size: 27, 27
+  orig: 91, 111
+  offset: 36, 83
+  index: -1
+effect/ult/y_flash14
+  rotate: false
+  xy: 111, 7
+  size: 26, 17
+  orig: 91, 111
+  offset: 40, 94
+  index: -1

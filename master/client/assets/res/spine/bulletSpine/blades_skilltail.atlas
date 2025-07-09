@@ -1,0 +1,76 @@
+
+blades_skilltail.png
+size: 105,583
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/TX_xzcl_0000
+  rotate: true
+  xy: 2, 459
+  size: 122, 55
+  orig: 122, 55
+  offset: 0, 0
+  index: -1
+TX/TX_xzcl_0001
+  rotate: true
+  xy: 2, 217
+  size: 116, 55
+  orig: 116, 55
+  offset: 0, 0
+  index: -1
+TX/TX_xzcl_0002
+  rotate: true
+  xy: 59, 457
+  size: 124, 44
+  orig: 124, 44
+  offset: 0, 0
+  index: -1
+TX/TX_xzcl_0003
+  rotate: true
+  xy: 2, 102
+  size: 113, 55
+  orig: 113, 55
+  offset: 0, 0
+  index: -1
+TX/TX_xzcl_0004
+  rotate: true
+  xy: 2, 335
+  size: 122, 55
+  orig: 122, 55
+  offset: 0, 0
+  index: -1
+cilun/cilun0001
+  rotate: true
+  xy: 59, 256
+  size: 98, 41
+  orig: 98, 41
+  offset: 0, 0
+  index: -1
+cilun/cilun0003
+  rotate: true
+  xy: 59, 356
+  size: 99, 41
+  orig: 99, 41
+  offset: 0, 0
+  index: -1
+cilun/cilun0005
+  rotate: true
+  xy: 59, 156
+  size: 98, 41
+  orig: 98, 41
+  offset: 0, 0
+  index: -1
+cilun/cilun0007
+  rotate: true
+  xy: 59, 56
+  size: 98, 41
+  orig: 98, 41
+  offset: 0, 0
+  index: -1
+cilun/cilun0009
+  rotate: true
+  xy: 2, 2
+  size: 98, 41
+  orig: 98, 41
+  offset: 0, 0
+  index: -1

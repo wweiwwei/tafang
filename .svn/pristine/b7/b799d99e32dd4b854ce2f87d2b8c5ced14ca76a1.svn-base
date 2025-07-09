@@ -1,0 +1,89 @@
+import { BattleDisplayEvent } from "../Display/BattleDisplayEvent";
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import { BattleGlobalProperty } from "./BattleGlobalProperty";
+import { BattleProcessor } from "./BattleProcessor";
+
+export class BattleGlobalPropertyManager {
+    constructor(public ctx: BattleBattleStageData) {}
+    // todo
+    baseProperty: BattleGlobalProperty = new BattleGlobalProperty();
+    get finalProperty(): BattleGlobalProperty {
+        return this.baseProperty;
+    }
+
+    /** 当前帧击杀的怪物数量 */
+    frameMonsterKill: number = 0;
+
+    // 兔羊大战
+    coin = 100;
+    refreshCount = 0;
+    currentCards: number[] = [];
+
+    getCurrentCardInfo() {
+        const player = this.ctx.attackTeam.get(1);
+        const independant = player.skillManager.independentSkill;
+        return this.currentCards.map((rogueId) => {
+            const s = independant.find((i) => i.skillInfo.rogueSkillId === rogueId);
+            if (s) {
+                return {
+                    rogueId,
+                    level: s.skillInfo.level + 1,
+                };
+            } else {
+                return {
+                    rogueId,
+                    level: 1,
+                };
+            }
+        });
+    }
+
+    currentCost() {
+        return this.refreshCount * 5 + 5;
+    }
+    /** 刷新技能，消耗硬币 */
+    refreshCard(): boolean {
+        const cost = this.currentCost();
+        if (this.currentCards.length === 0 && this.coin >= cost) {
+            this.refreshCount++;
+            this.coin -= cost;
+            this.refreshCurrentCard();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** 重新刷新，无消耗 */
+    reRoll() {
+        this.refreshCurrentCard();
+    }
+
+    private refreshCurrentCard() {
+        const player = this.ctx.attackTeam.get(1);
+        const independant = player.skillManager.independentSkill;
+        const full = independant.length >= 6;
+        // 满级不再刷出
+        const maxLevel = independant.filter((s) => s.skillInfo.level === 6).map((s) => s.skillInfo.rogueSkillId);
+        let list: number[] = [];
+        if (full) {
+            // 只在已选择范围随机
+            list = independant.map((s) => s.skillInfo.rogueSkillId).filter((id) => !maxLevel.includes(id));
+        } else {
+            // 全部可随机
+            list = GTable.getList("RogueSkillTbl")
+                .map((t) => t.id)
+                .filter((id) => !maxLevel.includes(id));
+        }
+        const sr = this.ctx.sr;
+        this.currentCards = sr.rdArrayElement(list, 3);
+    }
+
+    chooseCard(id: number): boolean {
+        if (!this.currentCards.includes(id)) return false;
+        this.currentCards = [];
+        const player = this.ctx.attackTeam.get(1);
+        player.skillManager.addRougueSkill(id);
+        return true;
+    }
+}

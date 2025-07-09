@@ -1,0 +1,97 @@
+
+UI_GongfaUpGrade.png
+size: 1173,250
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/4lizi
+  rotate: false
+  xy: 623, 8
+  size: 73, 49
+  orig: 73, 49
+  offset: 0, 0
+  index: -1
+effect/f04
+  rotate: true
+  xy: 769, 130
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f05
+  rotate: true
+  xy: 769, 10
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f06
+  rotate: true
+  xy: 870, 130
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f07
+  rotate: true
+  xy: 870, 10
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f08
+  rotate: true
+  xy: 971, 130
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f09
+  rotate: true
+  xy: 971, 10
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f10
+  rotate: true
+  xy: 1072, 130
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/f11
+  rotate: true
+  xy: 1072, 10
+  size: 118, 99
+  orig: 121, 99
+  offset: 3, 0
+  index: -1
+effect/guangyun
+  rotate: false
+  xy: 248, 5
+  size: 225, 243
+  orig: 251, 251
+  offset: 13, 0
+  index: -1
+effect/neifaguang
+  rotate: false
+  xy: 623, 59
+  size: 144, 189
+  orig: 144, 189
+  offset: 0, 0
+  index: -1
+effect/outline
+  rotate: false
+  xy: 2, 2
+  size: 244, 246
+  orig: 259, 250
+  offset: 3, 1
+  index: -1
+effect/outline2
+  rotate: false
+  xy: 475, 52
+  size: 146, 196
+  orig: 259, 250
+  offset: 52, 24
+  index: -1

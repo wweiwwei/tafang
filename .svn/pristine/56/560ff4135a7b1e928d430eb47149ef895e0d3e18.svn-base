@@ -1,0 +1,36 @@
+{
+  "ver": "1.2.6",
+  "uuid": "7effe2f1-f44e-4c0d-9a10-4db21609aff8",
+  "importer": "asset",
+  "rawTextureUuid": "3939f6ff-1598-4361-af06-2b3d5e3dd873",
+  "size": {
+    "width": 128,
+    "height": 128
+  },
+  "type": "Texture Packer",
+  "subMetas": {
+    "common_victoryItembg.png": {
+      "ver": "1.0.6",
+      "uuid": "6228cc45-2251-401b-9d3b-dc703c453869",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "3939f6ff-1598-4361-af06-2b3d5e3dd873",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 95,
+      "height": 80,
+      "rawWidth": 95,
+      "rawHeight": 80,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "spriteType": "normal",
+      "subMetas": {}
+    }
+  }
+}

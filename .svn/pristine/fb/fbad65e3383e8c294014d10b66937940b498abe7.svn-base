@@ -1,0 +1,132 @@
+
+Role_mountsgourd.png
+size: 398,538
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/TX_bsh_0000
+  rotate: false
+  xy: 229, 136
+  size: 60, 73
+  orig: 60, 73
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0001
+  rotate: true
+  xy: 321, 38
+  size: 58, 74
+  orig: 58, 74
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0002
+  rotate: false
+  xy: 261, 20
+  size: 58, 76
+  orig: 58, 76
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0003
+  rotate: false
+  xy: 200, 11
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0004
+  rotate: true
+  xy: 291, 98
+  size: 56, 77
+  orig: 56, 77
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0005
+  rotate: true
+  xy: 130, 175
+  size: 58, 64
+  orig: 58, 64
+  offset: 0, 0
+  index: -1
+TX/TX_bsh_0006
+  rotate: true
+  xy: 130, 235
+  size: 59, 67
+  orig: 59, 67
+  offset: 0, 0
+  index: -1
+TX/f04
+  rotate: true
+  xy: 313, 439
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f05
+  rotate: true
+  xy: 313, 340
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f06
+  rotate: true
+  xy: 313, 241
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f07
+  rotate: false
+  xy: 2, 2
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f08
+  rotate: false
+  xy: 101, 2
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f09
+  rotate: false
+  xy: 200, 211
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f10
+  rotate: false
+  xy: 130, 90
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f11
+  rotate: false
+  xy: 299, 156
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+main_body
+  rotate: false
+  xy: 2, 296
+  size: 309, 240
+  orig: 309, 241
+  offset: 0, 1
+  index: -1
+ribbon
+  rotate: true
+  xy: 2, 87
+  size: 152, 126
+  orig: 152, 126
+  offset: 0, 0
+  index: -1
+top
+  rotate: false
+  xy: 2, 245
+  size: 47, 49
+  orig: 47, 49
+  offset: 0, 0
+  index: -1

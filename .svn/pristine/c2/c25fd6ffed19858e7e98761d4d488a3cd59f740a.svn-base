@@ -1,0 +1,132 @@
+import { BattleDisplayEvent } from "../../Display/BattleDisplayEvent";
+import { BattleTriggerEvent } from "../../Event/BattleTriggerEvent";
+import { BattleBattleStageObject } from "../../Object/BattleStage/BattleBattleStageObject";
+import { BattleBullet } from "../../Object/Bullet/BattleBullet";
+import { BattleBattleStageContext } from "../../Processor/BattleBattleStageContext";
+import { BattleUtils } from "../../Utils/BattleUtils";
+import { BattleSkillTemplateFireBulletBuilder } from "../Builder/Template/BattleSkillTemplateFireBulletBuilder";
+import { BattleSkillBaseTemplate } from "./BattleSkillBaseTemplate";
+
+export class BattleSkillTemplateFireBullet extends BattleSkillBaseTemplate {
+    private handleCb: Function;
+    private targetFrame: number;
+    protected process(ctx: BattleBattleStageContext, e: BattleTriggerEvent): boolean {
+        this.handleCb = () => {
+            return this.handleFireBullet(ctx, e);
+        };
+        if (this.builder._delay === 0) {
+            this.targetFrame = ctx.data.frame;
+            return this.handleCb();
+        } else {
+            this.targetFrame = ctx.data.frame + this.builder._delay / GConstant.battle.logicTick;
+            return false;
+        }
+    }
+
+    tick(ctx: BattleBattleStageContext): boolean {
+        if (ctx.data.frame >= this.targetFrame) {
+            return this.handleCb();
+        } else {
+            return false;
+        }
+    }
+    private _bulletFocusCache: BattleBattleStageObject[];
+    private _hasFire = 0;
+    handleFireBullet(ctx: BattleBattleStageContext, e: BattleTriggerEvent): boolean {
+        const b = this.builder as BattleSkillTemplateFireBulletBuilder;
+        let beginPos = ctx.object.position.map((e) => e);
+        if (b._spliteMode) {
+            if (!this.originCache[0]) return;
+            // 分裂模式从缓存的目标释放
+            beginPos = this.originCache[0].position.map((e) => e);
+        }
+        if (!b._focusMode) {
+            const tagetList = this.getTarget(ctx, e);
+            tagetList
+                .filter((t) => {
+                    return t.isAlive;
+                })
+                .forEach((target) => {
+                    const targetUid = target.uid;
+                    // todo 多重射击，目标死亡等判定
+                    const count = Number(b._count);
+                    for (let i = 0; i < count; i++) {
+                        const bullet = new BattleBullet(
+                            ctx.data.uuidGenerator.uuid(),
+                            ctx,
+                            b,
+                            targetUid,
+                            beginPos,
+                            (uid: number) => {
+                                const afterHit = this.builder.afterHit;
+                                const hitTarget = ctx.data.defendTeam.get(uid) || ctx.data.attackTeam.get(uid);
+                                if (hitTarget && afterHit) {
+                                    const independentSkillProcess = ctx.skill.createIndependantProcess(
+                                        [hitTarget],
+                                        afterHit
+                                    );
+                                    ctx.data.addIndependentSkillProcess(independentSkillProcess);
+                                }
+                            },
+                            {
+                                index: i,
+                                total: count,
+                            }
+                        );
+                        ctx.data.bulletMap.set(bullet.uid, bullet);
+                        ctx.data.pushDisplayEvent(new BattleDisplayEvent("addBullet", { bullet }));
+                    }
+                });
+            return true;
+        } else {
+            let tagetList: BattleBattleStageObject[];
+            if (this._bulletFocusCache) {
+                tagetList = this._bulletFocusCache;
+            } else {
+                this._bulletFocusCache = this.getTarget(ctx, e);
+                tagetList = this._bulletFocusCache;
+            }
+            const count = Number(b._count);
+            const intervalFrame = Math.round(Number(b._interval) / GConstant.battle.logicTick);
+            this._hasFire++;
+            if (this._hasFire <= count) {
+                this.targetFrame = this.targetFrame + intervalFrame;
+                tagetList
+                    .filter((t) => {
+                        return t.isAlive;
+                    })
+                    .forEach((target) => {
+                        const targetUid = target.uid;
+                        // todo 多重射击，目标死亡等判定
+                        const bullet = new BattleBullet(
+                            ctx.data.uuidGenerator.uuid(),
+                            ctx,
+                            b,
+                            targetUid,
+                            beginPos,
+                            (uid: number) => {
+                                const afterHit = this.builder.afterHit;
+                                const hitTarget = ctx.data.defendTeam.get(uid) || ctx.data.attackTeam.get(uid);
+                                if (hitTarget && afterHit) {
+                                    const independentSkillProcess = ctx.skill.createIndependantProcess(
+                                        [hitTarget],
+                                        afterHit
+                                    );
+                                    ctx.data.addIndependentSkillProcess(independentSkillProcess);
+                                }
+                            },
+                            {
+                                index: this._hasFire - 1,
+                                total: count,
+                            }
+                        );
+                        ctx.data.bulletMap.set(bullet.uid, bullet);
+                        ctx.data.pushDisplayEvent(new BattleDisplayEvent("addBullet", { bullet }));
+                    });
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+}

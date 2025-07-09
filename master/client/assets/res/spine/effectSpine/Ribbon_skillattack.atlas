@@ -1,0 +1,83 @@
+
+Ribbon_skillattack.png
+size: 409,255
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/a1_1_0003
+  rotate: false
+  xy: 324, 85
+  size: 83, 89
+  orig: 83, 89
+  offset: 0, 0
+  index: -1
+effect/a1_1_0007
+  rotate: false
+  xy: 141, 104
+  size: 109, 101
+  orig: 109, 101
+  offset: 0, 0
+  index: -1
+effect/a1_1_0011
+  rotate: false
+  xy: 2, 6
+  size: 123, 104
+  orig: 123, 104
+  offset: 0, 0
+  index: -1
+effect/a1_1_0015
+  rotate: false
+  xy: 2, 112
+  size: 137, 93
+  orig: 137, 93
+  offset: 0, 0
+  index: -1
+effect/a1_1_0017
+  rotate: false
+  xy: 127, 25
+  size: 135, 77
+  orig: 135, 77
+  offset: 0, 0
+  index: -1
+effect/caihongquan
+  rotate: true
+  xy: 264, 2
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+effect/guangqiu_zads
+  rotate: false
+  xy: 252, 104
+  size: 70, 70
+  orig: 70, 70
+  offset: 0, 0
+  index: -1
+effect/rilewaa
+  rotate: false
+  xy: 348, 49
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+effect/tangdai
+  rotate: false
+  xy: 2, 231
+  size: 259, 22
+  orig: 259, 22
+  offset: 0, 0
+  index: -1
+effect/tangsi_kunbang
+  rotate: false
+  xy: 263, 176
+  size: 135, 77
+  orig: 135, 77
+  offset: 0, 0
+  index: -1
+effect/xian
+  rotate: false
+  xy: 2, 207
+  size: 259, 22
+  orig: 259, 22
+  offset: 0, 0
+  index: -1

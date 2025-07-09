@@ -1,0 +1,8 @@
+export class BattleGlobalProperty {
+    antiLifeRecover = 0;
+
+    static empty = new BattleGlobalProperty();
+    static isGlobalPropertyKey(key: string) {
+        return key in this.empty;
+    }
+}

@@ -1,0 +1,32 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+import { BattleDirector } from "./BattleDirector";
+
+export class BattleDirectorNormalMode extends BattleDirector {
+    initBattle(): void {
+        const playerObject = this.initPlayer();
+        this.battlePrepair();
+    }
+    constructor(public ctx: BattleBattleStageData) {
+        super(ctx);
+    }
+    /** 战斗是否已结束 */
+    isBattleEnd(): boolean {
+        const monsterLimit = GTable.getById("MonsterWaveTbl", this.ctx.ctx.waveId).monsterLimit;
+        return (
+            this.ctx.attackTeam.size === 0 ||
+            (this.ctx.defendTeam.size === 0 && this.ctx.monsterQueue.isEmpty()) ||
+            this.ctx.defendTeam.size >= monsterLimit ||
+            this.ctx.frame > this.ctx.ctx.tickLimit
+        );
+    }
+
+    /** 战斗是否胜利 */
+    isBattleWin(): boolean {
+        return (
+            this.ctx.attackTeam.size > 0 &&
+            this.ctx.defendTeam.size === 0 &&
+            this.ctx.monsterQueue.isEmpty() &&
+            this.ctx.frame <= this.ctx.ctx.tickLimit
+        );
+    }
+}

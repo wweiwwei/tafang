@@ -1,0 +1,35 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import ListItemItem from "../../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemBuySkill")
+@ccclass
+export default class ListItemBuySkill extends UIListItem {
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UIButton) buyItem: UIButton = null;
+    @autowired(UILabel) cost: UILabel = null;
+
+    state: {
+        /** 消耗物品图标 */
+        costImg: string;
+        index: number;
+        cb: Function;
+        cost: number;
+        current: number;
+        text: string[];
+    };
+    static RED = cc.Color.fromHEX(new cc.Color(), "#ed636e");
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.cost.setText([`_rs${this.state.current}/${this.state.cost}`]);
+        this.cost.node.color = this.state.current < this.state.cost ? ListItemBuySkill.RED : cc.Color.WHITE;
+        this.buyItem.onClick = () => {
+            this.state.cb();
+        };
+        this.buyItem.text.setText(this.state.text);
+    }
+}

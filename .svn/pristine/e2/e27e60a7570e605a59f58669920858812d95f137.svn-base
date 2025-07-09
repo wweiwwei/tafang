@@ -1,0 +1,13 @@
+
+Role_toilet.png
+size: 117,125
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 113, 121
+  orig: 113, 121
+  offset: 0, 0
+  index: -1

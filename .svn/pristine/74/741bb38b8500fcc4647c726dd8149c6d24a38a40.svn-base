@@ -1,0 +1,41 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import ListItemItem from "../../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemRogueSkill")
+@ccclass
+export default class ListItemRogueSkill extends UIListItem {
+    /** */
+    @autowired(UIButton) click: UIButton = null;
+    @autowired(UILabel) nameLab: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIImage) img: UIImage = null;
+
+    state: {
+        index: number;
+        id: number;
+        cb: Function;
+        playAnim: boolean;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        if (this.state.playAnim) {
+            this.node.x = (this.state.index + 2) * -200;
+            cc.tween(this.node)
+                .to(0.3 * (this.state.index + 2), { x: 0 }, { easing: "sineInOut" })
+                .start();
+        }
+        const detailTbl = GTable.getById("RogueSkillDetailTbl", this.state.id);
+        const tbl = GTable.getById("RogueSkillTbl", detailTbl.skillId);
+        this.img.imgName = detailTbl.img;
+        this.click.onClick = () => {
+            this.state.cb();
+        };
+        this.nameLab.setText([tbl.name], ["_rslv." + detailTbl.level]);
+        this.desc.setText([tbl.description]);
+    }
+}

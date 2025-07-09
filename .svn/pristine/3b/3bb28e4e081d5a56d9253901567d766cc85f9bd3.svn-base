@@ -1,0 +1,34 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import ListItemStageReward from "./ListItemStageReward";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStageReward")
+@ccclass
+export default class WindowStageReward extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIScrollList) uiScrollList: UIScrollList<ListItemStageReward> = null;
+
+    protected onInited(): void {
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        let state = GTable.getList("StageTbl").map((d) => {
+            return { lv: "_rs" + d.mapIndex + d.stageIndex, rewards: Item.fromItemArray(d.firstReward), stageId: d.id };
+        });
+        this.uiScrollList.setState(state);
+    }
+}

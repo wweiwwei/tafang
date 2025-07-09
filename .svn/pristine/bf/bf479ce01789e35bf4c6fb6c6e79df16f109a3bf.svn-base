@@ -1,0 +1,41 @@
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import Item from "./Item";
+
+export class Sprite {
+    /** id */
+    id: number;
+    /**等级 */
+    level: number;
+    /**库存 */
+    exp: number;
+
+    getNextLevel() {
+        const res = GUtils.ts.shallowCopy(this);
+        res.level += 1;
+        return res;
+    }
+
+    getTbl() {
+        return GTable.getById("MountTbl", this.id);
+    }
+
+    upgradeCost() {
+        const tbl = GTable.getList("MountBaseLevelTbl").find((t) => t.level === this.level);
+        if (tbl) return Item.fromItemArray(tbl.require);
+        else return null;
+    }
+
+    /**精灵是否达到最大等级 */
+    isMaxLevel() {
+        return this.level > GTable.getList("MountBaseLevelTbl").length;
+    }
+
+    /**获取属性加成 */
+    getFormateProperty() {
+        return BattleFactory.getMountFormateProperty(this);
+    }
+
+    canUpgrade() {
+        return !this.isMaxLevel() && this.upgradeCost() && GModel.knapsack.checkStorage(this.upgradeCost(), false);
+    }
+}

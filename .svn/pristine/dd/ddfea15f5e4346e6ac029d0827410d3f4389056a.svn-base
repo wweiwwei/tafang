@@ -1,0 +1,87 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+import { BattleGlobalBuff } from "../GlobalBuff/BattleGlobalBuff";
+import { BattleGlobalListener } from "../GlobalBuff/BattleGlobalListener";
+
+export class BattleRogueBlessManager {
+    constructor(public ctx: BattleBattleStageData) {}
+
+    bless: number[] = [];
+
+    private getBuff(id: number) {
+        const tbl = GTable.getById("RogueBlessTbl", id);
+        const b1 = new BattleGlobalBuff(this.ctx);
+        const b2 = new BattleGlobalBuff(this.ctx);
+        const b3 = new BattleGlobalBuff(this.ctx);
+        const l1 = new BattleGlobalListener(this.ctx);
+        const l2 = new BattleGlobalListener(this.ctx);
+        const l3 = new BattleGlobalListener(this.ctx);
+        const env = [
+            {
+                b1,
+                b2,
+                b3,
+                l1,
+                l2,
+                l3,
+            },
+        ];
+        AstUtil.eval(tbl.script, env);
+        const buffs = [b1, b2, b3].filter((b) => b.kind != undefined);
+        const listeners = [l1, l2, l3].filter((l) => l.kind != undefined);
+        return {
+            buffs,
+            listeners,
+        };
+    }
+
+    chooseBless(id: number) {
+        if (!this.currentCards.includes(id)) return false;
+        this.currentCards = [];
+        this.bless.push(id);
+        const data = this.getBuff(id);
+        data.buffs.forEach((b) => {
+            this.ctx.globalPropertyManager.buff.push(b);
+        });
+        data.listeners.forEach((l) => {
+            this.ctx.globalPropertyManager.listener.push(l);
+        });
+    }
+
+    currentCards: number[] = [];
+
+    tick() {
+        const wave = this.ctx.monsterQueue.getWave();
+        if (Math.floor(wave / GConstant.battle.blessWave) + GConstant.battle.initBless > this.bless.length) {
+            this.refreshCard();
+        }
+    }
+
+    private refreshCard() {
+        const hasCore = this.bless.some((id) => {
+            const tbl = GTable.getById("RogueBlessTbl", id);
+            return tbl.core;
+        });
+        const list = GTable.getList("RogueBlessTbl").filter((t) => {
+            const hasBless = this.bless.includes(t.id);
+            const coreConflit = t.core && hasCore;
+            return !hasBless && !coreConflit;
+        });
+        if (list.length > 0) {
+            const sr = this.ctx.sr;
+            this.currentCards = sr.rdArrayElement(list, 3).map((t) => t.id);
+        }
+    }
+
+    reRoll() {
+        this.refreshCard();
+    }
+
+    /** 是否有可选祝福 */
+    checkBless() {
+        return this.currentCards.length > 0;
+    }
+    /** 获取祝福列表 */
+    getAllBless() {
+        return this.bless.map((id) => id);
+    }
+}

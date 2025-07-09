@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "4c7ef5b1-1ee8-4838-bade-faed64afeebf",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 1853,
+  "height": 396,
+  "platformSettings": {},
+  "subMetas": {
+    "Boss_Goldenwinged": {
+      "ver": "1.0.6",
+      "uuid": "cd3ebe55-1906-43b5-9d64-a92c7e8a768e",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "4c7ef5b1-1ee8-4838-bade-faed64afeebf",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 1849,
+      "height": 392,
+      "rawWidth": 1853,
+      "rawHeight": 396,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

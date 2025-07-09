@@ -1,0 +1,130 @@
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import Item from "../entity/Item";
+
+export default class FossilModel {
+    /**命星组合表,组合成功则返回表，否则为null */
+    getStarTbl() {
+        let tbls = GTable.getList("FossilComboTbl").filter((t) => t.itemId === GState.data.fossilData.fossilStar);
+        let formation = GState.data.fossilData.fossilFormation;
+        if (tbls.length > 0 && this.isStarActive()) {
+            let tbl = tbls.find(
+                (t) => t.quality === GUtils.array.min(formation.map((t) => GTable.getById("ItemTbl", t).quality))
+            );
+            return tbl !== undefined ? tbl : null;
+        }
+    }
+    /**命格表 */
+    getFossilTblById(id: number) {
+        return GTable.getById("FossilTbl", id);
+    }
+    /**是否激活命星 */
+    isStarActive() {
+        return BattleFactory.isStarActive(GState.data);
+    }
+    /**获取命格属性描述 */
+    getFossilPropertyDes(id: number) {
+        let fossilTbl = this.getFossilTblById(id);
+        return fossilTbl.property
+            .map((p, n) => {
+                let value: string;
+                if (p[1].endsWith("%")) {
+                    value = p[1];
+                } else {
+                    const showFunc = GIndex.battle.propertyShowMethod(p[0])(p[1]);
+                    value = showFunc;
+                }
+                return [
+                    [GIndex.battle.propertyText(p[0])],
+                    [`_rs<color=#22f777>+${value} </color>`],
+                    n < fossilTbl.property.length - 1 ? ["_rs，"] : [],
+                ];
+            })
+            .reduce((p, c) => p.concat(c), []);
+    }
+    /**获取命星属性描述 */
+    getStarPropertyDes() {
+        let fossilTbl = this.getStarTbl();
+        return fossilTbl
+            ? fossilTbl.property
+                  .map((p, n) => {
+                      let value: string;
+                      if (p[1].endsWith("%")) {
+                          value = p[1];
+                      } else {
+                          const showFunc = GIndex.battle.propertyShowMethod(p[0])(p[1]);
+                          value = showFunc;
+                      }
+                      return [
+                          [GIndex.battle.propertyText(p[0])],
+                          [`_rs<color=#22f777>+${value}</color>`],
+                          n < fossilTbl.property.length - 1 ? ["_rs，"] : [],
+                      ];
+                  })
+                  .reduce((p, c) => p.concat(c), [])
+            : [];
+    }
+    /**设置命星 */
+    async setStar(id: number) {
+        const origin = GModel.battle.getBattlePoint();
+        await GApi.fossil.setStar({ id });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+    }
+    /**设置命格 */
+    async setFormation(formation: number[]) {
+        const origin = GModel.battle.getBattlePoint();
+        await GApi.fossil.setFormation({ formation });
+        const after = GModel.battle.getBattlePoint();
+        GTip.showBattlePointChange(origin, after, [], [], false);
+    }
+    /**出售物品 */
+    sellItem(item: Item) {
+        return GApi.fossil.sellItem({ item });
+    }
+    /**编队 */
+    getFormation() {
+        return JSON.parse(JSON.stringify(GState.data.fossilData.fossilFormation));
+    }
+    /**命星 */
+    getStar() {
+        return GState.data.fossilData.fossilStar;
+    }
+
+    showRedTip(): boolean {
+        let formation = this.getFormation();
+        /**除去已装备的化石队列 */
+        let fossils = GModel.knapsack
+            .getAllStorage()
+            .filter((item) => Item.getKind(item) === 1001 && !formation.some((f) => f === item.id));
+        /**除去已装备的命星队列 */
+        let stars = GModel.knapsack
+            .getAllStorage()
+            .filter((item) => Item.getKind(item) === 1002 && this.getStar() !== item.id);
+        let starTbl = GTable.getList("FossilComboTbl").find((t) => t.itemId === this.getStar());
+        return (
+            (stars.length > 0 &&
+                /**已装备命星为空时 或 已装备命星品质低于未装备命星 */
+                (this.getStar() === -1 ||
+                    stars.some((item) => Item.getQuality(item) > Item.getQuality(new Item(this.getStar(), 1))))) ||
+            (fossils.length > 0 &&
+                /**已装备化石队列存在空时 */
+                (formation.includes(-1) ||
+                    (starTbl &&
+                        /**已装备化石存在颜色不对应但未装备队列存在对应颜色时 或 品质低于未装备化石品质时 */
+                        formation.some((f, i) =>
+                            this.getFossilTblById(f).color === starTbl.combo[i] || this.getFossilTblById(f).color === 3
+                                ? fossils.some(
+                                      (item) =>
+                                          (this.getFossilTblById(item.id).color === 3 ||
+                                              this.getFossilTblById(item.id).color === starTbl.combo[i]) &&
+                                          Item.getQuality(item) > GTable.getById("ItemTbl", f).quality
+                                  )
+                                : fossils.some(
+                                      (item) =>
+                                          this.getFossilTblById(item.id).color === 3 ||
+                                          this.getFossilTblById(item.id).color === starTbl.combo[i]
+                                  )
+                        ))))
+        );
+    }
+}

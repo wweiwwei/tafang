@@ -1,0 +1,257 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import ResourceLoader from "../../../framework/ResourceLoader";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import EventName from "../../event/EventName";
+import WindowDiamondShop from "../mainscene/WindowDiamondShop";
+import ListItemCommonItem from "../mainscene/ListItemCommonItem";
+import ListItemHeroDetail from "../mainscene/ListItemHeroDetail";
+import ListItemTreeProperty2 from "../mainscene/ListItemTreeProperty2";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import WindowSkinDetails from "../mainscene/WindowSkinDetails";
+import WindowEquipmentDetails from "../mainscene/WindowEquipmentDetails";
+import GiftPack from "../../entity/GiftPack";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowHeroDetail")
+@ccclass
+export default class WindowHeroDetail extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+    };
+    _windowParam: any;
+    _returnValue: any;
+    /** */
+
+    /**体力 */
+    @autowired(UIButton) powerBtn: UIButton = null;
+    /**玉 */
+    @autowired(UIButton) jadeBtn: UIButton = null;
+    /**银 */
+    @autowired(UIButton) silverBtn: UIButton = null;
+    /**英雄名称 */
+    @autowired(UILabel) heroName: UILabel = null;
+    /**阶段 */
+    @autowired(UILabel) stage: UILabel = null;
+    @autowired(UIImage) shadow: UIImage = null;
+    @autowired(UISpine) mount: UISpine = null;
+    // @autowired(UIImage) heroImg: UIImage = null;
+
+    /**皮肤属性加成节点 */
+    @autowired(cc.Node) skinProperty: cc.Node = null;
+    /**皮肤属性加成 */
+    @autowired(UIList) skinPropertyList: UIList<ListItemTreeProperty2> = null;
+    /**装备按钮 */
+    @autowired(UIButton) equipmentBtn: UIButton = null;
+    /**皮肤按钮 */
+    @autowired(UIButton) skinBtn: UIButton = null;
+    /**坐骑按钮 */
+    @autowired(UIButton) mountBtn: UIButton = null;
+
+    /**上6件装备 */
+    @autowired(UIList) equipmentList: UIList<ListItemHeroDetail> = null;
+    /** */
+    @autowired(UIScrollList) downList: UIScrollList<ListItemHeroDetail> = null;
+
+    protected onInited(): void {
+        this.node.zIndex = -1;
+        // this.refEquipmentList();
+        this.even();
+        this.refMenuBtn();
+        this.refMenuTips();
+        this.windowInit();
+        this.refTopEquipmentList();
+    }
+
+    private touchMenu: number = 0;
+    private touchItemId: number = 0;
+
+    @message([EventName.stateKey.spriteFormation])
+    refTopEquipmentList() {
+        let cb = (id) => {
+            if (id == -1) {
+                GTip.showTip(["_rs未装备"]);
+            }
+        };
+        let equipStr = ["武器", "戒指", "上衣", "配饰", "下衣", "鞋子"];
+        let state = GModel.sprite.getFormation().map((id, index) => {
+            if (id == -1) {
+                return {
+                    id: -1,
+                    quailtyImg: GConstant.itemQualityBg[0],
+                    icon: "",
+                    cb: cb,
+                    name: equipStr[index],
+                    isHave: true,
+                };
+            }
+            let item = GTable.getById("ItemTbl", id);
+            return {
+                id: item.id,
+                quailtyImg: GConstant.itemQualityBg[item.quality - 1],
+                icon: item.img,
+                cb: cb,
+                name: "",
+                isHave: true,
+            };
+        });
+
+        this.equipmentList.setState(state);
+    }
+
+    even() {
+        this.silverBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.jadeBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.powerBtn.onClick = () => {
+            GWindow.open(WindowDiamondShop);
+        };
+        this.powerBtn.onClick = () => {};
+        this.jadeBtn.onClick = () => {};
+        this.silverBtn.onClick = () => {};
+
+        this.equipmentBtn.onClick = () => {
+            this.touchItemId = 0;
+            this.touchMenu = 0;
+            this.refMenuBtn();
+        };
+        this.skinBtn.onClick = () => {
+            this.touchMenu = 1;
+            this.touchItemId = 0;
+            this.refMenuBtn();
+        };
+        this.mountBtn.onClick = () => {
+            this.touchMenu = 2;
+            this.touchItemId = 0;
+            this.refMenuBtn();
+        };
+    }
+
+    /**初始化数据 */
+    @message([EventName.stateKey.storage])
+    windowInit() {
+        this.powerBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10016), 7)]);
+        this.jadeBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10002), 7)]);
+        this.silverBtn.text.setText(["_rs" + GUtils.ui.getNumberString(GModel.knapsack.getStorageById(10014), 7)]);
+    }
+
+    refMenuBtn() {
+        if (this.touchMenu == 0) {
+            this.refEquipmentList();
+        } else if (this.touchMenu == 1) {
+            this.refSkinList();
+            // if(GModel.mountAndSkin.currentSkin())
+            let tbl = GTable.getById("PlayerSkinTbl", GModel.mountAndSkin.currentSkin());
+            let state = tbl.formateProperty.map((d) => {
+                return {
+                    property: d[0],
+                    value: "+" + GIndex.battle.propertyShowMethod(d[0])(Number(d[1])),
+                    interval: 40,
+                };
+            });
+            this.skinPropertyList.setState(state);
+        } else if (this.touchMenu == 2) {
+            this.refMountList();
+        }
+        this.skinProperty.active = this.touchMenu == 1;
+        // this.equipmentList.node.active = this.touchMenu == 0;
+        // this.skinList.node.active = this.touchMenu == 1;
+        // this.mountList.node.active = this.touchMenu == 2;
+        this.equipmentBtn.node.getChildByName("high").active = this.touchMenu == 0;
+        this.skinBtn.node.getChildByName("high").active = this.touchMenu == 1;
+        this.mountBtn.node.getChildByName("high").active = this.touchMenu == 2;
+    }
+
+    refMenuTips() {
+        this.equipmentBtn.node.getChildByName("tips").active = false;
+        this.skinBtn.node.getChildByName("tips").active = false;
+        this.mountBtn.node.getChildByName("tips").active = false;
+    }
+
+    @message([EventName.stateKey.spriteFormation])
+    refEquipmentList() {
+        let cb = async (id) => {
+            if (this.touchItemId == id) this.touchItemId = 0;
+            this.touchItemId = id;
+            GWindow.open(WindowEquipmentDetails, { id: this.touchItemId });
+
+            this.refEquipmentList();
+        };
+
+        let state = GModel.sprite
+            .getSprites()
+            .filter((d) => {
+                return !GModel.sprite.getFormation().includes(d.id) && GModel.sprite.getSpriteById(d.id).exp > 0;
+            })
+            .map((d) => {
+                let item = GTable.getById("ItemTbl", d.id);
+                return {
+                    id: d.id,
+                    quailtyImg: GConstant.itemQualityBg[item.quality - 1],
+                    icon: item.img,
+                    cb: cb,
+                    switch: this.touchItemId == d.id,
+                    isHave: true,
+                };
+            });
+
+        this.downList.setState(state);
+    }
+
+    refSkinList() {
+        let cb = (id) => {
+            if (this.touchItemId == id) this.touchItemId = 0;
+
+            this.touchItemId = id;
+            GWindow.open(WindowSkinDetails, { skinId: this.touchItemId });
+            this.refSkinList();
+        };
+        let state = GModel.mountAndSkin.getAllSkin().map((d) => {
+            let item = GTable.getById("ItemTbl", d.id);
+            return {
+                id: d.id,
+                quailtyImg: GConstant.itemQualityBg[item.quality - 1],
+                icon: item.img,
+                cb: cb,
+                // name: "时装",
+                switch: this.touchItemId == d.id,
+                isHave: d.unlock,
+            };
+        });
+        console.log("skin state =", state);
+        this.downList.setState(state);
+    }
+
+    refMountList() {
+        let cb = (id) => {
+            if (this.touchItemId == id) this.touchItemId = 0;
+
+            this.touchItemId = id;
+            GWindow.open(WindowSkinDetails, { mountId: this.touchItemId });
+            this.refMountList();
+        };
+        let state = GModel.mountAndSkin.getAllMount().map((d) => {
+            let item = GTable.getById("ItemTbl", d.id);
+            return {
+                id: d.id,
+                quailtyImg: GConstant.itemQualityBg[item.quality - 1],
+                icon: item.img,
+                cb: cb,
+                // name: "坐骑",
+                switch: this.touchItemId == d.id,
+                isHave: d.unlock,
+            };
+        });
+        console.log("mount state =", state);
+        this.downList.setState(state);
+    }
+}

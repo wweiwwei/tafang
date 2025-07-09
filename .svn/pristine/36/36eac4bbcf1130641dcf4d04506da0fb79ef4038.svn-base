@@ -1,0 +1,14 @@
+{
+    skill1.skillCategory = "ex";
+    skill1.trigger = trigger.ex("self.sp.lightningColdDown");
+    skill1.searchTarget = target.enemyTeam.excludeBossOrElite();
+    skill1.range = 1000;
+    let tFire = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*self.sp.lightningDamage")
+        .addEffect(effect.offset(0, -50).positionType("self").effectName("kinggod_skillattack"));
+    tFire.target = target.enemyTeam.excludeBossOrElite();
+    skill1.next = tFire;
+}

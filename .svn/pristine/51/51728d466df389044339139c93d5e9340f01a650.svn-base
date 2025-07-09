@@ -1,0 +1,35 @@
+using System.Collections.Immutable;
+
+namespace GamePlay
+{
+    public class StageIndex
+    {
+        public readonly ImmutableDictionary<int, ImmutableArray<StageRewardInfo>> AfkProduceByMapIndexAndStageIndex;
+        public StageIndex(TableData Table, TableConfigData Config)
+        {
+            Dictionary<string, double> m = new Dictionary<string, double>();
+            Dictionary<int, ImmutableArray<StageRewardInfo>> temp = new();
+            Table.StageTblList.GroupBy(tbl => tbl.MapIndex).ToList().ForEach(e =>
+            {
+                var mapIndex = e.Key;
+                var list = e.ToList();
+                var res = list.SelectMany(tbl =>
+                {
+                    var l = new List<StageRewardInfo>();
+                    int lv = tbl.StageIndex;
+                    m["lv"] = lv;
+                    long afkMapProduce = (long)Math.Round(AstUtil.Eval(tbl.AfkMapProduce, m));
+                    ImmutableArray<Item> firstReward = tbl.FirstReward.Select(t => new Item(int.Parse(t[0]), (long)Math.Round(AstUtil.Eval(t[1], m)))).ToImmutableArray();
+                    ImmutableArray<Item> specialReward = tbl.SpecialReward.Where(t => lv % int.Parse(t[0]) == 0).Select(t => new Item(int.Parse(t[1]), (long)Math.Round(AstUtil.Eval(t[2], m)))).ToImmutableArray();
+                    ImmutableArray<ImmutableArray<long>> afkReward = tbl.AfkReward.Select(t => new long[] { long.Parse(t[0]), long.Parse(t[1]), (long)Math.Round(AstUtil.Eval(t[2], m)) }.ToImmutableArray()).ToImmutableArray();
+                    l.Add(new StageRewardInfo(afkMapProduce, firstReward.AddRange(specialReward), afkReward));
+                    return l;
+                }).Where(t => t != null).ToImmutableArray();
+                temp[mapIndex] = res;
+            });
+            AfkProduceByMapIndexAndStageIndex = temp.ToImmutableDictionary();
+        }
+    }
+
+    public record StageRewardInfo(long afkMapProduce, ImmutableArray<Item> firstReward, ImmutableArray<ImmutableArray<long>> afkReward);
+}

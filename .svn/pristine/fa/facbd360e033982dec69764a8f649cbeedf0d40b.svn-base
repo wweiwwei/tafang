@@ -1,0 +1,22 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+import { BattleDirector } from "./BattleDirector";
+
+export class BattleDirectorPvpMode extends BattleDirector {
+    initBattle(): void {}
+    constructor(public ctx: BattleBattleStageData) {
+        super(ctx);
+    }
+    /** 战斗是否已结束 */
+    isBattleEnd(): boolean {
+        return (
+            this.ctx.attackTeam.size === 0 || this.ctx.defendTeam.size === 0 || this.ctx.frame > this.ctx.ctx.tickLimit
+        );
+    }
+
+    /** 战斗是否胜利 */
+    isBattleWin(): boolean {
+        return (
+            this.ctx.attackTeam.size > 0 && this.ctx.defendTeam.size === 0 && this.ctx.frame <= this.ctx.ctx.tickLimit
+        );
+    }
+}

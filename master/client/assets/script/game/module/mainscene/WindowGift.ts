@@ -1,0 +1,95 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { GameDate } from "../../../framework/date/GameDate";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import GiftPack from "../../entity/GiftPack";
+import EventName from "../../event/EventName";
+import ListItemItem from "../common/ListItemItem";
+import WindowCongratulation from "../common/WindowCongratulation";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowGift")
+@ccclass
+export default class WindowGift extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    @autowired(UIList) itemList: UIList<ListItemItem> = null;
+    @autowired(UILabel) limit: UILabel = null;
+    @autowired(UILabel) time: UILabel = null;
+    @autowired(UIButton) closeBtn: UIButton = null;
+    @autowired(UIButton) leftArrow: UIButton = null;
+    @autowired(UIButton) rightArrow: UIButton = null;
+    @autowired(UIButton) purchase: UIButton = null;
+    _windowParam: { id?: number };
+    _returnValue: any;
+    private packList: GiftPack[];
+    private index: number = 0;
+    protected onInited(): void {
+        if (this._windowParam.id) {
+            this.index = GModel.giftPack.getPackList().findIndex((p) => p.id === this._windowParam.id);
+        }
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        this.leftArrow.onClick = () => {
+            this.index = this.index === 0 ? this.packList.length - 1 : this.index - 1;
+            this.initGift();
+        };
+        this.rightArrow.onClick = () => {
+            this.index = this.index === this.packList.length - 1 ? 0 : this.index + 1;
+            this.initGift();
+        };
+        this.initGift();
+        this.refreshTime();
+        this.schedule(this.refreshTime, 1);
+    }
+    @message([EventName.stateKey.charge, EventName.stateKey.giftPack])
+    /**刷新礼包 */
+    initGift() {
+        this.packList = GModel.giftPack.getPackList();
+        if (this.packList.length <= 0) this.close();
+        this.rightArrow.node.active = this.packList.length > 1;
+        this.leftArrow.node.active = this.packList.length > 1;
+        let pack = this.packList[this.index] || this.packList[0];
+        this.purchase.setEnable(!pack.hasBuy);
+        this.purchase.text.setText(["_rs￥" + GTable.getById("ChargeTbl", pack.packageId).cny / 100]);
+        this.purchase.onClick = async () => {
+            GWindow.close(WindowCongratulation);
+            let extra = { id: pack.id };
+            // GModel.charge.pay(pack.packageId, JSON.stringify(extra));
+            GModel.charge.pay(pack.packageId, JSON.stringify(extra));
+            await GModel.charge.checkReward();
+            this.close();
+        };
+        let state = pack.getReward().map((item) => {
+            return { item, status: 0 };
+        });
+        this.itemList.setState(state);
+        this.limit.setText([GLang.code.ui.giftpack_limit, pack.hasBuy ? "_rs1" : "_rs0", "_rs1"]);
+        this.time.node.active = pack.endTime !== -1;
+        this.refreshTime();
+    }
+    /**刷新时间 */
+    async refreshTime() {
+        let list = GModel.giftPack.getPackList();
+        if (list.length <= 0) await this.close();
+        // else {
+        //     this.index = 0;
+        //     this.initGift();
+        // }
+        let time = list[this.index].remainTime();
+        if (time)
+            this.time.setText([
+                GLang.code.ui.giftpack_remain_time,
+                "_rs" + GUtils.date.formatRemainTime(time, "hh:mm:ss"),
+            ]);
+        else this.close();
+    }
+    protected onRecycle(): void {
+        this.unscheduleAllCallbacks();
+    }
+}

@@ -1,0 +1,104 @@
+
+deer_generaltail.png
+size: 176,273
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+renmazhanshi/jian_00003
+  rotate: false
+  xy: 2, 128
+  size: 126, 22
+  orig: 151, 44
+  offset: 20, 12
+  index: -1
+renmazhanshi/jian_00004
+  rotate: true
+  xy: 152, 15
+  size: 126, 22
+  orig: 151, 44
+  offset: 20, 12
+  index: -1
+renmazhanshi/jian_00005
+  rotate: true
+  xy: 104, 10
+  size: 116, 23
+  orig: 151, 44
+  offset: 30, 11
+  index: -1
+renmazhanshi/jian_00006
+  rotate: true
+  xy: 129, 10
+  size: 116, 21
+  orig: 151, 44
+  offset: 30, 12
+  index: -1
+renmazhanshi/jian_00007
+  rotate: true
+  xy: 80, 5
+  size: 121, 22
+  orig: 151, 44
+  offset: 25, 11
+  index: -1
+renmazhanshi/jian_00008
+  rotate: true
+  xy: 28, 4
+  size: 122, 25
+  orig: 151, 44
+  offset: 24, 8
+  index: -1
+renmazhanshi/jian_00009
+  rotate: true
+  xy: 141, 143
+  size: 128, 26
+  orig: 151, 44
+  offset: 18, 8
+  index: -1
+renmazhanshi/jian_00010
+  rotate: false
+  xy: 2, 223
+  size: 134, 24
+  orig: 151, 44
+  offset: 12, 9
+  index: -1
+renmazhanshi/jian_00011
+  rotate: true
+  xy: 2, 2
+  size: 124, 24
+  orig: 151, 44
+  offset: 22, 10
+  index: -1
+renmazhanshi/jian_00012
+  rotate: true
+  xy: 55, 4
+  size: 122, 23
+  orig: 151, 44
+  offset: 24, 11
+  index: -1
+renmazhanshi/jian_00013
+  rotate: false
+  xy: 2, 198
+  size: 132, 23
+  orig: 151, 44
+  offset: 14, 11
+  index: -1
+renmazhanshi/jian_00014
+  rotate: false
+  xy: 2, 249
+  size: 137, 22
+  orig: 151, 44
+  offset: 9, 12
+  index: -1
+renmazhanshi/jian_00015
+  rotate: false
+  xy: 2, 152
+  size: 127, 21
+  orig: 151, 44
+  offset: 19, 12
+  index: -1
+renmazhanshi/jian_00016
+  rotate: false
+  xy: 2, 175
+  size: 128, 21
+  orig: 151, 44
+  offset: 18, 12
+  index: -1

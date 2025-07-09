@@ -1,0 +1,36 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowTest")
+@ccclass
+export default class WindowTest extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+
+    @autowired(sp.Skeleton) hero: sp.Skeleton = null;
+    @autowired(sp.Skeleton) item: sp.Skeleton = null;
+    @autowired(sp.Skeleton) goblin: sp.Skeleton = null;
+    @autowired(sp.Skeleton) goblingirl: sp.Skeleton = null;
+    protected onInited(): void {
+        // console.log(this.hero);
+        // console.log(this.item);
+        // let hero = this.hero.findSlot("Artifact");
+        // let item = this.item.findSlot("Ribbon");
+        // console.log(hero);
+        // console.log(item);
+        // let attachment = item.getAttachment();
+        // hero.setAttachment(attachment);
+        let parts = ["left-arm", "left-hand", "left-shoulder"];
+        for (let i = 0; i < parts.length; i++) {
+            console.log(parts[i], this.goblin, this.goblingirl);
+            let goblin = this.goblin.findSlot(parts[i]);
+            let goblingirl = this.goblingirl.findSlot(parts[i]);
+            console.log(goblin, goblingirl);
+            let attachment = goblingirl.getAttachment();
+            goblin.setAttachment(attachment);
+        }
+    }
+}

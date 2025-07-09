@@ -1,0 +1,101 @@
+import { BattleBattleStageData } from "../BattleBattleStageData";
+
+export class BattleRogueSkillManager {
+    constructor(public ctx: BattleBattleStageData) {}
+
+    refreshCount = 0;
+    currentCards: number[] = [];
+
+    totalSkillLevel = 1;
+    getCurrentCardInfo() {
+        const player = this.ctx.attackTeam.get(1);
+        const independant = player.skillManager.independentSkill;
+        return this.currentCards.map((rogueId) => {
+            const s = independant.find((i) => i.skillInfo.rogueSkillId === rogueId);
+            if (s) {
+                return {
+                    rogueId,
+                    level: s.skillInfo.level + 1,
+                };
+            } else {
+                return {
+                    rogueId,
+                    level: 1,
+                };
+            }
+        });
+    }
+
+    currentCost() {
+        return this.refreshCount * 5 + 5;
+    }
+    /** 刷新技能，消耗硬币 */
+    refreshCard(): boolean {
+        const cost = this.currentCost();
+        if (this.currentCards.length === 0 && this.ctx.globalPropertyManager.coin >= cost) {
+            this.refreshCount++;
+            this.ctx.globalPropertyManager.coin -= cost;
+            this.refreshCurrentCard();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** 重新刷新，无消耗 */
+    reRoll() {
+        this.refreshCurrentCard();
+    }
+
+    private refreshCurrentCard() {
+        const player = this.ctx.attackTeam.get(1);
+        const independant = player.skillManager.independentSkill;
+        const full = independant.length >= 6;
+        // 满级不再刷出
+        const lvMax = this.ctx.rogueEquipmentManager.hasUpgradeCard() ? 6 : 5;
+        const maxLevel = independant.filter((s) => s.skillInfo.level === lvMax).map((s) => s.skillInfo.rogueSkillId);
+        let list: number[] = [];
+        if (full) {
+            // 只在已选择范围随机
+            list = independant.map((s) => s.skillInfo.rogueSkillId).filter((id) => !maxLevel.includes(id));
+        } else {
+            // 全部可随机
+            list = GTable.getList("RogueSkillTbl")
+                .map((t) => t.id)
+                .filter((id) => !maxLevel.includes(id));
+        }
+        const sr = this.ctx.sr;
+        this.currentCards = sr.rdArrayElement(list, 3);
+    }
+
+    chooseCard(id: number): boolean {
+        if (!this.currentCards.includes(id)) return false;
+        this.currentCards = [];
+        const player = this.ctx.attackTeam.get(1);
+        const lv = player.skillManager.getRogueSkillLevel(id);
+        if (lv === 5) {
+            const ok = this.ctx.rogueEquipmentManager.removeUpgradeCard();
+            if (!ok) return;
+        }
+        player.skillManager.addRougueSkill(id);
+        this.totalSkillLevel += 1;
+        return true;
+    }
+
+    randomUpgrade(count: number) {
+        for (let i = 0; i < count; i++) {
+            this.randomUpgradeOnce();
+        }
+    }
+
+    private randomUpgradeOnce() {
+        const player = this.ctx.attackTeam.get(1);
+        const independant = player.skillManager.independentSkill;
+        // 随机升级默认不升级6级技能
+        const maxLevel = independant.filter((s) => s.skillInfo.level === 5).map((s) => s.skillInfo.rogueSkillId);
+        let list: number[] = independant.map((s) => s.skillInfo.rogueSkillId).filter((id) => !maxLevel.includes(id));
+        if (list.length === 0) return;
+        const sr = this.ctx.sr;
+        const id = sr.rdArrayElement(list, 1)[0];
+        this.chooseCard(id);
+    }
+}

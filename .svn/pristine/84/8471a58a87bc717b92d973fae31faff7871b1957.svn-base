@@ -1,0 +1,124 @@
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import Item from "./Item";
+
+export class Sprite {
+    /** id */
+    id: number;
+    /**等级 */
+    level: number;
+    /**阶数 */
+    rank: number;
+    /**库存 */
+    exp: number;
+    /**赋能 */
+    power: number[];
+
+    getNextLevel() {
+        const res = GUtils.ts.shallowCopy(this);
+        res.level += 1;
+        return res;
+    }
+    getNextRank() {
+        const res = GUtils.ts.shallowCopy(this);
+        res.rank += 1;
+        return res;
+    }
+
+    getTbl() {
+        return GTable.getById("MountTbl", this.id);
+    }
+
+    upgradeCost() {
+        const tbl = GTable.getList("MountBaseLevelTbl").find((t) => t.level === this.level);
+        if (tbl) return Item.fromItemArray(tbl.require);
+        else return null;
+    }
+
+    uprankCost() {
+        const tbl = GTable.getList("MountRankTbl").find((t) => t.level === this.rank);
+        if (tbl) return tbl.require;
+        else return null;
+    }
+
+    upgradePowerCost() {
+        const tbl = GTable.getList("MountPowerLevelTbl").find((t) => t.level === this.getAllPowerLevel());
+        if (tbl) return tbl.require;
+        else return null;
+    }
+    /**精灵是否达到最大等级 */
+    isMaxLevel() {
+        return (
+            this.level > GTable.getList("MountBaseLevelTbl").length ||
+            this.level >= GTable.getList("MountRankTbl").find((t) => t.level === this.rank).limit
+        );
+    }
+    /**精灵是否达到最大阶级 */
+    isMaxRank() {
+        return this.rank >= GTable.getList("MountRankTbl").length;
+    }
+
+    /**该赋能等级是否达到最大 */
+    isPowerMaxLevel(index: number) {
+        return this.power[index] >= GTable.getById("MountPowerTbl", index).limit;
+    }
+
+    /**总赋能等级 */
+    getAllPowerLevel() {
+        return this.power.reduce((acc, cur) => acc + cur, 0);
+    }
+
+    /**总赋能等级是否达到最大 */
+    isAllPowerMaxLevel() {
+        let a = GTable.getList("MountPowerLevelTbl");
+        return this.getAllPowerLevel() >= a[a.length - 1].level;
+    }
+
+    /**获取属性加成 */
+    getOwnProperty() {
+        return BattleFactory.getMountOwnProperty(this);
+    }
+    /**获取属性加成 */
+    getOwnPropertyDes() {
+        const property = BattleFactory.getMountOwnProperty(this).filter(
+            (p) => Number(p.value.toString().replace("%", "")) > 0
+        );
+        return property
+            .map((p, i) => [
+                [GIndex.battle.propertyText(p.property)],
+                ["_rs+" + p.value],
+                i < property.length - 1 ? ["_rs，"] : [],
+            ])
+            .reduce((p, c) => p.concat(c), []);
+    }
+    /**获取属性加成 */
+    getFormateProperty() {
+        return BattleFactory.getMountFormateProperty(this);
+    }
+
+    /**获取属性加成 */
+    getPowerProperty() {
+        return BattleFactory.getMountPowerProperty(this);
+    }
+
+    getSkillDescription() {
+        const env = [{ lv: this.level }];
+        const param = this.getTbl().descriptionParam.map((s) => "_rs" + AstUtil.eval(s, env));
+        return [this.getTbl().skillDescription, ...param];
+    }
+
+    canUpRank() {
+        return this.isMaxLevel() && !this.isMaxRank() && this.uprankCost() !== null && this.exp >= this.uprankCost();
+    }
+
+    canUpgrade() {
+        return !this.isMaxLevel() && this.upgradeCost() && GModel.knapsack.checkStorage(this.upgradeCost(), false);
+    }
+
+    canUpgradePower() {
+        return (
+            !this.isAllPowerMaxLevel() &&
+            this.upgradePowerCost() &&
+            GModel.knapsack.checkStorage([new Item(GIndex.id.spritePowerId, this.upgradePowerCost())], false)
+        );
+    }
+}

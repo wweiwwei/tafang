@@ -1,0 +1,303 @@
+import { BattleDisplayToLogicApi } from "../../battleApi/BattleDisplayToLogicApi";
+import { BattleDisplayEvent } from "../Display/BattleDisplayEvent";
+import { BattleEventBus } from "../Event/BattleEventBus";
+import { BattleTriggerEvent } from "../Event/BattleTriggerEvent";
+import { BattleEffectArea } from "../Object/Area/BattleEffectArea";
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleObjectInfo } from "../Object/BattleStage/BattleObjectInfo";
+import { BattleBullet } from "../Object/Bullet/BattleBullet";
+import { BattleSkill } from "../Skill/BattleSkill";
+import { BattleSeedRand, BattleUtils, BattleUuIdGenerator, Table } from "../Utils/BattleUtils";
+import { BattleDirector } from "./Director/BattleDirector";
+import { BattleGlobalPropertyManager } from "./BattleGlobalPropertyManager";
+import { BattleMapInfo } from "./BattleMapInfo";
+import BattleMonsterQueue from "./MonsterQueue/BattleMonsterQueue";
+import { BattleProcessor } from "./BattleProcessor";
+import { BattleScheduler } from "./BattleScheduler";
+import BattleMonsterQueuePeaceMode from "./MonsterQueue/BattleMonsterQueuePeaceMode";
+import BattleMonsterQueueChallengeMode from "./MonsterQueue/BattleMonsterQueueChallengeMode";
+import { BattleCommandHandler } from "./BattleCommandHandler";
+import BattleMonsterQueueGuideMode from "./MonsterQueue/BattleMonsterQueueGuideMode";
+import BattleMonsterQueueBossMode from "./MonsterQueue/BattleMonsterQueueBossMode";
+import BattleMonsterQueueInfiniteMode from "./MonsterQueue/BattleMonsterQueueInfiniteMode";
+import { BattleMap } from "../Map/BattleMap";
+import { BattleDirectorNormalMode } from "./Director/BattleDirectorNormalMode";
+import { BattleDirectorRabbitSheepMode } from "./Director/BattleDirectorRabbitSheepMode";
+import { BattleDirectorInfiniteMode } from "./Director/BattleDirectorInfiniteMode";
+import BattleMonsterQueueRabbitSheepMode from "./MonsterQueue/BattleMonsterQueueRabbitSheepMode";
+import { BattleRogueBlessManager } from "./Rogue/BattleRogueBlessManager";
+import { BattleRogueEquipmentManager } from "./Rogue/BattleRogueEquipmentManager";
+import { BattleRogueSkillManager } from "./Rogue/BattleRogueSkillManager";
+
+export class BattleBattleStageData {
+    private commandHandler: BattleCommandHandler;
+    uuidGenerator: BattleUuIdGenerator;
+    constructor(public ctx: BattleProcessor) {
+        this.uuidGenerator = new BattleUuIdGenerator();
+        this.rogueSkillManager = new BattleRogueSkillManager(this);
+        this.rogueBlessManager = new BattleRogueBlessManager(this);
+        this.rogueEquipmentManager = new BattleRogueEquipmentManager(this);
+        this.globalPropertyManager = new BattleGlobalPropertyManager(this);
+        this.map = new BattleMap(this);
+        this.commandHandler = new BattleCommandHandler(this);
+        this.mapInfo = new BattleMapInfo(ctx.mapName);
+        this.director = this.getBattleDirector();
+        this.sr = new BattleSeedRand(this.ctx.seed, this);
+        this.scheduler = new BattleScheduler(this);
+        this.director.initBattle();
+    }
+    /** 全局属性 */
+    globalPropertyManager: BattleGlobalPropertyManager;
+    rogueSkillManager: BattleRogueSkillManager;
+    rogueBlessManager: BattleRogueBlessManager;
+    rogueEquipmentManager: BattleRogueEquipmentManager;
+
+    // 统计信息
+    statistcs: { [uid: number]: { attack: number; heal: number; defend: number } } = {};
+    // 初始角色信息对应的生成角色uid
+    initObjToUid: Map<BattleObjectInfo, number> = new Map();
+    equipmentMonster: number[] = [];
+    hasAttackOrder = false;
+
+    addStatistics(uid: number, type: "attack" | "heal" | "defend", value: number) {
+        if (!this.statistcs[uid]) {
+            this.statistcs[uid] = { attack: 0, heal: 0, defend: 0 };
+        }
+        this.statistcs[uid][type] += value;
+    }
+    currentEquipmentMonster(): number[] {
+        return this.equipmentMonster;
+    }
+
+    addMonster(m: BattleBattleStageObject) {
+        this.defendTeam.set(m.uid, m);
+        m.preBattle();
+        m.initProperty();
+        m.start();
+        this.pushDisplayEvent(new BattleDisplayEvent("addObject", { obj: m }));
+    }
+
+    removeEquipmentMonster(obj: BattleBattleStageObject) {
+        if (this.equipmentMonster.includes(obj.uid)) {
+            this.equipmentMonster = this.equipmentMonster.filter((id) => id !== obj.uid);
+            this.pushDisplayEvent(new BattleDisplayEvent("removeEquipmentMonster", { obj }));
+        }
+    }
+
+    emitEvent(e: BattleTriggerEvent) {
+        this.attackTeam.forEach((o) => {
+            if (o && o.isAlive) {
+                o.onTriggerEvent(e);
+            }
+        });
+        this.defendTeam.forEach((o) => {
+            if (o && o.isAlive) {
+                o.onTriggerEvent(o);
+            }
+        });
+    }
+
+    director: BattleDirector = null;
+    private independentSkillProcess: BattleSkill[] = [];
+    nextStageMode = false;
+
+    addIndependentSkillProcess(skill: BattleSkill) {
+        this.independentSkillProcess.push(skill);
+        skill.continueIndependent();
+    }
+
+    nextMonster() {
+        const list = this.monsterQueue.nextMonster(this);
+        list.forEach((m) => {
+            this.addMonster(m);
+        });
+    }
+    map: BattleMap;
+    mapInfo: BattleMapInfo;
+    sr: BattleSeedRand;
+    monsterQueue: BattleMonsterQueue;
+
+    /** 角色死亡 */
+    objectDie(obj: BattleBattleStageObject, withAnimation = true) {
+        this.removeEquipmentMonster(obj);
+        if (this.attackTeam.has(obj.uid) || this.defendTeam.has(obj.uid)) {
+            this.pushDisplayEvent(new BattleDisplayEvent("removeObject", { obj, withAnimation }));
+        }
+        if (obj.teamSide === 0) {
+            this.attackTeam.delete(obj.uid);
+            // 玩家方记录尸体
+            this.corpseMap.set(obj.uid, obj);
+        } else {
+            this.globalPropertyManager.monsterDie();
+            this.defendTeam.delete(obj.uid);
+        }
+    }
+
+    getObjectByUid(uid: number): BattleBattleStageObject | undefined {
+        return this.attackTeam.get(uid) || this.defendTeam.get(uid);
+    }
+
+    /** 攻方队伍 */
+    attackTeam: Map<number, BattleBattleStageObject> = new Map();
+    /** 守方队伍 */
+    defendTeam: Map<number, BattleBattleStageObject> = new Map();
+    /** 尸体，用于处理复活逻辑 */
+    corpseMap: Map<number, BattleBattleStageObject> = new Map();
+    /** 子弹 */
+    bulletMap: Map<number, BattleBullet> = new Map();
+
+    /** 效果区域 */
+    effectArea: Map<number, BattleEffectArea> = new Map();
+
+    /** 事件总线 */
+    eventBus: BattleEventBus = new BattleEventBus();
+
+    /** 战斗定时器 */
+    scheduler: BattleScheduler;
+
+    /** 当前是第几帧 */
+    frame: number = 0;
+    /** 战斗时钟（经过的毫秒数） */
+    battleTime: number = 0;
+
+    sceneWalk = false;
+
+    addEffectArea(area: BattleEffectArea) {
+        this.effectArea.set(area.uid, area);
+        this.pushDisplayEvent(new BattleDisplayEvent("addEffectArea", { obj: area }));
+        area.start();
+    }
+
+    /** 运行一帧 */
+    tick() {
+        this.rogueBlessManager.tick();
+        this.globalPropertyManager.tick();
+        if (this.ctx.mode === "pve") {
+            this.pveTick();
+        } else {
+            this.pvpTick();
+        }
+        this.vmRefresh();
+    }
+
+    /** 刷新视图数据 */
+    private vmRefresh() {
+        this.attackTeam.forEach((o) => o.fsmManager.vmRefresh());
+        this.defendTeam.forEach((o) => o.fsmManager.vmRefresh());
+    }
+
+    private pveTick() {
+        this.frame++;
+        this.commandHandler.processPlayerCommand();
+        this.monsterQueue.checkNextWave(this);
+        this.nextMonster();
+        this.battleTime += GConstant.battle.logicTick;
+        this.scheduler.tick();
+        this.bulletMap.forEach((o) => o.tick());
+        this.attackTeam.forEach((o) => {
+            o.tick();
+        });
+        this.defendTeam.forEach((o) => {
+            o.tick();
+        });
+        this.independentSkillProcess = this.independentSkillProcess.filter((s) => !s.tick());
+        const needRemoveArea: number[] = [];
+        this.effectArea.forEach((e) => {
+            e.tick();
+            if (e.isEnd()) {
+                needRemoveArea.push(e.uid);
+                this.pushDisplayEvent({
+                    eventType: "removeEffectArea",
+                    data: {
+                        obj: e,
+                    },
+                });
+            }
+        });
+        needRemoveArea.forEach((uid) => {
+            this.effectArea.delete(uid);
+        });
+    }
+
+    private pvpTick() {
+        this.frame++;
+        this.commandHandler.processPlayerCommand();
+        this.battleTime += GConstant.battle.logicTick;
+        this.scheduler.tick();
+        this.bulletMap.forEach((o) => o.tick());
+        this.attackTeam.forEach((o) => {
+            o.tick();
+        });
+        this.defendTeam.forEach((o) => {
+            o.tick();
+        });
+        this.independentSkillProcess = this.independentSkillProcess.filter((s) => !s.tick());
+        const needRemoveArea: number[] = [];
+        this.effectArea.forEach((e) => {
+            e.tick();
+            if (e.isEnd()) {
+                needRemoveArea.push(e.uid);
+                this.pushDisplayEvent({
+                    eventType: "removeEffectArea",
+                    data: {
+                        obj: e,
+                    },
+                });
+            }
+        });
+        needRemoveArea.forEach((uid) => {
+            this.effectArea.delete(uid);
+        });
+    }
+
+    cameraFixRange = 0;
+
+    getBattleDirector() {
+        if (this.ctx.battleKind === "infinite") {
+            return new BattleDirectorInfiniteMode(this);
+        } else if (this.ctx.battleKind === "rabbitSheep") {
+            return new BattleDirectorRabbitSheepMode(this);
+        } else {
+            return new BattleDirectorNormalMode(this);
+        }
+    }
+
+    getMonsterQueue(waveId: number) {
+        if (this.ctx.needGuideBattle || this.ctx.battleKind === "guide") {
+            return new BattleMonsterQueueGuideMode(waveId, this.ctx);
+        } else {
+            if (this.ctx.battleKind === "boss" || this.ctx.battleKind === "damageBoss") {
+                return new BattleMonsterQueueBossMode(waveId, this.ctx);
+            } else if (
+                this.ctx.battleKind === "normal" ||
+                this.ctx.battleKind === "damage" ||
+                this.ctx.battleKind === "tower"
+            ) {
+                return new BattleMonsterQueueChallengeMode(waveId, this.ctx);
+            } else if (this.ctx.battleKind === "infinite") {
+                return new BattleMonsterQueueInfiniteMode(waveId, this.ctx);
+            } else if (this.ctx.battleKind === "rabbitSheep") {
+                return new BattleMonsterQueueRabbitSheepMode(waveId, this.ctx);
+            } else {
+                return new BattleMonsterQueuePeaceMode(waveId, this.ctx);
+            }
+        }
+    }
+
+    /** 添加表现层事件 */
+    pushDisplayEvent<Key extends keyof BattleDisplayToLogicApi>(e: BattleDisplayEvent<Key>) {
+        this.ctx.pushDisplayEvent(e);
+    }
+
+    defendLifePercent() {
+        let cur = 0;
+        let total = 0;
+        this.defendTeam.forEach((o) => {
+            const p = o.propertyManager.finalProperty;
+            cur += p.hp;
+            total += p.maxHp;
+        });
+        if (total === 0) return 0;
+        return cur / total;
+    }
+}

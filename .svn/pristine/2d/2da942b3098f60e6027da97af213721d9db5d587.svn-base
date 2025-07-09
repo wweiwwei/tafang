@@ -1,0 +1,59 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UIScrollList from "../../../framework/ui/UIScrollList";
+import ListItemStageSelect from "./ListItemStageSelect";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemStage")
+@ccclass
+export default class ListItemStage extends UIListItem {
+    @autowired(UIButton) enter: UIButton = null;
+    @autowired(UILabel) title: UILabel = null;
+    @autowired(UIImage) banner: UIImage = null;
+    @autowired(UIScrollList) selectList: UIScrollList<ListItemStageSelect>;
+
+    state: { mapIndex: number };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.refresh();
+    }
+
+    private selected = 1;
+
+    refresh() {
+        const tbl = GTable.getList("StageMapTbl").find((t) => t.mapIndex === this.state.mapIndex);
+        const stage = GModel.stage.getStageByMapIndex(this.state.mapIndex);
+        this.enter.setGrey(stage.stageIndex < this.selected);
+        this.enter.onClick = () => {
+            if (stage.stageIndex < this.selected) {
+                GTip.showTip(["_rs请先挑战所有前置关卡"]);
+                return;
+            }
+        };
+        this.title.setText([tbl.name]);
+        this.banner.imgName = tbl.banner;
+        const stageTblList = GTable.getList("StageTbl").filter((t) => t.mapIndex === this.state.mapIndex);
+        this.selectList.setState(
+            stageTblList.map((t) => {
+                return {
+                    stage,
+                    mapIndex: t.mapIndex,
+                    stageIndex: t.stageIndex[0],
+                    selected: t.stageIndex[0] === this.selected,
+                    cb: () => {
+                        if (stage.stageIndex < t.stageIndex[0]) {
+                            GTip.showTip(["_rs请先挑战所有前置关卡"]);
+                            return;
+                        }
+                        this.selected = t.stageIndex[0];
+                        this.refresh();
+                    },
+                };
+            })
+        );
+    }
+}

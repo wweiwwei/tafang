@@ -1,0 +1,41 @@
+import BattleFactory from "../battleLogic/Utils/BattleFactory";
+import Item from "./Item";
+
+export class Sprite {
+    /** id */
+    id: number;
+    /**阶数 */
+    rank: number;
+    /**库存 */
+    exp: number;
+
+    getNextRank() {
+        const res = GUtils.ts.shallowCopy(this);
+        res.rank += 1;
+        return res;
+    }
+
+    getTbl() {
+        return GTable.getById("MountTbl", this.id);
+    }
+
+    uprankCost() {
+        const tbl = GTable.getList("MountRankTbl").find((t) => t.level === this.rank);
+        if (tbl) return tbl.require;
+        else return null;
+    }
+
+    /**精灵是否达到最大阶级 */
+    isMaxRank() {
+        return this.rank >= GTable.getList("MountRankTbl").length;
+    }
+
+    /**获取属性加成 */
+    getFormateProperty() {
+        return BattleFactory.getSpriteFormateProperty(this);
+    }
+
+    canUpRank() {
+        return !this.isMaxRank() && this.uprankCost() !== null && this.exp >= this.uprankCost();
+    }
+}

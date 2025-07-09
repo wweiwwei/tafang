@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay
+{
+    public class GMManager : AbstractManager<GMData>, IBaseManager
+    {
+        public GMManager(JToken saveData, PlayerDataManager ctx) : base(saveData, ctx)
+        {
+        }
+
+        public override void DailyRefresh()
+        {
+
+        }
+
+        public override void InitData()
+        {
+
+        }
+
+        public void CheckAuth()
+        {
+            GameAssert.Must(Ctx.PlayerInfo.playerGroup == 99, "Authorization denied");
+        }
+
+        [Handle("gm/gmAddItem")]
+        public void GmAddItem(Item item)
+        {
+            CheckAuth();
+            Ctx.KnapsackManager.AddItem(item);
+        }
+
+        [Handle("gm/gmAddEquipment")]
+        public void GmAddEquipment(int id, int level, long count)
+        {
+            CheckAuth();
+            Ctx.HeroManager.AddEquipment(id, level, 0, count);
+        }
+
+        [Handle("gm/gmSubItem")]
+        public void GmSubItem(Item item)
+        {
+            CheckAuth();
+            Ctx.KnapsackManager.SubItem(item);
+        }
+
+        [Handle("gm/gmAddTime")]
+        public void GmAddTime(long time)
+        {
+            CheckAuth();
+            Ctx.TimeManager.AddOffset(time);
+        }
+
+        [Handle("gm/gmGetSaveData")]
+        public string GmGetSaveData()
+        {
+            CheckAuth();
+            return Ctx.SaveDataJson();
+        }
+
+        [Handle("gm/gmTestError")]
+        public string GmTestError()
+        {
+            CheckAuth();
+            Ctx.PlayerManager.UsePower(1);
+            throw new GameUnknownException("Test Error");
+        }
+        public bool Clear = false;
+
+        [Handle("gm/gmClearData")]
+        public void GmClearData()
+        {
+            CheckAuth();
+            Clear = true;
+        }
+
+        [Handle("gm/gmAllMission")]
+        public void GmAllMission()
+        {
+            CheckAuth();
+            Ctx.MissionManager.GmAllMission();
+        }
+
+        [Handle("gm/gmTestOffline")]
+        public void GmTestOffline()
+        {
+            CheckAuth();
+            Ctx.StageManager.GmTestOffline();
+        }
+        [Handle("gm/gmAddSkill")]
+        public void GmAddSkill(int id, int count)
+        {
+            CheckAuth();
+            Ctx.PlayerSkillManager.AddPlayerSkill(id, count);
+        }
+        [Handle("gm/gmAddPet")]
+        public void GmAddPet(int id, int count)
+        {
+            CheckAuth();
+            Ctx.PlayerPetManager.AddPlayerPet(id, count);
+        }
+
+    }
+}

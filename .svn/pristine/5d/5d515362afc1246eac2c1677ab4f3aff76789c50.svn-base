@@ -1,0 +1,220 @@
+import Item from "../entity/Item";
+import MainStage from "../entity/MainStage";
+import WindowBattleScene from "../module/battle/WindowBattleScene";
+import WindowCongratulation from "../module/common/WindowCongratulation";
+import WindowMainSceneBottomUI from "../module/mainscene/WindowMainSceneBottomUI";
+import WindowBattle from "../module/battle/rogue/WindowBattle";
+import WindowVictoryAndFailure from "../module/mainscene/WindowVictoryAndFailure";
+import WindowMainSceneUI from "../module/mainscene/WindowMainSceneUI";
+
+export default class StageModel {
+    /** 挑战关卡 */
+    async challengeStage(mapIndex: number, stageIndex: number, first = false): Promise<void> {
+        if (!first) {
+            GWindow.hide(WindowMainSceneBottomUI);
+            GWindow.hide(WindowMainSceneUI);
+        }
+        if (first) {
+            await GModel.guide.loginCheckTrigger();
+        }
+        const processor = GModel.battle.createStageBattle(mapIndex, stageIndex);
+        const end = async () => {
+            if (!first) {
+                GWindow.show(WindowMainSceneBottomUI);
+                GWindow.show(WindowMainSceneUI);
+            }
+        };
+        GWindow.open(WindowBattle);
+        const { win } = await GWindow.open(WindowBattleScene, {
+            startOnInit: true,
+            processor,
+            battleType: "stage",
+        });
+        if (win) {
+            const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+            await GWindow.open(WindowVictoryAndFailure, {
+                mapIndex,
+                stageIndex,
+                processor,
+                state: "victory",
+                items: reward,
+            });
+        } else {
+            const waveInfo = processor.getWaveInfo();
+            const ratio = (waveInfo.current - 1) / waveInfo.total;
+            const { reward } = await GApi.stage.challengeStageFail({
+                mapIndex,
+                stageIndex,
+                ratio,
+                wave: waveInfo.current - 1,
+            });
+            await GWindow.open(WindowVictoryAndFailure, {
+                mapIndex,
+                stageIndex,
+                processor,
+                state: "defeat",
+                items: reward,
+            });
+        }
+        GWindow.close(WindowBattle);
+        end();
+    }
+
+    async sweep(mapIndex: number, stageIndex: number): Promise<void> {
+        const { reward } = await GApi.stage.challengeStage({ mapIndex, stageIndex });
+        await GWindow.open(WindowCongratulation, { items: reward });
+    }
+
+    async adSweep(): Promise<void> {
+        await GSDK.showVideo("sweep_stage");
+        const { reward } = await GApi.stage.adSweep();
+        await GWindow.open(WindowCongratulation, { items: reward });
+    }
+
+    /** 剩余视频扫荡次数 */
+    remainAdSweep() {
+        return GConfig.stage.sweepDaily - GState.data.stageAdInfo.todayAdSweep;
+    }
+
+    /** 剩余视频双倍次数 */
+    remainVideoDouble() {
+        return GConfig.stage.doubleDaily - GState.data.stageAdInfo.todayAdDouble;
+    }
+
+    /** 挑战视频双倍奖励 */
+    challengeVideoReward() {
+        return GApi.stage.challengeVideoReward();
+    }
+
+    /** 获取关卡成就任务奖励 */
+    obtainAchievementReward(id: number): Promise<Item[]> {
+        return GApi.stage.obtainAchievementReward({ id });
+    }
+
+    /** 获取所有关卡数据 */
+    getAllStage(): MainStage[] {
+        return GTable.getList("StageMapTbl").map((t) => {
+            return this.getStageByMapIndex(t.mapIndex);
+        });
+    }
+
+    /** 获取指定关卡数据 */
+    getStageByMapIndex(mapIndex: number): MainStage {
+        return GState.data.stage[mapIndex] || MainStage.empty(mapIndex);
+    }
+
+    /** 主线关卡当前挂机地图 */
+    getStageAfkMap(): number {
+        return GState.data.stageAfkMap;
+    }
+
+    /**是否通关该关卡 */
+    isStagePass(mapIndex: number, stageIndex: number): boolean {
+        return this.getStageByMapIndex(mapIndex).stageIndex > stageIndex;
+    }
+
+    /** 获取现在的关卡 */
+    getCurrentStage(): MainStage {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        return stage;
+    }
+
+    /** 获取当前关卡信息 */
+    getCurrentStageInfo() {
+        const afk = this.getStageAfkMap();
+        const stage = GState.data.stage[afk];
+        const preInfo = this.preStage();
+        let pre: string[];
+        if (preInfo) {
+            pre = [`_rs${preInfo.mapIndex}-${preInfo.stageIndex}`];
+        } else {
+            pre = null;
+        }
+        return {
+            levelName: [stage.getMapTbl().name],
+            current: [`_rs${stage.mapIndex}-${stage.stageIndex}`],
+            pre: pre,
+        };
+    }
+    /** 前一关信息 */
+    preStage(): { mapIndex: number; stageIndex: number } {
+        const stage = this.getCurrentStage();
+        if (stage.stageIndex > 1) {
+            return { mapIndex: stage.mapIndex, stageIndex: stage.stageIndex - 1 };
+        } else {
+            const mapIndex = stage.mapIndex - 1;
+            if (GTable.getList("StageMapTbl").some((t) => t.mapIndex === mapIndex)) {
+                const stageTbls = GTable.getList("StageTbl").filter((t) => t.mapIndex === mapIndex);
+                const stageTbl = stageTbls[stageTbls.length - 1];
+                return { mapIndex, stageIndex: stageTbl.stageIndex };
+            } else {
+                return null;
+            }
+        }
+    }
+
+    /** 领取首通奖励，会返回奖励内容 */
+    obtainFirstReward(mapIndex: number, stageIndex: number, index: number) {
+        return GApi.stage.obtainFirstReward({ mapIndex, stageIndex, index });
+    }
+
+    /** 领取首通奖励，会返回奖励内容 */
+    obtainFirstAllReward() {
+        return GApi.stage.obtainAllFirstReward();
+    }
+
+    /** 首通奖励信息 */
+    firstRewardInfo(): {
+        /** 章节数 */
+        mapIndex: number;
+        /** 关卡数 */
+        stageIndex: number;
+        /** 物品列表 */
+        list: {
+            /** 序号 */
+            index: number;
+            /** 奖励 */
+            item: Item;
+            /** 波数 */
+            wave: number;
+            /** 0 不可领取 1 可领取 2 已领取 */
+            status: 0 | 1 | 2;
+        }[];
+    }[] {
+        const hasGetSet = new Set(GState.data.stageFirstReward);
+        const list = GTable.getList("StageTbl").map((t) => {
+            return {
+                mapIndex: t.mapIndex,
+                stageIndex: t.stageIndex,
+                list: t.wave.map((w, i) => {
+                    const [id, count] = t.firstReward[i];
+                    let status: 0 | 1 | 2;
+                    const key = `${t.mapIndex}_${t.stageIndex}_${i}`;
+                    if (hasGetSet.has(key)) {
+                        status = 2;
+                    } else {
+                        const s = this.getStageByMapIndex(t.mapIndex);
+                        if (
+                            s.clear ||
+                            s.stageIndex > t.stageIndex ||
+                            (s.stageIndex === t.stageIndex && GState.data.stageWaveRecord >= w)
+                        ) {
+                            status = 1;
+                        } else {
+                            status = 0;
+                        }
+                    }
+                    return {
+                        index: i,
+                        item: new Item(id, count),
+                        wave: w,
+                        status,
+                    };
+                }),
+            };
+        });
+        const current = this.getCurrentStage();
+        return list.filter((s) => s.mapIndex === current.mapIndex || s.list.some((t) => t.status === 1));
+    }
+}

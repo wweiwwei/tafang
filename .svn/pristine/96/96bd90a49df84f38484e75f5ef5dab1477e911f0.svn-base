@@ -1,0 +1,82 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import ListItemItem from "./ListItemItem";
+import WindowComfirmBuy from "./WindowComfirmBuy";
+
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemShop")
+@ccclass
+export default class ListItemShop extends UIListItem {
+    static _poolSize: number = 20;
+    @autowired(UIList) itemContainer: UIList<ListItemItem> = null;
+    /**库存 */
+    @autowired(UILabel) remain: UILabel = null;
+    /**名字 */
+    @autowired(UILabel) itemName: UILabel = null;
+    /**按钮购买 */
+    @autowired(UIButton) buyItem: UIButton = null;
+    /**消耗的材料 */
+    @autowired(UIImage) currencyImage: UIImage = null;
+    /**价格背景 */
+    @autowired(UIImage) cost: UIImage = null;
+    /**消耗的数量 */
+    @autowired(UILabel) price: UILabel = null;
+    /**解锁提示 */
+    @autowired(UILabel) unlockTip: UILabel = null;
+    /**解锁提示 */
+    @autowired(UILabel) sellout: UILabel = null;
+
+    condition: string = "";
+    state: {
+        /**声望商店物品 */
+        item: Item;
+        /**声望商店列表id */
+        id: number;
+        status: number; //0-声望，1-普通商店
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.buyItem.onClick = async () => {
+            GWindow.open(WindowComfirmBuy, { item: this.state.item, id: this.state.id });
+        };
+        let tbl = GTable.getById("StageReputationShopTbl", this.state.id);
+        this.itemName.setText(Item.getName(this.state.item));
+        this.itemContainer.setState([{ item: this.state.item, equipment: null, status: 1 }]);
+        if (this.state.status == 0) {
+            let storage = GModel.stage.getShopItemRemainStorage(this.state.id);
+            if (storage.hasUse === storage.maxStorage) {
+                this.cost.imgName = "common_btn_gray";
+                this.currencyImage.node.active = false;
+                this.price.node.active = false;
+                this.sellout.node.active = true;
+                this.buyItem.onClick = () => {
+                    GTip.showTip([GLang.code.ui.shop_sellout]);
+                };
+            } else {
+                this.sellout.node.active = false;
+                this.currencyImage.node.active = true;
+                this.price.node.active = true;
+                this.currencyImage.imgName = "item_diamond";
+                this.price.setText(["_rs" + tbl.reputation]);
+            }
+            this.remain.setText([GLang.code.ui.storage_remain, "_rs" + storage.hasUse, "_rs" + storage.maxStorage]);
+            if (GModel.stage.getStageByMapIndex(tbl.mapIndex).reputationLevel() < tbl.unlockReputationLevel) {
+                this.condition = tbl.unlockReputationLevel.toString();
+                this.remain.node.active = false;
+                this.cost.node.active = false;
+                this.unlockTip.setText([GLang.code.ui.shop_unlockTip, "_rs" + this.condition]);
+                this.unlockTip.node.active = true;
+            } else {
+                this.unlockTip.node.active = false;
+                this.remain.node.active = true;
+                this.cost.node.active = true;
+            }
+        }
+    }
+}

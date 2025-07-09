@@ -1,0 +1,363 @@
+
+Role_turtle.png
+size: 1127,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+guijineng/OK_atk4_2_0001
+  rotate: true
+  xy: 141, 82
+  size: 24, 6
+  orig: 38, 60
+  offset: 8, 5
+  index: -1
+guijineng/OK_atk4_2_0002
+  rotate: true
+  xy: 970, 2
+  size: 35, 18
+  orig: 38, 60
+  offset: 1, 1
+  index: -1
+guijineng/OK_atk4_2_0003
+  rotate: true
+  xy: 1030, 2
+  size: 36, 22
+  orig: 38, 60
+  offset: 1, 1
+  index: -1
+guijineng/OK_atk4_2_0004
+  rotate: false
+  xy: 1014, 137
+  size: 38, 30
+  orig: 38, 60
+  offset: 0, 6
+  index: -1
+guijineng/OK_atk4_2_0005
+  rotate: true
+  xy: 1014, 170
+  size: 38, 42
+  orig: 38, 60
+  offset: 0, 14
+  index: -1
+guijineng/OK_atk4_2_0006
+  rotate: false
+  xy: 990, 3
+  size: 38, 34
+  orig: 38, 60
+  offset: 0, 26
+  index: -1
+guijineng/OK_atk4_2_0007
+  rotate: true
+  xy: 1054, 2
+  size: 36, 22
+  orig: 38, 60
+  offset: 0, 38
+  index: -1
+guijineng/OK_atk4_2_0008
+  rotate: false
+  xy: 149, 95
+  size: 32, 11
+  orig: 38, 60
+  offset: 4, 49
+  index: -1
+guijineng/OK_atk4_2_0009
+  rotate: true
+  xy: 131, 82
+  size: 24, 8
+  orig: 38, 60
+  offset: 8, 52
+  index: -1
+guijineng/dilie_00022
+  rotate: true
+  xy: 330, 118
+  size: 149, 50
+  orig: 155, 88
+  offset: 6, 11
+  index: -1
+guijineng/dilie_00023
+  rotate: true
+  xy: 707, 133
+  size: 134, 52
+  orig: 155, 88
+  offset: 0, 9
+  index: -1
+guijineng/dilie_00024
+  rotate: true
+  xy: 336, 7
+  size: 109, 59
+  orig: 155, 88
+  offset: 27, 7
+  index: -1
+guijineng/dilie_00026
+  rotate: true
+  xy: 761, 147
+  size: 120, 72
+  orig: 155, 88
+  offset: 17, 8
+  index: -1
+guijineng/dilie_00028
+  rotate: true
+  xy: 548, 2
+  size: 120, 73
+  orig: 155, 88
+  offset: 18, 8
+  index: -1
+guijineng/dilie_00030
+  rotate: true
+  xy: 747, 9
+  size: 122, 74
+  orig: 155, 88
+  offset: 19, 9
+  index: -1
+guijineng/dilie_00032
+  rotate: true
+  xy: 397, 5
+  size: 116, 73
+  orig: 155, 88
+  offset: 21, 10
+  index: -1
+guijineng/dilie_00034
+  rotate: true
+  xy: 260, 4
+  size: 109, 74
+  orig: 155, 88
+  offset: 28, 9
+  index: -1
+guijineng/dilie_00036
+  rotate: false
+  xy: 2, 2
+  size: 109, 77
+  orig: 155, 88
+  offset: 28, 6
+  index: -1
+guijineng/dilie_00038
+  rotate: true
+  xy: 472, 14
+  size: 107, 74
+  orig: 155, 88
+  offset: 30, 9
+  index: -1
+guijineng/dilie_00041
+  rotate: true
+  xy: 823, 39
+  size: 106, 74
+  orig: 155, 88
+  offset: 31, 9
+  index: -1
+guijineng/dilie_00045
+  rotate: true
+  xy: 184, 2
+  size: 104, 74
+  orig: 155, 88
+  offset: 33, 9
+  index: -1
+guijineng/dilie_00048
+  rotate: true
+  xy: 835, 163
+  size: 104, 73
+  orig: 155, 88
+  offset: 33, 10
+  index: -1
+guijineng/dun_00021
+  rotate: false
+  xy: 994, 78
+  size: 47, 55
+  orig: 91, 98
+  offset: 23, 10
+  index: -1
+guijineng/dun_00058
+  rotate: false
+  xy: 113, 4
+  size: 69, 75
+  orig: 91, 98
+  offset: 12, 7
+  index: -1
+guijineng/smoke_00022
+  rotate: true
+  xy: 985, 135
+  size: 65, 27
+  orig: 94, 49
+  offset: 8, 5
+  index: -1
+guijineng/smoke_00023
+  rotate: false
+  xy: 823, 2
+  size: 79, 35
+  orig: 94, 49
+  offset: 6, 5
+  index: -1
+guijineng/smoke_00024
+  rotate: true
+  xy: 899, 76
+  size: 85, 36
+  orig: 94, 49
+  offset: 4, 5
+  index: -1
+guijineng/smoke_00025
+  rotate: true
+  xy: 910, 182
+  size: 85, 36
+  orig: 94, 49
+  offset: 4, 5
+  index: -1
+guijineng/smoke_00026
+  rotate: true
+  xy: 910, 182
+  size: 85, 36
+  orig: 94, 49
+  offset: 4, 5
+  index: -1
+guijineng/smoke_00027
+  rotate: false
+  xy: 899, 39
+  size: 79, 35
+  orig: 94, 49
+  offset: 10, 6
+  index: -1
+guijineng/smoke_00028
+  rotate: true
+  xy: 149, 83
+  size: 10, 30
+  orig: 94, 49
+  offset: 13, 6
+  index: -1
+guipugong/attack_00011
+  rotate: true
+  xy: 481, 124
+  size: 143, 93
+  orig: 179, 119
+  offset: 14, 5
+  index: -1
+guipugong/attack_00012
+  rotate: true
+  xy: 230, 115
+  size: 152, 98
+  orig: 179, 119
+  offset: 15, 4
+  index: -1
+guipugong/attack_00013
+  rotate: true
+  xy: 131, 108
+  size: 159, 97
+  orig: 179, 119
+  offset: 9, 4
+  index: -1
+guipugong/attack_00014
+  rotate: true
+  xy: 382, 123
+  size: 144, 97
+  orig: 179, 119
+  offset: 24, 4
+  index: -1
+guipugong/attack_00015
+  rotate: false
+  xy: 1047, 214
+  size: 23, 53
+  orig: 179, 119
+  offset: 25, 24
+  index: -1
+haigui_0001s_0000_dun-pai
+  rotate: false
+  xy: 2, 81
+  size: 127, 186
+  orig: 129, 186
+  offset: 0, 0
+  index: -1
+haigui_0001s_0001_tou
+  rotate: true
+  xy: 623, 4
+  size: 124, 122
+  orig: 124, 122
+  offset: 0, 0
+  index: -1
+haigui_0001s_0002_jing-quan
+  rotate: true
+  xy: 937, 115
+  size: 65, 46
+  orig: 65, 46
+  offset: 0, 0
+  index: -1
+haigui_0001s_0003_you-qian-bi
+  rotate: false
+  xy: 1028, 40
+  size: 44, 36
+  orig: 44, 36
+  offset: 0, 0
+  index: -1
+haigui_0001s_0004_you-shou-zhang
+  rotate: false
+  xy: 980, 39
+  size: 46, 36
+  orig: 46, 36
+  offset: 0, 0
+  index: -1
+haigui_0001s_0005_you-shang-bi-
+  rotate: false
+  xy: 1078, 35
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+haigui_0001s_0006_shen-ti
+  rotate: false
+  xy: 576, 130
+  size: 129, 137
+  orig: 129, 137
+  offset: 0, 0
+  index: -1
+haigui_0001s_0007_you-da-tui
+  rotate: false
+  xy: 1074, 210
+  size: 51, 57
+  orig: 51, 57
+  offset: 0, 0
+  index: -1
+haigui_0001s_0008_you-jiao-zhang
+  rotate: false
+  xy: 904, 2
+  size: 64, 35
+  orig: 64, 35
+  offset: 0, 0
+  index: -1
+haigui_0001s_0009_you-xiao-tui
+  rotate: false
+  xy: 991, 213
+  size: 54, 54
+  orig: 64, 69
+  offset: 6, 15
+  index: -1
+haigui_0001s_0010_zuo-da-tui
+  rotate: true
+  xy: 1043, 79
+  size: 44, 43
+  orig: 44, 43
+  offset: 0, 0
+  index: -1
+haigui_0001s_0011_zuo-xiao-tui-
+  rotate: false
+  xy: 1074, 125
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+haigui_0001s_0012_zuo-jiao-zhang
+  rotate: true
+  xy: 948, 202
+  size: 65, 41
+  orig: 76, 41
+  offset: 0, 0
+  index: -1
+haigui_0001s_0013_zuo-qian-bi
+  rotate: false
+  xy: 1078, 169
+  size: 46, 39
+  orig: 46, 39
+  offset: 0, 0
+  index: -1
+haigui_0001s_0014_zuo-shang-bi-
+  rotate: true
+  xy: 937, 77
+  size: 36, 55
+  orig: 36, 55
+  offset: 0, 0
+  index: -1

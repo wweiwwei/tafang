@@ -1,0 +1,919 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "WindowFacilityMap_Ani",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 11,
+  "sample": 30,
+  "speed": 0.2,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "FacilityCloud_01": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 366.3130699088148
+            },
+            {
+              "frame": 6.966666666666667,
+              "value": -1178,
+              "curve": "constant"
+            },
+            {
+              "frame": 7,
+              "value": 1253
+            },
+            {
+              "frame": 11,
+              "value": 366.3130699088148
+            }
+          ]
+        }
+      },
+      "FacilityCloud_09": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 241.23100303951378
+            },
+            {
+              "frame": 6.966666666666667,
+              "value": -1298,
+              "curve": "constant"
+            },
+            {
+              "frame": 7,
+              "value": 1125
+            },
+            {
+              "frame": 11,
+              "value": 241.23100303951378
+            }
+          ]
+        }
+      },
+      "FacilityCloud_05": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 1072
+            },
+            {
+              "frame": 10.966666666666667,
+              "value": -1330,
+              "curve": "constant"
+            },
+            {
+              "frame": 11,
+              "value": 1072
+            }
+          ]
+        }
+      },
+      "FacilityCloud_02": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -199.99999999999977
+            },
+            {
+              "frame": 5.133333333333334,
+              "value": -1520,
+              "curve": "constant"
+            },
+            {
+              "frame": 5.166666666666667,
+              "value": 1300
+            },
+            {
+              "frame": 11,
+              "value": -199.99999999999977
+            }
+          ]
+        }
+      },
+      "FacilityCloud_10": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 316.41337386018245
+            },
+            {
+              "frame": 7.133333333333334,
+              "value": -1700,
+              "curve": "constant"
+            },
+            {
+              "frame": 7.166666666666667,
+              "value": 1400
+            },
+            {
+              "frame": 11,
+              "value": 316.41337386018245
+            }
+          ]
+        }
+      },
+      "FacilityCloud_08": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -161.033434650456
+            },
+            {
+              "frame": 4.466666666666667,
+              "value": -1220,
+              "curve": "constant"
+            },
+            {
+              "frame": 4.5,
+              "value": 1380
+            },
+            {
+              "frame": 11,
+              "value": -161.033434650456
+            }
+          ]
+        }
+      },
+      "FacilityCloud_03": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -221.21580547112467
+            },
+            {
+              "frame": 4.466666666666667,
+              "value": -1270,
+              "curve": "constant"
+            },
+            {
+              "frame": 4.5,
+              "value": 1305
+            },
+            {
+              "frame": 11,
+              "value": -221.21580547112467
+            }
+          ]
+        }
+      },
+      "FacilityCloud_04": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -1137.5987841945284
+            },
+            {
+              "frame": 1.8,
+              "value": -1630,
+              "curve": "constant"
+            },
+            {
+              "frame": 1.8333333333333333,
+              "value": 1370
+            },
+            {
+              "frame": 11,
+              "value": -1137.5987841945284
+            }
+          ]
+        }
+      },
+      "FacilityCloud_07": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": -598.2674772036471
+            },
+            {
+              "frame": 2.3666666666666667,
+              "value": -1250,
+              "curve": "constant"
+            },
+            {
+              "frame": 2.4,
+              "value": 1770
+            },
+            {
+              "frame": 11,
+              "value": -598.2674772036471
+            }
+          ]
+        }
+      },
+      "FacilityDeclivity": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 11,
+              "value": -1080
+            }
+          ]
+        }
+      },
+      "FacilityLight": {
+        "props": {
+          "angle": [
+            {
+              "frame": 0,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 0.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 1,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 1.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 1.8333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 2,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 2.3333333333333335,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 2.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 2.8333333333333335,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 3,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 3.3333333333333335,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 3.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 3.8333333333333335,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 4,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 4.333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 4.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 4.833333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 5.333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 5.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 5.833333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 6,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 6.333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 6.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 6.833333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 7,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 7.333333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 7.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 7.833333333333333,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 8,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 8.333333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 8.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 8.833333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 9,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 9.333333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 9.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 9.833333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 10,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 10.333333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 10.5,
+              "value": -3,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 10.833333333333334,
+              "value": -18,
+              "curve": "cubicIn"
+            },
+            {
+              "frame": 11,
+              "value": -3,
+              "curve": "cubicOut"
+            }
+          ]
+        }
+      },
+      "FacilitySeashell": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.8333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 1,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 1.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 1.8333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 2,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 2.3333333333333335,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 2.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 2.8333333333333335,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 3,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 3.3333333333333335,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 3.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 3.8333333333333335,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 4,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 4.333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 4.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 4.833333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 5.333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 5.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 5.833333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 6,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 6.333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 6.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 6.833333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 7,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 7.333333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 7.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 7.833333333333333,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 8,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 8.333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 8.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 8.833333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 9,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 9.333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 9.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 9.833333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 10,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 10.333333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 10.5,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 10.833333333333334,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1.032,
+                "y": 1.032,
+                "z": 1.032
+              },
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 11,
+              "value": {
+                "__type__": "cc.Vec3",
+                "x": 1,
+                "y": 1,
+                "z": 1
+              },
+              "curve": "cubicInOut"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "c26b94a6-74b3-4562-afd4-08f192cfea0b",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 808,
+  "height": 157,
+  "platformSettings": {},
+  "subMetas": {
+    "ape_skillattack_03": {
+      "ver": "1.0.6",
+      "uuid": "99e33ef8-e4de-4925-9ac8-29e0ae6fe0b7",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "c26b94a6-74b3-4562-afd4-08f192cfea0b",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 804,
+      "height": 153,
+      "rawWidth": 808,
+      "rawHeight": 157,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

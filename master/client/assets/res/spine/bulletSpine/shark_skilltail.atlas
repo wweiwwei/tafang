@@ -1,0 +1,237 @@
+
+shark_skilltail.png
+size: 1957,385
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hai lan/lang (1)
+  rotate: false
+  xy: 1850, 95
+  size: 39, 63
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (10)
+  rotate: false
+  xy: 1586, 300
+  size: 262, 83
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (12)
+  rotate: false
+  xy: 2, 2
+  size: 262, 85
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (13)
+  rotate: false
+  xy: 1322, 197
+  size: 262, 91
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (14)
+  rotate: false
+  xy: 1322, 290
+  size: 262, 93
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (15)
+  rotate: false
+  xy: 794, 190
+  size: 262, 95
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (17)
+  rotate: false
+  xy: 2, 286
+  size: 262, 97
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (18)
+  rotate: false
+  xy: 2, 187
+  size: 262, 97
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (19)
+  rotate: false
+  xy: 1058, 288
+  size: 262, 95
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (2)
+  rotate: true
+  xy: 1891, 78
+  size: 80, 64
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (20)
+  rotate: false
+  xy: 2, 89
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (21)
+  rotate: false
+  xy: 266, 188
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (22)
+  rotate: false
+  xy: 530, 287
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (23)
+  rotate: false
+  xy: 266, 90
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (24)
+  rotate: false
+  xy: 266, 286
+  size: 262, 97
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (25)
+  rotate: false
+  xy: 794, 94
+  size: 262, 94
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (26)
+  rotate: false
+  xy: 1058, 192
+  size: 262, 94
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (27)
+  rotate: false
+  xy: 1058, 98
+  size: 262, 92
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (28)
+  rotate: false
+  xy: 794, 2
+  size: 262, 90
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (29)
+  rotate: false
+  xy: 266, 2
+  size: 262, 86
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (3)
+  rotate: false
+  xy: 1756, 29
+  size: 133, 64
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (30)
+  rotate: false
+  xy: 1058, 13
+  size: 262, 83
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (31)
+  rotate: false
+  xy: 1322, 112
+  size: 262, 83
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (32)
+  rotate: false
+  xy: 530, 5
+  size: 262, 84
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (33)
+  rotate: false
+  xy: 530, 189
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (34)
+  rotate: false
+  xy: 794, 287
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (35)
+  rotate: false
+  xy: 530, 91
+  size: 262, 96
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (36)
+  rotate: false
+  xy: 1586, 158
+  size: 262, 61
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (37)
+  rotate: false
+  xy: 1586, 95
+  size: 262, 61
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (4)
+  rotate: false
+  xy: 1586, 29
+  size: 168, 64
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (5)
+  rotate: true
+  xy: 1850, 160
+  size: 223, 76
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (7)
+  rotate: false
+  xy: 1322, 34
+  size: 262, 76
+  orig: 262, 99
+  offset: 0, 0
+  index: -1
+hai lan/lang (9)
+  rotate: false
+  xy: 1586, 221
+  size: 262, 77
+  orig: 262, 99
+  offset: 0, 0
+  index: -1

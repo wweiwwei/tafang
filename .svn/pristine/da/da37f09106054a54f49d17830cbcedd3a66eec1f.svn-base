@@ -1,0 +1,200 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+
+namespace GamePlay
+{
+    public class PlayerManager : AbstractManager<PlayerData>, IBaseManager
+    {
+        public PlayerManager(JToken saveData, PlayerDataManager ctx) : base(saveData, ctx)
+        {
+        }
+
+        public override void DailyRefresh()
+        {
+            Data = Data with { accLogin = Data.accLogin + 1 };
+            Ctx.MissionManager.UpdateMissionProgress(21, 1);
+        }
+
+        public override void InitData()
+        {
+            if (Data.playerMission.IsEmpty)
+            {
+                CheckNextMission(Data.rank);
+            }
+
+        }
+
+        public int AccLogin => Data.accLogin;
+        public override void Tick()
+        {
+            Ctx.Emit(CachePath.time);
+        }
+
+        [Update("time")]
+        public long Time()
+        {
+            return Ctx.Now();
+        }
+
+        [Update("playerData")]
+        public Dictionary<string, object> PlayerData()
+        {
+            return new() {
+                {"freeChangeName",Data.freeChangeName},
+            };
+        }
+
+        [PartialUpdate("playerMission")]
+        public ImmutableDictionary<int, Mission> InitPlayerMission()
+        {
+            return Data.playerMission;
+        }
+
+        [Update("level")]
+        public int Level()
+        {
+            return Data.level;
+        }
+
+        [Update("rank")]
+        public int Rank()
+        {
+            return Data.rank;
+        }
+
+        // [Update("exp")]
+        // public long Exp()
+        // {
+        //     return Data.exp;
+        // }
+
+        // public void AddExp(long expAdd)
+        // {
+        //     var finalExp = Data.exp + expAdd;
+        //     var tbl = Ctx.Table.PlayerLevelTblList.First(t => t.Level == Data.level);
+        //     if (finalExp > tbl.Require)
+        //     {
+        //         Data = Data with { level = Data.level + 1, exp = finalExp - tbl.Require };
+        //         Ctx.Emit(CachePath.level);
+        //     }
+        //     else
+        //     {
+        //         Data = Data with { exp = finalExp };
+        //     }
+        //     Ctx.Emit(CachePath.exp);
+        // }
+
+        [Handle("game/initCache")]
+        public Dictionary<string, object> InitCache(string[] key)
+        {
+            key.ToList().ForEach(k => Ctx.EmitRaw(k));
+            return new Dictionary<string, object>()
+            {
+                {"apiVersion", GameConstant.ApiVersion}
+            };
+        }
+
+        [Handle("game/onlineCount")]
+        public int OnlineCount()
+        {
+            return Ctx.Remote.OnlineCount();
+        }
+
+        [Handle("player/changeRoleName")]
+        public async Task ChangeRoleName(string name)
+        {
+            if (Data.freeChangeName)
+            {
+                Data = Data with { freeChangeName = false };
+                Ctx.Emit(CachePath.playerData);
+            }
+            else
+            {
+                Ctx.KnapsackManager.SubItem(new Item(GameConstant.DiamondId, Ctx.Config.Player.ChangeNameCost));
+            }
+            var code = await Ctx.Remote.ChangeRoleName(name);
+            GameAssert.Expect(code == 0, code);
+        }
+        private long lastChangeIcon = 0L;
+
+        [Handle("player/changeRoleIcon")]
+        public async Task ChangeRoleIcon(int icon)
+        {
+            GameAssert.Expect(Ctx.Now() - lastChangeIcon > 10000L, 20001);
+            lastChangeIcon = Ctx.Now();
+            GameAssert.Expect(Ctx.HeroManager.AllHero().ContainsKey(icon), 20002);
+            await Ctx.Remote.ChangeRoleIcon(icon);
+        }
+
+        public void CheckNextMission(int rank)
+        {
+            var missionTbl = Ctx.Table.PlayerMissionTblList.Where(t => t.Rank == rank);
+            var playerMission = missionTbl.ToImmutableDictionary(
+                tbl => tbl.Id,
+                tbl => Data.playerMission.ContainsKey(tbl.Id) ? Data.playerMission[tbl.Id] : new Mission(id: tbl.Id, progress: 0, hasGet: false, stage: tbl.Stage).InitProgress(Ctx)
+            );
+            Data = Data with { playerMission = playerMission };
+            Ctx.EmitMany(CachePath.playerMission, playerMission.Keys);
+        }
+        public void UpdatePlayerMissionProgress(int kind, long count, int[] param)
+        {
+            var newMap = Data.playerMission.ToImmutableDictionary(e => e.Key, e => e.Value.UpdateMissionProgress(kind, count, param, Ctx));
+            var originMap = Data.playerMission;
+            Data = Data with { playerMission = newMap };
+            var diff = newMap.Where(e => e.Value != originMap[e.Key]).Select(e => e.Key);
+            Ctx.EmitMany(CachePath.playerMission, diff);
+        }
+        [Handle("player/obtainMissionReward")]
+        public ImmutableArray<Item> ObtainMissionReward(int id)
+        {
+            GameAssert.Must(Data.playerMission.ContainsKey(id), $"can not find mission id:{id}");
+            var mission = Data.playerMission[id];
+            var (reward, m) = mission.Obtain(Ctx);
+            var finalReward = Ctx.KnapsackManager.AddItem(reward);
+            Data = Data with { playerMission = Data.playerMission.SetItem(id, m) };
+            Ctx.Emit(CachePath.playerMission, id);
+            return finalReward;
+        }
+
+        public bool IsMaxLevel()
+        {
+            var rankTbl = Ctx.Table.PlayerRankTblList.FirstOrDefault(t => t.Rank == Data.rank);
+            return Level() >= Ctx.Table.PlayerLevelTblList.Length || Level() >= rankTbl.LevelLimit;
+        }
+        public bool IsMaxRank()
+        {
+            return Data.rank >= Ctx.Table.PlayerRankTblList.LastOrDefault().Rank;
+        }
+        [Handle("player/upgradeLevel")]
+        public void UpgradeLevel()
+        {
+            var tech = Ctx.TechTreeManager.InitTechTree();
+            GameAssert.Expect(tech.Values.All(t => t.level >= Level()), 20009);
+            var levelTbl = Ctx.Table.PlayerLevelTblList.FirstOrDefault(t => t.Level == Data.level);
+            GameAssert.Expect(!IsMaxLevel() && levelTbl.Require > 0, 20008);
+            var cost = new Item(GameConstant.CoinId, levelTbl.Require);
+            Ctx.KnapsackManager.SubItem(cost);
+            Data = Data with { level = Data.level + 1 };
+            Ctx.MissionManager.UpdateMissionProgress(32, 1);
+            Ctx.Emit(CachePath.level);
+        }
+
+        [Handle("player/upgradeRank")]
+        public void UpgradeRank()
+        {
+            GameAssert.Expect(!IsMaxRank(), 20008);
+            var tbl = Ctx.Table.PlayerRankTblList.FirstOrDefault(t => t.Rank == Data.rank);
+            GameAssert.Expect(Data.playerMission.Values.All(e => e.State(Ctx) == Mission.HasGet), 3012);
+            GameAssert.Expect(Data.level >= tbl.LevelLimit, 20010);
+            Data = Data with { rank = Data.rank + 1 };
+            Ctx.Emit(CachePath.rank);
+            CheckNextMission(Data.rank);
+            Ctx.MissionManager.UpdateMissionProgress(33, 1);
+        }
+
+    }
+}

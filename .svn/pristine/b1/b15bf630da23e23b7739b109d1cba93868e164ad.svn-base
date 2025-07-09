@@ -1,0 +1,48 @@
+
+Moster_Fish.png
+size: 103,129
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Left_yuqi
+  rotate: true
+  xy: 79, 12
+  size: 32, 19
+  orig: 32, 19
+  offset: 0, 0
+  index: -1
+Right_yuqi
+  rotate: false
+  xy: 72, 46
+  size: 23, 20
+  orig: 23, 20
+  offset: 0, 0
+  index: -1
+bei
+  rotate: true
+  xy: 45, 5
+  size: 39, 32
+  orig: 39, 32
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 2, 46
+  size: 81, 68
+  orig: 81, 68
+  offset: 0, 0
+  index: -1
+trail
+  rotate: false
+  xy: 72, 68
+  size: 29, 59
+  orig: 29, 59
+  offset: 0, 0
+  index: -1
+tx/paopao
+  rotate: false
+  xy: 2, 2
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1

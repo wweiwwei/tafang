@@ -1,0 +1,68 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIListItem from "../../../../framework/ui/UIListItem";
+import ListItemItem from "../../common/ListItemItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemRogueSkill")
+@ccclass
+export default class ListItemRogueSkill extends UIListItem {
+    /** */
+    @autowired(UIButton) click: UIButton = null;
+    @autowired(UILabel) nameLab: UILabel = null;
+    @autowired(UILabel) typelabel: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIImage) img: UIImage = null;
+    @autowired(UIImage) skilltype1: UIImage = null;
+    @autowired(UIImage) skilltype2: UIImage = null;
+    @autowired(UIImage) new: UIImage = null;
+
+    state: {
+        index: number;
+        rogueId: number;
+        id: number;
+        level: number;
+        cb: Function;
+        playAnim: boolean;
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        if (this.state.playAnim) {
+            this.node.x = (this.state.index + 2) * -200;
+            cc.tween(this.node)
+                .to(0.3 * (this.state.index + 2), { x: 0 }, { easing: "sineInOut" })
+                .start();
+        }
+        this.click.onClick = () => {
+            this.state.cb();
+        };
+        this.new.node.active = this.state.level == 1;
+
+        const tbl = GTable.getById("RogueSkillTbl", this.state.rogueId);
+        this.skilltype1.imgName = "battle_skill_bg" + tbl.kind;
+        this.skilltype2.imgName = "battle_skill_type" + tbl.kind;
+        this.typelabel.setText(["ui/rogue_fashu" + tbl.kind]);
+        this.nameLab.setText([tbl.name], ["_rslv." + this.state.level]);
+        this.click.getComponent(UIImage).imgName =
+            this.state.level >= 6 ? "battle_ListItemRogueSkill_bg2" : "battle_ListItemRogueSkill_bg";
+        if (tbl.passive) {
+            // 无限等级的被动技能
+            this.img.imgName = tbl.img;
+            this.desc.setText([
+                tbl.description,
+                ...tbl.descriptionParam.map((p) => {
+                    return `_rs${AstUtil.eval(p, [{ lv: this.state.level }])}`;
+                }),
+            ]);
+        } else {
+            // 有限等级的主动技能
+            const detailTbl = GTable.getById("RogueSkillDetailTbl", this.state.id);
+            this.img.imgName = detailTbl.img;
+            this.desc.setText([detailTbl.description]);
+        }
+
+        const a = GConstant.getRogueEquipmentQualityBg(state.id);
+    }
+}

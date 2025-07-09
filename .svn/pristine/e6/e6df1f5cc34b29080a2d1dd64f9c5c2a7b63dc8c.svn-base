@@ -1,0 +1,119 @@
+import { BattleDisplayEvent } from "../Display/BattleDisplayEvent";
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import { BattleGlobalProperty } from "./BattleGlobalProperty";
+import { BattleProcessor } from "./BattleProcessor";
+
+export class BattleGlobalPropertyManager {
+    constructor(public ctx: BattleBattleStageData) {}
+    // todo
+    baseProperty: BattleGlobalProperty = new BattleGlobalProperty();
+    get finalProperty(): BattleGlobalProperty {
+        return this.baseProperty;
+    }
+
+    /** 当前帧击杀的怪物数量 */
+    frameMonsterKill: number = 0;
+
+    // 兔羊大战
+    coin = 0;
+    refreshCount = 0;
+    currentCards: number[] = [];
+    hasChooseCards: number[] = [];
+
+    currentCost() {
+        return this.refreshCount * 5 + 5;
+    }
+    refreshCard() {
+        const cost = this.currentCost();
+        if (this.currentCards.length === 0 && this.coin >= cost) {
+            this.refreshCount++;
+            this.coin -= cost;
+            this.refreshCurrentCard();
+        }
+    }
+
+    private refreshCurrentCard() {
+        const hasEmpty = this.ctx.attackTeam.size + this.ctx.corpseMap.size < GConfig.equipment.towerPlaceCount + 1;
+        if (hasEmpty) {
+            // 全部可刷
+            const available = GUtils.array
+                .chain(this.ctx.ctx.attackTeam)
+                .filter((info) => info.objectType === GConstant.battle.battleObjectType.pet)
+                .flatMap((info) => {
+                    const id = info.id;
+                    const part = GTable.getById("DefendTowerTbl", id).part;
+                    const tblList = GTable.getList("PlayerSkillTalentTbl").filter((t) => {
+                        // 暂时只检测本part
+                        if (t.part !== part) return false;
+                        // 已抽取
+                        if (this.hasChooseCards.includes(t.id)) return false;
+                        // 1级可用
+                        if (t.rank <= 1) return true;
+                        // 超过一级查看前置是否已获取
+                        const preId = GIndex.tower.getPlayerSkillTalentIdByPartIndexRank(part, t.index, t.rank - 1);
+                        return this.hasChooseCards.includes(preId);
+                    });
+                    return tblList;
+                })
+                .unwrap();
+            // 随机刷新三个
+            const res = this.ctx.sr.rdArrayElement(available, 3);
+            this.currentCards = res.map((t) => t.id);
+        } else {
+            // 仅能刷新已上场角色
+            const partList: number[] = [];
+            this.hasChooseCards.forEach((id) => {
+                const tbl = GTable.getById("PlayerSkillTalentTbl", id);
+                if (!partList.includes(tbl.part)) partList.push(tbl.part);
+            });
+            const available = GUtils.array
+                .chain(partList)
+                .flatMap((part) => {
+                    const tblList = GTable.getList("PlayerSkillTalentTbl").filter((t) => {
+                        // 暂时只检测本part
+                        if (t.part !== part) return false;
+                        // 已抽取
+                        if (this.hasChooseCards.includes(t.id)) return false;
+                        // 1级可用
+                        if (t.rank <= 1) return true;
+                        // 超过一级查看前置是否已获取
+                        const preId = GIndex.tower.getPlayerSkillTalentIdByPartIndexRank(part, t.index, t.rank - 1);
+                        return this.hasChooseCards.includes(preId);
+                    });
+                    return tblList;
+                })
+                .unwrap();
+            // 随机刷新三个
+            const res = this.ctx.sr.rdArrayElement(available, 3);
+            this.currentCards = res.map((t) => t.id);
+        }
+    }
+
+    chooseCard(id: number) {
+        if (!this.currentCards.includes(id)) return;
+        this.currentCards = [];
+        // 检测登场
+        const tbl = GTable.getById("PlayerSkillTalentTbl", id);
+        const part = tbl.part;
+        const isInTeam = this.hasChooseCards.some((id2) => {
+            const tbl2 = GTable.getById("PlayerSkillTalentTbl", id2);
+            return part === tbl2.part;
+        });
+        this.hasChooseCards.push(id);
+        if (isInTeam) {
+            // todo更换天赋
+        } else {
+            // 上场
+            const info = this.ctx.ctx.attackTeam.find((i) => GTable.getById("DefendTowerTbl", i.id).part === part);
+            const index = this.ctx.attackTeam.size + this.ctx.corpseMap.size - 1;
+            info.heroIndex = index;
+            const newObj = BattleBattleStageObject.createPet(this.ctx, info, 0);
+            this.ctx.attackTeam.set(newObj.uid, newObj);
+            newObj.preBattle();
+            newObj.initProperty();
+            newObj.start();
+            this.ctx.pushDisplayEvent(new BattleDisplayEvent("addObject", { obj: newObj }));
+        }
+    }
+}

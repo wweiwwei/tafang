@@ -1,0 +1,83 @@
+
+Role_ape.png
+size: 310,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shenti
+  rotate: false
+  xy: 2, 270
+  size: 197, 256
+  orig: 197, 256
+  offset: 0, 0
+  index: -1
+shitou
+  rotate: false
+  xy: 214, 179
+  size: 94, 97
+  orig: 94, 97
+  offset: 0, 0
+  index: -1
+tuo
+  rotate: false
+  xy: 2, 130
+  size: 124, 138
+  orig: 124, 138
+  offset: 0, 0
+  index: -1
+youdatui
+  rotate: false
+  xy: 128, 85
+  size: 84, 79
+  orig: 84, 79
+  offset: 0, 0
+  index: -1
+youqianbi
+  rotate: true
+  xy: 201, 393
+  size: 133, 96
+  orig: 133, 96
+  offset: 0, 0
+  index: -1
+youshangbi
+  rotate: false
+  xy: 201, 278
+  size: 83, 113
+  orig: 83, 113
+  offset: 0, 0
+  index: -1
+youxiaotui
+  rotate: false
+  xy: 2, 20
+  size: 92, 108
+  orig: 92, 108
+  offset: 0, 0
+  index: -1
+zuodatui
+  rotate: false
+  xy: 214, 91
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+zuoqianbi
+  rotate: true
+  xy: 96, 2
+  size: 81, 90
+  orig: 81, 90
+  offset: 0, 0
+  index: -1
+zuoshangbi
+  rotate: true
+  xy: 214, 3
+  size: 86, 94
+  orig: 86, 94
+  offset: 0, 0
+  index: -1
+zuoxiaotui
+  rotate: false
+  xy: 128, 166
+  size: 84, 102
+  orig: 84, 102
+  offset: 0, 0
+  index: -1

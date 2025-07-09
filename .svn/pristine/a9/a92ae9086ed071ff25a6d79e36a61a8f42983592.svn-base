@@ -1,0 +1,20 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Debug": true,
+  "metaServer": "http://127.0.0.1:19001",
+  "app": "ysr",
+  "kind": "game",
+  "route": [
+    "game",
+    "admin",
+    "payment",
+    "statistics"
+  ],
+  "areaCode": "l01"
+}

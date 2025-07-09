@@ -1,0 +1,6 @@
+const PlatformConfig = {
+    version: '0.0.1',
+    serverCode: 'test'
+};
+
+export default PlatformConfig;

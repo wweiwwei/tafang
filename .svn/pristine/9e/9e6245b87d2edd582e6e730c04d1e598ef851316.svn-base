@@ -1,0 +1,20 @@
+
+supporrabbit_generaltail.png
+size: 134,19
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+trail
+  rotate: false
+  xy: 2, 5
+  size: 108, 12
+  orig: 111, 12
+  offset: 3, 0
+  index: -1
+trail_head
+  rotate: false
+  xy: 112, 2
+  size: 20, 15
+  orig: 20, 15
+  offset: 0, 0
+  index: -1

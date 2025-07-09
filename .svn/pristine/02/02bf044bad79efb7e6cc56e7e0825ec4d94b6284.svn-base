@@ -1,0 +1,216 @@
+
+toaster_skilltail.png
+size: 1268,291
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX/4lizi
+  rotate: false
+  xy: 619, 20
+  size: 61, 41
+  orig: 61, 41
+  offset: 0, 0
+  index: -1
+TX/TX_S1_yan_0067
+  rotate: true
+  xy: 140, 134
+  size: 155, 121
+  orig: 160, 125
+  offset: 3, 2
+  index: -1
+TX/TX_gq_0000
+  rotate: false
+  xy: 790, 7
+  size: 66, 67
+  orig: 74, 73
+  offset: 5, 3
+  index: -1
+TX/TX_hy1_0000
+  rotate: false
+  xy: 719, 4
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+TX/TX_hy1_0002
+  rotate: false
+  xy: 719, 183
+  size: 94, 106
+  orig: 94, 106
+  offset: 0, 0
+  index: -1
+TX/TX_hy1_0003
+  rotate: false
+  xy: 719, 76
+  size: 98, 105
+  orig: 98, 105
+  offset: 0, 0
+  index: -1
+TX/TX_hy1_0004
+  rotate: false
+  xy: 815, 186
+  size: 98, 103
+  orig: 98, 103
+  offset: 0, 0
+  index: -1
+TX/TX_hy1_0005
+  rotate: false
+  xy: 819, 86
+  size: 98, 98
+  orig: 98, 98
+  offset: 0, 0
+  index: -1
+TX/TX_hy1_0006
+  rotate: true
+  xy: 919, 92
+  size: 97, 92
+  orig: 97, 92
+  offset: 0, 0
+  index: -1
+TX/TX_sh_0008
+  rotate: true
+  xy: 519, 27
+  size: 113, 98
+  orig: 113, 98
+  offset: 0, 0
+  index: -1
+TX/TX_sh_0009
+  rotate: true
+  xy: 528, 177
+  size: 112, 100
+  orig: 112, 100
+  offset: 0, 0
+  index: -1
+TX/TX_sh_0010
+  rotate: true
+  xy: 619, 63
+  size: 112, 98
+  orig: 112, 98
+  offset: 0, 0
+  index: -1
+TX/TX_sh_0012
+  rotate: true
+  xy: 915, 191
+  size: 98, 95
+  orig: 98, 95
+  offset: 0, 0
+  index: -1
+TX/TX_sh_0014
+  rotate: true
+  xy: 919, 6
+  size: 84, 92
+  orig: 84, 92
+  offset: 0, 0
+  index: -1
+TX/f04
+  rotate: true
+  xy: 1012, 192
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f05
+  rotate: true
+  xy: 1013, 93
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f06
+  rotate: true
+  xy: 1097, 192
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f07
+  rotate: false
+  xy: 1013, 8
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f08
+  rotate: true
+  xy: 1098, 93
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f09
+  rotate: true
+  xy: 1182, 192
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f10
+  rotate: false
+  xy: 1112, 8
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/f11
+  rotate: true
+  xy: 1183, 93
+  size: 97, 83
+  orig: 100, 83
+  offset: 3, 0
+  index: -1
+TX/ph1
+  rotate: false
+  xy: 630, 178
+  size: 87, 111
+  orig: 87, 111
+  offset: 0, 0
+  index: -1
+TX/ph2
+  rotate: false
+  xy: 157, 2
+  size: 105, 130
+  orig: 105, 130
+  offset: 0, 0
+  index: -1
+TX/ph3
+  rotate: false
+  xy: 404, 142
+  size: 122, 147
+  orig: 122, 147
+  offset: 0, 0
+  index: -1
+TX/ph4
+  rotate: true
+  xy: 2, 2
+  size: 130, 153
+  orig: 130, 153
+  offset: 0, 0
+  index: -1
+TX/ph5
+  rotate: false
+  xy: 2, 134
+  size: 136, 155
+  orig: 136, 155
+  offset: 0, 0
+  index: -1
+TX/ph6
+  rotate: false
+  xy: 263, 139
+  size: 139, 150
+  orig: 139, 150
+  offset: 0, 0
+  index: -1
+TX/ph7
+  rotate: false
+  xy: 264, 12
+  size: 140, 125
+  orig: 140, 125
+  offset: 0, 0
+  index: -1
+TX/ph8
+  rotate: true
+  xy: 406, 2
+  size: 138, 111
+  orig: 138, 111
+  offset: 0, 0
+  index: -1

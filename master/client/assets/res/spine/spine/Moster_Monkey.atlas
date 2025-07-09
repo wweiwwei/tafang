@@ -1,0 +1,55 @@
+
+Moster_Monkey.png
+size: 205,68
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 74, 20
+  size: 52, 46
+  orig: 52, 46
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 3
+  size: 70, 63
+  orig: 70, 63
+  offset: 0, 0
+  index: -1
+left_foot2
+  rotate: true
+  xy: 184, 4
+  size: 19, 17
+  orig: 19, 17
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: false
+  xy: 184, 25
+  size: 19, 41
+  orig: 19, 41
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: false
+  xy: 74, 2
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: true
+  xy: 128, 4
+  size: 17, 40
+  orig: 17, 40
+  offset: 0, 0
+  index: -1
+trail
+  rotate: true
+  xy: 128, 23
+  size: 43, 54
+  orig: 43, 54
+  offset: 0, 0
+  index: -1

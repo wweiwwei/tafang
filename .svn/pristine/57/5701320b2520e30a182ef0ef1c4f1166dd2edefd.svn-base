@@ -1,0 +1,21 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.nearBottom(1);
+    skill1.range = Number(tbl.param3);
+    let tFire = template
+        .explosion()
+        .range("self.sp.iceRange")
+        .addEffect(effect.offset(0, 0).effectName("Skill_Frost").effectAnimation("attack").scale(1));
+    tFire.target = target.enemyTeam.nearBottom("self.sp.iceCount");
+    let tExplosionHit = template.damage().value(tbl.param2);
+    let tSlowBuff = template
+        .addBuff()
+        .kind(property.moveSpeed)
+        .value("-target.moveSpeed*0.3")
+        .duration(5000)
+        .showPercent(true);
+    tFire.afterHit = tExplosionHit;
+    tExplosionHit.afterHit = tSlowBuff;
+    skill1.next = tFire;
+}

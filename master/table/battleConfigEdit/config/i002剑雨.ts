@@ -1,0 +1,26 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.near(1);
+    skill1.range = 1000;
+    let tFire = template
+        .dotArea()
+        .effectName("swords_skilltail")
+        .effectAnimation("general_tail")
+        .scale(0.2)
+        .rectMode()
+        .onlyEnemy()
+        .layer(2)
+        .duration(2200);
+    let tExplosionHit = template
+        .damage()
+        .value("self.attack*" + tbl.param2 + "+self.sp.s1")
+        .tag("skill")
+        .tag(tbl.param5);
+    tFire.effectList = [tExplosionHit];
+    tFire.intervalList = [Number(tbl.param4)];
+    tFire.heightList = [400];
+    tFire.widthList = [600];
+    tFire.target = target.enemyTeam.random(tbl.param3);
+    skill1.next = tFire;
+}

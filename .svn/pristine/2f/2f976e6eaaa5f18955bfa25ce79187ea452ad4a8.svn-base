@@ -1,0 +1,33 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIImage from "../../../framework/ui/UIImage";
+import UIList from "../../../framework/ui/UIList";
+import UIListItem from "../../../framework/ui/UIListItem";
+import Item from "../../entity/Item";
+import ListItemYuanBaoItem from "./ListItemYuanBaoItem";
+const { ccclass, property } = cc._decorator;
+@registerClass("ListItemYuanBaoItem2")
+@ccclass
+export default class ListItemYuanBaoItem2 extends UIListItem {
+    /** */
+    @autowired(UIList) uiList: UIList<ListItemYuanBaoItem> = null;
+
+    state: {
+        items: { id: number; index: number }[];
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+
+        console.log("state 2=", state);
+
+        // else this.uiList.setState([]);
+        this.refItem(state.items);
+    }
+
+    refItem(d) {
+        console.log("ListItemYuanBaoItem2 =", d);
+        let state = d.map((d) => {
+            return { id: d.id, index: d.index };
+        });
+        this.uiList.setState(state);
+    }
+}

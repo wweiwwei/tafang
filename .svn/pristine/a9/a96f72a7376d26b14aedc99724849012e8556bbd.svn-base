@@ -1,0 +1,26 @@
+import { BattleTriggerEvent } from "../../../Event/BattleTriggerEvent";
+import { BattleSkill } from "../../BattleSkill";
+import { IBattleSkillTrigger } from "./IBattleSkillTrigger";
+
+export class BattleTriggerNormalAttack implements IBattleSkillTrigger {
+    tick(skill: BattleSkill): boolean {
+        return false;
+    }
+    init(skill: BattleSkill): void {}
+    reset(skill: BattleSkill): void {
+        // todo 普攻计时器归0
+    }
+    onPassive(skill: BattleSkill): boolean {
+        return false;
+    }
+    onEvent(skill: BattleSkill, e: BattleTriggerEvent): boolean {
+        return false;
+    }
+    onAttack(skill: BattleSkill): boolean {
+        return skill.ctx.object.normalAttackTimer.isEnd();
+    }
+    onOrder(skill: BattleSkill): boolean {
+        return false;
+    }
+    kind: "main" | "normalAttack" | "passive" | "event" = "normalAttack";
+}

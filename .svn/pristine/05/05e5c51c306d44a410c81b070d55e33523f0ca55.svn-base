@@ -1,0 +1,16 @@
+{
+    skill1.skillCategory = "independent";
+    skill1.trigger = trigger.independent(tbl.param1);
+    skill1.searchTarget = target.enemyTeam.near(1);
+    skill1.range = 1000;
+    let tFire = template.fireBullet().img("Fireball_Skill").speed(1000).scale(1).curveType(2).curveParam(0);
+    tFire.target = target.enemyTeam.near(3);
+    let tAfterBulletHit = template
+        .damage()
+        .tag("skill")
+        .tag(tbl.param5)
+        .value("self.attack*" + tbl.param2 + "+self.sp.s13")
+        .addEffect(effect.offset(0, 20).effectName("BodyHit_witch").effectAnimation("skillattack"));
+    tFire.afterHit = tAfterBulletHit;
+    skill1.next = tFire;
+}

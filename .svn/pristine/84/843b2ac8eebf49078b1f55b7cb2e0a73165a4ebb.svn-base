@@ -1,0 +1,25 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import UIListItem from "../../../framework/ui/UIListItem";
+import UISpine from "../../../framework/ui/UISpine";
+const { ccclass, property } = cc._decorator;
+
+@registerClass("ListItemBattlePortal")
+@ccclass
+export default class ListItemBattlePortal extends UIListItem {
+    static _poolSize: number = 2;
+
+    @autowired(sp.Skeleton) spine: sp.Skeleton = null;
+
+    state: {
+        position: { x: number; y: number };
+    };
+    setState(state: this["state"]): void {
+        this.state = state;
+        this.spine.setCompleteListener(null);
+        this.node.position = cc.v3(this.state.position.x, this.state.position.y);
+        this.spine.setCompleteListener(() => {
+            this.recycle();
+        });
+        this.node.zIndex = -this.state.position.y;
+    }
+}

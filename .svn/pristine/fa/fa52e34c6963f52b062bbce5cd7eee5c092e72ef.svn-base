@@ -1,0 +1,79 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemItem from "../common/ListItemItem";
+import WindowCommonConfirm from "../common/WindowCommonConfirm";
+import WindowCongratulation from "../common/WindowCongratulation";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowVictoryAndFailure", { preloadPrefab: [""] })
+@ccclass
+export default class WindowVictoryAndFailure extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        /**输赢 */
+        state: "victory" | "defeat";
+        /**关闭窗体回调 */
+        closeCB: () => void;
+    };
+    _returnValue: any;
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    /**标题 */
+    @autowired(UILabel) title: UILabel = null;
+    /**统计 */
+    @autowired(UILabel) chapter: UILabel = null;
+    /**等级 */
+    @autowired(UILabel) lv: UILabel = null;
+    /**波数 */
+    @autowired(UILabel) waveOrder: UILabel = null;
+    /**击杀敌人 */
+    @autowired(UILabel) killMonsters: UILabel = null;
+    /**奖励列表 */
+    @autowired(UIList) rewardList: UIList<ListItemItem> = null;
+    /**光按钮 */
+    @autowired(UIButton) adBtn: UIButton = null;
+    /**确认 */
+    @autowired(UIButton) confirmBtn: UIButton = null;
+
+    protected onInited(): void {
+        this.even();
+        this.initUi();
+    }
+
+    initUi() {
+        this.title.setText([this._windowParam.state == "victory" ? "_rs胜利" : "_rs失败"]);
+        this.chapter.setText([]);
+        this.lv.setText([]);
+        this.waveOrder.setText([]);
+        this.killMonsters.setText([]);
+        this.adBtn.text.setText([this._windowParam.state == "victory" ? "_rs双倍奖励" : "_rs额外领取"]);
+    }
+
+    //副本打开返回副本，主页打开返回主页
+    even() {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {};
+
+        this.adBtn.onClick = async () => {
+            await GSDK.showVideo("advertisement_point");
+            let item = [];
+            GWindow.open(WindowCongratulation, { items: item });
+            this.close();
+            if (this._windowParam.closeCB) this._windowParam.closeCB();
+        };
+        this.confirmBtn.onClick = () => {
+            let item = [];
+            GWindow.open(WindowCongratulation, { items: item });
+            this.close();
+            if (this._windowParam.closeCB) this._windowParam.closeCB();
+        };
+    }
+}

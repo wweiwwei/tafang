@@ -1,0 +1,443 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIRichText from "../../../framework/ui/UIRichText";
+import UISpine from "../../../framework/ui/UISpine";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import EventName from "../../event/EventName";
+import ListItemBottomMenu from "../common/ListItemBottomMenu";
+import ListItemPropItem from "../mainsceneNew/ListItemPropItem";
+import WindowCareer2 from "../mainsceneNew/WindowCareer2";
+import WindowStageDetail from "../mainsceneNew/WindowStageDetail";
+import WindowStage from "../tower/WindowStage";
+import ListItemCurrencyTop from "./ListItemCurrencyTop";
+import ListItemMainSceneMenu from "./ListItemMainSceneMenu";
+import WindowChat from "./WindowChat";
+import WindowDiamondShop from "./WindowDiamondShop";
+import WindowStageReward from "./WindowStageReward";
+import WindowOptions from "./WindowOptions";
+import WindowPropDetails from "./WindowPropDetails";
+import WindowRaid from "./WindowRaid";
+import ListItemPlayer from "../battle/core/ListItemPlayer";
+const { ccclass, property } = cc._decorator;
+
+@registerClass("WindowMainSceneUI", {
+    sceneWindow: {
+        kind: "main",
+        openIndex: 0,
+    },
+})
+@ccclass
+export default class WindowMainSceneUI extends UIWindow {
+    static _poolSize: number = 1;
+    _windowParam: any;
+    _returnValue: any;
+
+    // @autowired(UIImage) mainLeft: UIImage = null;
+    @autowired(UIImage) avatar: UIImage = null;
+    @autowired(UILabel) username: UILabel = null;
+    @autowired(UIButton) avatarBtn: UIButton = null;
+    @autowired(UIButton) explore: UIButton = null;
+    @autowired(UIRichText) textLab: UIRichText = null;
+
+    @autowired(UIButton) bubble: UIButton = null;
+    @autowired(UIImage) finished: UIImage = null;
+    @autowired(UIRichText) missionProgress: UIRichText = null;
+    @autowired(UIButton) missionReward: UIButton = null;
+
+    @autowired(UIButton) challenge: UIButton = null;
+
+    @autowired(UIButton) chat: UIButton = null;
+
+    @autowired(UIList) menu: UIList<ListItemBottomMenu> = null;
+    @autowired(UIList) formation: UIList<ListItemPropItem> = null;
+
+    /**左侧菜单栏按钮 */
+    @autowired(UIButton) LArrow: UIButton = null;
+    @autowired(UIButton) RArrow: UIButton = null;
+    /**左侧菜单栏底 */
+    @autowired(UIImage) LMenu: UIImage = null;
+    @autowired(UIImage) RMenu: UIImage = null;
+    /**左侧菜单栏列表 */
+    @autowired(UIList) LBtnList: UIList<ListItemMainSceneMenu> = null;
+    @autowired(UIList) RBtnList: UIList<ListItemMainSceneMenu> = null;
+
+    /**开始闯关 */
+    @autowired(UIButton) challengeLevels: UIButton = null;
+
+    /** 章节名称 */
+    @autowired(UILabel) levelName: UILabel = null;
+    /** 上一关 */
+    @autowired(UILabel) preStage: UILabel = null;
+    /** 当前关卡 */
+    @autowired(UILabel) curStage: UILabel = null;
+    /** 玩家 */
+    @autowired(UIList) player: UIList<ListItemPlayer> = null;
+    @autowired(UIButton) lvRewardBtn: UIButton = null;
+    @autowired(UIImage) lvRewardBtnTips: UIImage = null;
+
+    // /**生涯 */
+    // @autowired(UILabel) career: UILabel = null;
+    // /**称号入口 */
+    // @autowired(UIButton) careerBtn: UIButton = null;
+    // /**称号提示 */
+    // @autowired(UIImage) careerTips: UIImage = null;
+
+    /** 扫荡 */
+    @autowired(UIButton) raidBtn: UIButton = null;
+    @autowired(UIList) currencyList: UIList<ListItemCurrencyTop> = null;
+
+    protected onInited(): void {
+        this.node.zIndex = -2;
+        this.currencyList.setState([{}]);
+        this.missionReward.setTransition(false);
+        this.even();
+        this.refPower();
+        // this.refCareer();
+        this.windowInit();
+        this.refreshLeft();
+        this.refreshRight();
+        // this.refreshCollapse();
+        // this.refreshMission();
+        this.refreshTower();
+        this.refreshBottom();
+        this.refreshMission();
+
+        // let moveNum =
+        // let getMoveX = () => {
+        //     return this.LMenu.node.position.x == -139 ? 0 : -139;
+        // };
+        // let action = null;
+
+        this.LArrow.onClick = () => {
+            this.LBtnList.node.active = !this.LBtnList.node.active;
+            this.LMenu.node.height = this.LBtnList.node.active ? 540 : 120;
+            this.LArrow.node.y = this.LBtnList.node.active ? -500 : -93;
+            // this.LArrow.bg.imgName = this.LBtnList.node.active
+            //     ? "mainscene_left_menu_up_arrow"
+            //     : "mainscene_left_menu_down_arrow";
+            this.LArrow.bg.node.angle = this.LBtnList.node.active ? 180 : 0;
+        };
+        this.RArrow.onClick = () => {
+            this.RBtnList.node.active = !this.RBtnList.node.active;
+            this.RMenu.node.height = this.RBtnList.node.active ? 540 : 120;
+            this.RArrow.node.y = this.RBtnList.node.active ? -500 : -93;
+            // this.RArrow.bg.imgName = this.RBtnList.node.active
+            //     ? "mainscene_left_menu_up_arrow"
+            //     : "mainscene_left_menu_down_arrow";
+            this.RArrow.bg.node.angle = this.RBtnList.node.active ? 180 : 0;
+        };
+
+        // this.opnePropertyTips.onClick = () => {
+        //     GWindow.open(WindowPropPropertyTips);
+        // };
+
+        this.refreshStage();
+
+        let a = [];
+        a.push(["_rs<color=#DCB896> <outline color=#000000 width=2>"]);
+        a.push([GLang.code.ui.mission_kill_enemy2]);
+        a.push(["_rs</color><outline>"]);
+        // a.push(["_rs<color=#DCB896><outline color=#000000 width=2>（14/5）<outline></color>"]);
+
+        // this.username.setText([GLang.code.ui.mission_kill_enemy2]);
+        this.textLab.setText(a);
+        this.refreshPlayer();
+        // this.showCareerTips();
+        // this.refreshProperty();
+    }
+
+    @message([EventName.stateKey.skinCurrent, EventName.stateKey.mountCurrent, EventName.stateKey.fossilData])
+    refreshPlayer() {
+        this.player.setState([{}]);
+    }
+
+    @message([EventName.stateKey.stage])
+    refreshStage() {
+        const info = GModel.stage.getCurrentStageInfo();
+        this.levelName.setText(info.levelName);
+        this.curStage.setText(info.current);
+        if (info.pre) {
+            this.raidBtn.node.active = true;
+            this.preStage.node.active = true;
+            this.preStage.setText(info.pre);
+        } else {
+            // 隐藏前置关卡
+            this.raidBtn.node.active = false;
+            this.preStage.node.active = false;
+        }
+    }
+
+    // @message([
+    //     EventName.stateKey.playerEquipment,
+    //     EventName.stateKey.towerWashData,
+    //     EventName.stateKey.playerData,
+    //     EventName.stateKey.level,
+    //     EventName.stateKey.fossilData,
+    //     EventName.stateKey.sprites,
+    //     EventName.stateKey.spriteFormation,
+    //     EventName.stateKey.rank,
+    //     EventName.stateKey.careerData,
+    //     EventName.stateKey.careerTalent,
+    //     EventName.stateKey.techTree,
+    // ])
+    // refreshProperty() {
+    //     const info = BattleFactory.getPlayerBattleInfo(GState.data);
+    //     const tbl = GTable.getById("JobChangeTbl", info.id) || GTable.getById("DefendTowerTbl", info.id);
+    //     const p = info.property;
+    //     // const labelList = [this.property1, this.property2, this.property3];
+    //     // ["attack", "maxHp", "armor"].forEach((k, i) => {
+    //     //     const v = p[k];
+    //     //     const kName = GIndex.battle.propertyText(k);
+    //     //     labelList[i].setText([kName], ["_rs:" + GIndex.battle.propertyShowMethod(k)(v)]);
+    //     // });
+    // }
+    even() {
+        this.lvRewardBtn.onClick = () => {
+            GWindow.open(WindowStageReward);
+        };
+        this.challengeLevels.onClick = () => {
+            const stage = GModel.stage.getCurrentStage();
+            if (stage.clear) {
+                GTip.showTip(["_rs已通关全部关卡"]);
+                return;
+            }
+            GModel.stage.challengeStage(stage.mapIndex, stage.stageIndex);
+        };
+        // this.careerBtn.onClick = () => {
+        //     GWindow.open(WindowCareer);
+        // };
+        this.challenge.onClick = async () => {
+            // const { reward, survivor } = await GApi.stage.challengeStage();
+            // reward.forEach((t) => {
+            //     GTip.showRewardItem(t);
+            // });
+            if (!GModel.player.checkSystemUnlock(GIndex.id.systemId.challenge, true)) return;
+            GWindow.open(WindowStageDetail);
+        };
+        this.avatarBtn.onClick = () => {
+            GWindow.open(WindowOptions);
+        };
+        this.username.node.getComponent(UIButton).onClick = () => {
+            GTest.gmToggle();
+        };
+        this.explore.onClick = () => {};
+
+        this.chat.onClick = () => {
+            GTip.showTip(["_rs暂不开放"]);
+            // GWindow.open(WindowChat);
+        };
+
+        this.raidBtn.onClick = () => {
+            GWindow.open(WindowRaid);
+            // GWindow.open(WindowMatchWaiting);
+            // this.diamondBtn.bg.getComponent(UIButton).onClick = () => {};
+        };
+    }
+
+    // @message([EventName.stateKey.playerMission, EventName.stateKey.playerData, EventName.stateKey.rank])
+    // showCareerTips() {
+    //     this.careerTips.node.active =
+    //         GModel.player.canUprank() || GModel.player.getMission().some((m) => m.getState() === "complete");
+    // }
+
+    protected onRecycle(): void {
+        this.unscheduleAllCallbacks();
+    }
+
+    @message([EventName.peaceModeSwitch])
+    peaceModeSwitch() {
+        // this.challenge.node.active = GModel.stage.isPeaceMode();
+        // this.node.active = GModel.stage.isPeaceMode();
+    }
+
+    @message([EventName.refreshBattlePoint])
+    refPower() {
+        // this.power.setText(["_rs" + GUtils.ui.getNumberString(GModel.battle.getBattlePoint(), 7)]);
+    }
+
+    // @message([EventName.stateKey.level, EventName.stateKey.playerData, EventName.stateKey.rank])
+    // refCareer() {
+    //     let t = GTable.getList("PlayerRankTbl")[GState.data.rank];
+    //     this.career.setText([t.careerName]);
+    //     this.careerBtn.getComponent(UIImage).imgName = `mainscene_title_${GState.data.rank + 1}`;
+    //     this.career.node.color = GConstant.playerTitleColor[GState.data.rank + 1];
+    // }
+
+    /**初始化数据 */
+    @message([EventName.stateKey.storage, EventName.stateKey.powerData])
+    windowInit() {
+        this.username.setText(["_rs" + GModel.player.roleName().substring(0, 6)]);
+        this.avatar.imgName = "Role_mermaid_head";
+    }
+
+    @message([
+        EventName.stateKey.storage,
+        EventName.stateKey.mainMissionTask,
+        EventName.stateKey.chargeData,
+        EventName.stateKey.giftPack,
+    ])
+
+    /**刷新右侧 */
+    refreshRight() {
+        const tblList = GTable.getList("UIMainSceneTbl").filter((t) => t.position === 2 && t.id !== 1008);
+        const state = tblList.map((t) => {
+            const id = t.id;
+            // if (id === 1008) {
+            //     show = GModel.knapsack.getStorageById(GIndex.id.turntableStorageId) > 0;
+            // }
+            const cb = () => {
+                GModel.player.openWindowWithSystemUnlockCheck(t);
+            };
+            return { id, cb };
+        });
+        this.RBtnList.setState(state);
+    }
+
+    /**刷新左侧 */
+    refreshLeft() {
+        const tblList = GTable.getList("UIMainSceneTbl").filter((t) => t.position === 5);
+        const state = tblList.map((t) => {
+            const id = t.id;
+            // if (id === 1008) {
+            //     show = GModel.knapsack.getStorageById(GIndex.id.turntableStorageId) > 0;
+            // }
+            const cb = () => {
+                GModel.player.openWindowWithSystemUnlockCheck(t);
+            };
+            return { id, cb };
+        });
+        this.LBtnList.setState(state);
+    }
+
+    @message([EventName.stateKey.mainMission, EventName.stateKey.mainMissionTask])
+    async refreshMission() {
+        let mission = GModel.mission.mainMissionList()[0];
+        if (!mission) {
+            let mission = GModel.mission.taskInfo();
+            this.finished.node.active = mission.progress >= mission.require;
+            this.missionProgress.setText(
+                [GLang.code.ui.task_reward],
+                ["_rs" + mission.progress + "/" + mission.require]
+            );
+            return;
+        }
+        this.bubble.onClick = async () => {
+            if (mission.progress >= mission.getRequire()) {
+                const reward = await GModel.mission.obtainMissionReward(mission.id);
+                reward.forEach((t) => {
+                    GTip.showRewardItem(t);
+                    GTip.showFlyReward(this.bubble.node.convertToWorldSpaceAR(cc.v2()), t);
+                });
+            } else {
+                mission.goto();
+            }
+        };
+        this.finished.node.active = mission.progress >= mission.getRequire();
+        this.missionProgress.setText(["_rs<color=#000000>"], ...mission.getDescription(true), [
+            "_rs</outline></color>",
+        ]);
+
+        const reward = mission.getReward();
+        reward.forEach((t) => {
+            this.missionReward.bg.imgName = Item.getImg(t);
+            this.missionReward.text.setText(["_rs" + t.count]);
+        });
+    }
+
+    getTreeTips() {
+        return GModel.player.canPromote() || GModel.tree.getNextTech().canUpdate();
+    }
+
+    getSpriitTips() {
+        return false;
+    }
+
+    getStrangeTips() {
+        return false;
+    }
+
+    @message([EventName.stateKey.fossilData])
+    refreshBottom() {
+        let showTips = (id: number) => {
+            switch (id) {
+                case 1001:
+                    return this.getTreeTips();
+                case 1002:
+                    return this.getSpriitTips();
+                case 1003:
+                    return this.getStrangeTips();
+            }
+            return 0;
+        };
+        let state = GTable.getList("UIMainSceneTbl")
+            .filter((t) => t.position === 3)
+            .map((t) => {
+                return {
+                    id: t.id,
+                    cb: async () => {
+                        GModel.player.openWindowWithSystemUnlockCheck(t);
+                        // if (t.window.length === 0 || t.id === 1003) {
+                        //     GTip.showTip(["_rs开发中"]);
+                        //     return;
+                        // }
+                        // const cls = IocContainer.get(t.window);
+                        // GWindow.open(cls);
+                    },
+                    selected: false,
+                    status: false,
+                    show: showTips(t.id) ? 1 : 0,
+                };
+            });
+        this.menu.setState(state);
+    }
+
+    @message([
+        EventName.stateKey.playerEquipment,
+        EventName.stateKey.towerFormation,
+        EventName.stateKey.equipmentCollection,
+        EventName.stateKey.towerTalent,
+    ])
+    refreshTower() {
+        let showTips = (part) => {
+            return (
+                (GModel.player.checkSystemUnlock(GIndex.id.systemId.handbook, false) &&
+                    GModel.defendTower.getColletionData(part).some((d) => d.state == "canActive")) ||
+                GModel.defendTower
+                    .getTowerTalentData(part)
+                    .some((d) => d.state === "canActive" || d.state === "canUpgrade")
+            );
+        };
+
+        let openWind = (index: number) => {
+            let a = GModel.playerEquipment.equipment()[index];
+            if (!a) {
+                GTip.showTip(["_rs" + "未拥有该部件装备！"]);
+                return;
+            }
+            GWindow.open(WindowPropDetails, { part: index });
+        };
+        let state = GModel.playerEquipment.equipment().map((e, index) => {
+            return {
+                playerEquipment: e,
+                clickCB: (clickIndex: number) => {
+                    openWind(clickIndex);
+                },
+                dragMode: {
+                    part: index,
+                },
+                tempIndex: index,
+                showGoBattle: GModel.defendTower.getTowerFormation().includes(index),
+                showBottonLevel: true,
+                setScale: 0.9,
+                showQuality: false,
+                showLight: true,
+                showRedTips: showTips(index),
+            };
+        });
+        this.formation.setState(state);
+    }
+}

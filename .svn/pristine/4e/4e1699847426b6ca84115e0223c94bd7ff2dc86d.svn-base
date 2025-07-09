@@ -1,0 +1,341 @@
+import { autowired, message, registerClass } from "../../../../framework/Decorator";
+import ResourceLoader from "../../../../framework/ResourceLoader";
+import EventBus from "../../../../framework/event/EventBus";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../../framework/ui/GWindow";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UISpine from "../../../../framework/ui/UISpine";
+import UIWindow from "../../../../framework/ui/UIWindow";
+import { BattleBossEffectInfo } from "../../../battleApi/BattleDisplayToLogicApi";
+import { BattleProcessorBattleStageApi } from "../../../battleApi/BattleProcessorBattleStageApi";
+import Item from "../../../entity/Item";
+import EventName from "../../../event/EventName";
+import WindowKnapsack2 from "../../mainscene/WindowKnapsack2";
+import WindowPause from "../../mainscene/WindowPause";
+import WindowRogueGift from "../../mainscene/WindowRogueGift";
+import WindowSkillDetails from "../../mainscene/WindowSkillDetails";
+import ListItemBattleBossBullet from "./ListItemBattleBossBullet";
+import ListItemBattleExSkill from "./ListItemBattleExSkill";
+import ListItemBattleSkill from "./ListItemBattleSkill";
+import ListItemBuySkill from "./ListItemBuySkill";
+import WindowBattleStar from "./WindowBattleStar";
+import WindowBossDescription from "./WindowBossDescription";
+import WindowExSkillDetails from "./WindowExSkillDetails";
+import WindowRogueBless from "./WindowRogueBless";
+import WindowRogueEquipment from "./WindowRogueEquipment";
+import WindowRogueSkill from "./WindowRogueSkill";
+import WindowWarning from "./WindowWarning";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowBattle", { preloadPrefab: ["ListItemBattleBossBullet"] })
+@ccclass
+export default class WindowBattle extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+        hideMainScene: true,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    /**暂停*/
+    @autowired(UIButton) pause: UIButton = null;
+    @autowired(cc.ProgressBar) progressBar: cc.ProgressBar = null;
+    @autowired(cc.ProgressBar) progressBar2: cc.ProgressBar = null;
+
+    /**加速 */
+    @autowired(UIButton) addSpeed: UIButton = null;
+    /**背包 */
+    @autowired(UIButton) knapsack: UIButton = null;
+    /** boss按钮 */
+    @autowired(UIButton) bossBtn: UIButton = null;
+    /**背包提示 */
+    @autowired(UIImage) knapsackTips: UIImage = null;
+
+    @autowired(UILabel) progressLab: UILabel = null;
+    @autowired(UILabel) countLabel: UILabel = null;
+    @autowired(UIList) skillUiList: UIList<ListItemBattleSkill> = null;
+    @autowired(UIList) skillExUiList: UIList<ListItemBattleExSkill> = null;
+    @autowired(UIList) buySkilluiList: UIList<ListItemBuySkill> = null;
+
+    @autowired(UISpine) bossSpine: UISpine = null;
+
+    // ===boss波数
+    @autowired(cc.ProgressBar) bossWaveProgressBar: cc.ProgressBar = null;
+    @autowired(UILabel) bossWaveProgressLab: UILabel = null;
+    @autowired(UILabel) bossWaveRemainTimeLab: UILabel = null;
+    // ===boss波数
+
+    protected onInited(): void {
+        GWindow.open(WindowBattleStar);
+        this.even();
+    }
+
+    even() {
+        this.knapsack.onClick = async () => {
+            EventBus.emit(EventName.pauseBattle, true);
+            await GWindow.open(WindowKnapsack2);
+            EventBus.emit(EventName.pauseBattle, false);
+        };
+        this.addSpeed.text.setText([`_rsx${GModel.battle.battleSpeed}`]);
+        this.addSpeed.onClick = () => {
+            GModel.battle.toggleBattleSpeed();
+            this.addSpeed.text.setText([`_rsx${GModel.battle.battleSpeed}`]);
+        };
+        this.pause.onClick = async () => {
+            EventBus.emit(EventName.pauseBattle, true);
+            const res = await GWindow.open(WindowPause, { closeCb: () => {} });
+            EventBus.emit(EventName.pauseBattle, false);
+            if (res.exitBattle) {
+                EventBus.emit(EventName.abandonBattle);
+            }
+        };
+        this.bossBtn.onClick = async () => {
+            EventBus.emit(EventName.pauseBattle, true);
+            await GWindow.open(WindowBossDescription);
+            EventBus.emit(EventName.pauseBattle, false);
+        };
+    }
+    private hasOpenLimitWindow = false;
+
+    refreshEndTip(api: BattleProcessorBattleStageApi) {
+        // 刷新结束提示
+        const limitTick = api.getOverLimitTick();
+        if (limitTick > 0) {
+            if (!this.hasOpenLimitWindow) {
+                this.hasOpenLimitWindow = true;
+                GWindow.open(WindowWarning);
+            }
+        } else {
+            this.hasOpenLimitWindow = false;
+        }
+    }
+    private needInitBoss = true;
+
+    refreshWaveInfo(api: BattleProcessorBattleStageApi) {
+        // 刷新波数和怪物数
+        const info = api.getWaveInfo();
+        if (info.bossInfo.bossOnScene) {
+            this.progressBar.node.active = false;
+            this.bossWaveProgressBar.node.active = true;
+            this.bossWaveProgressLab.setText([`_rs${info.bossInfo.hp}/${info.bossInfo.maxHp}`]);
+            this.bossWaveProgressBar.progress = info.bossInfo.hp / info.bossInfo.maxHp;
+            this.bossWaveRemainTimeLab.setText([
+                GLang.code.ui.boss_remain_time,
+                "_rs" +
+                    GUtils.date.formatRemainTime(
+                        Math.round(info.bossInfo.tickRemain * GConstant.battle.logicTick),
+                        "mm:ss"
+                    ),
+            ]);
+        } else {
+            this.progressBar.node.active = true;
+            this.bossWaveProgressBar.node.active = false;
+            this.progressBar.progress = info.progress;
+            this.progressLab.setText([`_rs第${info.wave}/${info.maxWave}波`]);
+            this.progressBar2.progress = info.monsterCount / info.monsterLimit;
+            this.countLabel.setText([`_rs${info.monsterCount}/${info.monsterLimit}`]);
+        }
+
+        // 初始化boss
+        if (this.needInitBoss) {
+            this.needInitBoss = false;
+            const waveId = api.getWaveId();
+            const bossId = GTable.getById("MonsterWaveTbl", waveId).boss;
+            const tbl = GTable.getById("BattleRogueBossTbl", bossId);
+            this.bossSpine.setSpine(tbl.spine, "default", "idle_1");
+        }
+        // boss动画切换
+        const ratio = info.monsterCount / info.monsterLimit;
+        if (ratio < GConstant.battle.bossSpineChange[0]) {
+            this.bossSpine.changeAnimationIfDifferent("idle_1", true);
+        } else if (ratio < GConstant.battle.bossSpineChange[1]) {
+            this.bossSpine.changeAnimationIfDifferent("idle_2", true);
+        } else {
+            this.bossSpine.changeAnimationIfDifferent("idle_3", true);
+        }
+    }
+
+    refreshSkill(api: BattleProcessorBattleStageApi) {
+        // 刷新技能
+        const skillInfo = api.getSkillInfo();
+        const forbidInfo = api.getForbidInfo();
+        const state = skillInfo.map(({ progress, info }, index) => {
+            const tbl = GTable.getById("RogueSkillDetailTbl", info.relateSkillId);
+            return {
+                img: tbl.img,
+                id: tbl.id,
+                progress,
+                cb: async () => {
+                    EventBus.emit(EventName.pauseBattle, true);
+                    await GWindow.open(WindowSkillDetails, { id: tbl.id, index });
+                    EventBus.emit(EventName.pauseBattle, false);
+                },
+                showImgBg: true,
+                forbid: forbidInfo.includes(index),
+            };
+        });
+
+        for (let i = skillInfo.length; i < 6; i++) {
+            state.push({
+                img: "",
+                id: -1,
+                progress: 0,
+                cb: null,
+                showImgBg: true,
+                forbid: forbidInfo.includes(i),
+            });
+        }
+        this.skillUiList.setState(state);
+    }
+
+    refreshExSkill(api: BattleProcessorBattleStageApi) {
+        // 刷新神通
+        const exState = api.getExSkillInfo().map((data, index) => {
+            const tbl = GTable.getById("RogueExSkillTbl", data.info.relateSkillId);
+            return {
+                img: tbl.img,
+                id: data.info.relateSkillId,
+                progress: data.progress,
+                require: data.require,
+                cb: async () => {
+                    if (data.progress >= data.require) {
+                        api.exSkillOrder(index);
+                    } else {
+                        EventBus.emit(EventName.pauseBattle, true);
+                        await GWindow.open(WindowExSkillDetails, { index });
+                        EventBus.emit(EventName.pauseBattle, false);
+                    }
+                },
+            };
+        });
+        this.skillExUiList.setState(exState);
+    }
+
+    refreshBottomUI(api: BattleProcessorBattleStageApi) {
+        // 刷新底部ui
+        const property = api.globalProperty();
+        const skillMgr = api.rogueSkillManager();
+        const buyItemState = [0, 1, 2].map((index) => {
+            if (index === 0) {
+                return {
+                    item: new Item(10014, 0),
+                    text: [GLang.code.ui.rogue_buy_skill],
+                    index,
+                    storage: property.coin,
+                    require: skillMgr.currentCost(),
+                    cb: async () => {
+                        // 购买技能
+                        const ok = skillMgr.refreshCard();
+                        if (ok) {
+                            EventBus.emit(EventName.pauseBattle, true);
+                            const { id } = await GWindow.open(WindowRogueSkill);
+                            skillMgr.chooseCard(id);
+                            EventBus.emit(EventName.pauseBattle, false);
+                        }
+                    },
+                    img: "battle_buy_skill",
+                };
+            } else if (index === 1) {
+                const equipmentMgr = api.rogueEquipmentManager();
+                return {
+                    item: new Item(10014, 0),
+                    text: [GLang.code.ui.rogue_buy_equipment],
+                    index,
+                    storage: property.coin,
+                    require: equipmentMgr.currentCost(),
+                    cb: async () => {
+                        // 购买装备
+                        const ok = equipmentMgr.buyNormal();
+                        if (ok) {
+                            EventBus.emit(EventName.pauseBattle, true);
+                            const { id } = await GWindow.open(WindowRogueEquipment);
+                            equipmentMgr.chooseCard(id);
+                            EventBus.emit(EventName.pauseBattle, false);
+                        }
+                    },
+                    img: "battle_buy_equipment",
+                };
+            } else if (index === 2) {
+                return {
+                    item: new Item(10015, 0),
+                    text: [GLang.code.ui.rogue_buy_rare],
+                    index,
+                    storage: property.diamond,
+                    require: 1,
+                    cb: async () => {
+                        // 钻石购买
+                        const equipmentMgr = api.rogueEquipmentManager();
+                        const ok = equipmentMgr.buyRare();
+                        if (ok) {
+                            EventBus.emit(EventName.pauseBattle, true);
+                            // await GWindow.open(WindowCommonTip, {
+                            //     tip: ["_rs获得一个技能升级卡"],
+                            // });
+                            await GWindow.open(WindowRogueGift);
+                            EventBus.emit(EventName.pauseBattle, false);
+                        }
+                    },
+                    img: "battle_buy_rare",
+                };
+            }
+        });
+        this.buySkilluiList.setState(buyItemState);
+    }
+
+    async refreshBless(api: BattleProcessorBattleStageApi) {
+        // 检测是否有祝福
+        const blessMgr = api.rogueBlessManager();
+        const hasBless = blessMgr.checkBless();
+        if (hasBless && !this.blessFrag) {
+            EventBus.emit(EventName.pauseBattle, true);
+            this.blessFrag = true;
+            const { id } = await GWindow.open(WindowRogueBless);
+            blessMgr.chooseBless(id);
+            EventBus.emit(EventName.pauseBattle, false);
+            this.blessFrag = false;
+        }
+    }
+
+    protected update(dt: number) {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            this.refreshEndTip(api);
+            this.refreshWaveInfo(api);
+            this.refreshSkill(api);
+            this.refreshExSkill(api);
+            this.refreshBottomUI(api);
+            this.refreshBless(api);
+        }
+    }
+
+    private blessFrag = false;
+
+    getAngle(direction: number[]) {
+        return (Math.atan2(direction[1], direction[0]) * 180) / Math.PI;
+    }
+    /** 展示boss技能 */
+    @message([EventName.showBossEffect])
+    showBossEffect(data: BattleBossEffectInfo) {
+        if (data.kind === 1 || data.kind === 2) {
+            const begin = this.node.convertToNodeSpaceAR(this.progressBar2.node.convertToWorldSpaceAR(cc.v2(0, 0)));
+            data.index.forEach((i) => {
+                const item = this.skillUiList.getItems()[i];
+                if (item) {
+                    const b = ResourceLoader.getNodeSyncWithPreload(ListItemBattleBossBullet);
+                    b.setState({ img: data.bullet });
+                    const end = this.node.convertToNodeSpaceAR(item.node.convertToWorldSpaceAR(cc.v2(0, 0)));
+                    b.node.parent = this.node;
+                    b.node.x = begin.x;
+                    b.node.y = begin.y;
+                    b.node.angle = this.getAngle([end.x - begin.x, end.y - begin.y]);
+                    cc.tween(b.node)
+                        .to(1 / GModel.battle.getBattleSpeed(), { x: end.x, y: end.y })
+                        .call(() => b.playEnd())
+                        .start();
+                }
+            });
+        }
+    }
+}

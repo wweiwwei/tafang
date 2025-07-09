@@ -1,0 +1,128 @@
+import { autowired, message, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { BattleSkillShowEffect } from "../../battleLogic/Skill/Display/BattleSkillShowEffect";
+import Item from "../../entity/Item";
+import { Sprite } from "../../entity/Sprite";
+import EventName from "../../event/EventName";
+import ListItemCost from "../hero/ListItemCost";
+import ListItemEquipmentDetailsProperty from "./ListItemEquipmentDetailsProperty";
+import ListItemHeroDetail from "./ListItemHeroDetail";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowEquipmentDetails")
+@ccclass
+export default class WindowEquipmentDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: { id: number };
+    _returnValue: {
+        part?: number;
+        id?: number;
+    };
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    @autowired(UIList) uiList: UIList<ListItemHeroDetail> = null;
+    @autowired(UIList) property: UIList<ListItemEquipmentDetailsProperty> = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) quality: UILabel = null;
+    @autowired(UILabel) part: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UILabel) txText: UILabel = null;
+    @autowired(UIButton) changeBtn: UIButton = null;
+    @autowired(UIButton) updateBtn: UIButton = null;
+    /**升级提示 */
+    @autowired(UIImage) updateTips: UIImage = null;
+
+    @autowired(UIList) updateBtnCost: UIList<ListItemCost> = null;
+    @autowired(UIImage) equipment_detailbg: UIImage = null;
+    @autowired(cc.Node) maxLevel: cc.Node = null;
+
+    protected onInited(): void {
+        this.refresh();
+    }
+    @message([EventName.stateKey.sprites])
+    refresh() {
+        this.maxLevel.active = false;
+        let mt = GTable.getById("MountTbl", this._windowParam.id);
+        let it = GTable.getById("ItemTbl", this._windowParam.id);
+
+        this.txText.setText([mt.part == 0 ? "_rs武器特性" : "_rs装备特性"]);
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+
+        this.equipment_detailbg.imgName = GConstant.equipmentQuality[it.quality];
+
+        let condition = GModel.sprite.getFormation().includes(this._windowParam.id);
+        this.changeBtn.node.active = !condition;
+        this.updateBtn.node.active = condition;
+        if (condition) {
+            let sprite = GModel.sprite.getSpriteById(this._windowParam.id);
+            this.updateTips.node.active = sprite.canUpRank();
+            if (sprite.uprankCost()) {
+                this.updateBtn.node.active = true;
+                this.maxLevel.active = false;
+                let item = new Item(this._windowParam.id, sprite.uprankCost());
+                this.updateBtnCost.setState([{ item: item, require: item.count, storage: sprite.exp }]);
+            } else {
+                this.updateBtn.node.active = false;
+                this.maxLevel.active = true;
+            }
+        }
+        let sprite = GModel.sprite.getSpriteById(this._windowParam.id);
+        let obj: { text1: string; text2: string; arrowAngle: string }[] = [];
+
+        // console.log("sprite.getFormateProperty() =", sprite.getFormateProperty());
+        sprite.getFormateProperty().forEach((d, index) => {
+            let isUp = "";
+            GModel.sprite.getSprites().forEach((d2) => {
+                if (d2.rank > 0 && isUp != "up") isUp = d2.getFormateProperty()[index].value < d.value ? "up" : "";
+            });
+            obj.push({
+                text1: GIndex.battle.propertyText(d.property),
+                text2: "_rs+" + d.value,
+                arrowAngle: isUp,
+            });
+        });
+
+        this.property.setState(obj);
+
+        this.changeBtn.text.setText([GModel.sprite.getFormation()[mt.part] > -1 ? "_rs替换" : "_rs装备"]);
+        this.changeBtn.onClick = () => {
+            let a = GModel.sprite.getFormation();
+            a[mt.part] = this._windowParam.id;
+            GModel.sprite.setFormation(a);
+            this.close();
+        };
+        this.updateBtn.onClick = () => {
+            GModel.sprite.uprankSprite(this._windowParam.id);
+        };
+        this.name1.setText([it.name]);
+        this.quality.setText(["_rs品质：" + GConstant.qualityName[it.quality]]);
+        this.part.setText(["_rs部位：" + GConstant.partName[mt.part]]);
+        this.desc.setText([it.description]);
+
+        this.refItem();
+    }
+
+    refItem() {
+        let it = GTable.getById("ItemTbl", this._windowParam.id);
+        this.uiList.setState([
+            {
+                id: this._windowParam.id,
+                quailtyImg: GConstant.itemQualityBg[it.quality],
+                icon: it.img,
+                isHave: true,
+                lv: "_rsLv." + GModel.sprite.getSpriteById(this._windowParam.id).rank,
+            },
+        ]);
+    }
+}

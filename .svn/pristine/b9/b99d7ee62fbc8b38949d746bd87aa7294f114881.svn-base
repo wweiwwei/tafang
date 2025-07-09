@@ -1,0 +1,264 @@
+import { BattleDisplayEvent } from "../Display/BattleDisplayEvent";
+import { BattleBattleStageObject } from "../Object/BattleStage/BattleBattleStageObject";
+import { BattleObjectInfo } from "../Object/BattleStage/BattleObjectInfo";
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import BattleMonsterQueueChallengeMode from "./MonsterQueue/BattleMonsterQueueChallengeMode";
+import BattleMonsterQueueGuideMode from "./MonsterQueue/BattleMonsterQueueGuideMode";
+import BattleMonsterQueuePeaceMode from "./MonsterQueue/BattleMonsterQueuePeaceMode";
+
+export type BattlePlayerCommand =
+    | {
+          kind: "clickAttack";
+          data: { pos: number[] };
+      }
+    | {
+          kind: "nextStage";
+          data: { waveId: number; lv: number; magicStaffId: number };
+      }
+    | {
+          kind: "addEquipmentMonster";
+          data: {
+              quality: number;
+              uniqueId: number;
+          };
+      }
+    | {
+          kind: "changePlayerState";
+          data: {
+              info: BattleObjectInfo;
+          };
+      }
+    | {
+          kind: "changeTower";
+          data: {
+              index: number;
+              info: BattleObjectInfo;
+          };
+      }
+    | {
+          kind: "changeTowerPosition";
+          data: {
+              fromIndex: number;
+              toIndex: number;
+          };
+      }
+    | {
+          kind: "playerAttack";
+          data: {};
+      }
+    | {
+          kind: "setAutoAttack";
+          data: {};
+      }
+    | {
+          kind: "addGuideMonster";
+          data: {
+              count: number;
+          };
+      }
+    | {
+          kind: "switchToGuideMode";
+          data: {};
+      }
+    | {
+          kind: "switchToPeaceMode";
+          data: {};
+      }
+    | {
+          kind: "refreshCard";
+          data: {};
+      }
+    | {
+          kind: "chooseCard";
+          data: {
+              id: number;
+          };
+      }
+    | {
+          kind: "exSkill";
+          data: {
+              index: number;
+          };
+      };
+
+export class BattleCommandHandler {
+    constructor(public ctx: BattleBattleStageData) {}
+
+    processPlayerCommand() {
+        this.ctx.ctx.commandGetter(this.ctx.frame).forEach((cmd) => {
+            if (this.ctx.ctx.mode === "pve") {
+                switch (cmd.kind) {
+                    case "clickAttack":
+                        break;
+                    case "nextStage":
+                        this.nextStage(cmd.data.waveId, cmd.data.lv, cmd.data.magicStaffId);
+                        break;
+                    case "addEquipmentMonster":
+                        this.addEquipmentMonster(cmd.data.quality, cmd.data.uniqueId);
+                        break;
+                    case "changePlayerState":
+                        this.changePlayerState(cmd.data.info);
+                        break;
+                    case "changeTower":
+                        this.changeTower(cmd.data.index, cmd.data.info);
+                        break;
+                    case "changeTowerPosition":
+                        this.changeTowerPosition(cmd.data.fromIndex, cmd.data.toIndex);
+                        break;
+                    case "playerAttack":
+                        this.playerAttack();
+                        break;
+                    case "setAutoAttack":
+                        this.setAutoAttack();
+                        break;
+                    case "addGuideMonster":
+                        this.addGuideMonster(cmd.data.count);
+                        break;
+                    case "switchToGuideMode":
+                        this.switchToGuideMode();
+                        break;
+                    case "switchToPeaceMode":
+                        this.switchToPeaceMode();
+                        break;
+                    case "refreshCard":
+                        this.ctx.rogueSkillManager.refreshCard();
+                        break;
+                    case "chooseCard":
+                        this.ctx.rogueSkillManager.chooseCard(cmd.data.id);
+                        break;
+                    case "exSkill":
+                        const player = this.ctx.attackTeam.get(1);
+                        player.skillManager.onExOrder(cmd.data.index);
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                // pvp指令
+            }
+        });
+    }
+    nextStage(waveId: number, lv: number, magicStaffId: number) {
+        this.ctx.nextStageMode = true;
+        this.ctx.attackTeam.forEach((o) => o.reInit());
+        this.ctx.ctx.env[0].lv = lv;
+        this.ctx.monsterQueue = this.ctx.getMonsterQueue(waveId);
+        this.ctx.ctx.attackTeam
+            .filter(
+                (h) =>
+                    h.objectType === GConstant.battle.battleObjectType.hero &&
+                    GUtils.map.every(this.ctx.attackTeam, (o) => o.id !== h.id)
+            )
+            .map((h) => BattleBattleStageObject.createHero(this.ctx, h, true, 0, this.ctx.ctx.mode))
+            .forEach((h) => {
+                this.ctx.attackTeam.set(h.uid, h);
+                h.preBattle();
+                h.initProperty();
+                h.start();
+                this.ctx.pushDisplayEvent(new BattleDisplayEvent("addObject", { obj: h }));
+            });
+    }
+    changePlayerState(info: BattleObjectInfo) {
+        const player = this.ctx.attackTeam.get(1);
+        player.info = info;
+        player.reInit();
+    }
+
+    changeTower(index: number, info: BattleObjectInfo) {
+        let originObj: BattleBattleStageObject = null;
+        this.ctx.attackTeam.forEach((o) => {
+            if (o.heroIndex === index) {
+                originObj = o;
+            }
+        });
+        if (originObj) {
+            this.ctx.objectDie(originObj, false);
+            // const player = this.ctx.attackTeam.get(1);
+            const newObj = BattleBattleStageObject.createPet(this.ctx, info, 0);
+            this.ctx.attackTeam.set(newObj.uid, newObj);
+            newObj.preBattle();
+            newObj.initProperty();
+            newObj.start();
+            this.ctx.pushDisplayEvent(new BattleDisplayEvent("addObject", { obj: newObj }));
+        } else {
+            // const player = this.ctx.attackTeam.get(1);
+            const newObj = BattleBattleStageObject.createPet(this.ctx, info, 0);
+            this.ctx.attackTeam.set(newObj.uid, newObj);
+            newObj.preBattle();
+            newObj.initProperty();
+            newObj.start();
+            this.ctx.pushDisplayEvent(new BattleDisplayEvent("addObject", { obj: newObj }));
+        }
+    }
+
+    changeTowerPosition(fromIndex: number, toIndex: number) {
+        let fromObj: BattleBattleStageObject = null;
+        let toObj: BattleBattleStageObject = null;
+        this.ctx.attackTeam.forEach((o) => {
+            if (o.heroIndex === fromIndex) {
+                fromObj = o;
+            } else if (o.heroIndex === toIndex) {
+                toObj = o;
+            }
+        });
+        if (fromObj && toObj) {
+            fromObj.heroIndex = toIndex;
+            toObj.heroIndex = fromIndex;
+            const fromPositionCopy = fromObj.position.map((e) => e);
+            const toPositionCopy = toObj.position.map((e) => e);
+            fromObj.position = toPositionCopy;
+            toObj.position = fromPositionCopy;
+        } else if (fromObj) {
+            fromObj.heroIndex = toIndex;
+            const { x, y } = this.ctx.mapInfo.getTowerPos()[toIndex];
+            fromObj.position = [x, y];
+        } else if (toObj) {
+            toObj.heroIndex = fromIndex;
+            const { x, y } = this.ctx.mapInfo.getTowerPos()[fromIndex];
+            toObj.position = [x, y];
+        }
+    }
+
+    addEquipmentMonster(quality: number, uniqueId: number) {
+        if (this.ctx.equipmentMonster.length >= 1) return;
+        const mList = this.ctx.monsterQueue.nextEquipmentMonster(this.ctx, quality, uniqueId);
+        mList.forEach((m) => {
+            const effect = new BattleDisplayEvent("showEffect", {
+                effectName: "monster_entereffect",
+                effectAnimation: "enter_effect",
+                offset: m.position,
+                parentType: "scene",
+                obj: null,
+                scale: 1,
+            });
+            this.ctx.pushDisplayEvent(effect);
+            this.ctx.equipmentMonster.push(m.uid);
+            this.ctx.addMonster(m);
+        });
+    }
+
+    playerAttack() {
+        this.ctx.hasAttackOrder = true;
+    }
+
+    setAutoAttack() {
+        this.ctx.ctx.auto = true;
+    }
+
+    addGuideMonster(count: number) {
+        const mList = this.ctx.monsterQueue.nextGuideMonster(this.ctx, count);
+        mList.forEach((m) => {
+            this.ctx.addMonster(m);
+        });
+    }
+
+    switchToGuideMode() {
+        if (this.ctx.monsterQueue instanceof BattleMonsterQueueGuideMode) return;
+        this.ctx.monsterQueue = new BattleMonsterQueueGuideMode(this.ctx.ctx.waveId, this.ctx.ctx);
+    }
+
+    switchToPeaceMode() {
+        if (this.ctx.monsterQueue instanceof BattleMonsterQueueChallengeMode) return;
+        this.ctx.monsterQueue = new BattleMonsterQueueChallengeMode(this.ctx.ctx.waveId, this.ctx.ctx);
+    }
+}

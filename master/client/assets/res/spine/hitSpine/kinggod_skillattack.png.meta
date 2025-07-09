@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "ad1cf0c0-ad1c-4b2f-b0ba-87bdbe3e09ce",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 189,
+  "height": 516,
+  "platformSettings": {},
+  "subMetas": {
+    "kinggod_skillattack": {
+      "ver": "1.0.6",
+      "uuid": "bd19c846-d1a4-404c-b018-001da596c8d7",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "ad1cf0c0-ad1c-4b2f-b0ba-87bdbe3e09ce",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 185,
+      "height": 512,
+      "rawWidth": 189,
+      "rawHeight": 516,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,115 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemEquipmentDetailsProperty from "./ListItemEquipmentDetailsProperty";
+import ListItemHeroDetail from "./ListItemHeroDetail";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowStrangeDetails")
+@ccclass
+export default class WindowStrangeDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: { id: number };
+    _returnValue: {
+        part?: number;
+        id?: number;
+    };
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    @autowired(UIList) uiList: UIList<ListItemHeroDetail> = null;
+    @autowired(UIList) property: UIList<ListItemEquipmentDetailsProperty> = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) quality: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UILabel) text1: UILabel = null;
+    @autowired(cc.Node) colors: cc.Node = null;
+
+    @autowired(UIImage) equipment_detailbg: UIImage = null;
+    private nodeList: cc.Node[] = [];
+    protected onInited(): void {
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+        let it = GTable.getById("ItemTbl", this._windowParam.id);
+
+        this.uiList.setState([
+            {
+                id: this._windowParam.id,
+                quailtyImg: GConstant.itemQualityBg[it.quality],
+                icon: it.img,
+                isHave: true,
+            },
+        ]);
+
+        let obj: { text1: string; text2: string }[] = [];
+
+        this.property.setState(obj);
+
+        this.name1.setText([it.name]);
+        this.colors.parent.active = false;
+        this.quality.setText(["_rs品质：" + GConstant.qualityName[it.quality]]);
+        this.equipment_detailbg.imgName = GConstant.equipmentQuality[it.quality];
+        this.desc.setText([it.description]);
+
+        if (GTable.getList("FossilComboTbl").filter((t) => t.itemId === this._windowParam.id).length > 1) {
+            this.text1.setText(["_rs神物"]);
+            this.colors.parent.active = true;
+            let tbls = GTable.getList("FossilComboTbl").filter((t) => t.itemId === this._windowParam.id);
+            let color = tbls[0].combo;
+            const node: cc.Node = this.colors.getChildByName("UIImage");
+            node.active = false;
+            color.forEach((c, i) => {
+                const copy = cc.instantiate(node);
+                // copy.getComponent(UILabel).setText([GConstant.colorLabel[c]]);
+                copy.color = GConstant.itemColor[c];
+                copy.setParent(this.colors);
+                copy.active = true;
+                this.nodeList.push(copy);
+            });
+
+            let fossilTbl = GTable.getById("FossilComboTbl", tbls[0].id);
+            fossilTbl.property.forEach((d, index) => {
+                obj.push({
+                    text1: GIndex.battle.propertyText(d[0]),
+                    text2: "_rs+" + d[1],
+                });
+            });
+        } else if (GTable.getById("FossilTbl", this._windowParam.id)) {
+            this.text1.setText(["_rs玉石"]);
+            let fossilTbl = GTable.getById("FossilTbl", this._windowParam.id);
+            fossilTbl.property.forEach((d, index) => {
+                obj.push({
+                    text1: GIndex.battle.propertyText(d[0]),
+                    text2: "_rs+" + d[1],
+                });
+            });
+        }
+    }
+
+    protected onDestroy(): void {
+        this.nodeList.forEach((node) => node.destroy());
+    }
+
+    propertyLabelText(des: string[][]): string[][] {
+        return des
+            .map((p, n) => {
+                let value: string[];
+                if (p[1].endsWith("%")) {
+                    value = ["_rs+" + p[1]];
+                } else {
+                    const showFunc = GIndex.battle.propertyShowMethod(p[0])[p[1]];
+                    value = ["_rs+" + showFunc];
+                }
+                return [[GIndex.battle.propertyText(p[0])], value, n < des.length - 1 ? ["_rs，"] : []];
+            })
+            .reduce((p, c) => p.concat(c), []);
+    }
+}

@@ -1,0 +1,55 @@
+
+Monster_Gear.png
+size: 374,94
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TX_xt_g_0017
+  rotate: false
+  xy: 310, 29
+  size: 62, 63
+  orig: 72, 72
+  offset: 5, 5
+  index: -1
+baoci0010003
+  rotate: true
+  xy: 2, 3
+  size: 89, 84
+  orig: 89, 84
+  offset: 0, 0
+  index: -1
+baoci0010004
+  rotate: false
+  xy: 88, 3
+  size: 72, 89
+  orig: 72, 89
+  offset: 0, 0
+  index: -1
+baoci0010005
+  rotate: false
+  xy: 234, 18
+  size: 74, 74
+  orig: 74, 74
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 162, 10
+  size: 82, 70
+  orig: 82, 70
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: true
+  xy: 234, 2
+  size: 14, 24
+  orig: 14, 24
+  offset: 0, 0
+  index: -1
+right_leg
+  rotate: true
+  xy: 260, 2
+  size: 14, 24
+  orig: 14, 24
+  offset: 0, 0
+  index: -1

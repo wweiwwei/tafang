@@ -1,0 +1,13 @@
+
+Role_Nightlight.png
+size: 84,117
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 80, 113
+  orig: 118, 121
+  offset: 20, 6
+  index: -1

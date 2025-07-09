@@ -1,0 +1,256 @@
+// Generated from java-escape by ANTLR 4.11.1
+// jshint ignore: start
+import antlr4 from 'antlr4';
+
+// This class defines a complete generic visitor for a parse tree produced by LogicBindDSLParser.
+
+export default class LogicBindDSLVisitor extends antlr4.tree.ParseTreeVisitor {
+
+	// Visit a parse tree produced by LogicBindDSLParser#program.
+	visitProgram(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#blockStat.
+	visitBlockStat(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#elsePart.
+	visitElsePart(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#compare.
+	visitCompare(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#squareBracketPropertyAssign.
+	visitSquareBracketPropertyAssign(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#bitwiseLogic.
+	visitBitwiseLogic(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#arrayLiteral.
+	visitArrayLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#trueLiteral.
+	visitTrueLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#parenthesesExpr.
+	visitParenthesesExpr(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#variableDeclare.
+	visitVariableDeclare(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#mulDiv.
+	visitMulDiv(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#undefined.
+	visitUndefined(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#variableDeclareAndAssign.
+	visitVariableDeclareAndAssign(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#variableAssign.
+	visitVariableAssign(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#falseLiteral.
+	visitFalseLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#ternaryExpr.
+	visitTernaryExpr(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#returnStat.
+	visitReturnStat(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#ifExpr.
+	visitIfExpr(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#booleanOr.
+	visitBooleanOr(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#power.
+	visitPower(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#propertyAssign.
+	visitPropertyAssign(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#dotAttribute.
+	visitDotAttribute(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#squareBracketsMethodCall.
+	visitSquareBracketsMethodCall(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#identifier.
+	visitIdentifier(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#nullLiteral.
+	visitNullLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#objectLiteral.
+	visitObjectLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#squareBracketsAttribute.
+	visitSquareBracketsAttribute(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#unaryNegative.
+	visitUnaryNegative(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#addSub.
+	visitAddSub(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#arrowFunction.
+	visitArrowFunction(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#equal.
+	visitEqual(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#whileExpr.
+	visitWhileExpr(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#stringLiteral.
+	visitStringLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#functionCall.
+	visitFunctionCall(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#booleanNot.
+	visitBooleanNot(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#numberLiteral.
+	visitNumberLiteral(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#booleanAnd.
+	visitBooleanAnd(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#methodCall.
+	visitMethodCall(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#exprList.
+	visitExprList(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#propertyAssignment.
+	visitPropertyAssignment(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by LogicBindDSLParser#propertyName.
+	visitPropertyName(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+
+}

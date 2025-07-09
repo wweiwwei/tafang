@@ -1,0 +1,55 @@
+
+Knife_skilltail.png
+size: 239,388
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/daoguang_001
+  rotate: false
+  xy: 2, 111
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+tx/daoguang_003
+  rotate: false
+  xy: 2, 3
+  size: 108, 106
+  orig: 108, 108
+  offset: 0, 1
+  index: -1
+tx/daoguang_005
+  rotate: false
+  xy: 112, 110
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+tx/daoguang_007
+  rotate: false
+  xy: 112, 2
+  size: 108, 106
+  orig: 108, 108
+  offset: 0, 2
+  index: -1
+tx/guangyun1
+  rotate: false
+  xy: 173, 220
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+tx/shouji5_1
+  rotate: true
+  xy: 2, 221
+  size: 165, 169
+  orig: 165, 169
+  offset: 0, 0
+  index: -1
+tx/xian1_1
+  rotate: true
+  xy: 173, 286
+  size: 100, 59
+  orig: 105, 59
+  offset: 4, 0
+  index: -1

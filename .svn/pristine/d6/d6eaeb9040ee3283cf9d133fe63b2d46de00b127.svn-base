@@ -1,0 +1,50 @@
+import { BattleBattleStageData } from "./BattleBattleStageData";
+import { BattleGlobalProperty } from "./BattleGlobalProperty";
+import { BattleGlobalBuff } from "./GlobalBuff/BattleGlobalBuff";
+import { BattleGlobalListener } from "./GlobalBuff/BattleGlobalListener";
+
+export class BattleGlobalPropertyManager {
+    constructor(public ctx: BattleBattleStageData) {}
+    private counter = {};
+    getCounter(key: string) {
+        return this.counter[key] || 0;
+    }
+
+    addCounter(key: string, count: number) {
+        this.counter[key] = (this.counter[key] || 0) + count;
+    }
+    buff: BattleGlobalBuff[] = [];
+    listener: BattleGlobalListener[] = [];
+    // todo
+    baseProperty: BattleGlobalProperty = new BattleGlobalProperty(this.ctx);
+    private _finalPropertyDirty: boolean = true;
+    /** 最终属性 */
+    private _finalPropertyCache: BattleGlobalProperty;
+    private refreshFinalProperty() {
+        this._finalPropertyDirty = false;
+        const res = BattleGlobalProperty.copy(this.baseProperty);
+        this.buff.forEach((b) => {
+            const e = b.effect();
+            BattleGlobalProperty.addProperty(res, e.property, e.value);
+        });
+        this._finalPropertyCache = res;
+    }
+
+    get finalProperty(): BattleGlobalProperty {
+        if (this._finalPropertyDirty) {
+            this.refreshFinalProperty();
+        }
+        return this._finalPropertyCache;
+    }
+
+    /** 当前帧击杀的怪物数量 */
+    frameMonsterKill: number = 0;
+
+    coin = 100;
+    diamond = 2;
+
+    tick() {
+        this.frameMonsterKill = 0;
+        this._finalPropertyDirty = true;
+    }
+}

@@ -1,0 +1,115 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import Item from "../../entity/Item";
+import { Sprite } from "../../entity/Sprite";
+import ListItemCost from "../hero/ListItemCost";
+import ListItemEquipmentDetailsProperty from "./ListItemEquipmentDetailsProperty";
+import ListItemHeroDetail from "./ListItemHeroDetail";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowEquipmentDetails")
+@ccclass
+export default class WindowEquipmentDetails extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: { id: number };
+    _returnValue: {
+        part?: number;
+        id?: number;
+    };
+
+    @autowired(UIButton) closeBtn: UIButton = null;
+
+    @autowired(UIList) uiList: UIList<ListItemHeroDetail> = null;
+    @autowired(UIList) property: UIList<ListItemEquipmentDetailsProperty> = null;
+    @autowired(UILabel) name1: UILabel = null;
+    @autowired(UILabel) quality: UILabel = null;
+    @autowired(UILabel) part: UILabel = null;
+    @autowired(UILabel) desc: UILabel = null;
+    @autowired(UIButton) changeBtn: UIButton = null;
+    @autowired(UIButton) updateBtn: UIButton = null;
+    /**升级提示 */
+    @autowired(UIImage) updateTips: UIImage = null;
+
+    @autowired(UIList) updateBtnCost: UIList<ListItemCost> = null;
+    @autowired(UIImage) equipment_detailbg: UIImage = null;
+
+    protected onInited(): void {
+        let mt = GTable.getById("MountTbl", this._windowParam.id);
+        let it = GTable.getById("ItemTbl", this._windowParam.id);
+
+        this.equipment_detailbg.imgName = GConstant.equipmentQuality[it.quality - 1];
+        this.closeBtn.setTransition(false);
+        this.closeBtn.onClick = () => {
+            this.close();
+        };
+
+        let condition = GModel.sprite.getFormation().includes(this._windowParam.id);
+        this.changeBtn.node.active = !condition; //&&GModel.sprite.;
+        this.updateBtn.node.active = condition;
+        if (condition) {
+            let sprite = GModel.sprite.getSpriteById(this._windowParam.id);
+            let item = new Item(mt.id, sprite.uprankCost());
+            this.updateBtnCost.setState([
+                { item: item, require: item.count, storage: GModel.knapsack.getStorageById(mt.frag) },
+            ]);
+            this.updateTips.node.active = sprite.canUpRank();
+        }
+        let sprite = GModel.sprite.getSpriteById(this._windowParam.id);
+        let obj: { text1: string; text2: string; text3: string }[] = [];
+        sprite.getFormateProperty().forEach((d, index) => {
+            let next = sprite.getNextRank().getFormateProperty()[index];
+            obj.push({
+                text1: GIndex.battle.propertyText(d.property),
+                text2: "_rs+" + d.value,
+                text3: "_rs+" + next.value,
+            });
+        });
+
+        this.property.setState(obj);
+
+        this.changeBtn.onClick = () => {
+            let a = GModel.sprite.getFormation();
+            a[mt.part] = this._windowParam.id;
+            // console.log("a =", a);
+            GModel.sprite.setFormation(a);
+        };
+        this.updateBtn.onClick = () => {
+            GModel.sprite.uprankSprite(this._windowParam.id);
+        };
+        this.name1.setText([it.name]);
+        this.quality.setText(["_rs品质：" + GConstant.qualityName[it.quality - 1]]);
+        this.part.setText(["_rs部位：" + GConstant.partName[mt.part]]);
+        this.desc.setText([it.description]);
+
+        this.uiList.setState([
+            {
+                id: this._windowParam.id,
+                quailtyImg: GConstant.itemQualityBg[it.quality - 1],
+                icon: it.img,
+                isHave: true,
+                lv: 0,
+            },
+        ]);
+    }
+
+    // getPropertyDescription(sprite: Sprite): { text1: string; text2: string; text3: string }[] {
+    //     let objarr: { text1: string; text2: string; text3: number }[] = [];
+    //     let mt = GTable.getById("MountTbl", this._windowParam.id);
+    //     // mt.formateProperty.forEach((p) => {
+    //     //     let obj = {
+    //     //         text1: GIndex.battle.propertyText(p[0]),
+    //     //         text2: "+" + GIndex.battle.propertyShowMethod(p[0])(Number(p[1])),
+    //     //         text3: "+" + GIndex.battle.propertyShowMethod(p[0])(Number(p[1])),
+    //     //     };
+    //     //     objarr.push(obj);
+    //     // });
+    //     // return objarr;
+    // }
+}

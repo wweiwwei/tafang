@@ -1,0 +1,401 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Stone_Break",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.5,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "Stone/img_stone_1": {
+        "props": {
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                55,
+                83,
+                0
+              ]
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": [
+                115.9,
+                132.2
+              ],
+              "motionPath": []
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0.16666666666666666,
+              "value": 255
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.26666666666666666,
+              "value": -40
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_4": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.1,
+              "value": 255
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": 75
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -79,
+                59
+              ],
+              "motionPath": [
+                [
+                  -96.9,
+                  54.1,
+                  -89.4,
+                  59.2,
+                  -105,
+                  48.6
+                ]
+              ],
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.16666666666666666,
+              "value": [
+                -110.3,
+                37.8
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_7": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0,
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 0.5,
+              "value": -115
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                48,
+                -17
+              ],
+              "motionPath": [
+                [
+                  99,
+                  97.7,
+                  71.1,
+                  85.3,
+                  121.9,
+                  107.9
+                ]
+              ],
+              "curve": "linear"
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                150.6,
+                28.5
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_8": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.16666666666666666,
+              "value": 255
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": 155
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -19,
+                -59
+              ],
+              "motionPath": [
+                [
+                  -73,
+                  -129,
+                  -59,
+                  -87,
+                  -95,
+                  -196
+                ]
+              ]
+            },
+            {
+              "frame": 0.3333333333333333,
+              "value": [
+                -96,
+                -290
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_2": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.3,
+              "value": 255
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": 155
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -44,
+                28
+              ],
+              "motionPath": [
+                [
+                  -80,
+                  6,
+                  -66,
+                  24,
+                  -95,
+                  -13
+                ]
+              ]
+            },
+            {
+              "frame": 0.4666666666666667,
+              "value": [
+                -102,
+                -45
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_3": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.23333333333333334,
+              "value": 255
+            },
+            {
+              "frame": 0.36666666666666664,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.36666666666666664,
+              "value": -105
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                66,
+                21
+              ],
+              "motionPath": [
+                [
+                  88.2,
+                  41.2,
+                  79.8,
+                  62,
+                  98.2,
+                  16.3
+                ]
+              ]
+            },
+            {
+              "frame": 0.36666666666666664,
+              "value": [
+                103,
+                -71
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_5": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.3333333333333333,
+              "value": 255
+            },
+            {
+              "frame": 0.5,
+              "value": 0
+            }
+          ],
+          "angle": [
+            {
+              "frame": 0,
+              "value": 0
+            },
+            {
+              "frame": 0.5,
+              "value": 106
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -65,
+                -1
+              ],
+              "motionPath": [
+                [
+                  -96,
+                  -3,
+                  -86,
+                  31,
+                  -108,
+                  -48
+                ]
+              ]
+            },
+            {
+              "frame": 0.5,
+              "value": [
+                -109,
+                -162
+              ],
+              "motionPath": []
+            }
+          ]
+        }
+      },
+      "Stone/img_stone_quan": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              },
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 2,
+                "y": 2
+              }
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 0,
+              "value": 255
+            },
+            {
+              "frame": 0.13333333333333333,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

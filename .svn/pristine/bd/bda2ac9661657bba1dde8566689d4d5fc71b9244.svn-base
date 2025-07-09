@@ -1,0 +1,86 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIButton from "../../../framework/ui/UIButton";
+import UIImage from "../../../framework/ui/UIImage";
+import UILabel from "../../../framework/ui/UILabel";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import { BattleProcessor } from "../../battleLogic/Processor/BattleProcessor";
+import Item from "../../entity/Item";
+import ListItemItem from "../common/ListItemItem";
+import WindowCongratulation from "../common/WindowCongratulation";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowVictoryAndFailure")
+@ccclass
+export default class WindowVictoryAndFailure extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.default,
+    };
+    _windowParam: {
+        mapIndex: number;
+        stageIndex: number;
+        processor: BattleProcessor;
+        /**输赢 */
+        state: "victory" | "defeat";
+        items?: Item[];
+    };
+    _returnValue: any;
+
+    /**标题 */
+    @autowired(UILabel) title: UILabel = null;
+    /**统计 */
+    @autowired(UILabel) chapter: UILabel = null;
+    /**等级 */
+    @autowired(UILabel) lv: UILabel = null;
+    /**波数 */
+    @autowired(UILabel) waveOrder: UILabel = null;
+    /**击杀敌人 */
+    @autowired(UILabel) killMonsters: UILabel = null;
+    /**奖励列表 */
+    @autowired(UIList) rewardList: UIList<ListItemItem> = null;
+    /**光按钮 */
+    @autowired(UIButton) adBtn: UIButton = null;
+    /**确认 */
+    @autowired(UIButton) confirmBtn: UIButton = null;
+    /**胜利失败背景 */
+    @autowired(UIImage) victoryAndDefeatBg: UIImage = null;
+
+    protected onInited(): void {
+        this.even();
+        this.initUi();
+    }
+
+    initUi() {
+        this.victoryAndDefeatBg.imgName =
+            this._windowParam.state == "victory" ? "battle_victory_title" : "battle_failure_title";
+        this.title.setText([this._windowParam.state == "victory" ? "_rs胜利" : "_rs失败"]);
+        const mapTbl = GTable.getList("StageMapTbl").find((d) => d.mapIndex == this._windowParam.mapIndex);
+        this.chapter.setText([GLang.code.ui.chapter], [`_rs：`], [mapTbl.name]);
+        this.lv.setText([GLang.code.ui.lv], [`_rs：${this._windowParam.mapIndex}-${this._windowParam.stageIndex}`]);
+        const info = this._windowParam.processor.getWaveInfo();
+        this.waveOrder.setText([GLang.code.ui.waveOrder], [`_rs：${info.current}/${info.total}`]);
+        this.killMonsters.setText([GLang.code.ui.killMonsters], [`_rs：${this._windowParam.processor.getTotalKill()}`]);
+        this.adBtn.text.setText(["_rs双倍奖励"]);
+
+        let state = this._windowParam.items.map((d) => {
+            return { item: d, status: 0 };
+        });
+        this.rewardList.setState(state);
+    }
+
+    //副本打开返回副本，主页打开返回主页
+    even() {
+        this.adBtn.onClick = async () => {
+            await GSDK.showVideo("double_stage_reward");
+            // let { reward } = await GModel.stage.challengeVideoReward();
+            // GWindow.open(WindowCongratulation, { items: reward });
+            this.close();
+        };
+        this.confirmBtn.onClick = () => {
+            // let item = this._windowParam.items;
+            // if (item.length > 1) GWindow.open(WindowCongratulation, { items: item });
+            this.close();
+        };
+    }
+}

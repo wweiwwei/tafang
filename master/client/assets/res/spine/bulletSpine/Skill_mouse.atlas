@@ -1,0 +1,62 @@
+
+Skill_mouse.png
+size: 179,281
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect/ult-3/Dujian_0000s_0000_01
+  rotate: false
+  xy: 37, 148
+  size: 135, 43
+  orig: 147, 51
+  offset: 9, 6
+  index: -1
+effect/ult-3/Dujian_0000s_0001_02
+  rotate: false
+  xy: 37, 107
+  size: 135, 39
+  orig: 147, 51
+  offset: 9, 6
+  index: -1
+effect/ult-3/Dujian_0000s_0002_03
+  rotate: false
+  xy: 37, 193
+  size: 140, 38
+  orig: 147, 51
+  offset: 3, 5
+  index: -1
+effect/ult-3/Dujian_0000s_0003_04
+  rotate: false
+  xy: 37, 233
+  size: 140, 46
+  orig: 147, 51
+  offset: 2, 2
+  index: -1
+effect/ult-3/Dujian_0000s_0004_05
+  rotate: false
+  xy: 2, 11
+  size: 116, 46
+  orig: 147, 51
+  offset: 27, 3
+  index: -1
+effect/ult-3/Dujian_0000s_0005_06
+  rotate: false
+  xy: 37, 59
+  size: 123, 46
+  orig: 147, 51
+  offset: 20, 4
+  index: -1
+effect/ult-3/arrow2
+  rotate: true
+  xy: 2, 70
+  size: 209, 33
+  orig: 209, 33
+  offset: 0, 0
+  index: -1
+effect/ult-3/eff_guang
+  rotate: false
+  xy: 120, 2
+  size: 53, 55
+  orig: 74, 74
+  offset: 10, 10
+  index: -1

@@ -1,0 +1,244 @@
+export type SdkReportEventName =
+    | SdkEventShowVideoSuccess
+    | SdkEventShowVideoFail
+    | SdkEventShowVideo
+    | SdkEventCaptainRank
+    | SdkEventVipLv
+    | SdkEventGuide
+    | SdkEventNewPlayer
+    | SdkEventNewRole
+    | SdkEventLogin
+    | SdkEventRoleLogin
+    | SdkEventPay
+    | SdkPaySuccess
+    | SdkEventPayItemReceive
+    | SdkEventStart
+    | SdkEventLoadResource
+    | SdkEventEnterMainScene
+    | SdkEventSdkInit
+    | SdkEventSdkLogin
+    | SdkEventMainStage
+    | SdkEventWechatShareApp
+    | SdkEventWechatShareTimeLine
+    | SdkEventMainMission
+    | SdkEventMainMissionTask
+    | SdkEventDialogue
+    | SdkEventLevelUp;
+
+type SdkEventShowVideoSuccess = {
+    /** 视频展示成功 */
+    kind: "showVideoSuccess";
+    data: {
+        /** 视频类型 */
+        videoType: keyof typeof VideoTypeText;
+    };
+};
+
+type SdkEventShowVideoFail = {
+    /** 视频展示失败 */
+    kind: "showVideoFail";
+    data: {
+        /** 视频类型 */
+        videoType: keyof typeof VideoTypeText;
+    };
+};
+
+type SdkEventShowVideo = {
+    /** 视频展示 */
+    kind: "showVideo";
+    data: {
+        /** 视频类型 */
+        videoType: keyof typeof VideoTypeText;
+    };
+};
+
+type SdkEventCaptainRank = {
+    /** 角色等级 */
+    kind: "captainRank";
+    data: {
+        /** 角色等级 */
+        lv: number;
+    };
+};
+type SdkEventVipLv = {
+    /** vip等级 */
+    kind: "vipLv";
+    data: {
+        /** 角色等级 */
+        lv: number;
+    };
+};
+
+type SdkEventGuide = {
+    /** 引导 */
+    kind: "guide";
+    data: {
+        guideId: number;
+    };
+};
+
+type SdkEventNewPlayer = {
+    /** 新注册玩家（账号等陆，选服完成前） */
+    kind: "newPlayer";
+    data: {};
+};
+
+type SdkEventNewRole = {
+    /** 新角色创建（选服完成后） */
+    kind: "newRole";
+    data: {};
+};
+
+type SdkEventLogin = {
+    /** 玩家登录（账号等陆，选服完成前） */
+    kind: "login";
+    data: {};
+};
+
+type SdkEventRoleLogin = {
+    /** 玩家登录（选服完成后） */
+    kind: "roleLogin";
+    data: {};
+};
+
+type SdkEventPay = {
+    /** 玩家调起支付 */
+    kind: "pay";
+    data: {
+        /** 玩家购买的物品 */
+        itemId: number;
+        /** 玩家购买物品额外数据 */
+        extra: string;
+    };
+};
+
+type SdkPaySuccess = {
+    /** 玩家支付成功 */
+    kind: "paySuccess";
+    data: {
+        /** 玩家购买的物品 */
+        itemId: number;
+        /** 玩家购买物品额外数据 */
+        extra: string;
+    };
+};
+
+type SdkEventPayItemReceive = {
+    /** 玩家支付道具下发成功 */
+    kind: "payItemReceive";
+    data: {
+        /** 玩家购买的物品 */
+        itemId: number;
+        /** 玩家购买物品额外数据 */
+        extra: string;
+        /** 订单号 */
+        orderId: string;
+    };
+};
+
+type SdkEventStart = {
+    /** 游戏启动 */
+    kind: "start";
+    data: {};
+};
+
+type SdkEventSdkInit = {
+    /** sdk初始化 */
+    kind: "sdkInit";
+    data: {};
+};
+
+type SdkEventSdkLogin = {
+    /** sdk登录 */
+    kind: "sdkLogin";
+    data: {};
+};
+
+type SdkEventLoadResource = {
+    /** 资源加载（加载场景） */
+    kind: "loadResource";
+    data: {
+        /** 百分比，这是一个介于0-100之间的数 */
+        percent: number;
+        /** 消耗时间（毫秒） */
+        cost: number;
+    };
+};
+
+type SdkEventEnterMainScene = {
+    /** 进入主场景 */
+    kind: "enterMainScene";
+    data: {};
+};
+
+type SdkEventMainStage = {
+    /** 主线关卡 */
+    kind: "mainStage";
+    data: {
+        mapIndex: number;
+        stageIndex: number;
+    };
+};
+
+type SdkEventWechatShareApp = {
+    /** 微信分享 */
+    kind: "wechatShareApp";
+    data: {};
+};
+
+type SdkEventWechatShareTimeLine = {
+    /** 微信分享朋友圈 */
+    kind: "wechatShareTimeLine";
+    data: {};
+};
+
+type SdkEventMainMission = {
+    /** 主线任务 */
+    kind: "mainMission";
+    data: {
+        id: number;
+        stage: number;
+    };
+};
+
+type SdkEventMainMissionTask = {
+    /** 主线任务目标 */
+    kind: "mainMissionTask";
+    data: {
+        id: number;
+    };
+};
+
+type SdkEventDialogue = {
+    /** 对话 */
+    kind: "dialogue";
+    data: {
+        id: number;
+    };
+};
+type SdkEventLevelUp = {
+    /** 升级 */
+    kind: "levelUp";
+    data: {};
+};
+
+export const VideoTypeText = {
+    double_afk_reward: "战斗挂机双倍收益",
+    video_add_staff: "获取战斗法杖",
+    video_add_survivor: "获取幸存者",
+    video_add_power: "获取挖矿体力",
+    video_add_drill: "获取挖矿钻头",
+    video_add_bomb: "获取挖矿炸弹",
+    test: "测试",
+    enemy_refresh: "外敌入侵刷新",
+    double_task_reward: "目标宝箱奖励双倍收益",
+    advertisement_point: "广告积分",
+    advertisement_war: "战令",
+    group_purchase: "团购",
+    refresh_skill: "刷新肉鸽技能",
+    refresh_bless: "刷新肉鸽祝福",
+    refresh_equipment: "刷新肉鸽装备",
+    double_stage_reward: "双倍关卡收益",
+    sweep_stage: "扫荡关卡",
+    mall_buy: "商城购买",
+} as const;

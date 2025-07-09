@@ -1,0 +1,22 @@
+import { autowired, registerClass } from "../../../framework/Decorator";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../framework/ui/GWindow";
+import UIList from "../../../framework/ui/UIList";
+import UIWindow from "../../../framework/ui/UIWindow";
+import ListItemShop from "./ListItemShop";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowDiamondShop")
+@ccclass
+export default class WindowDiamondShop extends UIWindow {
+    _windowParam: any;
+    _returnValue: any;
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+    };
+    @autowired(UIList) itemList: UIList<ListItemShop> = null;
+
+    protected onInited() {
+        this.node.zIndex = -1;
+        this.itemList.setState([{ type: "mound" }, { type: "diamond" }, { type: "yuabao" }]);
+    }
+}

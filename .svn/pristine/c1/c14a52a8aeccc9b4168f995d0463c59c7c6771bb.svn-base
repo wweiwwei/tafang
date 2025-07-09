@@ -1,0 +1,32 @@
+import { BattleTriggerEvent } from "../../../Event/BattleTriggerEvent";
+import { BattleSkill } from "../../BattleSkill";
+import { BattleSkillTimer } from "../../Duration/BattleSkillTimer";
+import { IBattleSkillTrigger } from "./IBattleSkillTrigger";
+
+export class BattleTriggerIndependent implements IBattleSkillTrigger {
+    /** 冷却计时器 */
+    coldDownTimer: BattleSkillTimer;
+
+    constructor(public coldDown: number | string) {}
+    init(skill: BattleSkill): void {
+        const coldDownTime = skill.evalValue(this.coldDown, "base");
+        this.coldDownTimer = new BattleSkillTimer(coldDownTime);
+    }
+    tick(skill: BattleSkill): boolean {
+        this.coldDownTimer.tick(1);
+        return this.coldDownTimer.isEnd();
+    }
+    reset(skill: BattleSkill): void {
+        this.coldDownTimer.reset();
+    }
+    onPassive(skill: BattleSkill): boolean {
+        return false;
+    }
+    onEvent(skill: BattleSkill, e: BattleTriggerEvent): boolean {
+        return false;
+    }
+    onAttack(skill: BattleSkill): boolean {
+        return skill.ctx.object.normalAttackTimer.isEnd();
+    }
+    kind: "main" | "normalAttack" | "passive" | "event" | "independent" = "independent";
+}

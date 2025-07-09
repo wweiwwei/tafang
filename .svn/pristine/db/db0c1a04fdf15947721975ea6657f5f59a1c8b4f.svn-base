@@ -1,0 +1,204 @@
+import { autowired, registerClass } from "../../../../framework/Decorator";
+import EventBus from "../../../../framework/event/EventBus";
+import { WindowOpenAnimationEnum, WindowOpenOption } from "../../../../framework/ui/GWindow";
+import UIButton from "../../../../framework/ui/UIButton";
+import UIImage from "../../../../framework/ui/UIImage";
+import UILabel from "../../../../framework/ui/UILabel";
+import UIList from "../../../../framework/ui/UIList";
+import UIWindow from "../../../../framework/ui/UIWindow";
+import EventName from "../../../event/EventName";
+import WindowCommonTip from "../../common/WindowCommonTip";
+import WindowKnapsack from "../../mainscene/WindowKnapsack";
+import WindowPause from "../../mainscene/WindowPause";
+import WindowSellSkill from "../../mainscene/WindowSellSkill";
+import WindowSkillDetails from "../../mainscene/WindowSkillDetails";
+import ListItemBattleExSkill from "./ListItemBattleExSkill";
+import ListItemBattleSkill from "./ListItemBattleSkill";
+import ListItemBuySkill from "./ListItemBuySkill";
+import WindowRogueBless from "./WindowRogueBless";
+import WindowRogueEquipment from "./WindowRogueEquipment";
+import WindowRogueSkill from "./WindowRogueSkill";
+
+const { ccclass, property } = cc._decorator;
+@registerClass("WindowBattle")
+@ccclass
+export default class WindowBattle extends UIWindow {
+    static defaultOpentOption: Partial<WindowOpenOption> = {
+        animation: WindowOpenAnimationEnum.no,
+        hideMainScene: true,
+    };
+    _windowParam: any;
+    _returnValue: any;
+
+    /**暂停*/
+    @autowired(UIButton) pause: UIButton = null;
+    @autowired(cc.ProgressBar) progressBar: cc.ProgressBar = null;
+    @autowired(cc.ProgressBar) progressBar2: cc.ProgressBar = null;
+
+    /**加速 */
+    @autowired(UIButton) addSpeed: UIButton = null;
+    /**背包 */
+    @autowired(UIButton) knapsack: UIButton = null;
+    /**背包提示 */
+    @autowired(UIImage) knapsackTips: UIImage = null;
+    /**左边 */
+    @autowired(UIImage) leftIconImg: UIImage = null;
+    @autowired(UILabel) leftIconLab: UILabel = null;
+    @autowired(UIImage) rightIconImg: UIImage = null;
+    @autowired(UILabel) rightIconLab: UILabel = null;
+    @autowired(UILabel) progressLab: UILabel = null;
+    @autowired(UILabel) countLabel: UILabel = null;
+    @autowired(UIList) skillUiList: UIList<ListItemBattleSkill> = null;
+    @autowired(UIList) skillExUiList: UIList<ListItemBattleExSkill> = null;
+    @autowired(UIList) buySkilluiList: UIList<ListItemBuySkill> = null;
+
+    protected onInited(): void {
+        this.even();
+    }
+
+    private speed = 0;
+    even() {
+        this.knapsack.onClick = () => {
+            GWindow.open(WindowKnapsack);
+        };
+        this.addSpeed.onClick = () => {};
+        this.pause.onClick = () => {
+            let cb = (statu) => {
+                if (!statu) cc.director.resume();
+                else {
+                    //退出游戏
+                }
+            };
+            GWindow.open(WindowPause, { closeCb: cb });
+            // cc.director.pause();
+        };
+    }
+
+    protected async update(dt: number) {
+        const api = GBattleApiManager.getBattleStageApi(0);
+        if (api) {
+            // 刷新波数和怪物数
+            const info = api.getWaveInfo();
+            this.progressBar.progress = info.progress;
+            this.progressLab.setText([`_rs第${info.wave}/${info.maxWave}波`]);
+            this.progressBar2.progress = info.monsterCount / info.monsterLimit;
+            this.countLabel.setText([`_rs${info.monsterCount}/${info.monsterLimit}`]);
+            // 刷新货币数
+            const skillMgr = api.rogueSkillManager();
+            const property = api.globalProperty();
+            this.leftIconLab.setText(["_rs" + property.coin]);
+            this.rightIconLab.setText(["_rs" + property.diamond]);
+            // 刷新技能
+            const skillInfo = api.getSkillInfo();
+            const state = skillInfo.map(({ progress, info }) => {
+                const tbl = GTable.getById("RogueSkillDetailTbl", info.relateSkillId);
+                return {
+                    img: tbl.img,
+                    id: tbl.id,
+                    progress,
+                    cb: () => {
+                        GWindow.open(WindowSkillDetails, { id: tbl.id });
+                    },
+                };
+            });
+            for (let i = skillInfo.length; i < 6; i++) {
+                state.push({
+                    img: "",
+                    id: -1,
+                    progress: 0,
+                    cb: null,
+                });
+            }
+            this.skillUiList.setState(state);
+            // 刷新神通
+            const exState = api.getExSkillInfo().map((data, index) => {
+                const tbl = GTable.getById("RogueExSkillTbl", data.info.relateSkillId);
+                return {
+                    img: tbl.img,
+                    id: data.info.relateSkillId,
+                    progress: data.progress,
+                    require: data.require,
+                    cb: () => {
+                        api.exSkillOrder(index);
+                    },
+                };
+            });
+            this.skillExUiList.setState(exState);
+            // 刷新底部ui
+            const buyItemState = [0, 1, 2].map((index) => {
+                if (index === 0) {
+                    return {
+                        costImg: "",
+                        text: [GLang.code.ui.rogue_buy_skill],
+                        index,
+                        current: property.coin,
+                        cost: skillMgr.currentCost(),
+                        cb: async () => {
+                            // 购买技能
+                            const ok = skillMgr.refreshCard();
+                            if (ok) {
+                                EventBus.emit(EventName.pauseBattle, true);
+                                const { id } = await GWindow.open(WindowRogueSkill);
+                                skillMgr.chooseCard(id);
+                                EventBus.emit(EventName.pauseBattle, false);
+                            }
+                        },
+                    };
+                } else if (index === 1) {
+                    const equipmentMgr = api.rogueEquipmentManager();
+                    return {
+                        costImg: "",
+                        text: [GLang.code.ui.rogue_buy_equipment],
+                        index,
+                        current: property.coin,
+                        cost: equipmentMgr.currentCost(),
+                        cb: async () => {
+                            // 购买装备
+                            const ok = equipmentMgr.buyNormal();
+                            if (ok) {
+                                EventBus.emit(EventName.pauseBattle, true);
+                                const { id } = await GWindow.open(WindowRogueEquipment);
+                                equipmentMgr.chooseCard(id);
+                                EventBus.emit(EventName.pauseBattle, false);
+                            }
+                        },
+                    };
+                } else if (index === 2) {
+                    return {
+                        costImg: "",
+                        text: [GLang.code.ui.rogue_buy_rare],
+                        index,
+                        current: property.diamond,
+                        cost: 1,
+                        cb: async () => {
+                            // 钻石购买
+                            const equipmentMgr = api.rogueEquipmentManager();
+                            const ok = equipmentMgr.buyRare();
+                            if (ok) {
+                                EventBus.emit(EventName.pauseBattle, true);
+                                await GWindow.open(WindowCommonTip, {
+                                    tip: ["_rs获得一个技能升级卡"],
+                                });
+                                EventBus.emit(EventName.pauseBattle, false);
+                            }
+                        },
+                    };
+                }
+            });
+            this.buySkilluiList.setState(buyItemState);
+            // 检测是否有祝福
+            const blessMgr = api.rogueBlessManager();
+            const hasBless = blessMgr.checkBless();
+            if (hasBless && !this.blessFrag) {
+                EventBus.emit(EventName.pauseBattle, true);
+                this.blessFrag = true;
+                const { id } = await GWindow.open(WindowRogueBless);
+                blessMgr.chooseBless(id);
+                EventBus.emit(EventName.pauseBattle, false);
+                this.blessFrag = false;
+            }
+        }
+    }
+
+    private blessFrag = false;
+}
