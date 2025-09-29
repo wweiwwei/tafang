@@ -1,2 +1,0 @@
-﻿
-GamePlay.GameTest.Test1();

@@ -1,2 +1,0 @@
-node pipeLine.js
-pause
